@@ -5,9 +5,8 @@ class Config():
     FRAME_RATE = 60
 
     # Value to init
-    PLAYER_POS = 2,2.3 # valeur arbitraire
-    PLAYER_ANGLE = 0 
-    V = 0.5
+    PLAYER_V = 0.5
+    PLAYER_ROT_SPEED = 0.004
     def __init__(self):
         pass
 

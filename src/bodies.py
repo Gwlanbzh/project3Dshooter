@@ -56,7 +56,7 @@ class Creature(Body):
         self.orientation = 45
         self.gamee = game
     
-    def move(self, move: tuple):
+    def move(self, move: tuple, rotation):
         """
         Applies Newton's Second Principle then handles collisions
         with walls, props and mobs.
@@ -69,7 +69,7 @@ class Creature(Body):
             None
         """
         dt = self.gamee.clock.tick(60)
-        speed = Config.V * dt
+        speed = Config.PLAYER_V * dt
         V_sin = speed * math.sin(self.orientation) 
         V_cos = speed * math.cos(self.orientation) 
         x_move, y_move = move
@@ -78,12 +78,9 @@ class Creature(Body):
         dx += V_cos * y_move
         dy += V_sin * x_move
 
-        self.r = x + dx, y + dy
+        self.orientation += rotation * Config.PLAYER_ROT_SPEED * dt
 
-        # v = Config.V * dt
-        # x, y = self.r
-        # self.r = x + x_move*v, y + y_move * v
-        
+        self.r = x + dx, y + dy
         # collision stuff goes here
 
 class Mob(Creature):
@@ -142,12 +139,16 @@ class Player(Creature):
         """
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:
-            self.move((1, 1))
+            self.move((1, 1),0)
         if keys[pg.K_q]:
-            self.move((1, -1))
+            self.move((1, -1), 0)
         if keys[pg.K_d]:
-            self.move((-1, 1))
+            self.move((-1, 1), 0)
         if keys[pg.K_s]:
-            self.move((-1, -1))
+            self.move((-1, -1), 0)
+        if keys[pg.K_e]:
+            self.move((0,0),-1)
+        if keys[pg.K_a]:
+            self.move((0,0),1)
 
         
