@@ -1,4 +1,5 @@
 shell.nix
 __pycache__
-__pycache__/*
 .vscode
+__pycache__/game_config.cpython-310.pyc
+__pycache__/map.cpython-310.pyc
