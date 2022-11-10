@@ -1,0 +1,52 @@
+@startuml game
+
+class Game {
+run ()
+}
+
+class World {
+}
+
+class StaticBody {
+}
+
+class Body {
+vec_r
+vie
+}
+
+class Player {
+r : Vector2
+v : Vector2
+a : Vector2
+
+get_inputs ()
+}
+
+class Map {
+}
+
+class Camera {
+display ()
+}
+
+class Config {
+}
+
+
+StaticBody <|-- Body
+Camera --> Player
+Player --|> Body
+Player --> Config
+
+Mob --|> Body
+
+Camera --> World
+World <-- Map : génère
+World --> Player
+World --> Mob
+World --> StaticBody
+
+Game --> World
+
+@enduml
