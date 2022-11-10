@@ -1,4 +1,5 @@
 import pygame as pg
+import math
 from pygame import Vector2 as v2
 from weapons import *
 from game import *
@@ -7,18 +8,19 @@ class Body():
     """
     Static body with a position and animated sprites.
     """
-    def __init__(self, r: tuple):
+    def __init__(self,game, r: tuple):
         """
         Spanws a Body.
         
         Input:
-            r: tuple
+            r: tuple (x,y)
         
         Outputs:
             Body
         """
         self.r = v2(r)
         self.v = v2(0, 0)
+        self.game = game
         ## add sprites data structure
     
     def get_sprite(self):
@@ -64,7 +66,7 @@ class Creature(Body):
         Output:
             None
         """
-        dt = Game.game.delta_time
+        dt = self.game.delta_time
         self.a  = sum(forces, start=v2(0, 0)) / self.m
         self.v += self.a * dt
         self.r += self.v * dt
@@ -95,7 +97,7 @@ class Player(Creature):
     """
     Controllable Creature with weapons.
     """
-    def __init__(self,r,mass):
+    def __init__(self,game ,r,mass):
         """
         Spawns a Player.
         
@@ -110,10 +112,17 @@ class Player(Creature):
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.weapons = []
         self.ammo = 0 # may change
+        self.game = game
         # add ammo data structure
 
     def update(self):
         self.get_inputs()
+
+    def draw(self,game):
+        pg.draw.line(game.window,'yellow', (self.r[0] * 50,self.r[1] * 50),
+                     (self.r[0] * 50 + 1600* math.cos(self.orientation),
+                      self.r[1] * 50 + 1600 * math.sin(self.orientation)),2) 
+        pg.draw.circle(game.window, 'blue', (self.r[0] * 50, self.r[1] * 50),15)
     
     def get_inputs(self):
         """

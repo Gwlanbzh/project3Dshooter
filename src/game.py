@@ -9,6 +9,7 @@ class Game:
     pg.init()
     self.window = pg.display.set_mode(Config.WINDOW_SIZE)
     self.world = World(Map)
+    self.delta_time = 1
     self.clock = pg.time.Clock()
   
   def check_event(self):
