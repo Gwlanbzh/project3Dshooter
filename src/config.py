@@ -10,3 +10,6 @@ class Config():
     V = 0.5
     def __init__(self):
         pass
+
+    def init():
+        Config.DR = 200 / Config.FRAME_RATE # nbre de pixels par seconde.
