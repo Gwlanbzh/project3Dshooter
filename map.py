@@ -4,13 +4,13 @@
 import pygame as pg
 
 map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1]
-  [1,0,0,0,0,0,0,0,0,0,0,1]
-  [1,0,1,0,0,0,0,1,1,1,0,1]
-  [1,0,1,0,0,0,0,1,0,0,0,1]
-  [1,0,0,0,0,1,0,0,0,0,0,1]
-  [1,0,1,1,1,0,1,1,0,0,1,1]
-  [1,0,0,0,0,0,0,0,0,1,1,1]
+  [1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,1,0,0,0,0,1,1,1,0,1],
+  [1,0,1,0,0,0,0,1,0,0,0,1],
+  [1,0,0,0,0,1,0,0,0,0,0,1],
+  [1,0,1,1,1,0,1,1,0,0,1,1],
+  [1,0,0,0,0,0,0,0,0,1,1,1],
   [1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
@@ -27,7 +27,8 @@ class Map:
     '''
     for j,row in enumerate(self.map):
       for i, value in enumerate(row):
-        self.world[(i,j)] = value
+        if value :
+          self.world[(i,j)] = value
 
   def draw(self,game):
     """
@@ -35,5 +36,5 @@ class Map:
       Rect(left, top, width, height) -> Rect
     """
     for position in self.world:
-      pg.draw.rect(game.window,"white",
+      pg.draw.rect(game.window,"black",
                     (position[0] * 50,position[1] * 50,50,50),2)
