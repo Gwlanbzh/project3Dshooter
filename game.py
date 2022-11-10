@@ -19,6 +19,7 @@ class Game:
   def draw(self):
     self.window.fill('red') # Test
     # self.camera.draw()
+    self.map.draw(self)
     pass
 
   def update (self): # a deplacer dans world
