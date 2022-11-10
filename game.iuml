@@ -40,7 +40,7 @@ class Player {
     ammo : <to determine>
     heal_recovery_delay : int
 
-    movement()
+    get_input()
 }
 
 class Mob {
