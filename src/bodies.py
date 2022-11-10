@@ -130,16 +130,12 @@ class Player(Creature):
         """
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:
-            print("z")
             self.move((0, -1))
         if keys[pg.K_q]:
-            print("q")
             self.move((-1, 0))
         if keys[pg.K_d]:
-            print("d")
             self.move((1, 0))
         if keys[pg.K_s]:
-            print("s")
             self.move((0, 1))
 
         
