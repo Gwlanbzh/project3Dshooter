@@ -7,6 +7,6 @@ class Config():
     # Value to init
     PLAYER_POS = 2,2.3 # valeur arbitraire
     PLAYER_ANGLE = 0 
-    V = 3
+    V = 0.5
     def __init__(self):
         pass

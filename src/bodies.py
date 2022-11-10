@@ -3,6 +3,7 @@ import math
 from pygame import Vector2 as v2
 from weapons import *
 from game import *
+from config import *
 
 class Body():
     """
@@ -39,7 +40,7 @@ class Creature(Body):
     """
     Body with implemented physics, life etc.
     """
-    def __init__(self, r : tuple, mass: int):
+    def __init__(self, game, r : tuple, mass: int):
         """
         Spawns a Creature.
         
@@ -52,7 +53,8 @@ class Creature(Body):
         super().__init__(r) 
         self.a = v2(0, 0)
         self.m = mass
-        self.orientation = 0
+        self.orientation = 45
+        self.gamee = game
     
     def move(self, move: tuple):
         """
@@ -66,16 +68,27 @@ class Creature(Body):
         Output:
             None
         """
-        v = Config.V
+        dt = self.gamee.clock.tick(60)
+        speed = Config.V * dt
+        V_sin = speed * math.sin(self.orientation) 
+        V_cos = speed * math.cos(self.orientation) 
         x_move, y_move = move
-        x, y = self.r
-        self.r = x + x_move*v, y + y_move * v
+        dx , dy = 0 , 0
+        x , y = self.r
+        dx += V_cos * y_move
+        dy += V_sin * x_move
+
+        self.r = x + dx, y + dy
+
+        # v = Config.V * dt
+        # x, y = self.r
+        # self.r = x + x_move*v, y + y_move * v
         
         # collision stuff goes here
 
 class Mob(Creature):
-    def __init__(self,r,mass):
-        super().__init__(r,mass)
+    def __init__(self, game,r,mass):
+        super().__init__(game,r,mass)
         """
         Spawns a Mob.
         
@@ -107,12 +120,11 @@ class Player(Creature):
         Outputs:
             Player
         """
-        super().__init__(r,mass)
+        super().__init__(game,r,mass)
         self.weapons = []
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.weapons = []
         self.ammo = 0 # may change
-        self.game = game
         # add ammo data structure
 
     def update(self):
@@ -130,12 +142,12 @@ class Player(Creature):
         """
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:
-            self.move((0, -1))
+            self.move((1, 1))
         if keys[pg.K_q]:
-            self.move((-1, 0))
+            self.move((1, -1))
         if keys[pg.K_d]:
-            self.move((1, 0))
+            self.move((-1, 1))
         if keys[pg.K_s]:
-            self.move((0, 1))
+            self.move((-1, -1))
 
         

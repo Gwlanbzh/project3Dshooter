@@ -8,7 +8,7 @@ class Game:
   def __init__(self):
     pg.init()
     self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-    self.world = World(Map)
+    self.world = World(self)
     self.delta_time = 1
     self.clock = pg.time.Clock()
   
@@ -25,11 +25,6 @@ class Game:
       self.world.update(self)
       self.check_event()
       self.world.draw(game)
-
-
-
-
-
 
 if __name__ == "__main__":
   game = Game()
