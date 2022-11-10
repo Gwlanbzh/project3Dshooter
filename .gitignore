@@ -1,5 +1,5 @@
+.gitignore
+.kdev4/
+projet3dshooter.kdev4
 shell.nix
 __pycache__
-.vscode
-__pycache__/game_config.cpython-310.pyc
-__pycache__/map.cpython-310.pyc
