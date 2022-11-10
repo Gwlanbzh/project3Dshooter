@@ -38,8 +38,9 @@ class Creature {
 class Player {
     weapons : list
     ammo : <to determine>
+    heal_recovery_delay : int
 
-    get_inputs()
+    movement()
 }
 
 class Mob {
