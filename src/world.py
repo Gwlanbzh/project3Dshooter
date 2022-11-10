@@ -1,5 +1,5 @@
 import pygame as pg
-from game_config import *
+from config import *
 from map import *
 
 class World:
@@ -27,4 +27,4 @@ class World:
     Makes the bodies evolve from 1 state to the next.
     """
     pg.display.flip()
-    game.clock.tick(GameConfig.FRAME_RATE)
+    game.clock.tick(Config.FRAME_RATE)
