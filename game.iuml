@@ -39,6 +39,10 @@ class Player {
     get_inputs()
 }
 
+class Mob {
+    ia_command()
+}
+
 class Map {
     data
     get_map()
