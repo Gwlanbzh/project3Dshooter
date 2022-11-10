@@ -1,2 +1,5 @@
+.gitignore
+.kdev4/
+projet3dshooter.kdev4
 shell.nix
 __pycache__
