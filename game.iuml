@@ -23,20 +23,24 @@ class Shotgun {
 
 class Body {
     r : Vector2
-    health : int
+    image : Surface
+    size : int
+    update()
 }
 
 class Creature {
     a : Vector2
     v : Vector2
     orientation : float
+    health : int
 }
 
 class Player {
     weapons : list
     ammo : <to determine>
+    heal_recovery_delay : int
 
-    get_inputs()
+    movement()
 }
 
 class Mob {
@@ -65,18 +69,17 @@ class Config {
 }
 
 
-Creature --|> Body
+Body <|-- Creature
 
-Pistol --|> Weapon
+Weapon <|-- Shotgun
+Weapon <|-- Pistol
 
-Shotgun --|> Weapon
-
-Player --|> Creature
+Creature <|-- Player
 Player --> Config
 Player --> Pistol
 Player --> Shotgun
 
-Mob --|> Creature
+Creature <|-- Mob
 
 Camera --> Player
 Camera --> World
@@ -84,11 +87,12 @@ Camera --> World
 Map --> Config
 
 World --> Map
-World --> Body
 World --> Player
 World --> Mob
 
 Game --> World
 Game --> Config
+Game --> Camera
 
 @enduml
+

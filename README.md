@@ -2,7 +2,8 @@
 ## Using venv    
     source .venv/bin/activate
     python game.py
-
+## Settings Editor 
+  plz uriliser 2 d'espace pour les tab pour que le projet soit uniforme
 
 # TODO
 - [ ] Player
