@@ -68,6 +68,12 @@ class Camera {
 class Config {
 }
 
+Game --> World
+Game --> Config
+Game --> Camera
+
+Camera --> Player
+Camera --> World
 
 Body <|-- Creature
 
@@ -75,24 +81,19 @@ Weapon <|-- Shotgun
 Weapon <|-- Pistol
 
 Creature <|-- Player
+Creature <|-- Mob
+
 Player --> Config
 Player --> Pistol
 Player --> Shotgun
 
-Creature <|-- Mob
-
-Camera --> Player
-Camera --> World
-
-Map --> Config
+Mob --> Config
 
 World --> Map
 World --> Player
 World --> Mob
 
-Game --> World
-Game --> Config
-Game --> Camera
+Map --> Config
 
 @enduml
 

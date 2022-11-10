@@ -49,7 +49,7 @@ class Creature(Body):
         super().__init__(self)
         self.a = v2(0, 0)
         self.m = mass
-        orientation = 0
+        self.orientation = 0
     
     def _move(self, forces: list, dt: int):
         """
@@ -63,7 +63,7 @@ class Creature(Body):
         Output:
             None
         """
-        self.a  = sum(forces, start=v2(0, 0)) / m
+        self.a  = sum(forces, start=v2(0, 0)) / self.m
         self.v += self.a * dt
         self.r += self.v * dt
         
@@ -105,6 +105,9 @@ class Player(Creature):
         """
         super().__init__(self)
         weapons = []
+        self.heal_recovery_time = 10000 # valeur arbitraire
+        self.weapons = []
+        self.ammo = 0 # may change
         # add ammo data structure
     
     def get_inputs(self):
