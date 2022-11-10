@@ -1,6 +1,7 @@
 import pygame as pg
 from pygame import Vector2 as v2
 from weapons import *
+from game import *
 
 class Body():
     """
@@ -36,7 +37,7 @@ class Creature(Body):
     """
     Body with implemented physics, life etc.
     """
-    def __init__(self, mass: int):
+    def __init__(self, r, mass: int):
         """
         Spawns a Creature.
         
@@ -46,12 +47,12 @@ class Creature(Body):
         Output:
             Creature
         """
-        super().__init__(self)
+        super().__init__(r)
         self.a = v2(0, 0)
         self.m = mass
         self.orientation = 0
     
-    def _move(self, forces: list, dt: int):
+    def move(self, forces: list):
         """
         Applies Newton's Second Principle then handles collisions
         with walls, props and mobs.
@@ -63,6 +64,7 @@ class Creature(Body):
         Output:
             None
         """
+        dt = Game.game.delta_time
         self.a  = sum(forces, start=v2(0, 0)) / self.m
         self.v += self.a * dt
         self.r += self.v * dt
@@ -70,8 +72,8 @@ class Creature(Body):
         # collision stuff goes here
 
 class Mob(Creature):
-    def __init__(self):
-        super().__init__(self)
+    def __init__(self,r,mass):
+        super().__init__(r,mass)
         """
         Spawns a Mob.
         
@@ -93,7 +95,7 @@ class Player(Creature):
     """
     Controllable Creature with weapons.
     """
-    def __init__(self):
+    def __init__(self,r,mass):
         """
         Spawns a Player.
         
@@ -103,16 +105,33 @@ class Player(Creature):
         Outputs:
             Player
         """
-        super().__init__(self)
-        weapons = []
+        super().__init__(r,mass)
+        self.weapons = []
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.weapons = []
         self.ammo = 0 # may change
         # add ammo data structure
+
+    def update(self):
+        self.get_inputs()
     
     def get_inputs(self):
         """
-        Returns a force vector based on the physical player's inputs.
+        Returns a force_vector based on the physical player's inputs.
         """
+        keys = pg.key.get_pressed()
+        if keys[pg.K_z]:
+            print("z")
+            self.move([2])
+        if keys[pg.K_q]:
+            print("q")
+            self.move([2])
+        if keys[pg.K_d]:
+            print("d")
+            self.move([2])
+        if keys[pg.K_s]:
+            print("s")
+            self.move([2])
+
         pass
         

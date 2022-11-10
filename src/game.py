@@ -17,22 +17,13 @@ class Game:
         pg.quit()
         sys.exit() # better quit
   
-  def draw(self):
-    self.window.fill('red') # Test
-    # self.camera.draw()
-    self.world.map.draw(self)
-    # self.world.players.draw(self)
-    pass
   
-  def update (self): # a deplacer dans world
-    pg.display.flip()
-    self.clock.tick(Config.FRAME_RATE)
   
   def run(self):
     while True:
       self.world.update(self)
       self.check_event()
-      self.draw()
+      self.world.draw(game)
 
 
 
