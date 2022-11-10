@@ -1,29 +1,56 @@
 @startuml game
 
 class Game {
-    run ()
+    run()
 }
 
-class World {
+class Weapon {
+    dmg: int
+    freq : int
+    range: float
+    sprite
+    
+    hitscan(<to determine>)
 }
 
-class StaticBody {
+class Pistol {
+    hitscan()
+}
+
+class Shotgun {
+    hitscan()
 }
 
 class Body {
-    vec_r
-    vie
+    r : Vector2
+    health : int
+}
+
+class Creature {
+    a : Vector2
+    v : Vector2
+    orientation : float
 }
 
 class Player {
-    r : Vector2
-    v : Vector2
-    a : Vector2
+    weapons : list
+    ammo : <to determine>
 
-    get_inputs ()
+    get_inputs()
 }
 
 class Map {
+    data
+    get_map()
+}
+
+class World {
+    props : list
+    mobs : list
+    players : list
+    map : Map
+    
+    update()
 }
 
 class Camera {
@@ -34,19 +61,30 @@ class Config {
 }
 
 
-StaticBody <|-- Body
-Camera --> Player
-Player --|> Body
+Creature --|> Body
+
+Pistol --|> Weapon
+
+Shotgun --|> Weapon
+
+Player --|> Creature
 Player --> Config
+Player --> Pistol
+Player --> Shotgun
 
-Mob --|> Body
+Mob --|> Creature
 
+Camera --> Player
 Camera --> World
-World <-- Map : génère
+
+Map --> Config
+
+World --> Map
+World --> Body
 World --> Player
 World --> Mob
-World --> StaticBody
 
 Game --> World
+Game --> Config
 
 @enduml
