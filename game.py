@@ -8,8 +8,7 @@ class Game:
   def __init__(self):
     pg.init()
     self.window = pg.display.set_mode(GameConfig.WINDOW_SIZE)
-    self.world = World()
-    self.map = Map(self)
+    self.world = World(Map)
     self.clock = pg.time.Clock()
   
   def check_event(self):
@@ -21,7 +20,7 @@ class Game:
   def draw(self):
     self.window.fill('red') # Test
     # self.camera.draw()
-    self.map.draw(self)
+    self.world.map.draw(self)
     pass
   
   def update (self): # a deplacer dans world
@@ -30,7 +29,7 @@ class Game:
   
   def run(self):
     while True:
-      self.update()
+      self.world.update(self)
       self.check_event()
       self.draw()
 
