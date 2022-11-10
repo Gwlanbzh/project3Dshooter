@@ -1,7 +1,7 @@
 @startuml game
 
 class Game {
-run ()
+    run ()
 }
 
 class World {
@@ -11,23 +11,23 @@ class StaticBody {
 }
 
 class Body {
-vec_r
-vie
+    vec_r
+    vie
 }
 
 class Player {
-r : Vector2
-v : Vector2
-a : Vector2
+    r : Vector2
+    v : Vector2
+    a : Vector2
 
-get_inputs ()
+    get_inputs ()
 }
 
 class Map {
 }
 
 class Camera {
-display ()
+    display ()
 }
 
 class Config {
