@@ -66,10 +66,10 @@ class Creature(Body):
         Output:
             None
         """
-        v = Config.V
+
         x_move, y_move = move
         x, y = self.r
-        self.r = x + x_move*v, y + y_move * v
+        self.r = x + x_move*Config.DR, y + y_move * Config.DR
         
         # collision stuff goes here
 

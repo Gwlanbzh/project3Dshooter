@@ -7,6 +7,7 @@ from map import *
 class Game:
   def __init__(self):
     pg.init()
+    Config.init()
     self.window = pg.display.set_mode(Config.WINDOW_SIZE)
     self.world = World(Map)
     self.delta_time = 1
