@@ -8,7 +8,7 @@ class Body():
     """
     Static body with a position and animated sprites.
     """
-    def __init__(self,game, r: tuple):
+    def __init__(self,r: tuple):
         """
         Spanws a Body.
         
@@ -18,9 +18,9 @@ class Body():
         Outputs:
             Body
         """
-        self.r = v2(r)
-        self.v = v2(0, 0)
-        self.game = game
+        self.r = r
+        self.v = (0, 0)
+        # self.game = game
         ## add sprites data structure
     
     def get_sprite(self):
@@ -39,7 +39,7 @@ class Creature(Body):
     """
     Body with implemented physics, life etc.
     """
-    def __init__(self, r, mass: int):
+    def __init__(self, r : tuple, mass: int):
         """
         Spawns a Creature.
         
@@ -49,12 +49,12 @@ class Creature(Body):
         Output:
             Creature
         """
-        super().__init__(r)
+        super().__init__(r) 
         self.a = v2(0, 0)
         self.m = mass
         self.orientation = 0
     
-    def move(self, forces: list):
+    def move(self, move: tuple):
         """
         Applies Newton's Second Principle then handles collisions
         with walls, props and mobs.
@@ -66,10 +66,10 @@ class Creature(Body):
         Output:
             None
         """
-        dt = self.game.delta_time
-        self.a  = sum(forces, start=v2(0, 0)) / self.m
-        self.v += self.a * dt
-        self.r += self.v * dt
+        v = Config.V
+        x_move, y_move = move
+        x, y = self.r
+        self.r = x + x_move*v, y + y_move * v
         
         # collision stuff goes here
 
@@ -119,10 +119,10 @@ class Player(Creature):
         self.get_inputs()
 
     def draw(self,game):
-        pg.draw.line(game.window,'yellow', (self.r[0] * 50,self.r[1] * 50),
-                     (self.r[0] * 50 + 1600* math.cos(self.orientation),
-                      self.r[1] * 50 + 1600 * math.sin(self.orientation)),2) 
-        pg.draw.circle(game.window, 'blue', (self.r[0] * 50, self.r[1] * 50),15)
+        pg.draw.line(game.window,'yellow', (self.r),
+                     (self.r[0]+ 1600* math.cos(self.orientation),
+                      self.r[1] + 1600 * math.sin(self.orientation)),2) 
+        pg.draw.circle(game.window, 'blue', self.r,15)
     
     def get_inputs(self):
         """
@@ -131,16 +131,15 @@ class Player(Creature):
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:
             print("z")
-            self.move([2])
+            self.move((0, -1))
         if keys[pg.K_q]:
             print("q")
-            self.move([2])
+            self.move((-1, 0))
         if keys[pg.K_d]:
             print("d")
-            self.move([2])
+            self.move((1, 0))
         if keys[pg.K_s]:
             print("s")
-            self.move([2])
+            self.move((0, 1))
 
-        pass
         

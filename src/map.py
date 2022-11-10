@@ -2,6 +2,7 @@
 # genre pour la map ici c genre largeur = 12*50 et hauteur = 8*50
 
 import pygame as pg
+from config import Config
 
 map = [
   [1,1,1,1,1,1,1,1,1,1,1,1],
