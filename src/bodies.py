@@ -3,6 +3,7 @@ import math
 from pygame import Vector2 as v2
 from weapons import *
 from game import *
+from config import *
 
 class Body():
     """
@@ -69,7 +70,7 @@ class Creature(Body):
 
         x_move, y_move = move
         x, y = self.r
-        self.r = x + x_move*Config.DR, y + y_move * Config.DR
+        self.r = x + x_move * Config.DR, y + y_move * Config.DR
         
         # collision stuff goes here
 
