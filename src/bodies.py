@@ -20,13 +20,12 @@ class Body():
             Body
         """
         self.r = r
-        self.v = (0, 0)
-        # self.game = game
-        ## add sprites data structure
+        self.v = (0, 0) # FIXME not use for now
+        ## TODO add sprites data structure
     
     def get_sprite(self):
         """
-        Returns a Surface representing the current sprite to display.
+        TODO Returns a Surface representing the current sprite to display.
         
         Inputs:
             <none>
@@ -40,35 +39,39 @@ class Creature(Body):
     """
     Body with implemented physics, life etc.
     """
-    def __init__(self, game, r : tuple, mass: int):
+    def __init__(self, game, r : tuple):
         """
         Spawns a Creature.
         
         Inputs:
-            mass: int
+            game: Game
+            r : tuple
         
         Output:
             Creature
         """
         super().__init__(r) 
-        self.a = v2(0, 0)
-        self.m = mass
-        self.orientation = 45
-        self.gamee = game
+        self.a = v2(0, 0) # FIXME not use
+        self.orientation = 45 # arbitrary value for init
+        self.game = game
+        self
     
     def move(self, move: tuple, rotation):
         """
+        TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
-        with walls, props and mobs.
+        with walls, props and mobs. FIXME text not right now
         
         Inputs:
-            forces: list of pygame.Vector2
-            dt: strictly positive int
+            forces: list of pygame.Vector2 FIXME not use
+            dt: strictly positive int FIXME not use
+            move : tuple
+            rotation : int -1 or 1
         
         Output:
             None
         """
-        dt = self.gamee.clock.tick(60)
+        dt = self.game.delta_time
         speed = Config.PLAYER_V * dt
         V_sin = speed * math.sin(self.orientation) 
         V_cos = speed * math.cos(self.orientation) 
@@ -84,8 +87,8 @@ class Creature(Body):
         # collision stuff goes here
 
 class Mob(Creature):
-    def __init__(self, game,r,mass):
-        super().__init__(game,r,mass)
+    def __init__(self, game,r):
+        super().__init__(game,r)
         """
         Spawns a Mob.
         
@@ -95,6 +98,7 @@ class Mob(Creature):
         Outputs:
             Mob
         """
+
         pass
     
     def ia_command(self):
@@ -107,22 +111,23 @@ class Player(Creature):
     """
     Controllable Creature with weapons.
     """
-    def __init__(self,game ,r,mass):
+    def __init__(self,game ,r):
         """
         Spawns a Player.
         
         Inputs:
-            <none>
+            game : Game
+            r : tuple
         
         Outputs:
             Player
         """
-        super().__init__(game,r,mass)
+        super().__init__(game,r)
         self.weapons = []
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.weapons = []
         self.ammo = 0 # may change
-        # add ammo data structure
+        # TODO add ammo data structure
 
     def update(self):
         self.get_inputs()
@@ -136,6 +141,7 @@ class Player(Creature):
     def get_inputs(self):
         """
         Returns a force_vector based on the physical player's inputs.
+        TODO maybye refactoring get inputs and mouvement call
         """
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:

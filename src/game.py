@@ -5,28 +5,38 @@ from world import *
 from map import *
 
 class Game:
-  def __init__(self):
-    pg.init()
-    Config.init()
-    self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-    self.world = World(self)
-    self.delta_time = 1
-    self.clock = pg.time.Clock()
+    def __init__(self):
+        """
+        Important init for the game main component
+        """
+        pg.init()
+        Config.init()
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        self.world = World(self) 
+        # self.camera = Camera()
+        self.delta_time = 1 # utiliser dans le world.update et pour les vittesse
+        self.clock = pg.time.Clock() # help managing time
+    
+    def check_event(self):
+        """
+        Check if Client ask to quit
+        """
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit() # quit pygame
+                sys.exit() # better quit, remove somme error when  quiting
   
-  def check_event(self):
-    for event in pg.event.get():
-      if event.type == pg.QUIT:
-        pg.quit()
-        sys.exit() # better quit
+    def run(self):
+        """
+        Main Game Loop 
+        """
+        while True:
+            self.check_event()
+            self.world.update(self)
+            self.world.draw(game)
+            pg.display.update()
+            self.delta_time =  self.clock.tick(Config.FRAME_RATE)
   
-  
-  
-  def run(self):
-    while True:
-      self.world.update(self)
-      self.check_event()
-      self.world.draw(game)
-
 if __name__ == "__main__":
-  game = Game()
-  game.run()
+    game = Game()
+    game.run()
