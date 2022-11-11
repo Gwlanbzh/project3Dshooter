@@ -2,7 +2,6 @@ import pygame as pg
 import sys
 from config import *
 from world import *
-from map import *
 
 class Game:
     def __init__(self):

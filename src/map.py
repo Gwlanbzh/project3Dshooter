@@ -25,6 +25,7 @@ class Map:
   
     def gen_world_map(self):
         '''
+        temporary for draw world map, migh be use for collission,render,pathfinding
         Utiliter discutable mais utiliser pour draw la map
         genere le un monde avec en clef les coordoné et en value l'élement a cette position
         '''
@@ -35,6 +36,7 @@ class Map:
   
     def draw(self,game):
         """
+        temporary, waitting for true render false 3D
         pour rapple _RectValue c'est sous la forme : 
           Rect(left, top, width, height) -> Rect
         """

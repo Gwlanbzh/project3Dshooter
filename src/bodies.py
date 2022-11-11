@@ -53,8 +53,8 @@ class Creature(Body):
         super().__init__(r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 45 # arbitrary value for init
-        self.game = game
-        self
+        self.game = game # link to dt
+        self.health = "int" # TODO
     
     def move(self, move: tuple, rotation):
         """
@@ -71,8 +71,8 @@ class Creature(Body):
         Output:
             None
         """
-        dt = self.game.delta_time
-        speed = Config.PLAYER_V * dt
+        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
+        speed = Config.PLAYER_V * dt 
         V_sin = speed * math.sin(self.orientation) 
         V_cos = speed * math.cos(self.orientation) 
         x_move, y_move = move
@@ -123,16 +123,18 @@ class Player(Creature):
             Player
         """
         super().__init__(game,r)
-        self.weapons = []
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.weapons = []
         self.ammo = 0 # may change
         # TODO add ammo data structure
 
-    def update(self):
+    def update(self): # might be move into Creature or Body
         self.get_inputs()
+        # heal
+        # status, maybe buff / debuff
+        # 
 
-    def draw(self,game):
+    def draw(self,game): # might be move into Creature or Body
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ 1600* math.cos(self.orientation),
                       self.r[1] + 1600 * math.sin(self.orientation)),2) 
