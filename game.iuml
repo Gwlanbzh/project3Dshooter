@@ -1,6 +1,10 @@
 @startuml game
 
 class Game {
+    window
+    world
+    clock
+    check_event()
     run()
 }
 
@@ -25,7 +29,8 @@ class Body {
     r : Vector2
     image : Surface
     size : int
-    update()
+    get_sprite()
+    draw() : <temporary>
 }
 
 class Creature {
@@ -33,6 +38,8 @@ class Creature {
     v : Vector2
     orientation : float
     health : int
+    move()
+    draw() : <temporary>
 }
 
 class Player {
@@ -44,12 +51,14 @@ class Player {
 }
 
 class Mob {
+    update()
     ia_command()
 }
 
 class Map {
-    data
+    map 
     get_map()
+    draw()
 }
 
 class World {
@@ -59,6 +68,7 @@ class World {
     map : Map
     
     update()
+    draw()
 }
 
 class Camera {
@@ -66,6 +76,11 @@ class Camera {
 }
 
 class Config {
+    WINDOW_SIZE
+    FRAME_RATE
+
+    PLAYER_V
+    PLAYER_ROT_SPEED
 }
 
 Game --> World
@@ -92,6 +107,7 @@ Mob --> Config
 World --> Map
 World --> Player
 World --> Mob
+World --> Config
 
 Map --> Config
 
