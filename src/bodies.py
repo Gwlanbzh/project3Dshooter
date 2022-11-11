@@ -9,7 +9,7 @@ class Body():
     """
     Static body with a position and animated sprites.
     """
-    def __init__(self,r: tuple):
+    def __init__(self,game,r: tuple):
         """
         Spanws a Body.
         
@@ -21,6 +21,8 @@ class Body():
         """
         self.r = r
         self.v = (0, 0) # FIXME not use for now
+        self.color = 'magenta'
+        self.game = game # link to dt
         ## TODO add sprites data structure
     
     def get_sprite(self):
@@ -34,6 +36,11 @@ class Body():
             Surface
         """
         pass
+
+    def draw(self,game): # draw object
+        traylenght = 100
+        pg.draw.circle(game.window, self.color, self.r,15)
+
 
 class Creature(Body):
     """
@@ -50,10 +57,9 @@ class Creature(Body):
         Output:
             Creature
         """
-        super().__init__(r) 
+        super().__init__(game,r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
-        self.game = game # link to dt
         self.health = "int" # TODO
     
     def move(self, move: tuple, rotation):
@@ -87,9 +93,10 @@ class Creature(Body):
         # collision stuff goes here
 
     def draw(self,game): # might be move into Creature or Body
+        traylenght = 100
         pg.draw.line(game.window,'yellow', (self.r),
-                     (self.r[0]+ 1200* math.cos(self.orientation),
-                      self.r[1] + 1200 * math.sin(self.orientation)),2) 
+                     (self.r[0]+ traylenght* math.cos(self.orientation),
+                      self.r[1] + traylenght* math.sin(self.orientation)),2) 
         pg.draw.circle(game.window, self.color, self.r,15)
 
 class Mob(Creature):

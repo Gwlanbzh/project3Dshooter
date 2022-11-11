@@ -30,6 +30,7 @@ class Body {
     image : Surface
     size : int
     get_sprite()
+    draw() : <temporary>
 }
 
 class Creature {
@@ -38,6 +39,7 @@ class Creature {
     orientation : float
     health : int
     move()
+    draw() : <temporary>
 }
 
 class Player {
@@ -46,11 +48,11 @@ class Player {
     heal_recovery_delay : int
 
     update()
-    draw()
     get_inputs()
 }
 
 class Mob {
+    update()
     ia_command()
 }
 
