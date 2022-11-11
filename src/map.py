@@ -1,4 +1,4 @@
-# Attention pour le draw de Map il faut mieux avec une taille d'ecran egale a 50 * la taille du tableau
+# Attention pour le draw de Map il faut mieux avec une taille d'ecran egale a 100 * la taille du tableau
 # genre pour la map ici c genre largeur = 12*100 et hauteur = 8*100
 
 import pygame as pg

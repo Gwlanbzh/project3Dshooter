@@ -98,12 +98,35 @@ class Creature(Body):
             dx = -V_sin 
             dy = V_cos
 
-        x,y= self.r
-        # collision stuff goes here
-        world = self.game.world.map.map
-        if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
-            self.r = x +dx, y + dy
+        x, y= self.r
+        ## collision stuff goes here
+        # world = self.game.world.map.map
+        # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
+        #     self.r = x + dx, y + dy
         
+        x_permission, y_permission = self.not_colliding(dx, dy)
+        if x_permission:
+            x += dx
+        if y_permission:
+            y += dy 
+        
+        self.r = x, y
+
+    def in_wall(self, x, y):
+        world = self.game.world.map.map
+        return world[int((y)//100)][int((x)//100)] != 0
+
+    def not_colliding(self, dx, dy):
+        """
+        return a tuple :
+            first element is x_permission for moving
+            second element is y_permission for moving
+        """
+        x, y = self.r
+        return (
+            not (self.in_wall(x + 5 + dx, y) or self.in_wall(x - 5 + dx, y)),
+            not (self.in_wall(x, y + 5 + dy) or self.in_wall(x, y - 5 + dy))
+        )
 
     def rotate(self,direction):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
