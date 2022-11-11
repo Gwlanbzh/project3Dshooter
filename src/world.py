@@ -11,6 +11,10 @@ class World:
     def __init__(self,game):
         """
         Spawns a Body.
+         # For now Body are purple
+         #         Mob are red
+         #         Player are blue
+         # Creature have a tray for orientation
         
         Input:
             game : Game
@@ -18,8 +22,14 @@ class World:
         Outputs:
             World
         """
-        self.props = []
-        self.mobs = [Mob(game,(450,150))]
+        self.props = [Body(game,(350,150)),
+                      Body(game,(950,450)),
+                      Body(game,(550,550)),
+                      Body(game,(850,650))]
+        self.mobs = [Mob(game,(450,150)),
+                     Mob(game,(450,450)),
+                     Mob(game,(550,650)),
+                     Mob(game,(750,450))]
         self.players = [Player(game,(150,150))]
         self.map = Map(game)
   
@@ -47,8 +57,10 @@ class World:
         """
         game.window.fill('grey')
         # self.camera.draw()
+        for prop in self.props:
+            prop.draw(game)
         self.map.draw(game)
-        self.players[0].draw(game)
         for mob in self.mobs:
             mob.draw(game)
+        self.players[0].draw(game)
         pass
