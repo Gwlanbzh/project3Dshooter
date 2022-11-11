@@ -52,7 +52,7 @@ class Creature(Body):
         """
         super().__init__(r) 
         self.a = v2(0, 0) # FIXME not use
-        self.orientation = 45 # arbitrary value for init
+        self.orientation = 0 # arbitrary value for init
         self.game = game # link to dt
         self.health = "int" # TODO
     
@@ -60,7 +60,7 @@ class Creature(Body):
         """
         TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
-        with walls, props and mobs. FIXME text not right now
+        with walls, props and mobs. FIXME text not true now
         
         Inputs:
             forces: list of pygame.Vector2 FIXME not use
@@ -88,7 +88,6 @@ class Creature(Body):
 
 class Mob(Creature):
     def __init__(self, game,r):
-        super().__init__(game,r)
         """
         Spawns a Mob.
         
@@ -98,7 +97,17 @@ class Mob(Creature):
         Outputs:
             Mob
         """
+        super().__init__(game,r)
 
+    
+    def draw(self,game): # might be move into Creature or Body
+        pg.draw.line(game.window,'yellow', (self.r),
+                     (self.r[0]+ 1200* math.cos(self.orientation),
+                      self.r[1] + 1200 * math.sin(self.orientation)),2) 
+        pg.draw.circle(game.window, 'red', self.r,15)
+
+    def update(self):
+        self.ia_command()
         pass
     
     def ia_command(self):
@@ -132,7 +141,6 @@ class Player(Creature):
         self.get_inputs()
         # heal
         # status, maybe buff / debuff
-        # 
 
     def draw(self,game): # might be move into Creature or Body
         pg.draw.line(game.window,'yellow', (self.r),

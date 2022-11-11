@@ -19,8 +19,8 @@ class World:
             World
         """
         self.props = []
-        self.mobs = []
-        self.players = [Player(game,(2,2))]
+        self.mobs = [Mob(game,(450,150))]
+        self.players = [Player(game,(150,150))]
         self.map = Map(game)
   
     def update (self,game):
@@ -35,6 +35,9 @@ class World:
             <none>
         """
         self.players[0].update()
+        for mob in self.mobs:
+            mob.update()
+            pass
   
     def draw(self,game):
         """
@@ -46,4 +49,6 @@ class World:
         # self.camera.draw()
         self.map.draw(game)
         self.players[0].draw(game)
+        for mob in self.mobs:
+            mob.draw(game)
         pass
