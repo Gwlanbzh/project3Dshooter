@@ -86,8 +86,14 @@ class Creature(Body):
         self.r = x + dx, y + dy
         # collision stuff goes here
 
+    def draw(self,game): # might be move into Creature or Body
+        pg.draw.line(game.window,'yellow', (self.r),
+                     (self.r[0]+ 1200* math.cos(self.orientation),
+                      self.r[1] + 1200 * math.sin(self.orientation)),2) 
+        pg.draw.circle(game.window, self.color, self.r,15)
+
 class Mob(Creature):
-    def __init__(self, game,r):
+    def __init__(self,game,r):
         """
         Spawns a Mob.
         
@@ -98,13 +104,7 @@ class Mob(Creature):
             Mob
         """
         super().__init__(game,r)
-
-    
-    def draw(self,game): # might be move into Creature or Body
-        pg.draw.line(game.window,'yellow', (self.r),
-                     (self.r[0]+ 1200* math.cos(self.orientation),
-                      self.r[1] + 1200 * math.sin(self.orientation)),2) 
-        pg.draw.circle(game.window, 'red', self.r,15)
+        self.color = 'red' 
 
     def update(self):
         self.ia_command()
@@ -135,18 +135,13 @@ class Player(Creature):
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.weapons = []
         self.ammo = 0 # may change
+        self.color = 'blue'
         # TODO add ammo data structure
 
     def update(self): # might be move into Creature or Body
         self.get_inputs()
         # heal
         # status, maybe buff / debuff
-
-    def draw(self,game): # might be move into Creature or Body
-        pg.draw.line(game.window,'yellow', (self.r),
-                     (self.r[0]+ 1600* math.cos(self.orientation),
-                      self.r[1] + 1600 * math.sin(self.orientation)),2) 
-        pg.draw.circle(game.window, 'blue', self.r,15)
     
     def get_inputs(self):
         """
