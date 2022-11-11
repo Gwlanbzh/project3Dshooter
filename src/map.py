@@ -7,8 +7,8 @@ from config import Config
 
 # Defnition de la map 
 # 0 = False = vide
-# 0..n = Wall type
-# WAll type, will certainly be wall with different texture like re present on the top preview
+# 1..n = Wall type
+# WAll type, will certainly be wall with different texture like reppresented on the top preview
 map = [
     [2,1,2,1,1,3,3,3,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,1],
