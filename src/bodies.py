@@ -5,6 +5,8 @@ from weapons import *
 from game import *
 from config import *
 
+# TODO : create differents files for Player, Mob, and Body
+
 class Body():
     """
     Static body with a position and animated sprites.
@@ -71,6 +73,8 @@ class Creature(Body):
         Output:
             None
         """
+
+        # TODO : problem with inputs and speed -> press D and Z do the same thing, and press Q and S do the same thing.
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         speed = Config.PLAYER_V * dt 
         V_sin = speed * math.sin(self.orientation) 
@@ -142,6 +146,7 @@ class Player(Creature):
         self.get_inputs()
         # heal
         # status, maybe buff / debuff
+        # TODO : not logical to call self.get_inputs, call self.move() instead would be better
     
     def get_inputs(self):
         """
