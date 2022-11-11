@@ -13,7 +13,7 @@ class Game:
         self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         self.world = World(self) 
         # self.camera = Camera()
-        self.delta_time = 1 # utiliser dans le world.update et pour les vittesse
+        self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
     
     def check_event(self):
