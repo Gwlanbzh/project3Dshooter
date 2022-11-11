@@ -4,12 +4,16 @@
 import pygame as pg
 from config import Config
 
-e = False
+
+# Defnition de la map 
+# 0 = False = vide
+# 0..n = Wall type
+# WAll type, will certainly be wall with different texture like re present on the top preview
 map = [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
+    [2,1,2,1,1,3,3,3,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,1,0,0,0,0,1,1,1,0,1],
-    [1,0,1,0,0,0,0,1,0,0,0,1],
+    [3,0,0,1,0,0,0,1,1,1,0,1],
+    [1,3,1,1,0,0,0,1,0,0,0,1],
     [1,0,0,0,0,2,0,0,0,0,0,1],
     [1,0,2,2,2,0,2,2,0,0,1,1],
     [1,0,0,0,0,0,0,0,0,1,1,1],
@@ -46,5 +50,9 @@ class Map:
                               (position[0] * 100,position[1] * 100,100,100),2)
             if self.world[position] == 2:
                 pg.draw.rect(game.window,"blue",
+                              (position[0] * 100,position[1] * 100,100,100),2)
+
+            if self.world[position] == 3:
+                pg.draw.rect(game.window,"orange",
                               (position[0] * 100,position[1] * 100,100,100),2)
   
