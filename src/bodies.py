@@ -81,8 +81,8 @@ class Creature(Body):
         dx += V_cos * y_move
         dy += V_sin * x_move
 
-        self.orientation += rotation * Config.PLAYER_ROT_SPEED * dt
-
+        self.orientation -= rotation * Config.PLAYER_ROT_SPEED * dt
+        self.orientation %= math.tau
         self.r = x + dx, y + dy
         # collision stuff goes here
 
