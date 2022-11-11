@@ -57,38 +57,50 @@ class Creature(Body):
         self.orientation = 0 # arbitrary value for init
         self.game = game # link to dt
         self.health = "int" # TODO
-    
-    def move(self, move: tuple, rotation):
+
+    def move(self,direction):
         """
         TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
         with walls, props and mobs. FIXME text not true now
+        direction meaning
+          2
+        1 + 4
+          3
         
         Inputs:
-            forces: list of pygame.Vector2 FIXME not use
-            dt: strictly positive int FIXME not use
-            move : tuple
-            rotation : int -1 or 1
+            direction
         
         Output:
-            None
+            Alter Creature position
         """
 
-        # TODO : problem with inputs and speed -> press D and Z do the same thing, and press Q and S do the same thing.
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         speed = Config.PLAYER_V * dt 
         V_sin = speed * math.sin(self.orientation) 
         V_cos = speed * math.cos(self.orientation) 
-        x_move, y_move = move
-        dx , dy = 0 , 0
-        x , y = self.r
-        dx += V_cos * y_move
-        dy += V_sin * x_move
+        if direction == 1:
+            dx = V_sin 
+            dy = -V_cos 
+        if direction == 2:
+            dx = V_cos 
+            dy = V_sin 
+        if direction == 3:
+            dx = -V_cos 
+            dy = -V_sin 
+        if direction == 4:
+            dx = -V_sin 
+            dy = V_cos
 
-        self.orientation -= rotation * Config.PLAYER_ROT_SPEED * dt
-        self.orientation %= math.tau
-        self.r = x + dx, y + dy
+        x,y= self.r
+        self.r = x +dx, y + dy
         # collision stuff goes here
+
+    def rotate(self,direction):
+        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
+        self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
+        self.orientation %= math.tau
+
 
     def draw(self,game): # might be move into Creature or Body
         pg.draw.line(game.window,'yellow', (self.r),
@@ -155,16 +167,16 @@ class Player(Creature):
         """
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:
-            self.move((1, 1),0)
-        if keys[pg.K_q]:
-            self.move((1, -1), 0)
-        if keys[pg.K_d]:
-            self.move((-1, 1), 0)
+            self.move(2)
         if keys[pg.K_s]:
-            self.move((-1, -1), 0)
+            self.move(3)
+        if keys[pg.K_q]:
+            self.move(1)
+        if keys[pg.K_d]:
+            self.move(4)
         if keys[pg.K_e]:
-            self.move((0,0),-1)
+            self.rotate(-1)
         if keys[pg.K_a]:
-            self.move((0,0),1)
+            self.rotate(1)
 
         
