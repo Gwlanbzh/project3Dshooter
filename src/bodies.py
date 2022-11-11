@@ -99,8 +99,11 @@ class Creature(Body):
             dy = V_cos
 
         x,y= self.r
-        self.r = x +dx, y + dy
         # collision stuff goes here
+        world = self.game.world.map.map
+        if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
+            self.r = x +dx, y + dy
+        
 
     def rotate(self,direction):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
