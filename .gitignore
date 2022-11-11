@@ -2,4 +2,4 @@
 .kdev4/
 projet3dshooter.kdev4
 shell.nix
-__pycache__
+src/__pycache__/
