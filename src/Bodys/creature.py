@@ -3,6 +3,7 @@ import pygame as pg
 import math
 from body import Body
 from config import *
+import random
 
 class Creature(Body):
     """
@@ -23,6 +24,8 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
+        self.range =random.randint(9,10)
+        self.size = 15
 
     def move(self,direction):
         """
@@ -84,8 +87,8 @@ class Creature(Body):
         """
         x, y = self.r
         return (
-            not (self.in_wall(x + 5 + dx, y) or self.in_wall(x - 5 + dx, y)),
-            not (self.in_wall(x, y + 5 + dy) or self.in_wall(x, y - 5 + dy))
+            not (self.in_wall(x + self.size + dx, y) or self.in_wall(x - self.size + dx, y)),
+            not (self.in_wall(x, y + self.size + dy) or self.in_wall(x, y - self.size + dy))
         )
 
     def rotate(self,direction):
@@ -95,8 +98,8 @@ class Creature(Body):
 
 
     def draw(self,game): # might be move into Creature or Body
-        traylenght = 100
+        traylenght = 10*self.range
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght* math.cos(self.orientation),
                       self.r[1] + traylenght* math.sin(self.orientation)),2) 
-        pg.draw.circle(game.window, self.color, self.r,15)
+        pg.draw.circle(game.window, self.color, self.r,self.size)
