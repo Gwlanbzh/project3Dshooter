@@ -21,6 +21,7 @@ class Player(Creature):
         self.weapons = []
         self.ammo = 0 # may change
         self.color = 'blue'
+        self.range = 13
         # TODO add ammo data structure
 
     def update(self): # might be move into Creature or Body
