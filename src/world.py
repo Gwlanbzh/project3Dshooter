@@ -1,7 +1,9 @@
 import pygame as pg
 from config import *
 from map import Map
-from bodies import Player,Mob,Body
+from body import Body
+from Bodys.Creatures.mob import Mob 
+from Bodys.Creatures.player import Player 
 
 class World:
     """
