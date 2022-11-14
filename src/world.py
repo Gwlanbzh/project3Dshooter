@@ -31,9 +31,9 @@ class World:
                       Body(game,(550,550)),
                       Body(game,(850,650))]
         self.mobs = [Mob(game,self.map,(450,150)),
-                     Mob(game,(450,450)),
-                     Mob(game,(550,650)),
-                     Mob(game,(750,450))]
+                     Mob(game,self.map,(450,450)),
+                     Mob(game,self.map,(550,650)),
+                     Mob(game,self.map,(750,450))]
         self.players = [Player(game,(150,150))]
   
     def update (self,game):

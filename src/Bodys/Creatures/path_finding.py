@@ -11,7 +11,7 @@ class Path_finding:
     def create_graph(self):
         for y, row in enumerate(self.map):
             for x, value in enumerate(row):
-                if not value[1]:
+                if not value:
                     self.graph[(x,y)] = self.get_neighbour(x,y)
     
     def get_neighbour(self,x_map,y_map):
@@ -20,7 +20,7 @@ class Path_finding:
         valid neigbour are 
         """
         return [(x_map+x_relative,y_map+y_relative) 
-                for x_relative,y_relative in self.ways 
+                for x_relative,y_relative in self.possible_neighbour 
                     if (x_map+x_relative,y_map+y_relative) not in self.map]
 
     def heuristic(current,goal):
