@@ -2,7 +2,7 @@ from ..creature import Creature
 from .path_finding import *
 import math
 class Mob(Creature):
-    def __init__(self,game,r):
+    def __init__(self,game,map,r,):
         """
         Spawns a Mob.
         
@@ -18,7 +18,7 @@ class Mob(Creature):
         self.has_seen_player = False
         self.fov = math.pi/2
         self.test = game.window
-        self.path_finding = Path_finding(game)
+        self.path_finding = Path_finding(game,map)
 
     def update(self):
         self.ia_command()

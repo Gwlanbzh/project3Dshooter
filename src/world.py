@@ -24,16 +24,17 @@ class World:
         Outputs:
             World
         """
+        self.map = Map(game)
+    
         self.props = [Body(game,(350,150)),
                       Body(game,(950,450)),
                       Body(game,(550,550)),
                       Body(game,(850,650))]
-        self.mobs = [Mob(game,(450,150)),
+        self.mobs = [Mob(game,self.map,(450,150)),
                      Mob(game,(450,450)),
                      Mob(game,(550,650)),
                      Mob(game,(750,450))]
         self.players = [Player(game,(150,150))]
-        self.map = Map(game)
   
     def update (self,game):
         """

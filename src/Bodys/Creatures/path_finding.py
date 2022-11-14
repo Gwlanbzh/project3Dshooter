@@ -1,8 +1,8 @@
 from collections import deque
 
 class Path_finding:
-    def __init__(self,game) :
-        self.map = game.world
+    def __init__(self,game,map) :
+        self.map = map.world_map
         self.graph = {}
         self.possible_neighbour = [-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]
         self.create_graph()
