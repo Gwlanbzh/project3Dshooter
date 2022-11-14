@@ -1,4 +1,5 @@
 from ..creature import Creature
+from .path_finding import *
 import math
 class Mob(Creature):
     def __init__(self,game,r):
@@ -16,6 +17,8 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = math.pi/2
+        self.test = game.window
+        self.path_finding = Path_finding(game)
 
     def update(self):
         self.ia_command()
@@ -50,12 +53,6 @@ class Mob(Creature):
             y += dy 
         self.r = x, y
 
-
-    def path_finding_algo():
-        """
-        return nex pos with path finding algo
-        """
-        pass
 
     def mob_view_player(self):
         """

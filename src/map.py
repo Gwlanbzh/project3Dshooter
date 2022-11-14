@@ -34,7 +34,7 @@ class Map:
     def __init__(self, game):
         self.game = game
         self.map = map
-        self.world = {}
+        self.world_map = {}
         self.gen_world_map()
   
     def gen_world_map(self):
@@ -46,7 +46,7 @@ class Map:
         for j,row in enumerate(self.map):
             for i, value in enumerate(row):
                 if value != NO_W0:
-                    self.world[(i,j)] = value
+                    self.world_map[(i,j)] = value
   
     def draw(self, game):
         """
@@ -54,15 +54,15 @@ class Map:
         pour rapple _RectValue c'est sous la forme : 
           Rect(left, top, width, height) -> Rect
         """
-        for position in self.world:
-            if self.world[position][0] == 1: # index 0 extracts the type of wall.
+        for position in self.world_map:
+            if self.world_map[position][0] == 1: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
                               (position[0] * 100,position[1] * 100,100,100),2)
-            if self.world[position][0] == 2:
+            if self.world_map[position][0] == 2:
                 pg.draw.rect(game.window,"blue",
                               (position[0] * 100,position[1] * 100,100,100),2)
 
-            if self.world[position][0] == 3:
+            if self.world_map[position][0] == 3:
                 pg.draw.rect(game.window,"orange",
                               (position[0] * 100,position[1] * 100,100,100),2)
   

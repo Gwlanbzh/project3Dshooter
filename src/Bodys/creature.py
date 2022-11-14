@@ -26,6 +26,7 @@ class Creature(Body):
         self.health = "int" # TODO
         self.range =random.randint(9,10)
         self.size = 15
+        self.a = game.window
 
     def move(self,direction):
         """
