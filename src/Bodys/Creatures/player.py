@@ -103,6 +103,7 @@ class Player(Creature):
             k = speed * (1/math.sqrt(dx**2 + dy**2))
             dx = k * dx
             dy = k * dy
+        
         x, y= self.r
         ## collision stuff goes here
         # world = self.game.world.map.map
