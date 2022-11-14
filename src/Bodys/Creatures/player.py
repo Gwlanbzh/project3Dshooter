@@ -1,5 +1,7 @@
 from ..creature import Creature
 import pygame as pg
+from config import Config
+import math
 
 class Player(Creature):
     """
@@ -24,7 +26,7 @@ class Player(Creature):
         # TODO add ammo data structure
 
     def update(self): # might be move into Creature or Body
-        self.get_inputs()
+        self.move()
         # heal
         # status, maybe buff / debuff
         # TODO : not logical to call self.get_inputs, call self.move() instead would be better
@@ -34,16 +36,83 @@ class Player(Creature):
         Returns a force_vector based on the physical player's inputs.
         TODO maybye refactoring get inputs and mouvement call
         """
+        moves = set()
+
         keys = pg.key.get_pressed()
         if keys[pg.K_z]:
-            self.move(2)
+            moves.add(2)
         if keys[pg.K_s]:
-            self.move(3)
+            moves.add(3)
         if keys[pg.K_q]:
-            self.move(1)
+            moves.add(1)
         if keys[pg.K_d]:
-            self.move(4)
+            moves.add(4)
+        
+        # sera géré par la souris plus tard
         if keys[pg.K_e]:
             self.rotate(-1)
         if keys[pg.K_a]:
             self.rotate(1)
+        
+        return moves
+    
+    def move(self):
+        """
+        TODO maybye refactoring get inputs and mouvement call
+        Applies Newton's Second Principle then handles collisions
+        with walls, props and mobs. FIXME text not true now
+        direction meaning
+          2
+        1 + 4
+          3
+        
+        Inputs:
+            direction
+        
+        Output:
+            Alter Creature position
+        """
+
+        moves = self.get_inputs()
+
+        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
+        speed = Config.PLAYER_V * dt 
+        V_sin = math.sin(self.orientation) 
+        V_cos = math.cos(self.orientation) 
+
+        dx = 0
+        dy = 0
+        if 1 in moves:
+            # gauche
+            dx += V_sin 
+            dy += -V_cos 
+        if 2 in moves:
+            # devant
+            dx += V_cos 
+            dy += V_sin 
+        if 3 in moves:
+            # derrière
+            dx += -V_cos 
+            dy += -V_sin 
+        if 4 in moves:
+            # droite
+            dx += -V_sin 
+            dy += V_cos
+        
+        if dx != 0 or dy != 0:
+            k = speed * (1/math.sqrt(dx**2 + dy**2))
+            dx = k * dx
+            dy = k * dy
+        x, y= self.r
+        ## collision stuff goes here
+        # world = self.game.world.map.map
+        # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
+        #     self.r = x + dx, y + dy
+        
+        x_permission, y_permission = self.not_colliding(dx, dy)
+        if x_permission:
+            x += dx
+        if y_permission:
+            y += dy 
+        
+        self.r = x, y
