@@ -4,3 +4,4 @@ projet3dshooter.kdev4
 shell.nix
 src/__pycache__/
 */__pycache__/
+Bodys/__pycache__/

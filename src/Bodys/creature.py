@@ -24,7 +24,7 @@ class Creature(Body):
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
 
-    def move(self,direction):
+    def move(self, direction):
         """
         TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
@@ -58,7 +58,7 @@ class Creature(Body):
             dx = -V_sin 
             dy = V_cos
 
-        x, y= self.r
+        x, y = self.r
         ## collision stuff goes here
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
@@ -88,13 +88,13 @@ class Creature(Body):
             not (self.in_wall(x, y + 5 + dy) or self.in_wall(x, y - 5 + dy))
         )
 
-    def rotate(self,direction):
+    def rotate(self, direction):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
         self.orientation %= math.tau
 
 
-    def draw(self,game): # might be move into Creature or Body
+    def draw(self, game): # might be move into Creature or Body
         traylenght = 100
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght* math.cos(self.orientation),

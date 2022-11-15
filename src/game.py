@@ -1,4 +1,5 @@
 import pygame as pg
+from pygame import Vector2 as v2
 import sys
 from config import *
 from world import *

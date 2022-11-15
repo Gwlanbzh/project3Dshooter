@@ -2,6 +2,7 @@
 # genre pour la map ici c genre largeur = 12*100 et hauteur = 8*100
 
 import pygame as pg
+from pygame import Vector2 as v2
 from config import Config
 
 

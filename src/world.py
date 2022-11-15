@@ -1,6 +1,7 @@
 import pygame as pg
+from pygame import Vector2 as v2
 from config import *
-from map import Map
+from map import *
 from body import Body
 from Bodys.Creatures.mob import Mob 
 from Bodys.Creatures.player import Player 
