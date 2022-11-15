@@ -23,6 +23,7 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
+        self.size = 15
 
     def move(self, direction):
         """
@@ -70,7 +71,7 @@ class Creature(Body):
         if y_permission:
             y += dy 
         
-        self.r = x, y
+        self.r = v2(x, y)
 
     def in_wall(self, x, y):
         world = self.game.world.map.map
@@ -84,8 +85,8 @@ class Creature(Body):
         """
         x, y = self.r
         return (
-            not (self.in_wall(x + 5 + dx, y) or self.in_wall(x - 5 + dx, y)),
-            not (self.in_wall(x, y + 5 + dy) or self.in_wall(x, y - 5 + dy))
+            not (self.in_wall(x + self.size + dx, y) or self.in_wall(x - self.size + dx, y)),
+            not (self.in_wall(x, y + self.size + dy) or self.in_wall(x, y - self.size + dy))
         )
 
     def rotate(self, direction):
