@@ -10,7 +10,7 @@ class Config():
     PLAYER_ROT_SPEED = 0.004  # arbitraty value for good feeling. temporaty, waitting for mouse handling
     
     # rendering-related constants
-    WALL_HEIGHT = 30
+    WALL_HEIGHT = 50
     MAX_RENDER_DISTANCE = 1000
     RAY_STEP = 5
     FOV = pi/2
