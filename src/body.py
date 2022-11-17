@@ -8,7 +8,7 @@ class Body():
         Spanws a Body.
         
         Input:
-            r: tuple (x,y)
+            r: pygame.Vector2(x,y)
         
         Outputs:
             Body
