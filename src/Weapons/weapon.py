@@ -25,7 +25,7 @@ class Weapon():
 
             for dist, mob in sorted_mob_list:
                 if dist > self.range:
-                    break # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
+                    return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
                 else:
                     teta_max = atan((mob.size/dist)) # la marge d'erreur pour l'angle de tir du joueur.
                     delta_x = player.r[0] - mob.r[0]
@@ -47,7 +47,7 @@ class Weapon():
                     teta = player.orientation - angle_p_m
                     if abs(teta) < teta_max:
                         print("shoot !")
-                        break # on interromp la boucle, sinon les balles peuvent traverser les mobs.
+                        return # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
     def dist(self, player, mob):
         """
