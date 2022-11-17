@@ -8,4 +8,4 @@ class Config():
     PLAYER_ROT_SPEED = 0.004  # arbitraty value for good feeling. temporaty, waitting for mouse handling
 
     def init():
-        Config.DR = 200 / Config.FRAME_RATE # nbre de pixels par seconde.
+        pass

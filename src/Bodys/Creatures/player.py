@@ -2,12 +2,15 @@ from ..creature import Creature
 import pygame as pg
 from config import Config
 import math
+from game import Game
+from Weapons.weapon import Weapon
+from Weapons.pistol import Pistol
 
 class Player(Creature):
     """
     Controllable Creature with weapons.
     """
-    def __init__(self,game ,r):
+    def __init__(self,game : Game ,r):
         """
         Spawns a Player.
         
@@ -20,10 +23,13 @@ class Player(Creature):
         """
         super().__init__(game,r)
         self.heal_recovery_time = 10000 # valeur arbitraire
-        self.weapons = []
-        self.ammo = 0 # may change
         self.color = 'blue'
         # TODO add ammo data structure
+
+        # weapons attributes
+        self.weapons = []
+        self.current_weapon = Pistol()
+        self.ammo = 0 # may change to dict ?
 
     def update(self): # might be move into Creature or Body
         self.move()
@@ -54,6 +60,11 @@ class Player(Creature):
         if keys[pg.K_a]:
             self.rotate(1)
         
+        left_click, _, _ = pg.mouse.get_pressed()
+        if left_click:
+            self.current_weapon.hit_scan(self, self.game.world.mobs)
+
+
         return moves
     
     def move(self):

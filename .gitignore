@@ -5,3 +5,4 @@ shell.nix
 src/__pycache__/
 src/Bodys/Creatures/__pycache__/
 src/Bodys/__pycache__/
+src/Weapons/__pycache__/
