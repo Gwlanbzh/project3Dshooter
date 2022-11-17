@@ -1,7 +1,7 @@
 import pygame as pg
 from math import hypot, atan, acos, asin, tau, pi
 pi_2 = pi / 2
-pi_3_2 = 3 * pi_2
+
 class Weapon():
     def __init__(self):
         self.dmg = 0
@@ -32,18 +32,17 @@ class Weapon():
                     delta_y = player.r[1] - mob.r[1]
                     if delta_x > 0:
                         if delta_y > 0: # cas 1
-                            angle_p_m = acos(delta_x/dist)
+                            angle_p_m = pi + acos(delta_x/dist)
                         else: # cas 2
-                            angle_p_m = acos(abs(delta_y)/dist) + pi_3_2
+                            angle_p_m = pi_2 + acos(abs(delta_y)/dist)
                     else:
                         if delta_y > 0: # cas 3 
-                            angle_p_m = acos(delta_y/dist) + pi_2
+                            angle_p_m = tau - acos(abs(delta_x)/dist)
                         else: # cas 4
-                            angle_p_m = acos(abs(delta_x)/dist) + pi
+                            angle_p_m = acos(abs(delta_x)/dist)
 
                     
                     teta = player.orientation - angle_p_m
-                    print(teta)
                     if abs(teta) < teta_max:
                         print("shoot !")
 
