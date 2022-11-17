@@ -100,7 +100,7 @@ class Player(Creature):
             dy += V_cos
         
         if dx != 0 or dy != 0:
-            k = speed * (1/math.sqrt(dx**2 + dy**2))
+            k = speed * (1/math.hypot(dx, dy))
             dx = k * dx
             dy = k * dy
         
