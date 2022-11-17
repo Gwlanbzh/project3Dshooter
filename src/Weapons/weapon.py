@@ -31,22 +31,21 @@ class Weapon():
                     delta_x = player.r[0] - mob.r[0]
                     delta_y = player.r[1] - mob.r[1]
                     if delta_x > 0:
-                        if delta_y > 0:
-                            angle_p_m = acos(abs(delta_x)/dist) + pi
-                        else:
-                            angle_p_m = acos(abs(delta_y)/dist) + pi_2
+                        if delta_y > 0: # cas 1
+                            angle_p_m = acos(delta_x/dist)
+                        else: # cas 2
+                            angle_p_m = acos(abs(delta_y)/dist) + pi_3_2
                     else:
-                        if delta_y > 0:
-                            angle_p_m = acos(abs(delta_x)/dist) + pi_3_2
-                        else:
-                            angle_p_m = acos(abs(delta_x)/dist)
+                        if delta_y > 0: # cas 3 
+                            angle_p_m = acos(delta_y/dist) + pi_2
+                        else: # cas 4
+                            angle_p_m = acos(abs(delta_x)/dist) + pi
 
                     
                     teta = player.orientation - angle_p_m
                     print(teta)
                     if abs(teta) < teta_max:
                         print("shoot !")
-                        # TODO : remove life to a mob
 
     def dist(self, player, mob):
         """
