@@ -2,8 +2,6 @@
 # genre pour la map ici c genre largeur = 12*100 et hauteur = 8*100
 
 import pygame as pg
-from config import Config
-
 
 # Defnition de la map 
 # 0 = False = vide

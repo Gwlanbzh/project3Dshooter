@@ -1,5 +1,3 @@
-import pygame as pg
-
 class Config():
     WINDOW_SIZE = WINDOW_W, WINDOW_H = 1200 , 800 # value link to the size of the map befor render is finished
     FRAME_RATE = 60
