@@ -115,7 +115,6 @@ class Player(Creature):
             dx = k * dx
             dy = k * dy
         
-        x, y= self.r
         ## collision stuff goes here
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
@@ -123,8 +122,7 @@ class Player(Creature):
         
         x_permission, y_permission = self.not_colliding(dx, dy)
         if x_permission:
-            x += dx
+            self.r.x += dx
         if y_permission:
-            y += dy 
+            self.r.y += dy
         
-        self.r = x, y

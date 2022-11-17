@@ -4,6 +4,7 @@ from map import Map
 from body import Body
 from Bodys.Creatures.mob import Mob 
 from Bodys.Creatures.player import Player 
+from pygame import Vector2 as v2
 
 class World:
     """
@@ -24,15 +25,15 @@ class World:
         Outputs:
             World
         """
-        self.props = [Body(game,(350,150)),
-                      Body(game,(950,450)),
-                      Body(game,(550,550)),
-                      Body(game,(850,650))]
-        self.mobs = [Mob(game,(450,150)),
-                     Mob(game,(450,450)),
-                     Mob(game,(550,650)),
-                     Mob(game,(750,450))]
-        self.players = [Player(game,(150,150))]
+        self.props = [Body(game,v2(350,150)),
+                      Body(game,v2(950,450)),
+                      Body(game,v2(550,550)),
+                      Body(game,v2(850,650))]
+        self.mobs = [Mob(game,v2(450,150)),
+                     Mob(game,v2(450,450)),
+                     Mob(game,v2(550,650)),
+                     Mob(game,v2(750,450))]
+        self.players = [Player(game,v2(150,150))]
         self.map = Map(game)
   
     def update (self,game):

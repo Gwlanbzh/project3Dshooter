@@ -28,8 +28,8 @@ class Weapon():
                     return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
                 else:
                     teta_max = atan((mob.size/dist)) # la marge d'erreur pour l'angle de tir du joueur.
-                    delta_x = player.r[0] - mob.r[0]
-                    delta_y = player.r[1] - mob.r[1]
+                    delta_x = player.r.x - mob.r.x
+                    delta_y = player.r.y - mob.r.y
                     
                     # pour expliquer ça il y a un screen sur le onedrive
                     if delta_x > 0:
@@ -53,9 +53,8 @@ class Weapon():
         """
         test if a mob can be shot by a player
         """
-        x_p, y_p = player.r
-        x_m, y_m = mob.r
-        dist = hypot(x_p - x_m, y_p - y_m)
+        diff = player.r - mob.r
+        dist = hypot(diff.x, diff.y)
 
         return dist
 
