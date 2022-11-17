@@ -1,7 +1,7 @@
 from pygame import Vector2 as v2
 import pygame as pg
 import math
-from body import Body
+from bodys import Body
 from config import *
 
 class Creature(Body):

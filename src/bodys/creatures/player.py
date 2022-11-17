@@ -1,10 +1,10 @@
-from ..creature import Creature
 import pygame as pg
-from config import Config
 import math
-from game import Game
-from Weapons.weapon import Weapon
-from Weapons.pistol import Pistol
+
+from bodys import Creature
+from weapons import *
+from game import *
+from config import *
 
 class Player(Creature):
     """

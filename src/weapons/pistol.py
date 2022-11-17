@@ -1,4 +1,4 @@
-from Weapons.weapon import Weapon
+from weapons import Weapon
 
 class Pistol(Weapon):
     def __init__(self):
