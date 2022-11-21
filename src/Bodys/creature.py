@@ -12,15 +12,15 @@ class Creature(Body):
     def __init__(self, game, r : tuple):
         """
         Spawns a Creature.
-        
+
         Inputs:
             game: Game
             r : tuple
-        
+
         Output:
             Creature
         """
-        super().__init__(game,r) 
+        super().__init__(game,r)
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
@@ -37,29 +37,30 @@ class Creature(Body):
           2
         1 + 4
           3
-        
+
         Inputs:
             direction
-        
+
         Output:
             Alter Creature position
         """
 
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        speed = Config.PLAYER_V * dt 
-        V_sin = speed * math.sin(self.orientation) 
-        V_cos = speed * math.cos(self.orientation) 
+        speed = Config.PLAYER_V * dt
+        V_sin = speed * math.sin(self.orientation)
+        V_cos = speed * math.cos(self.orientation)
+        dx,dy=0,0
         if direction == 1:
-            dx = V_sin 
-            dy = -V_cos 
+            dx = V_sin
+            dy = -V_cos
         if direction == 2:
-            dx = V_cos 
-            dy = V_sin 
+            dx = V_cos
+            dy = V_sin
         if direction == 3:
-            dx = -V_cos 
-            dy = -V_sin 
+            dx = -V_cos
+            dy = -V_sin
         if direction == 4:
-            dx = -V_sin 
+            dx = -V_sin
             dy = V_cos
 
         x, y= self.r
@@ -67,13 +68,13 @@ class Creature(Body):
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
         #     self.r = x + dx, y + dy
-        
+
         x_permission, y_permission = self.not_colliding(dx, dy)
         if x_permission:
             x += dx
         if y_permission:
-            y += dy 
-        
+            y += dy
+
         self.r = x, y
 
     def in_wall(self, x, y):
@@ -102,5 +103,5 @@ class Creature(Body):
         traylenght = 10*self.range
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght* math.cos(self.orientation),
-                      self.r[1] + traylenght* math.sin(self.orientation)),2) 
+                      self.r[1] + traylenght* math.sin(self.orientation)),2)
         pg.draw.circle(game.window, self.color, self.r,self.size)

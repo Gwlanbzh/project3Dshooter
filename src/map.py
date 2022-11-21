@@ -46,7 +46,7 @@ class Map:
         for j,row in enumerate(self.map):
             for i, value in enumerate(row):
                 if value != NO_W0:
-                    self.world_map[(i,j)] = value
+                    self.world_map[(i,j)] = value[0]
   
     def draw(self, game):
         """
@@ -55,14 +55,14 @@ class Map:
           Rect(left, top, width, height) -> Rect
         """
         for position in self.world_map:
-            if self.world_map[position][0] == 1: # index 0 extracts the type of wall.
+            if self.world_map[position] == 1: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
                               (position[0] * 100,position[1] * 100,100,100),2)
-            if self.world_map[position][0] == 2:
+            if self.world_map[position] == 2:
                 pg.draw.rect(game.window,"blue",
                               (position[0] * 100,position[1] * 100,100,100),2)
 
-            if self.world_map[position][0] == 3:
+            if self.world_map[position] == 3:
                 pg.draw.rect(game.window,"orange",
                               (position[0] * 100,position[1] * 100,100,100),2)
   
