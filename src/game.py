@@ -6,13 +6,14 @@ from world import *
 from camera import *
 
 class Game:
-    def __init__(self, view: str):
+    def __init__(self):
         """
         Important init for the game main component
         """
         pg.init()
-        Config.init()
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        #pg.display.toggle_fullscreen()
         self.world = World(self) 
         # self.camera = Camera()
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
@@ -48,7 +49,10 @@ class Game:
             #self.draw()
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
+            fps = self.clock.get_fps()
+            pg.display.set_caption(f"{fps:.2f}")
+            self.delta_time =  self.clock.tick(Config.FRAME_RATE)
   
 if __name__ == "__main__":
-    game = Game("first person")
+    game = Game()
     game.run()

@@ -3,6 +3,10 @@ import pygame as pg
 from pygame import Vector2 as v2, Vector3 as v3
 
 class Config():
+    """
+    Contains constants for the game.
+    TODO: init config from config file
+    """
     WINDOW_SIZE = RES_X, RES_Y = 1200 , 800 # value link to the size of the map befor render is finished
     FRAME_RATE = 60
 
@@ -16,6 +20,3 @@ class Config():
     FOV = pi/2
     
     DISTANCE_FADING = 1.001
-
-    def init():
-        Config.DR = 200 / Config.FRAME_RATE # nbre de pixels par seconde.
