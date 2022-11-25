@@ -21,4 +21,4 @@ class Config():
     
     DISTANCE_FADING = 1.001
     
-    TEXTURES_FOLDER = "/home/aodren/projects/projet3dshooter/src/assets/textures/"  # FIXME to automate
+    TEXTURES_FOLDER = "./src/assets/textures/"  # FIXME to automate
