@@ -25,7 +25,6 @@ colors = [v3(0, 0, 0),
           v3(0, 100, 255),
           ]
 
-print(colors[0])
 
 map = [
     [W_TX1, W_DEF, W_TX1, W_DEF, W_DEF, W_TX2, W_TX2, W_TX2, W_DEF, W_DEF, W_DEF, W_DEF],
