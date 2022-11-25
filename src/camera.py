@@ -3,6 +3,7 @@ import pygame as pg
 from pygame import Vector2 as v2, Vector3 as v3
 from game import *
 from config import * # using MAX_RENDER_DISTANCE, RAY_STEP, RES_X, RES_Y
+from textures import *
 
 BLACK = v3(0, 0, 0)
 CYAN = v3(0, 255, 255)
@@ -67,8 +68,9 @@ class Ray():
 
         x_ratio = sqrt(1 + (y_dir/x_dir) ** 2) if x_dir != 0 else 1e30  # lenght of the hypotenuse for a dx of 1 <=> proportionality ratio between the x side and the hypotenuse.
         y_ratio = sqrt(1 + (x_dir/y_dir) ** 2) if y_dir != 0 else 1e30  # lenght of the hypotenuse for a dy of 1 <=> proportionality ratio between the y side and the hypotenuse.
-
-
+        
+        # Init part
+        
         if x_dir < 0:
             x_step = -1
             x_delta = (origin.x % 100) / 100 * x_ratio
@@ -94,7 +96,9 @@ class Ray():
         x_cell, y_cell = x_orig, y_orig
 
         side = ''  # will be 'x' or 'y' depending on the direction of the last move
-
+        
+        # Main loop, the DDA algorithm itself
+        
         while map[y_cell][x_cell] == NO_W0:
             if x_delta < y_delta:
                 x_delta += x_ratio
@@ -108,12 +112,23 @@ class Ray():
         
         if side == 'x':
             self.distance = 100 * (abs((x_cell - x_orig) * x_ratio) - abs(x_rest))
-            #self.distance = 100 * (x_delta - x_ratio)
         else:  # side == 'y'
             self.distance = 100 * (abs((y_cell - y_orig) * y_ratio) - abs(y_rest))
-            #self.distance = 100 * (y_delta - y_ratio)
         
         self.hit_type = map[y_cell][x_cell]
+        
+        self.hit_position = origin + self.distance * direction
+        
+        if side == 'x':
+            if direction.x > 0:
+                self.block_hit_abs = int(self.hit_position.y % 100)
+            else:
+                self.block_hit_abs = int(100 - (self.hit_position.y % 100))
+        else:
+            if direction.y > 0:
+                self.block_hit_abs = int(100 - (self.hit_position.x % 100))
+            else:
+                self.block_hit_abs = int(self.hit_position.x % 100)
         
 
 
@@ -152,11 +167,24 @@ class Camera():
             ray = Ray(self.bound_player.r, ray_direction)
             
             height = scr_h(WALL_HEIGHT, ray.distance)
+            if height < 1:
+                height = 1
             
-            pg.draw.rect(window, tuple(colors[ray.hit_type] /(DISTANCE_FADING ** ray.distance)), (RES_X-n, RES_Y//2 - height//2, 1, height))
+            #pg.draw.rect(window, tuple(colors[ray.hit_type] /(DISTANCE_FADING ** ray.distance)), (RES_X-n, RES_Y//2 - height//2, 1, height))
+            
+            texture_array = textures[textures_map[ray.hit_type]]
+            units_per_strip = 100/len(texture_array)
+            strip_index = int(ray.block_hit_abs//units_per_strip)
+            strip = texture_array[strip_index]
+            #print(ray.block_hit_abs//int(100/len(texture_array)))
+            #column = texture_array[ray.block_hit_abs//int(100/len(texture_array))]
+            texture_slice = pg.transform.scale(strip, (1, height))
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2))
 
 
 if __name__ == "__main__":
+    # FIXME testing stuff, to delete.
+    
     game = Game()
     print("game initialized")
     

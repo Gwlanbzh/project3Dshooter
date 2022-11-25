@@ -20,3 +20,5 @@ class Config():
     FOV = pi/2
     
     DISTANCE_FADING = 1.001
+    
+    TEXTURES_FOLDER = "/home/aodren/projects/projet3dshooter/src/assets/textures/"  # FIXME to automate
