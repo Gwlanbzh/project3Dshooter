@@ -1,9 +1,11 @@
 import pygame as pg 
+from pygame import Vector2 as v2
+
 class Body():
     """
     Static body with a position and animated sprites.
     """
-    def __init__(self,game,r: tuple):
+    def __init__(self, game, r: tuple):
         """
         Spanws a Body.
         
@@ -13,7 +15,7 @@ class Body():
         Outputs:
             Body
         """
-        self.r = r
+        self.r = v2(r)
         self.v = (0, 0) # FIXME not use for now
         self.color = 'magenta'
         self.game = game # link to dt
@@ -33,4 +35,4 @@ class Body():
 
     def draw(self,game): # draw object
         traylenght = 100
-        pg.draw.circle(game.window, self.color, self.r,15)
+        pg.draw.circle(game.window, self.color, tuple(self.r),15)

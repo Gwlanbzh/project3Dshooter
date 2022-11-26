@@ -1,4 +1,5 @@
 import pygame as pg
+from pygame import Vector2 as v2
 
 class Weapon():
     def __init__(self):

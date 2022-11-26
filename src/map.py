@@ -2,6 +2,7 @@
 # genre pour la map ici c genre largeur = 12*100 et hauteur = 8*100
 
 import pygame as pg
+from pygame import Vector2 as v2, Vector3 as v3
 from config import Config
 
 
@@ -13,21 +14,27 @@ from config import Config
 textures = {'d': "default"}
 
 # the map contains tuples (wall_type: int, texture: str), defined here.
-NO_W0 = (0, '')   # no wall
-W_SQ0 = (1, 'd')  # squared wall
-W_TR1 = (2, 'd')  # triangled wall nb 1
-W_TR2 = (3, 'd')  # triangled wall nb 2
+NO_W0 = 0   # no wall
+W_DEF = 1  # squared wall
+W_TX1 = 2  # triangled wall nb 1
+W_TX2 = 3  # triangled wall nb 2
+
+colors = [v3(0, 0, 0),
+          v3(255, 0, 0),
+          v3(0, 255, 0),
+          v3(0, 100, 255),
+          ]
 
 
 map = [
-    [W_TR1, W_SQ0, W_TR1, W_SQ0, W_SQ0, W_TR2, W_TR2, W_TR2, W_SQ0, W_SQ0, W_SQ0, W_SQ0],
-    [W_SQ0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_SQ0],
-    [W_TR2, NO_W0, NO_W0, W_SQ0, NO_W0, NO_W0, NO_W0, W_SQ0, W_SQ0, W_SQ0, NO_W0, W_SQ0],
-    [W_SQ0, W_TR2, W_SQ0, W_SQ0, NO_W0, NO_W0, NO_W0, W_SQ0, NO_W0, NO_W0, NO_W0, W_SQ0],
-    [W_SQ0, NO_W0, NO_W0, NO_W0, NO_W0, W_TR1, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_SQ0],
-    [W_SQ0, NO_W0, W_TR1, W_TR1, W_TR1, NO_W0, W_TR1, W_TR1, NO_W0, NO_W0, W_SQ0, W_SQ0],
-    [W_SQ0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_SQ0, W_SQ0, W_SQ0],
-    [W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0, W_SQ0]
+    [W_TX1, W_DEF, W_TX1, W_DEF, W_DEF, W_TX2, W_TX2, W_TX2, W_DEF, W_DEF, W_DEF, W_DEF],
+    [W_DEF, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_DEF],
+    [W_TX2, NO_W0, NO_W0, W_DEF, NO_W0, NO_W0, NO_W0, W_DEF, W_DEF, W_DEF, NO_W0, W_DEF],
+    [W_DEF, W_TX2, W_DEF, W_DEF, NO_W0, NO_W0, NO_W0, W_DEF, NO_W0, NO_W0, NO_W0, W_DEF],
+    [W_DEF, NO_W0, NO_W0, NO_W0, NO_W0, W_TX1, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_DEF],
+    [W_DEF, NO_W0, W_TX1, W_TX1, W_TX1, NO_W0, W_TX1, W_TX1, NO_W0, NO_W0, W_DEF, W_DEF],
+    [W_DEF, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_DEF, W_DEF, W_DEF],
+    [W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF]
 ]
 
 class Map:
