@@ -1,8 +1,7 @@
 import pygame as pg
 from pygame import Vector2 as v2
-
 from config import *
-from map import Map
+from map import *
 from bodys import *
 
 class World:
@@ -24,18 +23,18 @@ class World:
         Outputs:
             World
         """
-        self.props = [Body(game,v2(350,150)),
-                      Body(game,v2(950,450)),
-                      Body(game,v2(550,550)),
-                      Body(game,v2(850,650))]
-        self.mobs = [Mob(game,v2(450,150)),
-                     Mob(game,v2(450,450)),
-                     Mob(game,v2(550,650)),
-                     Mob(game,v2(750,450))]
-        self.players = [Player(game,v2(150,150))]
+        self.props = [Body(game,(350,150)),
+                      Body(game,(950,450)),
+                      Body(game,(550,550)),
+                      Body(game,(850,650))]
+        self.mobs = [Mob(game,(450,150)),
+                     Mob(game,(450,450)),
+                     Mob(game,(550,650)),
+                     Mob(game,(750,450))]
+        self.players = [Player(game,(150,150))]
         self.map = Map(game)
   
-    def update (self,game):
+    def update (self, game):
         """
         call upadate for every Body(or more) in the world
         and
