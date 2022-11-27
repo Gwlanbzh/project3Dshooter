@@ -25,10 +25,9 @@ class Creature(Body):
         self.health = "int" # TODO
         self.size = 15
 
-
     def in_wall(self, x, y):
         world = self.game.world.map.map
-        return world[int((y)//100)][int((x)//100)][0] != 0
+        return world[int((y)//100)][int((x)//100)] != 0
 
     def not_colliding(self, dx, dy):
         """
@@ -38,19 +37,19 @@ class Creature(Body):
         """
         x, y = self.r
         return (
-            not (self.in_wall(x + 5 + dx, y) or self.in_wall(x - 5 + dx, y)),
-            not (self.in_wall(x, y + 5 + dy) or self.in_wall(x, y - 5 + dy))
+            not (self.in_wall(x + self.size + dx, y) or self.in_wall(x - self.size + dx, y)),
+            not (self.in_wall(x, y + self.size + dy) or self.in_wall(x, y - self.size + dy))
         )
 
-    def rotate(self,direction):
+    def rotate(self, direction):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
         self.orientation %= math.tau
 
 
-    def draw(self,game): # might be move into Creature or Body
+    def draw(self, game): # might be move into Creature or Body
         traylenght = 100
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght* math.cos(self.orientation),
                       self.r[1] + traylenght* math.sin(self.orientation)),2) 
-        pg.draw.circle(game.window, self.color, self.r, self.size)
+        pg.draw.circle(game.window, self.color, self.r,15)

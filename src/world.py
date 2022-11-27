@@ -1,5 +1,3 @@
-import pygame as pg
-from pygame import Vector2 as v2
 from config import *
 from map import *
 from bodys import *

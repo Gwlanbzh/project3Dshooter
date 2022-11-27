@@ -3,14 +3,13 @@ import math
 
 from bodys import Creature
 from weapons import *
-from game import *
 from config import *
 
 class Player(Creature):
     """
     Controllable Creature with weapons.
     """
-    def __init__(self,game : Game ,r):
+    def __init__(self, game, r):
         """
         Spawns a Player.
         
@@ -114,7 +113,6 @@ class Player(Creature):
             k = speed * (1/math.hypot(dx, dy))
             dx = k * dx
             dy = k * dy
-        
         ## collision stuff goes here
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
