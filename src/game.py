@@ -52,7 +52,6 @@ class Game:
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
             fps = self.clock.get_fps()
             pg.display.set_caption(f"{fps:.2f}")
-            self.delta_time =  self.clock.tick(Config.FRAME_RATE)
   
 if __name__ == "__main__":
     game = Game()
