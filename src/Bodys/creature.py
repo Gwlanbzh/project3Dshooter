@@ -23,7 +23,7 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
-        self.size = 15
+        self.size = 30
 
     def move(self, direction):
         """

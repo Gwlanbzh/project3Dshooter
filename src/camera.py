@@ -19,11 +19,11 @@ FOV = Config.FOV
 
 # function for computing the ray 's direction vector
 atanfov = atan(FOV/2)
-theta = lambda n : tan(atanfov * ( 1-(2*n) / RES_X) )
+theta = lambda n : atan(atanfov * ( 1-(2*n) / RES_X) )
 
 # function for computing the on-screen height of a wall segment
 resfovratio = RES_Y / FOV
-scr_h = lambda h, d : resfovratio * tan(h/d)
+scr_h = lambda h, d : resfovratio * (h/d)
 
 class Ray():
     #def __init__(self, origin: v2, direction: v2):
@@ -145,7 +145,8 @@ class Camera():
         Displays elements of the environment based on the state of the world.
         Currently only supports 
         """
-        window.fill(BLACK)
+        pg.draw.rect(window, (40, 40, 40), (0, 0, RES_X, RES_Y//2))
+        pg.draw.rect(window, (70, 70, 70), (0, RES_Y//2, RES_X, RES_Y//2))
         
         # calculate the coordinates of the so-defined player's view vector
         view_vector = v2(cos(self.bound_player.orientation), 
@@ -166,39 +167,20 @@ class Camera():
             # finally, computing the ray and displaying the wall segment.
             ray = Ray(self.bound_player.r, ray_direction)
             
-            height = scr_h(WALL_HEIGHT, ray.distance)
-            if height < 1:
-                height = 1
+            height = scr_h(WALL_HEIGHT, ray.distance * costh)
             
             #pg.draw.rect(window, tuple(colors[ray.hit_type] /(DISTANCE_FADING ** ray.distance)), (RES_X-n, RES_Y//2 - height//2, 1, height))
             
             texture_array = textures[textures_map[ray.hit_type]]
             units_per_strip = 100/len(texture_array)
             strip_index = int(ray.block_hit_abs//units_per_strip)
+            
+            # may be needed in case of IndexError on the next line, do not delete
+            #strip_index = strip_index % len(texture_array)
+            
             strip = texture_array[strip_index]
+            
             #print(ray.block_hit_abs//int(100/len(texture_array)))
             #column = texture_array[ray.block_hit_abs//int(100/len(texture_array))]
             texture_slice = pg.transform.scale(strip, (1, height))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2))
-
-
-if __name__ == "__main__":
-    # FIXME testing stuff, to delete.
-    
-    game = Game()
-    print("game initialized")
-    
-    window = pg.display.set_mode((RES_X, RES_Y))
-    
-    camera = Camera(game.world.players[0])
-    
-    t = time()
-    camera.draw_frame(window)
-    print(time()-t)
-    
-    pg.display.update()
-    
-    
-    while True:
-        pg.time.delay(100)
-    
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2)) 

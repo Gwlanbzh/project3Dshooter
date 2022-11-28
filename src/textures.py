@@ -21,8 +21,18 @@ for f in texture_surfaces:
 
 # Create a dict to map a number (the values in the map array) to a texture
 
-textures_map = {1: "default.png",
-                2: "default2.png",
-                3: "mc_wall.png",
-                4: "xon_concrete_plates.png"
+NO_W0 = 0  # no wall
+W_DEF = 1  # wall with default texture nb1
+W_TX1 = 2  # wall with default texture nb 2
+W_TX2 = 3  # wall with texture mc_wall
+W_TX3 = 4  # wall with texture xon_concrete_plates
+W_TX4 = 5  # wall with texture wall
+W_TX5 = 6  # wall with texture concrete
+
+textures_map = {W_DEF: "default.png",
+                W_TX1: "default2.png",
+                W_TX2: "mc_wall.png",
+                W_TX3: "xon_concrete_plates.png",
+                W_TX4: "wall.png",
+                W_TX5: "concrete.png"
                }
