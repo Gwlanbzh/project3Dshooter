@@ -32,9 +32,18 @@ W_TX5 = 6  # wall with texture concrete
 textures_map = {W_DEF: "quake_texture_5.png",
                 W_TX1: "quake_texture_17.png",
                 W_TX2: "quake_texture_25.png",
-                W_TX3: "quake_texture_11.png",
+                W_TX3: "quake_texture_27.png",
                 W_TX4: "quake_texture_4.png",
-                W_TX5: "concrete.png"
                }
 
 textures_units_per_strip = {t:100/len(textures[textures_map[t]]) for t in textures_map}
+
+
+# height map for each texture
+
+height_map = {W_DEF: 75,
+              W_TX1: 75,
+              W_TX2: 200,
+              W_TX3: 300,
+              W_TX4: 75,
+              }

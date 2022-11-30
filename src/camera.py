@@ -170,7 +170,7 @@ class Camera():
             ray = Ray(self.bound_player.r, ray_direction)
             
             #height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
-            upper_height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
+            upper_height = scr_h(height_map[ray.hit_type], ray.distance * cos(th))
             lower_height = scr_h(VIEW_HEIGHT, ray.distance * cos(th))
             height = upper_height + lower_height
             
@@ -190,5 +190,5 @@ class Camera():
             
             # display ceiling, wall and floor
             pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - upper_height - voffset))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - upper_height))
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - upper_height - voffset))
             pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + lower_height - voffset, 1, RES_Y//2 - lower_height + voffset))
