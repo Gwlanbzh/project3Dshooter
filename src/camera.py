@@ -147,8 +147,10 @@ class Camera():
         """
         voffset = self.bound_player.vorientation  # > 0 implies looking up
         
-        pg.draw.rect(window, (40, 40, 40), (1, 0, RES_X, RES_Y//2 - voffset))
-        pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - voffset, RES_X, RES_Y//2 + voffset))
+        # Those calls are alternate to those in the display section.
+        # TODO benchmark both to keep the most efficient.
+        #pg.draw.rect(window, (40, 40, 40), (1, 0, RES_X, RES_Y//2 - voffset))
+        #pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - voffset, RES_X, RES_Y//2 + voffset))
         
         # calculate the coordinates of the so-defined player's view vector
         view_vector = v2(cos(self.bound_player.orientation), 
@@ -162,28 +164,34 @@ class Camera():
             # This vector is demonstrated to have a magnitude of 1.
             
             th = theta(n)
-            costh = cos(th)
-            sinth = sin(th)
-            ray_direction = v2(costh * view_vector.x - sinth * view_vector.y,
-                               sinth * view_vector.x + costh * view_vector.y)
+            #costh = cos(th)
+            #sinth = sin(th)
+            #ray_direction = v2(costh * view_vector.x - sinth * view_vector.y,
+                               #sinth * view_vector.x + costh * view_vector.y)
             
-            # finally, computing the ray and displaying the wall segment.
+            ray_direction = v2(cos(self.bound_player.orientation + th), 
+                               sin(self.bound_player.orientation + th))
+            
+            # computing the ray and displaying the wall segment.
             ray = Ray(self.bound_player.r, ray_direction)
             
-            height = scr_h(WALL_HEIGHT, ray.distance * costh)
+            height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
             
-            #pg.draw.rect(window, tuple(colors[ray.hit_type] /(DISTANCE_FADING ** ray.distance)), (RES_X-n, RES_Y//2 - height//2, 1, height))
-            
+            # creation of the texture slice to display
             texture_array = textures[textures_map[ray.hit_type]]
-            units_per_strip = 100/len(texture_array)
+            
+            # TODO choose the most efficient
+            #units_per_strip = 100/len(texture_array)
+            units_per_strip = textures_units_per_strip[ray.hit_type]
             strip_index = int(ray.block_hit_abs//units_per_strip)
             
             # may be needed in case of IndexError on the next line, do not delete
             #strip_index = strip_index % len(texture_array)
             
             strip = texture_array[strip_index]
-            
-            #print(ray.block_hit_abs//int(100/len(texture_array)))
-            #column = texture_array[ray.block_hit_abs//int(100/len(texture_array))]
             texture_slice = pg.transform.scale(strip, (1, height))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2 - voffset)) 
+            
+            # display ceiling, wall and floor
+            pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - height//2 - voffset))
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2 - voffset))
+            pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + height//2 - voffset, 1, RES_Y//2 - height//2 + voffset))

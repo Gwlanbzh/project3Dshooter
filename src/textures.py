@@ -36,3 +36,5 @@ textures_map = {W_DEF: "quake_texture_5.png",
                 W_TX4: "wall.png",
                 W_TX5: "concrete.png"
                }
+
+textures_units_per_strip = {t:100/len(textures[textures_map[t]]) for t in textures_map}

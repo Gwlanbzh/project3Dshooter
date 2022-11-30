@@ -51,6 +51,6 @@ class Player(Creature):
             self.rotate(1)
         
         if keys[pg.K_o]:
-            self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
-        if keys[pg.K_l]:
             self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
+        if keys[pg.K_l]:
+            self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
