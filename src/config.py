@@ -7,18 +7,22 @@ class Config():
     Contains constants for the game.
     TODO: init config from config file
     """
-    WINDOW_SIZE = RES_X, RES_Y = 1200 , 800 # value link to the size of the map befor render is finished
+    WINDOW_SIZE = 1280 , 800 # value link to the size of the map before render is finished
+    RES_X, RES_Y = WINDOW_SIZE
     FRAME_RATE = 60
 
-    PLAYER_V = 0.5 # arbitraty value for good feeling
-    PLAYER_ROT_SPEED = 0.004  # arbitraty value for good feeling. temporaty, waitting for mouse handling
+    PLAYER_V = 1 # arbitraty value for good feeling
+    PLAYER_ROT_SPEED = 0.004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    
+    PLAYER_VERT_ROT_SPEED = 20
+    PLAYER_MAX_VERT_ROT = 200
     
     # rendering-related constants
-    WALL_HEIGHT = 50
+    WALL_HEIGHT = 150
     MAX_RENDER_DISTANCE = 1000
     RAY_STEP = 5
     FOV = pi/2
     
     DISTANCE_FADING = 1.001
     
-    TEXTURES_FOLDER = "./src/assets/textures/"  # FIXME to automate
+    TEXTURES_FOLDER = "assets/textures/"

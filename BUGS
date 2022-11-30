@@ -1,7 +1,7 @@
 **Renderer**
   [ ] When coming close to walls or corners and looking at them, there is lag when trying to move or turn around. Might be the same as bug 2.
   [ ] In a corner, it happens that the computer runs out of memory and the program crashes.
-  [ ] Fisheye effect (see TODO)
+  [X] Fisheye effect (see TODO)
 
 **Physics**
   [ ] Players are able to get in a wall if coming at an angle.

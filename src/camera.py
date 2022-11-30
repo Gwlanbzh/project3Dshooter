@@ -23,7 +23,7 @@ theta = lambda n : atan(atanfov * ( 1-(2*n) / RES_X) )
 
 # function for computing the on-screen height of a wall segment
 resfovratio = RES_Y / FOV
-scr_h = lambda h, d : resfovratio * tan(h/d)
+scr_h = lambda h, d : resfovratio * (h/d)
 
 class Ray():
     #def __init__(self, origin: v2, direction: v2):
@@ -145,7 +145,12 @@ class Camera():
         Displays elements of the environment based on the state of the world.
         Currently only supports 
         """
-        window.fill(BLACK)
+        voffset = self.bound_player.vorientation  # > 0 implies looking up
+        
+        # Those calls are alternate to those in the display section.
+        # TODO benchmark both to keep the most efficient.
+        #pg.draw.rect(window, (40, 40, 40), (1, 0, RES_X, RES_Y//2 - voffset))
+        #pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - voffset, RES_X, RES_Y//2 + voffset))
         
         # calculate the coordinates of the so-defined player's view vector
         view_vector = v2(cos(self.bound_player.orientation), 
@@ -153,53 +158,40 @@ class Camera():
         
         for n in range(RES_X):
             
+            
             # computing the angle between the player's view vector and the ray's and
             # applying a rotation matrix of this angle to get the ray's vector.
             # This vector is demonstrated to have a magnitude of 1.
             
             th = theta(n)
-            costh = cos(th)
-            sinth = sin(th)
-            ray_direction = v2(costh * view_vector.x - sinth * view_vector.y,
-                               sinth * view_vector.x + costh * view_vector.y)
+            #costh = cos(th)
+            #sinth = sin(th)
+            #ray_direction = v2(costh * view_vector.x - sinth * view_vector.y,
+                               #sinth * view_vector.x + costh * view_vector.y)
             
-            # finally, computing the ray and displaying the wall segment.
+            ray_direction = v2(cos(self.bound_player.orientation + th), 
+                               sin(self.bound_player.orientation + th))
+            
+            # computing the ray and displaying the wall segment.
             ray = Ray(self.bound_player.r, ray_direction)
             
-            height = scr_h(WALL_HEIGHT, ray.distance * costh)
-            print (height,ray.distance, atan2(ray_direction.y,ray_direction.x))
-            if height < 1:
-                height = 1
+            height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
             
-            #pg.draw.rect(window, tuple(colors[ray.hit_type] /(DISTANCE_FADING ** ray.distance)), (RES_X-n, RES_Y//2 - height//2, 1, height))
-            
+            # creation of the texture slice to display
             texture_array = textures[textures_map[ray.hit_type]]
-            units_per_strip = 100/len(texture_array)
+            
+            # TODO choose the most efficient
+            #units_per_strip = 100/len(texture_array)
+            units_per_strip = textures_units_per_strip[ray.hit_type]
             strip_index = int(ray.block_hit_abs//units_per_strip)
+            
+            # may be needed in case of IndexError on the next line, do not delete
+            #strip_index = strip_index % len(texture_array)
+            
             strip = texture_array[strip_index]
-            #print(ray.block_hit_abs//int(100/len(texture_array)))
-            #column = texture_array[ray.block_hit_abs//int(100/len(texture_array))]
             texture_slice = pg.transform.scale(strip, (1, height))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2))
-
-
-if __name__ == "__main__":
-    # FIXME testing stuff, to delete.
-    
-    game = Game()
-    print("game initialized")
-    
-    window = pg.display.set_mode((RES_X, RES_Y))
-    
-    camera = Camera(game.world.players[0])
-    
-    t = time()
-    camera.draw_frame(window)
-    print(time()-t)
-    
-    pg.display.update()
-    
-    
-    while True:
-        pg.time.delay(100)
-    
+            
+            # display ceiling, wall and floor
+            pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - height//2 - voffset))
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2 - voffset))
+            pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + height//2 - voffset, 1, RES_Y//2 - height//2 + voffset))
