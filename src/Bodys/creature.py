@@ -23,9 +23,10 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
-        self.size = 15
+        self.size = 20
 
-    def in_wall(self, x, y):
+    def in_wall(self, pos ):
+        x , y = pos
         world = self.game.world.map.map
         return world[int((y)//100)][int((x)//100)] != 0
 
@@ -39,10 +40,21 @@ class Creature(Body):
         # respectivly signe of dx and dy 
         sdx = (math.copysign(1,dx))
         sdy = (math.copysign(1,dy))
-
+        sqrt2 = 1
+        #     2
+        #   1   3
+        # 4       6
+        #   7   9
+        #     8
+        posx13  = (x + sqrt2*(sdx*self.size+dx) , y + sqrt2*(sdx*self.size+dx))
+        posx79  = (x + sqrt2*(sdx*self.size+dx) , y - sqrt2*(sdx*self.size+dx))
+        posx46 = (x + sdx*self.size+dx , y) 
+        posy13  = (x + sqrt2*(sdy*self.size+dy) , y + sqrt2*(sdy*self.size+dy))
+        posy79  = (x - sqrt2*(sdy*self.size+dy) , y + sqrt2*(sdy*self.size+dy))
+        posy28 = (x , y + sdy*self.size+dy)
         return (
-            not (self.in_wall(x + sdx*self.size + dx, y) or self.in_wall(x + sdx*self.size + dx, y)), 
-            not (self.in_wall(x, y + sdy*self.size + dy) or self.in_wall(x, y + sdy*self.size + dy))
+            not (self.in_wall(posx46) or self.in_wall(posx13) or self.in_wall(posx79)),
+            not (self.in_wall(posy28) or self.in_wall(posy13) or self.in_wall(posy79))
         )
 
     def rotate(self, direction):
