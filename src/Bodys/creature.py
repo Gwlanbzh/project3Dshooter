@@ -40,21 +40,38 @@ class Creature(Body):
         # respectivly signe of dx and dy 
         sdx = (math.copysign(1,dx))
         sdy = (math.copysign(1,dy))
-        sqrt2 = 1
+        sqrt2 = 0.80
         #     2
         #   1   3
         # 4       6
         #   7   9
         #     8
-        posx13  = (x + sqrt2*(sdx*self.size+dx) , y + sqrt2*(sdx*self.size+dx))
-        posx79  = (x + sqrt2*(sdx*self.size+dx) , y - sqrt2*(sdx*self.size+dx))
-        posx46 = (x + sdx*self.size+dx , y) 
-        posy13  = (x + sqrt2*(sdy*self.size+dy) , y + sqrt2*(sdy*self.size+dy))
-        posy79  = (x - sqrt2*(sdy*self.size+dy) , y + sqrt2*(sdy*self.size+dy))
-        posy28 = (x , y + sdy*self.size+dy)
+        posx13  = (x + sqrt2*(sdx*self.size) , y + sqrt2*(sdx*self.size))
+        posx79  = (x + sqrt2*(sdx*self.size) , y - sqrt2*(sdx*self.size))
+        posy13  = (x + sqrt2*(sdy*self.size) , y + sqrt2*(sdy*self.size))
+        posy79  = (x - sqrt2*(sdy*self.size) , y + sqrt2*(sdy*self.size))
+        posx46 = (x + sdx*(self.size+5) , y) 
+        posy28 = (x , y + sdy*(self.size+5))
+
+
+        # print (dy,dx,sdy,sdx)
+        pg.draw.line(self.game.window,'purple', (self.r),(posx46),10) 
+        pg.draw.line(self.game.window,'purple', (self.r),(posy28),10) 
+        pg.draw.line(self.game.window,'orange', (self.r),(posx13),5) 
+        pg.draw.line(self.game.window,'pink', (self.r),(posx79),5) 
+        pg.draw.line(self.game.window,'brown', (self.r),(posy13),5) 
+        pg.draw.line(self.game.window,'cyan', (self.r),(posx79),5) 
+
+
         return (
-            not (self.in_wall(posx46) or self.in_wall(posx13) or self.in_wall(posx79)),
-            not (self.in_wall(posy28) or self.in_wall(posy13) or self.in_wall(posy79))
+            not (self.in_wall(posx46) 
+                or self.in_wall(posx13) 
+                or self.in_wall(posx79)
+                ),
+            not (self.in_wall(posy28) 
+                or self.in_wall(posy13) 
+                or self.in_wall(posy79)
+                )
         )
 
     def rotate(self, direction):
