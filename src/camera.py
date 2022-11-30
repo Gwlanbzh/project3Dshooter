@@ -5,7 +5,6 @@ from game import *
 from config import * # using MAX_RENDER_DISTANCE, RAY_STEP, RES_X, RES_Y
 from textures import *
 
-WALL_HEIGHT = Config.WALL_HEIGHT
 VIEW_HEIGHT = Config.VIEW_HEIGHT
 RES_X = Config.RES_X
 RES_Y = Config.RES_Y
@@ -20,40 +19,6 @@ resfovratio = RES_Y / FOV
 scr_h = lambda h, d : resfovratio * (h/d)
 
 class Ray():
-    #def __init__(self, origin: v2, direction: v2):
-        #"""
-        #Casts a ray in form of a straight line through the map. 
-        
-        #direction is supposed of magnitude 1.
-        
-        #If no wall is encontered before a distance of MAX_RENDER_DISTANCE,
-        #self.did_encounter is set to False, oterwise True.
-        #self.encountered_type
-        #"""
-        
-        ## Algorithm explanation:
-        ##    First, a vector is created and initialized with the origin's value.
-        ##    Then, at each step t, the function adds RAY_STEP * direction to it
-        ##    and tests whether it goes inside a wall or not. This is equivalent
-        ##    to testing the points on a straight line with a parametric equation
-        ##    M(t) = origin + t*direction, every RAY_STEP.
-        
-        #M = origin.copy()
-        #distance = 0
-        ## mobs_encountered = []  # by appending, the first to render will be the last encountered <=> last in the list.
-        #while map[int(M.y)//100][int(M.x)//100] == NO_W0 and distance < MAX_RENDER_DISTANCE:  # current poition not in a wall AND below max distance
-            #distance += RAY_STEP
-            #M += RAY_STEP * direction
-        
-        #if distance >= MAX_RENDER_DISTANCE:
-            #self.did_encounter = False
-            #self.distance = -1
-            #self.encountered_type = None
-        #else:
-            #self.did_encounter = True
-            #self.distance = distance
-            #self.encountered_type = map[int(M.y)//100][int(M.x)//100]
-    
     def __init__(self, origin: v2, direction: v2):
         """
         Casts a ray by implementing the DDA algorithm.
@@ -153,15 +118,8 @@ class Camera():
         for n in range(RES_X):
             
             
-            # computing the angle between the player's view vector and the ray's and
-            # applying a rotation matrix of this angle to get the ray's vector.
-            # This vector is demonstrated to have a magnitude of 1.
-            
+            # computing the ray's direction vector            
             th = theta(n)
-            #costh = cos(th)
-            #sinth = sin(th)
-            #ray_direction = v2(costh * view_vector.x - sinth * view_vector.y,
-                               #sinth * view_vector.x + costh * view_vector.y)
             
             ray_direction = v2(cos(self.bound_player.orientation + th), 
                                sin(self.bound_player.orientation + th))
@@ -171,7 +129,7 @@ class Camera():
             
             #height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
             upper_height = scr_h(height_map[ray.hit_type], ray.distance * cos(th))
-            lower_height = scr_h(VIEW_HEIGHT, ray.distance * cos(th))
+            lower_height = scr_h(VIEW_HEIGHT             , ray.distance * cos(th))
             height = upper_height + lower_height
             
             # creation of the texture slice to display
@@ -190,5 +148,6 @@ class Camera():
             
             # display ceiling, wall and floor
             pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - upper_height - voffset))
+            #pg.draw.rect(window, (5, 31, 50), (RES_X-n, 0, 1, RES_Y//2 - upper_height - voffset))
             window.blit(texture_slice, (RES_X-n, RES_Y//2 - upper_height - voffset))
             pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + lower_height - voffset, 1, RES_Y//2 - lower_height + voffset))

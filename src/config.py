@@ -19,7 +19,7 @@ class Config():
     
     # rendering-related constants
     WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
-    FOV = pi/1.1
+    FOV = 2*pi/3
     
     VIEW_HEIGHT = 75
     

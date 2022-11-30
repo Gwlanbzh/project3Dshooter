@@ -4,7 +4,7 @@
   [X] Uneven height of wall between top and bottom half of the screen (bottom depending on player's view height, top on walls' height)
   [X] Y-shearing (needs mouse support first)
   [ ] Weapon view
-  [ ] Add custom height to the map data structure, so that differnt walls can have different heights in the same level
+  [X] Add custom height to the map data structure, so that different walls can have different heights in the same level
 
 **Physics**
   [ ] Remake the physics engine to use an acceleration-based method.
