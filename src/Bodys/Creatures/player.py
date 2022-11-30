@@ -108,10 +108,11 @@ class Player(Creature):
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
         #     self.r = x + dx, y + dy
-        
+
         x_permission, y_permission = self.not_colliding(dx, dy)
         if x_permission:
             self.r.x += dx
         if y_permission:
             self.r.y += dy
+
         

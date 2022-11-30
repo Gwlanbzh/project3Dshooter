@@ -62,14 +62,14 @@ class Map:
           Rect(left, top, width, height) -> Rect
         """
         for position in self.world:
-            if self.world[position][0] == 1: # index 0 extracts the type of wall.
+            if self.world[position] == 1: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
                               (position[0] * 100,position[1] * 100,100,100),2)
-            if self.world[position][0] == 2:
+            if self.world[position] == 2:
                 pg.draw.rect(game.window,"blue",
                               (position[0] * 100,position[1] * 100,100,100),2)
 
-            if self.world[position][0] == 3:
+            if self.world[position] == 3:
                 pg.draw.rect(game.window,"orange",
                               (position[0] * 100,position[1] * 100,100,100),2)
   

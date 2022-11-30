@@ -52,11 +52,10 @@ class World:
             mob.update()
             pass
   
-    def draw(self,game):
+    def draw2d(self,game):
         """
-        Draw world
+        Draw world on a 2d plane
   
-        temporary way to display world may change by camera
         """
         game.window.fill('grey')
         # self.camera.draw()

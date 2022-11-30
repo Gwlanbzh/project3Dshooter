@@ -1,4 +1,4 @@
-from math import cos, sin, tan, atan, sqrt
+from math import cos, sin, tan, atan, sqrt , atan2
 import pygame as pg
 from pygame import Vector2 as v2, Vector3 as v3
 from game import *
@@ -19,7 +19,7 @@ FOV = Config.FOV
 
 # function for computing the ray 's direction vector
 atanfov = atan(FOV/2)
-theta = lambda n : tan(atanfov * ( 1-(2*n) / RES_X) )
+theta = lambda n : atan(atanfov * ( 1-(2*n) / RES_X) )
 
 # function for computing the on-screen height of a wall segment
 resfovratio = RES_Y / FOV
@@ -166,7 +166,8 @@ class Camera():
             # finally, computing the ray and displaying the wall segment.
             ray = Ray(self.bound_player.r, ray_direction)
             
-            height = scr_h(WALL_HEIGHT, ray.distance)
+            height = scr_h(WALL_HEIGHT, ray.distance * costh)
+            print (height,ray.distance, atan2(ray_direction.y,ray_direction.x))
             if height < 1:
                 height = 1
             

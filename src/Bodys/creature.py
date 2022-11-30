@@ -36,9 +36,13 @@ class Creature(Body):
             second element is y_permission for moving
         """
         x, y = self.r
+        # respectivly signe of dx and dy 
+        sdx = (math.copysign(1,dx))
+        sdy = (math.copysign(1,dy))
+
         return (
-            not (self.in_wall(x + self.size + dx, y) or self.in_wall(x - self.size + dx, y)),
-            not (self.in_wall(x, y + self.size + dy) or self.in_wall(x, y - self.size + dy))
+            not (self.in_wall(x + sdx*self.size + dx, y) or self.in_wall(x + sdx*self.size + dx, y)), 
+            not (self.in_wall(x, y + sdy*self.size + dy) or self.in_wall(x, y + sdy*self.size + dy))
         )
 
     def rotate(self, direction):
@@ -52,4 +56,5 @@ class Creature(Body):
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght* math.cos(self.orientation),
                       self.r[1] + traylenght* math.sin(self.orientation)),2) 
-        pg.draw.circle(game.window, self.color, self.r,15)
+        pg.draw.circle(game.window, self.color, self.r,self.size)
+

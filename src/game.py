@@ -44,9 +44,8 @@ class Game:
         while True:
             self.check_event()
             self.world.update(self)
-            #self.world.draw(game)
-            self.camera.draw_frame(self.window)
-            #self.draw()
+            self.world.draw2d(game)
+            #self.camera.draw_frame(self.window)
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
             fps = self.clock.get_fps()
