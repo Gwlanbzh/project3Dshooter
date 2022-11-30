@@ -145,14 +145,17 @@ class Camera():
         Displays elements of the environment based on the state of the world.
         Currently only supports 
         """
-        pg.draw.rect(window, (40, 40, 40), (0, 0, RES_X, RES_Y//2))
-        pg.draw.rect(window, (70, 70, 70), (0, RES_Y//2, RES_X, RES_Y//2))
+        voffset = self.bound_player.vorientation  # > 0 implies looking up
+        
+        pg.draw.rect(window, (40, 40, 40), (1, 0, RES_X, RES_Y//2 - voffset))
+        pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - voffset, RES_X, RES_Y//2 + voffset))
         
         # calculate the coordinates of the so-defined player's view vector
         view_vector = v2(cos(self.bound_player.orientation), 
                          sin(self.bound_player.orientation))
         
         for n in range(RES_X):
+            
             
             # computing the angle between the player's view vector and the ray's and
             # applying a rotation matrix of this angle to get the ray's vector.
@@ -183,4 +186,4 @@ class Camera():
             #print(ray.block_hit_abs//int(100/len(texture_array)))
             #column = texture_array[ray.block_hit_abs//int(100/len(texture_array))]
             texture_slice = pg.transform.scale(strip, (1, height))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2)) 
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2 - voffset)) 

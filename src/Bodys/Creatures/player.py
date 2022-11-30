@@ -1,4 +1,4 @@
-from ..creature import Creature
+from ..creature import Creature, Config
 import pygame as pg
 
 class Player(Creature):
@@ -21,6 +21,8 @@ class Player(Creature):
         self.weapons = []
         self.ammo = 0 # may change
         self.color = 'blue'
+        
+        self.vorientation = 0  # used for looking up and down. positive => looking up
         # TODO add ammo data structure
 
     def update(self): # might be move into Creature or Body
@@ -47,3 +49,8 @@ class Player(Creature):
             self.rotate(-1)
         if keys[pg.K_a]:
             self.rotate(1)
+        
+        if keys[pg.K_o]:
+            self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
+        if keys[pg.K_l]:
+            self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)

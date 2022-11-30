@@ -14,6 +14,9 @@ class Config():
     PLAYER_V = 1 # arbitraty value for good feeling
     PLAYER_ROT_SPEED = 0.004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
+    PLAYER_VERT_ROT_SPEED = 10
+    PLAYER_MAX_VERT_ROT = 100
+    
     # rendering-related constants
     WALL_HEIGHT = 150
     MAX_RENDER_DISTANCE = 1000

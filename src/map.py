@@ -23,24 +23,39 @@ colors = [v3(0, 0, 0),
           ]
 
 
-map = [
-    [W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2, W_TX2, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, W_TX2, W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, W_TX2, W_TX2, W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2, W_DEF],
-    [W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
-    [W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_DEF, W_DEF]
-]
+#map = [
+    #[W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2, W_TX2, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, W_TX2, W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, W_TX2, W_TX2, W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2, W_DEF],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_DEF, W_DEF]
+#]
+
+map =  [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ]
+       ]
 
 class Map:
     def __init__(self, game):
