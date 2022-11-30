@@ -18,10 +18,10 @@ class Config():
     PLAYER_MAX_VERT_ROT = 200
     
     # rendering-related constants
-    WALL_HEIGHT = 150
-    MAX_RENDER_DISTANCE = 1000
-    RAY_STEP = 5
+    WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
     FOV = pi/2
+    
+    VIEW_HEIGHT = 75
     
     DISTANCE_FADING = 1.001
     

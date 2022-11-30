@@ -5,14 +5,8 @@ from game import *
 from config import * # using MAX_RENDER_DISTANCE, RAY_STEP, RES_X, RES_Y
 from textures import *
 
-BLACK = v3(0, 0, 0)
-CYAN = v3(0, 255, 255)
-
-DISTANCE_FADING = Config.DISTANCE_FADING
-
 WALL_HEIGHT = Config.WALL_HEIGHT
-MAX_RENDER_DISTANCE = Config.MAX_RENDER_DISTANCE
-RAY_STEP = Config.RAY_STEP
+VIEW_HEIGHT = Config.VIEW_HEIGHT
 RES_X = Config.RES_X
 RES_Y = Config.RES_Y
 FOV = Config.FOV
@@ -175,7 +169,10 @@ class Camera():
             # computing the ray and displaying the wall segment.
             ray = Ray(self.bound_player.r, ray_direction)
             
-            height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
+            #height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
+            upper_height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
+            lower_height = scr_h(VIEW_HEIGHT, ray.distance * cos(th))
+            height = upper_height + lower_height
             
             # creation of the texture slice to display
             texture_array = textures[textures_map[ray.hit_type]]
@@ -192,6 +189,6 @@ class Camera():
             texture_slice = pg.transform.scale(strip, (1, height))
             
             # display ceiling, wall and floor
-            pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - height//2 - voffset))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - height//2 - voffset))
-            pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + height//2 - voffset, 1, RES_Y//2 - height//2 + voffset))
+            pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - upper_height - voffset))
+            window.blit(texture_slice, (RES_X-n, RES_Y//2 - upper_height))
+            pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + lower_height - voffset, 1, RES_Y//2 - lower_height + voffset))

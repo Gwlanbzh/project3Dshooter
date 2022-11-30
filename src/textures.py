@@ -30,10 +30,10 @@ W_TX4 = 5  # wall with texture wall
 W_TX5 = 6  # wall with texture concrete
 
 textures_map = {W_DEF: "quake_texture_5.png",
-                W_TX1: "quake_texture_25.png",
-                W_TX2: "default.png",
-                W_TX3: "xon_concrete_plates.png",
-                W_TX4: "wall.png",
+                W_TX1: "quake_texture_17.png",
+                W_TX2: "quake_texture_25.png",
+                W_TX3: "quake_texture_11.png",
+                W_TX4: "quake_texture_4.png",
                 W_TX5: "concrete.png"
                }
 

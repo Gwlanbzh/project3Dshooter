@@ -1,6 +1,6 @@
 from pygame import Vector2 as v2
 import pygame as pg
-import math
+from math import tau
 from body import Body
 from config import *
 
@@ -25,54 +25,6 @@ class Creature(Body):
         self.health = "int" # TODO
         self.size = 30
 
-    def move(self, direction):
-        """
-        TODO maybye refactoring get inputs and mouvement call
-        Applies Newton's Second Principle then handles collisions
-        with walls, props and mobs. FIXME text not true now
-        direction meaning
-          2
-        1 + 4
-          3
-        
-        Inputs:
-            direction
-        
-        Output:
-            Alter Creature position
-        """
-
-        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        speed = Config.PLAYER_V * dt 
-        V_sin = speed * math.sin(self.orientation) 
-        V_cos = speed * math.cos(self.orientation) 
-        if direction == 1:
-            dx = V_sin 
-            dy = -V_cos 
-        if direction == 2:
-            dx = V_cos 
-            dy = V_sin 
-        if direction == 3:
-            dx = -V_cos 
-            dy = -V_sin 
-        if direction == 4:
-            dx = -V_sin 
-            dy = V_cos
-
-        x, y = self.r
-        ## collision stuff goes here
-        # world = self.game.world.map.map
-        # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
-        #     self.r = x + dx, y + dy
-        
-        x_permission, y_permission = self.not_colliding(dx, dy)
-        if x_permission:
-            x += dx
-        if y_permission:
-            y += dy 
-        
-        self.r = v2(x, y)
-
     def in_wall(self, x, y):
         world = self.game.world.map.map
         return world[int((y)//100)][int((x)//100)] != 0
@@ -92,7 +44,7 @@ class Creature(Body):
     def rotate(self, direction):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
-        self.orientation %= math.tau
+        self.orientation %= tau
 
 
     def draw(self, game): # might be move into Creature or Body
