@@ -28,7 +28,7 @@ class Player(Creature):
 
         # weapons attributes
         self.weapons = []
-        self.current_weapon = Pistol()
+        self.current_weapon = Weapon()
         self.ammo = 0 # may change to dict ?
 
     def update(self): # might be move into Creature or Body
@@ -114,7 +114,7 @@ class Player(Creature):
         
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
-            self.current_weapon.hit_scan(self, self.game.world.mobs)
+            self.current_weapon.hit_scan(self.r, self.orientation, self.game.world.mobs)
 
         return moves
     

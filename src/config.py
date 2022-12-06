@@ -1,6 +1,8 @@
 from math import pi
 import pygame as pg
 
+WALL_WIDTH = 100
+
 class Config():
     """
     Contains constants for the game.

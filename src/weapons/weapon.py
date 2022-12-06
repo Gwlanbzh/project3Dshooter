@@ -12,7 +12,7 @@ class Weapon():
         # self.sprite = sprite object
         # add sprite
     
-    def hit_scan(self, player, mob_list):
+    def hit_scan(self, pos, orientation, mob_list):
         """
         check if a mob is touch on click and act in consequence.
         """
@@ -20,7 +20,7 @@ class Weapon():
         if t - self.last_shot_time > self.delay: # 100 ms between shots 
             self.last_shot_time = t
         
-            sorted_mob_list = [(self.dist(player, mob), mob) for mob in mob_list]
+            sorted_mob_list = [(self.dist(pos, mob), mob) for mob in mob_list]
             sorted_mob_list = sorted(sorted_mob_list)
 
             for dist, mob in sorted_mob_list:
@@ -28,8 +28,8 @@ class Weapon():
                     return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
                 else:
                     teta_max = atan((mob.size/dist)) # la marge d'erreur pour l'angle de tir du joueur.
-                    delta_x = player.r.x - mob.r.x
-                    delta_y = player.r.y - mob.r.y
+                    delta_x = pos.x - mob.r.x
+                    delta_y = pos.y - mob.r.y
                     
                     # pour expliquer ça il y a un screen sur le onedrive
                     if delta_x > 0:
@@ -44,19 +44,20 @@ class Weapon():
                             angle_p_m = acos(abs(delta_x)/dist)
 
                     # angle_p_m (angle player mob) représente la valeur de que player.orientaion devrait avoir pour toucher en plein milieu le mob.
-                    teta = player.orientation - angle_p_m
+                    teta = orientation - angle_p_m
                     if abs(teta) < teta_max:
                         print("shoot !")
                         return # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
-    def dist(self, player, mob):
+    def dist(self, pos, mob):
         """
         test if a mob can be shot by a player
         """
-        diff = player.r - mob.r
+        diff = pos - mob.r
         dist = hypot(diff.x, diff.y)
 
         return dist
 
-
+    def draw(self, game):
+        pass
 

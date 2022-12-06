@@ -3,7 +3,8 @@
 
 import pygame as pg
 from pygame import Vector3 as v3
-
+from config import Config
+from config import WALL_WIDTH
 
 # Defnition de la map 
 # 0 = False = vide
@@ -63,12 +64,12 @@ class Map:
         for position in self.world:
             if self.world[position] == 1: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
-                              (position[0] * 100,position[1] * 100,100,100),2)
+                              (position[0] * WALL_WIDTH, position[1] * 100,100,100),2)
             if self.world[position] == 2:
                 pg.draw.rect(game.window,"blue",
-                              (position[0] * 100,position[1] * 100,100,100),2)
+                              (position[0] * WALL_WIDTH, position[1] * 100,100,100),2)
 
             if self.world[position] == 3:
                 pg.draw.rect(game.window,"orange",
-                              (position[0] * 100,position[1] * 100,100,100),2)
+                              (position[0] * WALL_WIDTH, position[1] * 100, 100, 100),2)
   
