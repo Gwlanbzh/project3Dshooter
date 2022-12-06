@@ -1,4 +1,4 @@
-from math import cos, sin, tan, atan, sqrt
+from math import cos, sin, tan, atan, sqrt , atan2
 import pygame as pg
 from pygame import Vector2 as v2, Vector3 as v3
 from game import *

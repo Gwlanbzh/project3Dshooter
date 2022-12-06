@@ -1,7 +1,8 @@
-from ..creature import Creature, Config
+from ..creature import Creature
 import pygame as pg
 from pygame import Vector2 as v2
 from math import cos, sin, sqrt
+from config import Config
 
 class Player(Creature):
     """
@@ -23,8 +24,7 @@ class Player(Creature):
         self.weapons = []
         self.ammo = 0 # may change
         self.color = 'blue'
-        
-        self.vorientation = 0  # used for looking up and down. positive => looking up
+        self.vorientation = 0
         # TODO add ammo data structure
 
     def update(self): # might be move into Creature or Body
@@ -162,10 +162,10 @@ class Player(Creature):
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
         #     self.r = x + dx, y + dy
-        
+
         x_permission, y_permission = self.not_colliding(dx, dy)
         if x_permission:
             self.r.x += dx
         if y_permission:
             self.r.y += dy
-    
+
