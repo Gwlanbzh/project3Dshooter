@@ -1,6 +1,5 @@
 from math import pi
 import pygame as pg
-from pygame import Vector2 as v2, Vector3 as v3
 
 class Config():
     """

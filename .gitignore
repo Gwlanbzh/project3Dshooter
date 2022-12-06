@@ -1,8 +1,8 @@
-.gitignore
 .kdev4/
 projet3dshooter.kdev4
 shell.nix
 src/__pycache__/
-src/Bodys/Creatures/__pycache__/
-src/Bodys/__pycache__/
-src/Weapons/__pycache__/
+src/bodys/creatures/__pycache__/
+src/bodys/__pycache__/
+src/weapons/__pycache__/
+src/render/__pycache__/

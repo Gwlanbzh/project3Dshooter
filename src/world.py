@@ -1,10 +1,6 @@
-import pygame as pg
-from pygame import Vector2 as v2
 from config import *
 from map import *
-from body import Body
-from Bodys.Creatures.mob import Mob 
-from Bodys.Creatures.player import Player 
+from bodys import *
 
 class World:
     """
@@ -36,7 +32,7 @@ class World:
         self.players = [Player(game,(150,150))]
         self.map = Map(game)
   
-    def update (self,game):
+    def update (self, game):
         """
         call upadate for every Body(or more) in the world
         and

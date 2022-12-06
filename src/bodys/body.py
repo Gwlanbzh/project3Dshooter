@@ -10,7 +10,7 @@ class Body():
         Spanws a Body.
         
         Input:
-            r: tuple (x,y)
+            r: pygame.Vector2(x,y)
         
         Outputs:
             Body
@@ -35,4 +35,4 @@ class Body():
 
     def draw(self,game): # draw object
         traylenght = 100
-        pg.draw.circle(game.window, self.color, tuple(self.r),15)
+        pg.draw.circle(game.window, self.color, self.r, 15)

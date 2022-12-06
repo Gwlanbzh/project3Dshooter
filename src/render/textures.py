@@ -1,7 +1,6 @@
-from os import listdir
 import pygame as pg
-from config import Config
 from math import pi
+from config import Config
 
 TEXTURES_FOLDER = Config.TEXTURES_FOLDER
 RES_Y = Config.RES_Y
@@ -53,7 +52,6 @@ textures = {id:load_texture(TEXTURES_FOLDER+textures_map[id]) for id in textures
 textures_units_per_strip = {t:100/len(textures[t]) for t in textures_map}
 
 
-
 #skybox = [pg.transform.scale(column, (1, RES_Y)) for column in load_texture("assets/env/green-half.png")]
 
 img = pg.image.load("assets/env/green.png")
@@ -75,3 +73,10 @@ if __name__ =="__main__":
         for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
+
+textures_map = {
+                1: "default.png",
+                2: "default2.png",
+                3: "mc_wall.png",
+                4: "xon_concrete_plates.png"
+            }

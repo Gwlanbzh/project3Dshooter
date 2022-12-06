@@ -3,7 +3,8 @@ from pygame import Vector2 as v2
 import sys
 from config import *
 from world import *
-from camera import *
+from render import Camera
+from bodys import *
 
 class Game:
     def __init__(self):

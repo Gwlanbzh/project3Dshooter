@@ -1,4 +1,4 @@
-from ..creature import Creature
+from bodys.creatures.creature import Creature
 class Mob(Creature):
     def __init__(self,game,r):
         """

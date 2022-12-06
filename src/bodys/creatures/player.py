@@ -1,14 +1,15 @@
-from ..creature import Creature
 import pygame as pg
 from pygame import Vector2 as v2
-from math import cos, sin, sqrt
+from math import cos, sin, hypot
 from config import Config
+from bodys import Creature
+from weapons import *
 
 class Player(Creature):
     """
     Controllable Creature with weapons.
     """
-    def __init__(self,game ,r):
+    def __init__(self, game, r):
         """
         Spawns a Player.
         
@@ -21,11 +22,14 @@ class Player(Creature):
         """
         super().__init__(game,r)
         self.heal_recovery_time = 10000 # valeur arbitraire
-        self.weapons = []
-        self.ammo = 0 # may change
         self.color = 'blue'
         self.vorientation = 0
         # TODO add ammo data structure
+
+        # weapons attributes
+        self.weapons = []
+        self.current_weapon = Pistol()
+        self.ammo = 0 # may change to dict ?
 
     def update(self): # might be move into Creature or Body
         self.move()
@@ -107,6 +111,10 @@ class Player(Creature):
             self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
         if keys[pg.K_k]:
             self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
+        
+        left_click, _, _ = pg.mouse.get_pressed()
+        if left_click:
+            self.current_weapon.hit_scan(self, self.game.world.mobs)
 
         return moves
     
@@ -154,10 +162,9 @@ class Player(Creature):
             dy += V_cos
         
         if dx != 0 or dy != 0:
-            k = speed * (1/sqrt(dx**2 + dy**2))
+            k = speed * (1/hypot(dx, dy))
             dx = k * dx
             dy = k * dy
-
         ## collision stuff goes here
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
