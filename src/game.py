@@ -11,8 +11,8 @@ class Game:
         Important init for the game main component
         """
         pg.init()
-        #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         #pg.display.toggle_fullscreen()
         self.world = World(self) 
         # self.camera = Camera()

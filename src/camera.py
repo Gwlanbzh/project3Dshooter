@@ -1,4 +1,4 @@
-from math import cos, sin, tan, atan, sqrt
+from math import cos, sin, tan, atan, sqrt, tau
 import pygame as pg
 from pygame import Vector2 as v2, Vector3 as v3
 from game import *
@@ -8,14 +8,15 @@ from textures import *
 VIEW_HEIGHT = Config.VIEW_HEIGHT
 RES_X = Config.RES_X
 RES_Y = Config.RES_Y
-FOV = Config.FOV
+FOV_X = Config.FOV_X
+FOV_Y = Config.FOV_Y
 
 # function for computing the ray 's direction vector
-atanfov = atan(FOV/2)
+atanfov = atan(FOV_X/2)
 theta = lambda n : atan(atanfov * ( 1-(2*n) / RES_X) )
 
 # function for computing the on-screen height of a wall segment
-resfovratio = RES_Y / FOV
+resfovratio = RES_Y / FOV_Y
 scr_h = lambda h, d : resfovratio * (h/d)
 
 class Ray():
@@ -58,7 +59,7 @@ class Ray():
         
         # Main loop, the DDA algorithm itself
         
-        while map[y_cell][x_cell] == NO_W0:
+        while map[y_cell][x_cell] == NO_WALL:
             if x_delta < y_delta:
                 x_delta += x_ratio
                 x_cell += x_step
@@ -104,19 +105,20 @@ class Camera():
         Displays elements of the environment based on the state of the world.
         Currently only supports 
         """
-        voffset = self.bound_player.vorientation  # > 0 implies looking up
+        voffset = -self.bound_player.vorientation  # < 0 implies looking up
         
         # Those calls are alternate to those in the display section.
         # TODO benchmark both to keep the most efficient.
         #pg.draw.rect(window, (40, 40, 40), (1, 0, RES_X, RES_Y//2 - voffset))
         #pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - voffset, RES_X, RES_Y//2 + voffset))
         
-        # calculate the coordinates of the so-defined player's view vector
-        view_vector = v2(cos(self.bound_player.orientation), 
-                         sin(self.bound_player.orientation))
+        rays          = []
+        z_buffer      = []
+        upper_heights = []
+        lower_heights = []
+               
         
         for n in range(RES_X):
-            
             
             # computing the ray's direction vector            
             th = theta(n)
@@ -126,28 +128,32 @@ class Camera():
             
             # computing the ray and displaying the wall segment.
             ray = Ray(self.bound_player.r, ray_direction)
+            rays.append(ray)
             
-            #height = scr_h(WALL_HEIGHT, ray.distance * cos(th))
-            upper_height = scr_h(height_map[ray.hit_type], ray.distance * cos(th))
-            lower_height = scr_h(VIEW_HEIGHT             , ray.distance * cos(th))
-            height = upper_height + lower_height
+            distance = ray.distance * cos(th)
+            z_buffer.append(distance)
             
+            upper_heights.append(scr_h(height_map[ray.hit_type], distance))
+            lower_heights.append(scr_h(VIEW_HEIGHT             , distance))
+        
+        
+        
+        # Display
+        
+        #window.blit(skybox, (-int(self.bound_player.orientation*skybox.get_width()/(2*pi)), 0))
+        window.blit(skybox, (-int(self.bound_player.orientation//skybox_angle_per_stripe), -RES_Y//2-voffset))
+        
+        for n in range(RES_X):
             # creation of the texture slice to display
-            texture_array = textures[textures_map[ray.hit_type]]
+            texture_array = textures[rays[n].hit_type]
             
-            # TODO choose the most efficient
-            #units_per_strip = 100/len(texture_array)
-            units_per_strip = textures_units_per_strip[ray.hit_type]
-            strip_index = int(ray.block_hit_abs//units_per_strip)
-            
-            # may be needed in case of IndexError on the next line, do not delete
-            #strip_index = strip_index % len(texture_array)
+            units_per_strip = textures_units_per_strip[rays[n].hit_type]
+            strip_index = int(rays[n].block_hit_abs//units_per_strip)
             
             strip = texture_array[strip_index]
-            texture_slice = pg.transform.scale(strip, (1, height))
+            texture_slice = pg.transform.scale(strip, (1, upper_heights[n] + lower_heights[n]))
             
             # display ceiling, wall and floor
-            pg.draw.rect(window, (40, 40, 40), (RES_X-n, 0, 1, RES_Y//2 - upper_height - voffset))
-            #pg.draw.rect(window, (5, 31, 50), (RES_X-n, 0, 1, RES_Y//2 - upper_height - voffset))
-            window.blit(texture_slice, (RES_X-n, RES_Y//2 - upper_height - voffset))
-            pg.draw.rect(window, (70, 70, 70), (RES_X-n, RES_Y//2 + lower_height - voffset, 1, RES_Y//2 - lower_height + voffset))
+            #pg.draw.rect(window, (94, 145, 255), (RES_X-n, 0, 1, RES_Y//2 - upper_heights[n] - voffset))
+            window.blit(texture_slice, (RES_X-n-1, RES_Y//2 - upper_heights[n] - voffset))
+            pg.draw.rect(window, (70, 70, 70), (RES_X-n-1, RES_Y//2 + lower_heights[n] - voffset-1, 1, RES_Y//2 - lower_heights[n] + voffset +2))
