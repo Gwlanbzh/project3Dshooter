@@ -11,8 +11,8 @@ class Game:
         Important init for the game main component
         """
         pg.init()
-        #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         #pg.display.toggle_fullscreen()
         self.world = World(self) 
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
