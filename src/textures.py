@@ -42,14 +42,11 @@ height_map = {W_TX0: 75,
 
 # Load the textures as arrays of colum surfaces.
 
-def load_texture (path:str, surface=True):
+def load_texture(path:str):
     """
     Return an array of the columns of a given image, as surfaces if surface is True, else as PixelArrays.
     """
-    if surface:
-        return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path))]
-    else:
-        return [column.transpose() for column in pg.PixelArray(pg.image.load(path))]
+    return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path))]
 
 textures = {id:load_texture(TEXTURES_FOLDER+textures_map[id]) for id in textures_map}
 
