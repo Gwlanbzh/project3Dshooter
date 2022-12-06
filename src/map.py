@@ -14,10 +14,6 @@ from config import Config
 textures = {'d': "default"}
 
 # the map contains tuples (wall_type: int, texture: str), defined here.
-NO_W0 = 0   # no wall
-W_DEF = 1  # squared wall
-W_TX1 = 2  # triangled wall nb 1
-W_TX2 = 3  # triangled wall nb 2
 
 colors = [v3(0, 0, 0),
           v3(255, 0, 0),
@@ -26,16 +22,44 @@ colors = [v3(0, 0, 0),
           ]
 
 
-map = [
-    [W_TX1, W_DEF, W_TX1, W_DEF, W_DEF, W_TX2, W_TX2, W_TX2, W_DEF, W_DEF, W_DEF, W_DEF],
-    [W_DEF, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_DEF],
-    [W_TX2, NO_W0, NO_W0, W_DEF, NO_W0, NO_W0, NO_W0, W_DEF, W_DEF, W_DEF, NO_W0, W_DEF],
-    [W_DEF, W_TX2, W_DEF, W_DEF, NO_W0, NO_W0, NO_W0, W_DEF, NO_W0, NO_W0, NO_W0, W_DEF],
-    [W_DEF, NO_W0, NO_W0, NO_W0, NO_W0, W_TX1, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_DEF],
-    [W_DEF, NO_W0, W_TX1, W_TX1, W_TX1, NO_W0, W_TX1, W_TX1, NO_W0, NO_W0, W_DEF, W_DEF],
-    [W_DEF, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_DEF, W_DEF, W_DEF],
-    [W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF, W_DEF]
-]
+#map = [
+    #[W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2, W_TX2, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, W_TX2, W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, W_TX2, W_TX2, W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2, W_TX2, W_DEF],
+    #[W_TX2, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, NO_W0, W_TX2],
+    #[W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_TX2, W_DEF, W_DEF]
+#]
+
+map =  [[1, 1, 1, 1, 1, 1, 3, 3, 3, 7, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ],
+        [1, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, ],
+        [1, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, ],
+        [1, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, ],
+        [1, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, ],
+        [1, 1, 1, 1, 0, 1, 3, 3, 3, 0, 3, 3, 3, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 5, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 5, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 6, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 5, 0, 0, 0, 0, 2, 0, 0, 0, 6, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 6, 6, 6, 0, 0, 0, 0, 4, 0, 0, 0, 1, ],
+        [2, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ]
+       ]
 
 class Map:
     def __init__(self, game):
@@ -52,7 +76,7 @@ class Map:
         '''
         for j,row in enumerate(self.map):
             for i, value in enumerate(row):
-                if value != NO_W0:
+                if value != 0:
                     self.world[(i,j)] = value
   
     def draw(self, game):

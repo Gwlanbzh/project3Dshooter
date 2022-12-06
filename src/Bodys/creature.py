@@ -1,6 +1,6 @@
 from pygame import Vector2 as v2
 import pygame as pg
-import math
+from math import tau, sin, cos
 from body import Body
 from config import *
 
@@ -23,7 +23,7 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = "int" # TODO
-        self.size = 15
+        self.size = 30
 
     def in_wall(self, x, y):
         world = self.game.world.map.map
@@ -44,12 +44,12 @@ class Creature(Body):
     def rotate(self, direction):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
-        self.orientation %= math.tau
+        self.orientation %= tau
 
 
     def draw(self, game): # might be move into Creature or Body
         traylenght = 100
         pg.draw.line(game.window,'yellow', (self.r),
-                     (self.r[0]+ traylenght* math.cos(self.orientation),
-                      self.r[1] + traylenght* math.sin(self.orientation)),2) 
+                     (self.r[0]+ traylenght * cos(self.orientation),
+                      self.r[1] + traylenght * sin(self.orientation)),2) 
         pg.draw.circle(game.window, self.color, self.r,15)

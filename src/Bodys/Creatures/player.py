@@ -1,7 +1,7 @@
-from ..creature import Creature
+from ..creature import Creature, Config
 import pygame as pg
-from config import Config
-import math
+from pygame import Vector2 as v2
+from math import cos, sin, sqrt
 
 class Player(Creature):
     """
@@ -23,6 +23,8 @@ class Player(Creature):
         self.weapons = []
         self.ammo = 0 # may change
         self.color = 'blue'
+        
+        self.vorientation = 0  # used for looking up and down. positive => looking up
         # TODO add ammo data structure
 
     def update(self): # might be move into Creature or Body
@@ -30,6 +32,53 @@ class Player(Creature):
         # heal
         # status, maybe buff / debuff
         # TODO : not logical to call self.get_inputs, call self.move() instead would be better
+    
+    def move(self, direction):
+        """
+        TODO maybye refactoring get inputs and mouvement call
+        Applies Newton's Second Principle then handles collisions
+        with walls, props and mobs. FIXME text not true now
+        direction meaning
+          2
+        1 + 4
+          3
+        
+        Inputs:
+            direction
+        
+        Output:
+            Alter Creature position
+        """
+        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
+        speed = Config.PLAYER_V * dt 
+        V_sin = speed * sin(self.orientation) 
+        V_cos = speed * cos(self.orientation) 
+        if direction == 1:
+            dx = V_sin 
+            dy = -V_cos 
+        if direction == 2:
+            dx = V_cos 
+            dy = V_sin 
+        if direction == 3:
+            dx = -V_cos 
+            dy = -V_sin 
+        if direction == 4:
+            dx = -V_sin 
+            dy = V_cos
+
+        x, y = self.r
+        ## collision stuff goes here
+        # world = self.game.world.map.map
+        # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
+        #     self.r = x + dx, y + dy
+        
+        x_permission, y_permission = self.not_colliding(dx, dy)
+        if x_permission:
+            x += dx
+        if y_permission:
+            y += dy 
+        
+        self.r = v2(x, y)
     
     def get_inputs(self):
         """
@@ -54,6 +103,11 @@ class Player(Creature):
         if keys[pg.K_a]:
             self.rotate(1)
         
+        if keys[pg.K_o]:
+            self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
+        if keys[pg.K_k]:
+            self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
+
         return moves
     
     def move(self):
@@ -77,8 +131,8 @@ class Player(Creature):
 
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         speed = Config.PLAYER_V * dt 
-        V_sin = math.sin(self.orientation) 
-        V_cos = math.cos(self.orientation) 
+        V_sin = sin(self.orientation) 
+        V_cos = cos(self.orientation) 
 
         dx = 0
         dy = 0
@@ -100,7 +154,7 @@ class Player(Creature):
             dy += V_cos
         
         if dx != 0 or dy != 0:
-            k = speed * (1/math.sqrt(dx**2 + dy**2))
+            k = speed * (1/sqrt(dx**2 + dy**2))
             dx = k * dx
             dy = k * dy
 
@@ -114,4 +168,4 @@ class Player(Creature):
             self.r.x += dx
         if y_permission:
             self.r.y += dy
-        
+    
