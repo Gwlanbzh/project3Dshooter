@@ -35,7 +35,7 @@ class Body():
             Surface
         """
         #return self.sprite()
-        pass
+        return self.sprite
 
     def draw(self,game): # draw object
         traylenght = 100

@@ -84,32 +84,35 @@ class Camera():
                                                ))
         
         ## sprites
-        i = 0
-        body = self.bound_player.game.world.props[i]
-        #print("r", body.r)
-        delta_r = body.r - self.bound_player.r
-        #print("delta_r", delta_r)
-        vp = direcion_vector.cross(delta_r)
-        
-        if delta_r != v2(0, 0):   # when itering, will have to replace with "continue"
-            # edge case in which we won't draw
-        
-            #angle = acos( direcion_vector.dot(delta_r) / (direcion_vector.magnitude() * delta_r.magnitude()) )
+        #i = 0
+        bodies = self.bound_player.game.world.props + self.bound_player.game.world.mobs
+        for i in range(len(bodies)):
+            body = bodies[i]
+            sprite = body.get_sprite()
+            #print("r", body.r)
+            delta_r = body.r - self.bound_player.r
+            #print("delta_r", delta_r)
+            vp = direcion_vector.cross(delta_r)
             
-            #angle = sign(vp) * asin( abs(vp) / (direcion_vector.magnitude() * delta_r.magnitude()) )
+            if delta_r != v2(0, 0):   # when itering, will have to replace with "continue"
+                # edge case in which we won't draw
             
-            # combinaison des formules des angles avec cos est sin pour éviter les deux symétries
-            angle = sign(vp) * acos( direcion_vector.dot(delta_r) / (direcion_vector.magnitude() * delta_r.magnitude()) )
-            #print("angle", angle)
-            
-            if abs(angle) < FOV_X/2 :
-                upper_height = scr_h(body.sprite[0].get_height()-Config.VIEW_HEIGHT, delta_r.magnitude()*cos(angle))
-                lower_height = scr_h(Config.VIEW_HEIGHT, delta_r.magnitude()*cos(angle))
-                draw_coordinates = v2(RES_X//2 - theta_inv(angle) - len(body.sprite)/2, 
-                                      RES_Y//2 - upper_height - voffset
-                                     )
-                #print("scr_h", draw_coordinates.y+voffset)
+                #angle = acos( direcion_vector.dot(delta_r) / (direcion_vector.magnitude() * delta_r.magnitude()) )
                 
-                for x in range(len(body.sprite)):
-                    window.blit(pg.transform.scale(body.sprite[x], (1, upper_height+lower_height)), draw_coordinates+v2(x, 0))
+                #angle = sign(vp) * asin( abs(vp) / (direcion_vector.magnitude() * delta_r.magnitude()) )
+                
+                # combinaison des formules des angles avec cos est sin pour éviter les deux symétries
+                angle = sign(vp) * acos( direcion_vector.dot(delta_r) / (direcion_vector.magnitude() * delta_r.magnitude()) )
+                #print("angle", angle)
+                
+                if abs(angle) < FOV_X/2 :
+                    upper_height = scr_h(body.sprite[0].get_height()-Config.VIEW_HEIGHT, delta_r.magnitude()*cos(angle))
+                    lower_height = scr_h(Config.VIEW_HEIGHT, delta_r.magnitude()*cos(angle))
+                    draw_coordinates = v2(RES_X//2 - theta_inv(angle) - len(body.sprite)/2, 
+                                        RES_Y//2 - upper_height - voffset
+                                        )
+                    #print("scr_h", draw_coordinates.y+voffset)
+                    
+                    for x in range(len(body.sprite)):
+                        window.blit(pg.transform.scale(sprite[x], (1, upper_height+lower_height)), draw_coordinates+v2(x, 0))
             
