@@ -1,29 +1,18 @@
-# Attention pour le draw de Map il faut mieux avec une taille d'ecran egale a 100 * la taille du tableau
-# genre pour la map ici c genre largeur = 12*100 et hauteur = 8*100
-
 import pygame as pg
 from pygame import Vector3 as v3
 
+# Attention pour le draw de Map il faut mieux avec une taille d'ecran egale a 100 * la taille du tableau
+# genre pour la map ici c genre largeur = 12*100 et hauteur = 8*100
 
 # Defnition de la map 
 # 0 = False = vide
 # 1..n = Wall type
 # WAll type, will certainly be wall with different texture like reppresented on the top preview
-
-textures = {'d': "default"}
-
-# the map contains tuples (wall_type: int, texture: str), defined here.
-
-colors = [v3(0, 0, 0),
-          v3(255, 0, 0),
-          v3(0, 255, 0),
-          v3(0, 100, 255),
-          ]
           
 
-map =  [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ],
+map =  [[1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
-        [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
+        [1, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
         [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
         [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],
         [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ],

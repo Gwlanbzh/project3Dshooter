@@ -29,7 +29,7 @@ class Game:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit() # quit pygame
-                sys.exit() # better quit, remove somme error when  quiting
+                sys.exit() # better quit, remove some error when  quiting
   
     def run(self):
         """
@@ -37,8 +37,9 @@ class Game:
         """
         while True:
             self.check_event()
-            # self.world.draw2d(game)
+            #self.world.draw2d(game)
             self.world.update(self)
+            #self.world.props[0].r += v2(0.2, 0)
             self.camera.draw_frame(self.window)
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)

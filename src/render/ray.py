@@ -3,6 +3,8 @@ from map import *
 from math import sqrt
 from render.vars import *
 from render.textures import *
+
+
 class Ray():
     def __init__(self, origin: v2, direction: v2):
         """

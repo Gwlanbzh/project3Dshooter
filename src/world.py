@@ -21,11 +21,11 @@ class World:
         Outputs:
             World
         """
-        self.props = [Body(game,(350,150)),
-                      Body(game,(950,450)),
-                      Body(game,(550,550)),
-                      Body(game,(850,650))]
-        self.mobs = [Mob(game,(450,150)),
+        self.props = [Light(game,(450,150)),
+                      Light(game,(950,450)),
+                      Tree(game,(550,550)),
+                      Tree(game,(850,650))]
+        self.mobs = [Mob(game,(350,150)),
                      Mob(game,(450,450)),
                      Mob(game,(550,650)),
                      Mob(game,(750,450))]

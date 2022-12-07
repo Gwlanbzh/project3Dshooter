@@ -1,5 +1,6 @@
 import pygame as pg 
 from pygame import Vector2 as v2
+from render.sprites import *
 
 class Body():
     """
@@ -19,7 +20,9 @@ class Body():
         self.v = (0, 0) # FIXME not use for now
         self.color = 'magenta'
         self.game = game # link to dt
+        
         ## TODO add sprites data structure
+        self.sprite = static_sprites["default.png"]
     
     def get_sprite(self):
         """
@@ -31,6 +34,7 @@ class Body():
         Outputs:
             Surface
         """
+        #return self.sprite()
         pass
 
     def draw(self,game): # draw object
