@@ -12,13 +12,9 @@ class Game:
         Important init for the game main component
         """
         pg.init()
-        pg.mouse.set_visible(False)
-        pg.event.set_grab(True)
-        #pg.mouse.set_pos((Config.RES_X//2, Config.RES_Y//2))
-        
+                
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
-        #pg.display.toggle_fullscreen()
         self.world = World(self) 
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time

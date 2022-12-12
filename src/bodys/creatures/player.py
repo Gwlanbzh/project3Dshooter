@@ -32,6 +32,10 @@ class Player(Creature):
         self.current_weapon = Pistol()
         self.ammo = 0 # may change to dict ?
 
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
+
+
     def update(self): # might be move into Creature or Body
         self.move()
         # heal
