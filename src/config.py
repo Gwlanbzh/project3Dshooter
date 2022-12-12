@@ -10,9 +10,9 @@ class Config():
     FRAME_RATE = 200
 
     PLAYER_V = 1 # arbitraty value for good feeling
-    PLAYER_ROT_SPEED = 0.004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_ROT_SPEED = 4e-4  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
-    PLAYER_VERT_ROT_SPEED = 4
+    PLAYER_VERT_ROT_SPEED = .4
     PLAYER_MAX_VERT_ROT = 200
     
     # rendering-related constants

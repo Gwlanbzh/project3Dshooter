@@ -113,9 +113,16 @@ class Player(Creature):
         if keys[pg.K_k]:
             self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
         
+        # Mouse events
+        
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
             self.current_weapon.hit_scan(self, self.game.world.mobs)
+        
+        mouse_delta_pos = pg.mouse.get_rel()
+        x, y = mouse_delta_pos
+        self.vorientation = self.vorientation - y * Config.PLAYER_VERT_ROT_SPEED
+        self.rotate(-x)
 
         return moves
     
