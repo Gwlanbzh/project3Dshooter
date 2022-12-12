@@ -12,7 +12,7 @@ class Config():
     RES_X, RES_Y = WINDOW_SIZE
     FRAME_RATE = 120
 
-    PLAYER_V = 1 # arbitraty value for good feeling
+    PLAYER_V = 0.5 # arbitraty value for good feeling
     PLAYER_ROT_SPEED = 0.004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
     PLAYER_VERT_ROT_SPEED = 1

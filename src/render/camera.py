@@ -5,11 +5,10 @@ from map import *
 from render.textures import *
 from render.vars import *
 from render import Ray
-from bodys import Player
 
 
 class Camera():
-    def __init__(self, player: Player):
+    def __init__(self, player):
         """
         Create a camera and bind it to a specific player's point of view.
         """

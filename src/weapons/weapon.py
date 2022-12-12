@@ -1,10 +1,12 @@
 import pygame as pg
-from math import hypot, atan, acos, tau, pi
+from pygame import Vector2 as v2
+from math import hypot, atan, acos, cos, sin, tau, pi
+from render.ray import Ray
 pi_2 = pi / 2
 
 class Weapon():
     def __init__(self):
-        self.dmg = 0
+        self.dmg = 10
         self.delay = 100 # en ms
         self.range = 100 # 100 -> largeur d'un carré
 
@@ -24,7 +26,11 @@ class Weapon():
             sorted_mob_list = sorted(sorted_mob_list)
 
             for dist, mob in sorted_mob_list:
-                if dist > self.range:
+                # test mur
+                direction = v2(cos(mob.orientation), sin(mob.orientation))
+                rayon = Ray(mob.r, direction)
+
+                if dist > self.range or rayon.distance < dist:
                     return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
                 else:
                     teta_max = atan((mob.size/dist)) # la marge d'erreur pour l'angle de tir du joueur.
@@ -46,7 +52,7 @@ class Weapon():
                     # angle_p_m (angle player mob) représente la valeur de que player.orientaion devrait avoir pour toucher en plein milieu le mob.
                     teta = orientation - angle_p_m
                     if abs(teta) < teta_max:
-                        print("shoot !")
+                        mob.health = max(mob.health - self.dmg, 0)
                         return # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
     def dist(self, pos, mob):
@@ -58,6 +64,6 @@ class Weapon():
 
         return dist
 
-    def draw(self, game):
+    def draw(self, window):
         pass
 
