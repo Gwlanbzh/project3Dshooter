@@ -1,4 +1,6 @@
+from render.sprites import SpriteStruct, static_sprites
 from bodys.creatures.creature import Creature
+
 class Mob(Creature):
     def __init__(self,game,r):
         """
@@ -12,6 +14,7 @@ class Mob(Creature):
         """
         super().__init__(game,r)
         self.color = 'red' 
+        self.spriteStruct = SpriteStruct(static_sprites["putin.png"], 200)
 
     def update(self):
         self.ia_command()

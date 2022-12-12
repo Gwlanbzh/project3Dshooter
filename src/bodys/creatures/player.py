@@ -5,6 +5,7 @@ from config import Config
 from bodys import Creature
 from weapons import *
 
+
 class Player(Creature):
     """
     Controllable Creature with weapons.

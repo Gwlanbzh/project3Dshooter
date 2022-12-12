@@ -4,6 +4,7 @@ from math import *
 from bodys import Body
 from config import *
 
+
 class Creature(Body):
     """
     Body with implemented physics, life etc.

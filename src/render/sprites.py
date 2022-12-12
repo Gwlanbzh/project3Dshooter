@@ -1,12 +1,25 @@
+from dataclasses import dataclass
 import pygame as pg
 from render.textures import load_texture
+from render.vars import *
 
 
-spritesdir = "assets/sprites/"
+__all__ = ["static_sprites", "SpriteStruct"]
 
-static_sprites_names = ["default.png",
-                        "light.png",
-                        "tree.png",
-                        ]
 
-static_sprites = {sprite:load_texture(spritesdir+sprite) for sprite in static_sprites_names}
+static_sprites_names = [
+    "default.png",
+    "putin.png",
+    "light.png",
+    "tree.png",
+    "demon.png",
+]
+
+static_sprites = {sprite:load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
+
+
+@dataclass
+class SpriteStruct:
+    sprite: list[pg.Surface]
+    height: float = 100.0
+    width : float = 100.0
