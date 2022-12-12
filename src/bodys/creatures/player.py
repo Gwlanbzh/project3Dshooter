@@ -123,7 +123,7 @@ class Player(Creature):
         x, y = mouse_delta_pos
         self.vorientation = self.vorientation - y * Config.PLAYER_VERT_ROT_SPEED
         self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
-        self.rotate(-x)
+        self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
         
         
         #pg.mouse.set_pos((Config.RES_X//2, Config.RES_Y//2))

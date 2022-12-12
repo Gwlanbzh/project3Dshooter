@@ -10,12 +10,14 @@ class Config():
     FRAME_RATE = 200
 
     PLAYER_V = 1 # arbitraty value for good feeling
-    PLAYER_ROT_SPEED = .0001  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
     PLAYER_VERT_ROT_SPEED = 4
     PLAYER_MAX_VERT_ROT = 200
     
-    # rendering-related constants
+    PLAYER_MOUSE_ROT_SPEED = .0001  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_MOUSE_VERT_ROT_SPEED = 4
+    
     WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
     FOV_X = 2*pi/3
     FOV_Y = 2*pi/3

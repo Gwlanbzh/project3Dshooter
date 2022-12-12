@@ -75,9 +75,9 @@ class Creature(Body):
                 )
         )
 
-    def rotate(self, direction):
+    def rotate(self, direction, sensitivity=Config.PLAYER_ROT_SPEED):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
+        self.orientation -= direction * sensitivity * dt
         self.orientation %= tau
 
 
