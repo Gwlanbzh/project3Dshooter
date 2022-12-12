@@ -22,7 +22,7 @@ class Creature(Body):
         super().__init__(game,r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
-        self.health = "int" # TODO
+        self.health = 100
         self.size = 20
 
     def in_wall(self, pos ):
@@ -73,11 +73,6 @@ class Creature(Body):
                 or self.in_wall(posy79)
                 )
         )
-
-    def rotate(self, direction):
-        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
-        self.orientation %= tau
 
 
     def draw(self, game): # might be move into Creature or Body

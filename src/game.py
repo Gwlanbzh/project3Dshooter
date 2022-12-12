@@ -5,6 +5,7 @@ from config import *
 from world import *
 from render import Camera
 from bodys import *
+from hud import Hud
 
 class Game:
     def __init__(self):
@@ -16,6 +17,7 @@ class Game:
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         #pg.display.toggle_fullscreen()
         self.world = World(self) 
+        self.hud = Hud(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.camera = Camera(self.world.players[0])
@@ -30,6 +32,7 @@ class Game:
             if event.type == pg.QUIT:
                 pg.quit() # quit pygame
                 sys.exit() # better quit, remove somme error when  quiting
+            self.hud.click(event)
   
     def run(self):
         """
@@ -40,6 +43,8 @@ class Game:
             # self.world.draw2d(game)
             self.world.update(self)
             self.camera.draw_frame(self.window)
+            self.hud.update()
+            self.hud.draw()
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
             fps = self.clock.get_fps()
