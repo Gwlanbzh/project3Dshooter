@@ -1,5 +1,5 @@
 import pygame as pg;
-from hud_component import *;
+from ui_component import *;
 
 class Hud:
     def __init__(self,game):
@@ -19,9 +19,12 @@ class Hud:
         pass
     
     def update(self):
-        for element in self.ui_element_display:
-            element.update()
+        self.update_content()
         pass
+
+    def update_content(self):
+        for element in self.ui_element_display:
+            element.content_update()
 
     def click(self,event):
         for element in self.ui_element_button:
@@ -44,8 +47,8 @@ class Hud:
                                         Weapon_Display(game,(0,60),self.player),
                                         V_Orientation_Display(game,(0,80),self.player),
                                         H_Orientation_Display(game,(0,100),self.player), 
-                                        Position_Display(game,(0,100),self.player)]
-            self.ui_element_button = [TP_Spawn(game,(200,0),self.player)]
+                                        Position_Display(game,(0,120),self.player)]
+            self.ui_element_button = [TP_Spawn_Button(game,(200,0),self.player)]
 
     def toggle(self):
         """
