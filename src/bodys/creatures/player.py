@@ -71,7 +71,7 @@ class Player(Creature):
             self.current_weapon.hit_scan(self, self.game.world.mobs)
 
         if keys[pg.K_h]:
-            self.game.hud.toolkit_toggle()
+            self.game.hud.toggle()
 
         return moves
     
