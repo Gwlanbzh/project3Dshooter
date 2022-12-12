@@ -12,6 +12,10 @@ class Game:
         Important init for the game main component
         """
         pg.init()
+        pg.mouse.set_visible(False)
+        pg.event.set_grab(True)
+        #pg.mouse.set_pos((Config.RES_X//2, Config.RES_Y//2))
+        
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         #pg.display.toggle_fullscreen()
@@ -38,6 +42,8 @@ class Game:
         while True:
             self.check_event()
             #self.world.draw2d(game)
+            #pg.mouse.set_pos((Config.RES_X//2, Config.RES_Y//2))
+        
             self.world.update(self)
             #self.world.props[0].r += v2(0.2, 0)
             self.camera.draw_frame(self.window)
