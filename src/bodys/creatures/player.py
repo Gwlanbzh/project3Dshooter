@@ -1,9 +1,9 @@
 import pygame as pg
-from pygame import Vector2 as v2
 from math import cos, sin, hypot
 from config import Config
 from bodys import Creature
 from weapons import *
+from math import tau
 
 class Player(Creature):
     """
@@ -129,6 +129,12 @@ class Player(Creature):
             self.r.x += dx
         if y_permission:
             self.r.y += dy
+
+
+    def rotate(self, direction):
+        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
+        self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
+        self.orientation %= tau
 
     def draw(self, game): # might be move into Creature or Body
         traylenght = self.current_weapon.range
