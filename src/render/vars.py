@@ -2,10 +2,10 @@ from config import *
 from math import tan, atan
 
 
-
 TEXTURES_FOLDER = Config.TEXTURES_FOLDER
-SPRITES_DIR = "assets/sprites/"
-SKYBOX = "assets/env/sky_hd.png"
+SPRITES_DIR = Config.SPRITES_DIR
+SKYBOX = Config.SKYBOX
+GROUND_COLOR = Config.GROUND_COLOR
 
 VIEW_HEIGHT = Config.VIEW_HEIGHT
 RES_X = Config.RES_X

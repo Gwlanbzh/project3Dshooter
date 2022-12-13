@@ -13,10 +13,10 @@ class Config():
     PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
     PLAYER_VERT_ROT_SPEED = 4
-    PLAYER_MAX_VERT_ROT = 200
+    PLAYER_MAX_VERT_ROT = RES_Y//2
     
-    PLAYER_MOUSE_ROT_SPEED = .0001  # arbitrary value for good feeling. temporarily, waiting for mouse handling
-    PLAYER_MOUSE_VERT_ROT_SPEED = 4
+    PLAYER_MOUSE_ROT_SPEED = .00005  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_MOUSE_VERT_ROT_SPEED = 2
     
     WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
     FOV_X = 2*pi/3
@@ -27,3 +27,6 @@ class Config():
     DISTANCE_FADING = 1.001
     
     TEXTURES_FOLDER = "assets/textures/"
+    SPRITES_DIR = "assets/sprites/"
+    SKYBOX = "assets/env/sky_hd.png"
+    GROUND_COLOR = (88, 74, 55)

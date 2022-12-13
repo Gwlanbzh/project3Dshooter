@@ -4,8 +4,7 @@ from config import *  # using RES_X, RES_Y, FOV_X
 from map import *
 from render.textures import *
 from render.vars import *
-from render.skybox import skybox as global_skybox, skybox_angle_per_stripe
-from render.sprites import SpriteStruct
+from render.sky import skybox, skybox_angle_per_stripe
 from render import *
 
 
@@ -21,7 +20,7 @@ class Camera():
         """
         Draw the skybox.
         """
-        window.blit(global_skybox, (-int(self.bound_player.orientation//skybox_angle_per_stripe),
+        window.blit(skybox, (-int(self.bound_player.orientation//skybox_angle_per_stripe),
                              -RES_Y//2-self.voffset
                             ))
     
@@ -34,6 +33,8 @@ class Camera():
         upper_heights = []
         lower_heights = []
         
+        map = self.bound_player.game.world.map.map
+        
         for n in range(RES_X):
             
             # computing the ray's direction vector            
@@ -43,7 +44,7 @@ class Camera():
                                sin(self.bound_player.orientation + th))
             
             # computing the ray and displaying the wall segment.
-            ray = Ray(self.bound_player.r, ray_direction)
+            ray = Ray(self.bound_player.r, ray_direction, map)
             rays.append(ray)
             
             distance = ray.distance * cos(th)
@@ -70,11 +71,11 @@ class Camera():
             window.blit(texture_slice,         (RES_X-n-1,
                                                 RES_Y//2 - upper_heights[n] - self.voffset
                                                ))
-            pg.draw.rect(window, (70, 70, 70), (RES_X-n-1,
-                                                RES_Y//2 + lower_heights[n] - self.voffset-1,
-                                                1,
-                                                RES_Y//2 - lower_heights[n] + self.voffset +2
-                                               ))
+            #pg.draw.rect(window, GROUND_COLOR, (RES_X-n-1,
+                                                #RES_Y//2 + lower_heights[n] - self.voffset-1,
+                                                #1,
+                                                #RES_Y//2 - lower_heights[n] + self.voffset +2
+                                               #))
         
         return z_buffer
     
@@ -115,14 +116,14 @@ class Camera():
         sorted_bodies = sorted(bodies_buffer, reverse=True)
         
         for distance, angle, sprite_structure in sorted_bodies:
-            upper_height = scr_h(sprite_structure.height-Config.VIEW_HEIGHT, distance*cos(angle))
-            lower_height = scr_h(Config.VIEW_HEIGHT, distance*cos(angle))
+            upper_height = scr_h(sprite_structure.height-Config.VIEW_HEIGHT, distance)
+            lower_height = scr_h(Config.VIEW_HEIGHT, distance)
             height = upper_height + lower_height
 
             width = scr_h(sprite_structure.width, distance)
             px_per_stripe = width / len(sprite_structure.sprite)
             
-            draw_coordinates = v2(int(RES_X//2 - theta_inv(angle) - width/2), 
+            draw_x, draw_y = v2(int(RES_X//2 - theta_inv(angle) - width/2), 
                                   RES_Y//2 - upper_height - self.voffset
                                  )
             
@@ -132,9 +133,9 @@ class Camera():
                 stripe = sprite_structure.sprite[strip_index]
                 sprite_slice = pg.transform.scale(stripe, (1, height))
                 
-                if draw_coordinates[0] + x < len(z_buffer) and z_buffer[int(draw_coordinates[0] + x)] > distance:
-                    window.blit(sprite_slice, draw_coordinates+v2(x, 0))
-    
+                i = int(draw_x + x)
+                if 0 <= i and i < len(z_buffer) and z_buffer[i] > distance:
+                    window.blit(sprite_slice, (i, draw_y))
     
     def draw_frame(self, window):
         """
@@ -143,13 +144,13 @@ class Camera():
         """
         self.voffset = - self.bound_player.vorientation  # < 0 implies looking up
         
+        # This call is alternate to those in draw_walls.
+        # TODO benchmark both to keep the most efficient.
+        pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - self.voffset, RES_X, RES_Y//2 + self.voffset))
+        
         self.draw_skybox(window)
         z_buffer = self.draw_walls(window)[::-1]
         self.draw_sprites(window, z_buffer)
         
-        # Those calls are alternate to those in the display section.
-        # TODO benchmark both to keep the most efficient.
-        #pg.draw.rect(window, (40, 40, 40), (1, 0, RES_X, RES_Y//2 - self.voffset))
-        #pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - voffset, RES_X, RES_Y//2 + voffset))
         
         

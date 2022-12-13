@@ -24,7 +24,7 @@ class Player(Creature):
         super().__init__(game,r)
         self.heal_recovery_time = 10000 # valeur arbitraire
         self.color = 'blue'
-        self.vorientation = 0
+        self.vorientation = 100
         # TODO add ammo data structure
 
         # weapons attributes
