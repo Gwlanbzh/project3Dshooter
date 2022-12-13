@@ -20,7 +20,7 @@ class Game:
         self.clock = pg.time.Clock() # help managing time
         self.camera = Camera(self.world.players[0])
         
-        
+        self.font = pg.font.Font(pg.font.get_default_font(), 24)
     
     def check_event(self):
         """
@@ -30,6 +30,10 @@ class Game:
             if event.type == pg.QUIT:
                 pg.quit() # quit pygame
                 sys.exit() # better quit, remove some error when  quiting
+    
+    def display_info(self, text: str):
+        img = self.font.render(text, False, (255, 255, 255))
+        self.window.blit(img, (10, 10))
   
     def run(self):
         """
@@ -43,9 +47,10 @@ class Game:
             self.world.update(self)
             #self.world.props[0].r += v2(0.2, 0)
             self.camera.draw_frame(self.window)
+            fps = self.clock.get_fps()
+            self.display_info(f"FPS: {fps:.2f}")
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
-            fps = self.clock.get_fps()
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
