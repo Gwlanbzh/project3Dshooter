@@ -5,6 +5,7 @@ from bodys import Creature
 from weapons import *
 from math import tau
 
+
 class Player(Creature):
     """
     Controllable Creature with weapons.
@@ -20,18 +21,23 @@ class Player(Creature):
         Outputs:
             Player
         """
-        super().__init__(game,r)
-        self.heal_recovery_time = 10000 # valeur arbitraire
+        super().__init__(game, r)
+        self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
-        self.vorientation = 0
+        self.vorientation = 100
         # TODO add ammo data structure
 
         # weapons attributes
         self.weapons = []
         self.current_weapon = Weapon()
-        self.ammo = 0 # may change to dict ?
+        self.ammo = 10  # may change to dict ?
+        self.max_ammo = 100
 
-    def update(self): # might be move into Creature or Body
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
+
+
+    def update(self):  # might be move into Creature or Body
         self.move()
         # heal
         # status, maybe buff / debuff
@@ -66,10 +72,18 @@ class Player(Creature):
         if keys[pg.K_k]:
             self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
         
+        # Mouse events
+        
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
-            self.current_weapon.hit_scan(self.r, self.orientation, self.game.world.mobs)
-
+            self.current_weapon.hit_scan(self.game.world.map.map, self.r, self.orientation, self.game.world.mobs)
+        
+        mouse_delta_pos = pg.mouse.get_rel()
+        x, y = mouse_delta_pos
+        self.vorientation = self.vorientation - y * Config.PLAYER_VERT_ROT_SPEED
+        self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
+        self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
+        
         return moves
     
     def move(self):
@@ -131,9 +145,9 @@ class Player(Creature):
             self.r.y += dy
 
 
-    def rotate(self, direction):
+    def rotate(self, direction, sensitivity=Config.PLAYER_ROT_SPEED):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
+        self.orientation -= direction * sensitivity * dt
         self.orientation %= tau
 
     def draw(self, game): # might be move into Creature or Body

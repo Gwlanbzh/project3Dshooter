@@ -19,7 +19,7 @@ class Weapon():
         self.sprite = load_weapon() # from render.weapons
         self.image_index = 0
     
-    def hit_scan(self, pos, orientation, mob_list):
+    def hit_scan(self, map, pos, orientation, mob_list):
         """
         check if a mob is touch on click and act in consequence.
         """
@@ -34,7 +34,7 @@ class Weapon():
             for dist, mob in sorted_mob_list:
                 # test mur
                 direction = v2(cos(mob.orientation), sin(mob.orientation))
-                rayon = Ray(mob.r, direction)
+                rayon = Ray(mob.r, direction, map)
 
                 if dist > self.range or rayon.distance < dist:
                     return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs

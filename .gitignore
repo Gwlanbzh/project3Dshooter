@@ -6,3 +6,5 @@ src/bodys/creatures/__pycache__/
 src/bodys/__pycache__/
 src/weapons/__pycache__/
 src/render/__pycache__/
+src/bodys/props/__pycache__/
+src/bodys/pickables/__pycache__/

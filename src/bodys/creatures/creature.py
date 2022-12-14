@@ -4,6 +4,7 @@ from math import *
 from bodys import Body
 from config import *
 
+
 class Creature(Body):
     """
     Body with implemented physics, life etc.
@@ -22,8 +23,9 @@ class Creature(Body):
         super().__init__(game,r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
-        self.health = 100    # arbitrary value for init
-        self.size = 20
+        
+        self.health = 100
+        self.max_health = 200
 
     def in_wall(self, pos ):
         x , y = pos
@@ -73,6 +75,7 @@ class Creature(Body):
                 or self.in_wall(posy79)
                 )
         )
+
 
     def draw(self, game): # might be move into Creature or Body
         traylenght = 100
