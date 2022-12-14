@@ -54,7 +54,7 @@ textures_units_per_strip = {t:100/len(textures[t]) for t in textures_map}
 
 #skybox = [pg.transform.scale(column, (1, RES_Y)) for column in load_texture("assets/env/green-half.png")]
 
-img = pg.image.load("assets/env/green.png")
+img = pg.image.load("src/assets/env/green.png")
 w, h = img.get_width(), img.get_height()
 k = (2*pi*RES_X)/(FOV_X*w)  # upscaling factor
 W = (2*pi+FOV_X)*RES_X/FOV_X  # width of the final skybox

@@ -17,19 +17,31 @@ class Display:
         self.game = game
         self.size = size
         self.position = position
-        self.myfont = pg.font.SysFont("monospace", 20)
+        self.font_size = 15
+        self.myfont = pg.font.SysFont("monospace", self.font_size)
         self.background = BLACK
         self.foreground = WHITE
         self.text = "text not set"
         self.label = self.myfont.render(self.text, 1, self.foreground)
 
-    def draw(self):
+    def draw_with_content(self):
         label = self.myfont.render(self.label+self.content, 1, self.foreground ,self.background)
+        self.game.window.blit(label, self.position)
+        pass
+
+    def draw_without_content(self):
+        label = self.myfont.render(self.label, 1, self.foreground ,self.background)
         self.game.window.blit(label, self.position)
         pass
 
     def update():
         pass
+
+    def get_position_centered_surface(self):
+        pos_x,pos_y = self.position
+        size_x,size_y = self.size
+        return (pos_x+(size_x/2),pos_y+(size_y/2))
+
 
     def update_size(self):
         size_x,size_y = self.size
@@ -98,6 +110,9 @@ class Button(Display):
         self.surface.blit(self.label,(0,0))
         self.lifetime = 10
         pass
+
+class Menu():
+    pass
 
 class TP_Spawn_Button(Button):
     """
@@ -205,5 +220,31 @@ class Position_Display(Display):
         self.player = player
         pass
 
-    def content_update(self):
-        self.content = str((self.player.r.x))+","+str(self.player.r.y)
+
+class Menu_Title(Display):
+    def __init__(self,game,position,size=(20,20)):
+        super().__init__(game,position,size)
+        self.label = "An Awesome Name"
+        self.font_size = 50
+        self.myfont = pg.font.SysFont("monospace", self.font_size)
+        print(self.position)
+        self.position = self.get_position_centered_surface()
+        print(self.position)
+
+        pass
+
+class Menu_Select_World(Menu):
+    def __init__(self):
+        pass
+
+class menu_setting(Menu):
+    def __init__(self):
+        pass
+
+class Play_Button(Button):
+    def __init__(self):
+        pass
+
+class Quit_Game_Button(Button):
+    def __init__(self):
+        pass

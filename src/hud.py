@@ -7,14 +7,14 @@ class Hud:
         self.player = game.world.players[0]
         self.toolkit = 0
         self.toolkit_prev = 1 # TODO change to 3 later 
-        self.ui_element_display = []
-        self.ui_element_button = []
+        self.ui_elements_display = []
+        self.ui_elements_button = []
         pass
 
     def draw(self):
-        for element in self.ui_element_display:
-            element.draw()
-        for element in self.ui_element_button:
+        for element in self.ui_elements_display:
+            element.draw_with_content()
+        for element in self.ui_elements_button:
             element.draw()
         pass
     
@@ -23,11 +23,11 @@ class Hud:
         pass
 
     def update_content(self):
-        for element in self.ui_element_display:
+        for element in self.ui_elements_display:
             element.content_update()
 
     def click(self,event):
-        for element in self.ui_element_button:
+        for element in self.ui_elements_button:
             element.click(event)
 
     def switch(self,value):
@@ -41,14 +41,14 @@ class Hud:
         game = self.game
         if value == 1:
             self.toolkit = 1
-            self.ui_element_display = [FPS_Display(game,(0,0)),
+            self.ui_elements_display = [FPS_Display(game,(0,0)),
                                         Health_Bar_Display(game,(0,20),self.player),
                                         Ammo_Display(game,(0,40),self.player),
                                         Weapon_Display(game,(0,60),self.player),
                                         V_Orientation_Display(game,(0,80),self.player),
                                         H_Orientation_Display(game,(0,100),self.player), 
                                         Position_Display(game,(0,120),self.player)]
-            self.ui_element_button = [TP_Spawn_Button(game,(200,0),self.player)]
+            self.ui_elements_button = [TP_Spawn_Button(game,(200,0),self.player)]
 
     def toggle(self):
         """
@@ -58,8 +58,8 @@ class Hud:
             self.switch(1)
         else:
             self.toolkit = 0
-            self.ui_element_button = []
-            self.ui_element_display = []
+            self.ui_elements_button = []
+            self.ui_elements_display = []
 
 
 

@@ -6,6 +6,7 @@ from world import *
 from render import Camera
 from bodys import *
 from hud import Hud
+from menu import MainMenu
 
 class Game:
     def __init__(self):
@@ -16,13 +17,21 @@ class Game:
         self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         #pg.display.toggle_fullscreen()
-        self.world = World(self) 
-        self.hud = Hud(self)
+
+        self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
+
+        self.world_loaded = False
+        
+    def load_world(self):
+        self.world = World(self) 
+        self.hud = Hud(self)
         self.camera = Camera(self.world.players[0])
-        
-        
+        self.world_loaded = True
+
+    def unload_world(self):
+        self.world_loaded = False
     
     def check_event(self):
         """
@@ -32,7 +41,9 @@ class Game:
             if event.type == pg.QUIT:
                 pg.quit() # quit pygame
                 sys.exit() # better quit, remove somme error when  quiting
-            self.hud.click(event)
+
+            if self.world_loaded:
+                self.hud.click(event)
   
     def run(self):
         """
@@ -40,11 +51,19 @@ class Game:
         """
         while True:
             self.check_event()
-            # self.world.draw2d(game)
-            self.world.update(self)
-            self.camera.draw_frame(self.window)
-            self.hud.update()
-            self.hud.draw()
+
+            if not self.world_loaded:
+                self.main_menu.draw()
+
+                pass
+
+            if self.world_loaded:
+                # self.world.draw2d(game)
+                self.world.update(self)
+                self.camera.draw_frame(self.window)
+                self.hud.update()
+                self.hud.draw()
+
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
             fps = self.clock.get_fps()
