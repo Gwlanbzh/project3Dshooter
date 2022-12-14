@@ -46,7 +46,7 @@ class World:
         
         self.map = Map(game)
   
-    def update (self, game):
+    def update(self, game):
         """
         call upadate for every Body(or more) in the world
         and
@@ -78,5 +78,7 @@ class World:
         self.map.draw(game)
         for mob in self.mobs:
             mob.draw(game)
+        for pickable in self.pickables:
+            pickable.draw(game)
         self.players[0].draw(game)
         pass

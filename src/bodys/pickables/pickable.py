@@ -4,6 +4,7 @@ class Pickable(Body):
     def __init__(self, game, r):
         super().__init__(game, r)
         
+        self.color = "green"
     
     def picker(self):
         """

@@ -13,8 +13,8 @@ class Game:
         """
         pg.init()
                 
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         self.world = World(self) 
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time

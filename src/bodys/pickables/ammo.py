@@ -5,6 +5,7 @@ from bodys.pickables.pickable import Pickable
 class AmmoPack20(Pickable):
     def __init__(self, game, r):
         super().__init__(game, r)
+        
         self.supply_value = 20
         self.sprite_struct = SpriteStruct(static_sprites["ammo_20.png"], 25, 40)
     
