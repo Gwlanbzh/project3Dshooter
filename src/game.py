@@ -47,6 +47,7 @@ class Game:
             self.world.update(self)
             #self.world.props[0].r += v2(0.2, 0)
             self.camera.draw_frame(self.window)
+            #self.world.draw2d(self)
             fps = self.clock.get_fps()
             self.display_info(f"FPS: {fps:.2f}")
             pg.display.update()
