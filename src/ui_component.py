@@ -4,9 +4,15 @@ from math import pi
 
 BLACK = pg.Color(0,0,0)
 GRAY = pg.Color(170,170,170) 
+BLUE = pg.Color(0,0,170) 
+RED = pg.Color(255,0,0) 
 WHITE = pg.Color(255,255,255) 
 
 class Display:
+    """
+    display something and can have a content's update
+    can be use outside a world
+    """
     def __init__(self,game,position,size=(20,20)):
         self.game = game
         self.size = size
@@ -37,9 +43,15 @@ class Display:
         pass
 
 class Button(Display):
+    """
+    can be click and have an animation when click
+    can be use outside a world
+    """
     def __init__(self,game,position,size=(20,20)):
         super().__init__(game,position)
         self.lifetime = -1
+        self.background_activate = RED
+        self.background_idle = BLACK
 
     def update_surface(self):
         self.update_size()
@@ -53,7 +65,8 @@ class Button(Display):
         if self.lifetime > 0:
             self.lifetime -= 1
             if self.lifetime <= 0:
-                self.background = pg.Color(0,55,255,255)
+                # change the background back to idle
+                self.background = self.background_idle
                 self.update_surface()
         self.game.window.blit(self.surface, self.position)
 
@@ -62,22 +75,34 @@ class Button(Display):
         each button have one action, action define in 
         the specific button class since every button are unique
         pass
+        self.action() must be call inside self.click()
         """
+        x, y = pg.mouse.get_pos()
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if pg.mouse.get_pressed()[0]:
+                if self.rect.collidepoint(x, y):
+                    self.animate()
+                    self.action()
+
     def action(self):
         """
         each button have one action, action define in 
         the specific button class since every button are unique
+        always call by self.click()
         """
         pass
 
     def animate(self):
-        self.background = pg.Color(255,0,255)
+        self.background = self.background_activate
         self.surface.fill(self.background)
         self.surface.blit(self.label,(0,0))
-        self.lifetime = 120
+        self.lifetime = 10
         pass
 
 class TP_Spawn_Button(Button):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player):
         super().__init__(game,position)
         self.player = player
@@ -88,17 +113,13 @@ class TP_Spawn_Button(Button):
     def action(self):
         self.player.r.x = 150 
         self.player.r.y = 150 
+        self.player.orientation = 0
         pass
 
-    def click(self,event):
-        x, y = pg.mouse.get_pos()
-        if event.type == pg.MOUSEBUTTONDOWN:
-            if pg.mouse.get_pressed()[0]:
-                if self.rect.collidepoint(x, y):
-                    self.animate()
-                    self.action()
-
 class FPS_Display(Display):
+    """
+    can be use outside a world
+    """
     def __init__(self,game,position,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "FPS: "
@@ -109,6 +130,9 @@ class FPS_Display(Display):
 
 
 class Health_Bar_Display(Display):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "Health: "
@@ -119,6 +143,9 @@ class Health_Bar_Display(Display):
         self.content = str(int(self.player.health))
 
 class Ammo_Display(Display):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "Ammo: "
@@ -129,6 +156,9 @@ class Ammo_Display(Display):
         self.content = str(int(self.player.ammo))
 
 class V_Orientation_Display(Display):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "V_orientation: "
@@ -140,6 +170,9 @@ class V_Orientation_Display(Display):
 
 
 class Weapon_Display(Display):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "Weapon: "
@@ -150,6 +183,9 @@ class Weapon_Display(Display):
         self.content = self.player.current_weapon.name
 
 class H_Orientation_Display(Display):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "H_Orientation: "
@@ -160,6 +196,9 @@ class H_Orientation_Display(Display):
         self.content = str(int(self.player.orientation*180/pi))
 
 class Position_Display(Display):
+    """
+    can only be use inside a world
+    """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
         self.label = "position: "
