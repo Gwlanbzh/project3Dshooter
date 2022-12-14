@@ -28,5 +28,5 @@ class Config():
     
     TEXTURES_FOLDER = "assets/textures/"
     SPRITES_DIR = "assets/sprites/"
-    SKYBOX = "assets/env/sky_hd.png"
+    SKYBOX = "assets/env/sky.png"
     GROUND_COLOR = (88, 74, 55)

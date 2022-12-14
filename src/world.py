@@ -1,13 +1,14 @@
 from config import *
 from map import *
 from bodys import *
+from storage import *
 
 class World:
     """
     World containing a map, props, mobs and players evolving in it,
     and updating them.
     """ 
-    def __init__(self,game):
+    def __init__(self, game, map_file):
         """
         Spawns a Body.
          # For now Body are purple
@@ -21,30 +22,17 @@ class World:
         Outputs:
             World
         """
-        self.props = [
-            Light(game,(450,150)),
-            Light(game,(950,450)),
-            Tree(game,(550,550)),
-            Tree(game,(850,650))
-            ]
+        map_data = load(map_file)
         
-        self.pickables = [
-            HealthPack25(game, (150, 250)),
-            AmmoPack20(game, (150, 350))
-            ]
+        self.props = [Class(game, pos) for Class, pos in map_data.props]
+        self.pickables = [Class(game, pos) for Class, pos in map_data.pickables]
+        self.mobs = [Class(game, pos) for Class, pos in map_data.mobs]
+        self.players = [Class(game, pos) for Class, pos in map_data.players]
         
-        self.mobs = [
-            Mob(game,(350,150)),
-            Mob(game,(450,450)),
-            Mob(game,(550,650)),
-            Mob(game,(750,450))
-            ]
+        self.map = Map(game, map_data.grid)
         
-        self.players = [
-            Player(game,(150,150))
-            ]
-        
-        self.map = Map(game)
+        print([prop.r for prop in self.props])
+        print([prop.r for prop in self.mobs])
   
     def update(self, game):
         """

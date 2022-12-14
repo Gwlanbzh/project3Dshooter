@@ -28,7 +28,7 @@ class Creature(Body):
     
     def in_wall(self, pos ):
         x , y = pos
-        world = self.game.world.map.map
+        world = self.game.world.map.grid
         return world[int((y)//100)][int((x)//100)] != 0
 
     def not_colliding(self, dx, dy):

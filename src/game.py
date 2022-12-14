@@ -7,7 +7,7 @@ from render import Camera
 from bodys import *
 
 class Game:
-    def __init__(self):
+    def __init__(self, map_file):
         """
         Important init for the game main component
         """
@@ -15,7 +15,7 @@ class Game:
                 
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
-        self.world = World(self) 
+        self.world = World(self, map_file) 
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.camera = Camera(self.world.players[0])
@@ -55,5 +55,5 @@ class Game:
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
-    game = Game()
+    game = Game("assets/maps/test_map.bin")
     game.run()

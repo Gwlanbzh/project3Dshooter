@@ -33,7 +33,7 @@ class Camera():
         upper_heights = []
         lower_heights = []
         
-        map = self.bound_player.game.world.map.map
+        map = self.bound_player.game.world.map.grid
         
         for n in range(RES_X):
             
