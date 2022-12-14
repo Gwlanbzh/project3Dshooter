@@ -2,17 +2,22 @@ import pygame as pg
 from pygame import Vector2 as v2
 from math import hypot, atan, acos, cos, sin, tau, pi
 from render.ray import Ray
+from render import *
+from config import Config
 pi_2 = pi / 2
 
 class Weapon():
     def __init__(self):
         self.dmg = 10
-        self.delay = 100 # en ms
+        self.delay = 1000 # en ms
         self.range = 100 # 100 -> largeur d'un carré
 
-        self.last_shot_time = pg.time.get_ticks() # moment at which the last shot was fired
-        # self.sprite = sprite object
-        # add sprite
+        self.last_shot_time = - self.delay # moment at which the last shot was fired
+                                           # - self.delay to avoid animation at init of the game
+        
+        self.time_between_sprites = 200
+        self.sprite = load_weapon() # from render.weapons
+        self.image_index = 0
     
     def hit_scan(self, pos, orientation, mob_list):
         """
@@ -21,6 +26,7 @@ class Weapon():
         t = pg.time.get_ticks()
         if t - self.last_shot_time > self.delay: # 100 ms between shots 
             self.last_shot_time = t
+            self.play_sound()
         
             sorted_mob_list = [(self.dist(pos, mob), mob) for mob in mob_list]
             sorted_mob_list = sorted(sorted_mob_list)
@@ -65,5 +71,17 @@ class Weapon():
         return dist
 
     def draw(self, window):
-        pass
+        width, height = self.sprite[self.image_index].get_size()
+        top_left = (
+            (Config.RES_X / 2) - width,
+            Config.RES_Y - height
+        )
+        self.update_image()
+        window.blit(self.sprite[self.image_index], top_left)
 
+    def update_image(self):
+        i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
+        self.image_index = i if i < len(self.sprite) else 0
+
+    def play_sound(self):
+        pass

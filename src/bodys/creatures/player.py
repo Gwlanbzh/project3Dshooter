@@ -28,7 +28,7 @@ class Player(Creature):
 
         # weapons attributes
         self.weapons = []
-        self.current_weapon = Pistol()
+        self.current_weapon = Weapon()
         self.ammo = 0 # may change to dict ?
 
     def update(self): # might be move into Creature or Body

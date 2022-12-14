@@ -71,3 +71,5 @@ class Camera():
             #pg.draw.rect(window, (94, 145, 255), (RES_X-n, 0, 1, RES_Y//2 - upper_heights[n] - voffset))
             window.blit(texture_slice, (RES_X-n-1, RES_Y//2 - upper_heights[n] - voffset))
             pg.draw.rect(window, (70, 70, 70), (RES_X-n-1, RES_Y//2 + lower_heights[n] - voffset-1, 1, RES_Y//2 - lower_heights[n] + voffset +2))
+
+        self.bound_player.current_weapon.draw(window)
