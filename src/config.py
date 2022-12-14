@@ -17,7 +17,7 @@ class Config():
     PLAYER_VERT_ROT_SPEED = 4
     PLAYER_MAX_VERT_ROT = RES_Y//2
     
-    PLAYER_MOUSE_ROT_SPEED = .0001  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_MOUSE_ROT_SPEED = .0005  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     PLAYER_MOUSE_VERT_ROT_SPEED = 1
     
     WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
