@@ -5,9 +5,9 @@ world = StorableWorld(
     props=[
         (Light, (150, 150)),
         (Light, (1150, 150)),
-        (Light, (150, 850)),
-        (Light, (1150, 850)),
-        (Tree, (650, 650)),
+        (Light, (150, 950)),
+        (Light, (1150, 950)),
+        (Tree, (650, 550)),
         ],
     
     pickables=[
