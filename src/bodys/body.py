@@ -18,11 +18,13 @@ class Body():
         """
         self.r = v2(r)
         self.v = (0, 0) # FIXME not use for now
+        self.size = 20
+        
         self.color = 'magenta'
         self.game = game # link to dt
         
         ## TODO add sprites data structure
-        self.spriteStruct = SpriteStruct(static_sprites["default.png"])
+        self.sprite_struct = SpriteStruct(static_sprites["default.png"])
     
     def get_sprite(self):
         """
@@ -35,7 +37,7 @@ class Body():
             Surface
         """
         #return self.sprite()
-        return self.spriteStruct
+        return self.sprite_struct
 
     def draw(self,game): # draw object
         traylenght = 100

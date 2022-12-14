@@ -13,8 +13,8 @@ class Game:
         """
         pg.init()
                 
-        #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         self.world = World(self) 
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
@@ -49,7 +49,7 @@ class Game:
             self.camera.draw_frame(self.window)
             #self.world.draw2d(self)
             fps = self.clock.get_fps()
-            self.display_info(f"FPS: {fps:.2f}")
+            self.display_info(f"FPS: {fps:.2f} ; Health: {self.world.players[0].health} ; Ammo: {self.world.players[0].ammo}")
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
             pg.display.set_caption(f"{fps:.2f}")

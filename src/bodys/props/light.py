@@ -5,4 +5,4 @@ from bodys import Body
 class Light(Body):
     def __init__(self, game, r):
         super().__init__(game, r)
-        self.spriteStruct = SpriteStruct(static_sprites["street_light2.png"], 150, 40)
+        self.sprite_struct = SpriteStruct(static_sprites["street_light2.png"], 150, 40)

@@ -21,8 +21,8 @@ class Player(Creature):
         Outputs:
             Player
         """
-        super().__init__(game,r)
-        self.heal_recovery_time = 10000 # valeur arbitraire
+        super().__init__(game, r)
+        self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
         self.vorientation = 100
         # TODO add ammo data structure
@@ -30,13 +30,14 @@ class Player(Creature):
         # weapons attributes
         self.weapons = []
         self.current_weapon = Pistol()
-        self.ammo = 0 # may change to dict ?
+        self.ammo = 10  # may change to dict ?
+        self.max_ammo = 100
 
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
 
 
-    def update(self): # might be move into Creature or Body
+    def update(self):  # might be move into Creature or Body
         self.move()
         # heal
         # status, maybe buff / debuff

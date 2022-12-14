@@ -87,7 +87,7 @@ class Camera():
                              sin(self.bound_player.orientation)
                             )
 
-        bodies = self.bound_player.game.world.props + self.bound_player.game.world.mobs
+        bodies = self.bound_player.game.world.props + self.bound_player.game.world.pickables + self.bound_player.game.world.mobs
         bodies_buffer = []
         for body in bodies:
             # detect bodies to draw and sort them, their distance and angle.
@@ -127,7 +127,6 @@ class Camera():
                                   RES_Y//2 - upper_height - self.voffset
                                  )
             
-            #print(draw_coordinates[0])
             for x in range(int(width)):
                 strip_index = int(x // px_per_stripe)
                 stripe = sprite_structure.sprite[strip_index]

@@ -16,6 +16,8 @@ static_sprites_names = [
     "demon.png",
     "street_light.png",
     "street_light2.png",
+    "health_25.png",
+    "ammo_20.png",
 ]
 
 static_sprites = {sprite:load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
