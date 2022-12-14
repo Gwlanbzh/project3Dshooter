@@ -22,13 +22,13 @@ class MainMenu:
 
     def draw(self):       
         self.draw_menu_background()
-        print(self.menu_title.position)
         self.menu_title.draw_without_content()
-        print(self.menu_title.position)
         # self.menu_select_world.draw()
         # self.menu_setting.draw()
         # self.play_button.draw()
         # self.quit_game_button.draw()
+
+    def draw_quit():
 
         pass
 
@@ -37,3 +37,5 @@ class MainMenu:
 
     def load_world(self,game):
         pass
+
+class MenuOption:

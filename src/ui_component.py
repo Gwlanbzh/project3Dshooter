@@ -1,6 +1,7 @@
 
 import pygame as pg
 from math import pi
+from config import *
 
 BLACK = pg.Color(0,0,0)
 GRAY = pg.Color(170,170,170) 
@@ -17,12 +18,11 @@ class Display:
         self.game = game
         self.size = size
         self.position = position
-        self.font_size = 15
+        self.font_size = 20
         self.myfont = pg.font.SysFont("monospace", self.font_size)
         self.background = BLACK
         self.foreground = WHITE
-        self.text = "text not set"
-        self.label = self.myfont.render(self.text, 1, self.foreground)
+        self.label = "text not set"
 
     def draw_with_content(self):
         label = self.myfont.render(self.label+self.content, 1, self.foreground ,self.background)
@@ -30,7 +30,7 @@ class Display:
         pass
 
     def draw_without_content(self):
-        label = self.myfont.render(self.label, 1, self.foreground ,self.background)
+        label = self.myfont.render(self.string, 1, self.foreground)
         self.game.window.blit(label, self.position)
         pass
 
@@ -40,7 +40,7 @@ class Display:
     def get_position_centered_surface(self):
         pos_x,pos_y = self.position
         size_x,size_y = self.size
-        return (pos_x+(size_x/2),pos_y+(size_y/2))
+        return (pos_x-(size_x/2),pos_y-(size_y/2))
 
 
     def update_size(self):
@@ -63,7 +63,7 @@ class Button(Display):
         super().__init__(game,position)
         self.lifetime = -1
         self.background_activate = RED
-        self.background_idle = BLACK
+        self.background_idle = self.background
 
     def update_surface(self):
         self.update_size()
@@ -111,6 +111,13 @@ class Button(Display):
         self.lifetime = 10
         pass
 
+class Health_Bar():
+    def __init__(self):
+        self.icon = PATH_ASSETS+"heart_icon.png"
+        
+        pass
+    pass
+
 class Menu():
     pass
 
@@ -129,7 +136,6 @@ class TP_Spawn_Button(Button):
         self.player.r.x = 150 
         self.player.r.y = 150 
         self.player.orientation = 0
-        pass
 
 class FPS_Display(Display):
     """
@@ -203,7 +209,7 @@ class H_Orientation_Display(Display):
     """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
-        self.label = "H_Orientation: "
+        self.string = "H_Orientation: "
         self.player = player
         pass
 
@@ -216,20 +222,27 @@ class Position_Display(Display):
     """
     def __init__(self,game,position,player,size=(20,20)):
         super().__init__(game,position,size)
-        self.label = "position: "
+        self.string = "position: "
         self.player = player
-        pass
 
+    def content_update(self):
+        self.content = str(self.player.r.x)+","+str(self.player.r.y)
+
+#### Menu UI Compoenent ####
 
 class Menu_Title(Display):
     def __init__(self,game,position,size=(20,20)):
         super().__init__(game,position,size)
-        self.label = "An Awesome Name"
+        self.string = "An_Awesome_Name"
         self.font_size = 50
+        self.background = (0,0,0,0)
+
+        # TODO find a way to remove the 3 line below 
         self.myfont = pg.font.SysFont("monospace", self.font_size)
-        print(self.position)
+        self.label = self.myfont.render(self.string, 1, self.foreground)
+        self.update_size()
+
         self.position = self.get_position_centered_surface()
-        print(self.position)
 
         pass
 

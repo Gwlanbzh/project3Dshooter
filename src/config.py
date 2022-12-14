@@ -3,6 +3,7 @@ import pygame as pg
 
 
 WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
+PATH_ASSETS = "src/assets/"
 
 class Config():
     """

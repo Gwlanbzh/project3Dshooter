@@ -23,6 +23,8 @@ class Game:
         self.clock = pg.time.Clock() # help managing time
 
         self.world_loaded = False
+
+        # self.load_world()
         
     def load_world(self):
         self.world = World(self) 
