@@ -28,7 +28,9 @@ class Config():
     
     DISTANCE_FADING = 1.001
     
-    TEXTURES_FOLDER = "assets/textures/"
-    SPRITES_DIR = "assets/sprites/"
-    SKYBOX = "assets/env/sky_hd.png"
+    TEXTURES_FOLDER = "assets/visual/textures/"
+    SPRITES_DIR = "assets/visual/sprites/"
+    SKYBOX = "assets/visual/env/sky_hd.png"
     GROUND_COLOR = (88, 74, 55)
+
+    SOUNDS_FOLDER = "assets/sounds/"

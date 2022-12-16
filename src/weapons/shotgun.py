@@ -9,7 +9,7 @@ class Shotgun(Weapon):
         super().__init__()
         self.delay = 400
         self.range = WALL_WIDTH * 5
-        self.dmg = 10
+        self.dmg = 20
 
     def shoot(self, entity):
         t = pg.time.get_ticks()

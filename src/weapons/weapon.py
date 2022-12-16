@@ -4,12 +4,13 @@ from math import hypot, atan, acos, cos, sin, tau, pi
 from render.ray import Ray
 from render import *
 from config import Config
+from random import choice
 pi_2 = pi / 2
 
 class Weapon():
     def __init__(self):
         self.dmg = 10
-        self.delay = 1000 # en ms
+        self.delay = 500 # en ms
         self.range = 100 # 100 -> largeur d'un carré
 
         self.last_shot_time = - self.delay # moment at which the last shot was fired
@@ -22,6 +23,9 @@ class Weapon():
         # TODO : deux sons à initialiser :
         #    - une liste de sons pour quand l'arme est chargée
         #    - un son pour l'arme quand on a plus de munitions
+
+        self.ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_ammo.mp3")]
+        self.no_ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_no_ammo.mp3")]
     
     def shoot(self, entity):
         """
@@ -43,7 +47,7 @@ class Weapon():
     
     def hit_scan(self, map, pos, orientation, mob_list):
 
-        sorted_mob_list = [(self.dist(pos, mob), mob) for mob in mob_list]
+        sorted_mob_list = [(self.dist(pos, mob), mob) for mob in mob_list if mob.health > 0]
         sorted_mob_list = sorted(sorted_mob_list)
 
         for dist, mob in sorted_mob_list:
@@ -54,7 +58,7 @@ class Weapon():
             if dist > self.range or rayon.distance < dist:
                 return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
             else:
-                teta_max = atan((mob.size/dist)) # la marge d'erreur pour l'angle de tir du joueur.
+                teta_max = atan(mob.size/dist) # la marge d'erreur pour l'angle de tir du joueur.
                 delta_x = pos.x - mob.r.x
                 delta_y = pos.y - mob.r.y
                 
@@ -68,7 +72,10 @@ class Weapon():
                     if delta_y > 0: # cas 3 
                         angle_p_m = tau - acos(abs(delta_x)/dist)
                     else: # cas 4
+                        print("hello test test !!")
                         angle_p_m = acos(abs(delta_x)/dist)
+                        print(teta_max)
+                        print(angle_p_m)
 
                 # angle_p_m (angle player mob) représente la valeur de que player.orientaion devrait avoir pour toucher en plein milieu le mob.
                 teta = orientation - angle_p_m
@@ -100,6 +107,6 @@ class Weapon():
 
     def play_sound(self, no_ammo=False):
         if no_ammo:
-            pass
+            choice(self.no_ammo_sound).play()
         else:
-            pass
+            choice(self.ammo_sound).play()
