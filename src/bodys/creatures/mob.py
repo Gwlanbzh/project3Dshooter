@@ -2,6 +2,7 @@ from render.sprites import SpriteStruct, static_sprites
 from bodys.creatures.creature import Creature
 import math
 from bodys.creatures.path_finding import *
+from pygame import Vector2 as v2
 
 class Mob(Creature):
     def __init__(self, game, r):
@@ -55,7 +56,7 @@ class Mob(Creature):
             x += dx
         if y_permission:
             y += dy 
-        self.r = x, y
+        self.r = v2(x, y)
 
 
     def mob_view_player(self):
@@ -71,7 +72,7 @@ class Mob(Creature):
         tile_player_x,tile_player_y = x_player//100,y_player//100
 
         # Info Mob
-        x,y = self.r[0],self.r[1]
+        x,y = self.r.x,self.r.y
 
         # if player in FOV of mob
         angle_mob_player = math.atan2(y_player - y,x_player - x)
