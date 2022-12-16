@@ -11,8 +11,6 @@ def parse_map(data: str, skybox, floor):
     
     i = -1
     
-    print(data.replace(" ", "0"))
-    
     for y, line in enumerate(data.replace(" ", "0").split("\n")):
         grid.append([])
         i += 1
@@ -34,9 +32,6 @@ def parse_map(data: str, skybox, floor):
                     players.append((Class, (x*100+50, y*100+50)))
                 
                 grid[i].append(0)
-                
-    for line in grid:
-        print(line)
     
     return StorableWorld(props=props,
                          pickables=pickables,

@@ -1,7 +1,7 @@
 from sys import argv
 from bodys import *
 from storage import StorableWorld
-from compiler import parse_map
+from libcompile import parse_map
 
 
 # Arguments parsing
@@ -49,8 +49,6 @@ if pargc < 2:
 
 with open(src) as f:
     map_data = f.read()
-
-print(map_data)
 
 compiled = parse_map(map_data, skybox_path, floor_color)
 
