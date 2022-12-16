@@ -14,7 +14,7 @@ class Shotgun(Weapon):
     def shoot(self, entity):
         t = pg.time.get_ticks()
         if t - self.last_shot_time > self.delay: # 100 ms between shots 
-            if entity.ammo > 0:
+            if entity.ammo > 2:
                 self.last_shot_time = t
 
                 entity.ammo = max(0, entity.ammo - 3)
