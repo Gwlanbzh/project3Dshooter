@@ -29,7 +29,7 @@ class Player(Creature):
 
         # weapons attributes
         self.weapons = []
-        self.current_weapon = Pistol()
+        self.current_weapon = Shotgun()
         self.ammo = 10  # may change to dict ?
         self.max_ammo = 100
 
@@ -76,7 +76,7 @@ class Player(Creature):
         
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
-            self.current_weapon.hit_scan(self.game.world.map.map, self.r, self.orientation, self.game.world.mobs)
+            self.current_weapon.shoot(self)
         
         mouse_delta_pos = pg.mouse.get_rel()
         x, y = mouse_delta_pos
