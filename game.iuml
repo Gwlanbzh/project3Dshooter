@@ -22,7 +22,7 @@ class Pistol {
 }
 
 class Shotgun {
-    hitscan()
+    hitscan(player:  Player, mob_list : [Mob])
 }
 
 class Body {

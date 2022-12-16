@@ -1,9 +1,6 @@
-import pygame as pg
 from config import *
-from map import Map
-from body import Body
-from Bodys.Creatures.mob import Mob 
-from Bodys.Creatures.player import Player 
+from map import *
+from bodys import *
 
 class World:
     """
@@ -24,19 +21,32 @@ class World:
         Outputs:
             World
         """
+        self.props = [
+            Light(game,(450,150)),
+            Light(game,(950,450)),
+            Tree(game,(550,550)),
+            Tree(game,(850,650))
+            ]
+        
+        self.pickables = [
+            HealthPack25(game, (150, 250)),
+            AmmoPack20(game, (150, 350))
+            ]
+        
+        self.mobs = [
+            Mob(game,(350,150)),
+            Mob(game,(450,450)),
+            Mob(game,(550,650)),
+            Mob(game,(750,450))
+            ]
+        
+        self.players = [
+            Player(game,(150,150))
+            ]
+        
         self.map = Map(game)
-    
-        self.props = [Body(game,(350,150)),
-                      Body(game,(950,450)),
-                      Body(game,(550,550)),
-                      Body(game,(850,650))]
-        self.mobs = [Mob(game,self.map,(450,150)),
-                     Mob(game,self.map,(450,450)),
-                     Mob(game,self.map,(550,650)),
-                     Mob(game,self.map,(750,450))]
-        self.players = [Player(game,(150,150))]
   
-    def update (self,game):
+    def update (self, game):
         """
         call upadate for every Body(or more) in the world
         and
@@ -50,18 +60,21 @@ class World:
         self.players[0].update()
         for mob in self.mobs:
             mob.update()
-            pass
+        
+        for pickable in self.pickables:
+            disappears = pickable.update()
+            if disappears:
+                self.pickables.remove(pickable)
   
-    def draw(self,game):
+    def draw2d(self,game):
         """
-        Draw world
+        Draw world on a 2d plane
   
-        temporary way to display world may change by camera
         """
         game.window.fill('grey')
-        # self.camera.draw()
+        
         for prop in self.props:
-            prop.draw(game)
+           prop.draw(game)
         self.map.draw(game)
         for mob in self.mobs:
             mob.draw(game)

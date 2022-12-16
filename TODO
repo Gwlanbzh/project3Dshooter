@@ -1,0 +1,11 @@
+**Renderer**
+  [X] Find and implement an algorithm to avoid the fisheye effect.
+  [ ] Implement sprites.
+  [X] Uneven height of wall between top and bottom half of the screen (bottom depending on player's view height, top on walls' height)
+  [X] Y-shearing (needs mouse support first)
+  [ ] Weapon view
+  [X] Add custom height to the map data structure, so that different walls can have different heights in the same level
+
+**Physics**
+  [ ] Remake the physics engine to use an acceleration-based method.
+  [?] represent acceleration/speed and position in 2 different coordinate systems, so that e.g. turning around doesn't slow you down
