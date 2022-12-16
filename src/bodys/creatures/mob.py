@@ -25,8 +25,9 @@ class Mob(Creature):
 
     def update(self):
         self.ia_command()
-        pass
-
+        if self.is_dead():
+            self.color = "black"
+    
     def ia_command(self):
         """
         Behavior of the mob

@@ -1,9 +1,9 @@
 import pygame as pg
-from pygame import Vector2 as v2
 from math import cos, sin, hypot
 from config import Config
 from bodys import Creature
 from weapons import *
+from math import tau
 
 
 class Player(Creature):
@@ -43,52 +43,6 @@ class Player(Creature):
         # status, maybe buff / debuff
         # TODO : not logical to call self.get_inputs, call self.move() instead would be better
     
-    def move(self, direction):
-        """
-        TODO maybye refactoring get inputs and mouvement call
-        Applies Newton's Second Principle then handles collisions
-        with walls, props and mobs. FIXME text not true now
-        direction meaning
-          2
-        1 + 4
-          3
-        
-        Inputs:
-            direction
-        
-        Output:
-            Alter Creature position
-        """
-        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        speed = Config.PLAYER_V * dt 
-        V_sin = speed * sin(self.orientation) 
-        V_cos = speed * cos(self.orientation) 
-        if direction == 1:
-            dx = V_sin 
-            dy = -V_cos 
-        if direction == 2:
-            dx = V_cos 
-            dy = V_sin 
-        if direction == 3:
-            dx = -V_cos 
-            dy = -V_sin 
-        if direction == 4:
-            dx = -V_sin 
-            dy = V_cos
-
-        x, y = self.r
-        ## collision stuff goes here
-        # world = self.game.world.map.map
-        # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
-        #     self.r = x + dx, y + dy
-        
-        x_permission, y_permission = self.not_colliding(dx, dy)
-        if x_permission:
-            x += dx
-        if y_permission:
-            y += dy 
-        
-        self.r = v2(x, y)
     
     def get_inputs(self):
         """
@@ -122,7 +76,7 @@ class Player(Creature):
         
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
-            self.current_weapon.hit_scan(self, self.game.world.mobs)
+            self.current_weapon.hit_scan(self.game.world.map.map, self.r, self.orientation, self.game.world.mobs)
         
         mouse_delta_pos = pg.mouse.get_rel()
         x, y = mouse_delta_pos
@@ -130,10 +84,6 @@ class Player(Creature):
         self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
         self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
         
-        
-        #pg.mouse.set_pos((Config.RES_X//2, Config.RES_Y//2))
-        #pg.mouse.get_rel()
-
         return moves
     
     def move(self):
@@ -193,3 +143,18 @@ class Player(Creature):
             self.r.x += dx
         if y_permission:
             self.r.y += dy
+
+
+    def rotate(self, direction, sensitivity=Config.PLAYER_ROT_SPEED):
+        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
+        self.orientation -= direction * sensitivity * dt
+        self.orientation %= tau
+
+    def draw(self, game): # might be move into Creature or Body
+        traylenght = self.current_weapon.range
+        pg.draw.line(game.window,'yellow', (self.r),
+                     (self.r[0]+ traylenght * cos(self.orientation),
+                      self.r[1] + traylenght * sin(self.orientation)),2) 
+        pg.draw.circle(game.window, self.color, self.r,15)
+        pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
+        pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))

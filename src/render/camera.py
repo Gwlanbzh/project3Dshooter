@@ -68,6 +68,7 @@ class Camera():
             
             # display ceiling, wall and floor
             #pg.draw.rect(window, (94, 145, 255), (RES_X-n, 0, 1, RES_Y//2 - upper_heights[n] - voffset))
+
             window.blit(texture_slice,         (RES_X-n-1,
                                                 RES_Y//2 - upper_heights[n] - self.voffset
                                                ))
@@ -150,6 +151,5 @@ class Camera():
         self.draw_skybox(window)
         z_buffer = self.draw_walls(window)[::-1]
         self.draw_sprites(window, z_buffer)
-        
-        
+        self.bound_player.current_weapon.draw(window)
         

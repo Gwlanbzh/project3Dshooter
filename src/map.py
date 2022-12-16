@@ -1,6 +1,7 @@
 import pygame as pg
 from pygame import Vector3 as v3
-
+from config import Config
+from config import WALL_WIDTH
 
 class Map:
     def __init__(self, game):
@@ -70,9 +71,9 @@ class Map:
                               (position[0] * 100,position[1] * 100,100,100),2)
             if self.map_dic[position] == 2:
                 pg.draw.rect(game.window,"blue",
-                              (position[0] * 100,position[1] * 100,100,100),2)
+                              (position[0] * WALL_WIDTH, position[1] * 100,100,100),2)
 
             if self.map_dic[position] == 3:
                 pg.draw.rect(game.window,"orange",
-                              (position[0] * 100,position[1] * 100,100,100),2)
+                              (position[0] * WALL_WIDTH, position[1] * 100, 100, 100),2)
   

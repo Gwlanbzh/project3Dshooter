@@ -25,6 +25,6 @@ static_sprites = {sprite:load_texture(SPRITES_DIR+sprite) for sprite in static_s
 
 @dataclass
 class SpriteStruct:
-    sprite: list[pg.Surface]
+    sprite: list
     height: float = 100.0
     width : float = 100.0
