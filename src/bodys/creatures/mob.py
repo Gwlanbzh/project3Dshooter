@@ -14,7 +14,7 @@ class Mob(Creature):
         """
         super().__init__(game, r)
         self.color = 'red' 
-        self.sprite_struct = SpriteStruct(static_sprites["demon.png"], 150)
+        self.sprite_struct = SpriteStruct(static_sprites["grunt.png"], 110, 70)
 
     def update(self):
         self.ia_command()

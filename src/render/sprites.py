@@ -14,10 +14,12 @@ static_sprites_names = [
     "tree.png",
     "dead_tree.png",
     "demon.png",
-    "street_light.png",
+    "grunt.png",
     "street_light2.png",
+    "health_5.png",
     "health_25.png",
-    "ammo_20.png",
+    "ammo_10.png",
+    "ammo_50.png",
 ]
 
 static_sprites = {sprite:load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}

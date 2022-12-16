@@ -30,6 +30,13 @@ class World:
         self.players = [Class(game, pos) for Class, pos in map_data.players]
         
         self.map = Map(game, map_data.grid)
+        
+        
+        print("props :", self.props)
+        print("pickables :", self.pickables)
+        print("mobs :", self.mobs)
+        print("players :", self.players)
+        print("grid :", self.map.grid)
     
     def update(self, game):
         """
