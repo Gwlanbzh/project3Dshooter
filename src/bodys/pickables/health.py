@@ -11,10 +11,7 @@ class HealthPack25(Pickable):
     def update(self):
         picker = self.picker()
         if picker != None:
-            print(picker.health)
-            print("Heal!")
             picker.health += self.heal_value
             picker.health = min(picker.health, picker.max_health)
-            print(picker.health)
             return True
         return False

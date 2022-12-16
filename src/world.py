@@ -30,10 +30,7 @@ class World:
         self.players = [Class(game, pos) for Class, pos in map_data.players]
         
         self.map = Map(game, map_data.grid)
-        
-        print([prop.r for prop in self.props])
-        print([prop.r for prop in self.mobs])
-  
+    
     def update(self, game):
         """
         call upadate for every Body(or more) in the world

@@ -12,10 +12,7 @@ class AmmoPack20(Pickable):
     def update(self):
         picker = self.picker()
         if picker != None:
-            print(picker.ammo)
-            print("Supply!")
             picker.ammo += self.supply_value
             picker.ammo = min(picker.ammo, picker.max_ammo)
-            print(picker.ammo)
             return True
         return False
