@@ -2,32 +2,15 @@ from collections import deque
 import math
 
 class Path_finding:
-    def __init__(self,game,map) :
+    def __init__(self,game) :
         #[-1, 1] [0, 1] [1, 1]
         #[-1, 0] [0, 0] [1, 0]
         #[-1,-1] [0,-1] [1,-1]
-        self.map_dic = map.world_map
-        self.graph = {}
-        self.possible_neighbour = [-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]
-        self.create_graph()
         # print(self.graph)
         # self.Astar((1,1),(0,41))
+        pass
 
 
-    def create_graph(self):
-        for y, row in enumerate(self.map_dic):
-            for x, value in enumerate(row):
-                if not value:
-                    self.graph[(x,y)] = self.get_neighbour(x,y)
-
-    def get_neighbour(self,x_map,y_map):
-        """
-        return : a list of valid neighbour
-        valid neigbour are
-        """
-        return [(x_map+x_relative,y_map+y_relative)
-                for x_relative,y_relative in self.possible_neighbour
-                    if ((x_map,y_map) not in self.map_dic and ((x_map+x_relative,y_map+y_relative) not in self.map_dic))]
 
     def heuristic(current,goal):
         (x1,y1) = current

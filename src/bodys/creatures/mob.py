@@ -1,5 +1,7 @@
 from render.sprites import SpriteStruct, static_sprites
 from bodys.creatures.creature import Creature
+import math
+from bodys.creatures.path_finding import *
 
 class Mob(Creature):
     def __init__(self, game, r):
@@ -18,7 +20,7 @@ class Mob(Creature):
         self.has_seen_player = False
         self.fov = math.pi/2
         self.test = game.window
-        self.path_finding = Path_finding(game,map)
+        self.path_finding = Path_finding(game)
         self.sprite_struct = SpriteStruct(static_sprites["demon.png"], 150)
 
     def update(self):

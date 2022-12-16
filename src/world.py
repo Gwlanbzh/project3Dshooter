@@ -45,7 +45,7 @@ class World:
             ]
         
         self.map = Map(game)
-  
+
     def update (self, game):
         """
         call upadate for every Body(or more) in the world
