@@ -17,7 +17,7 @@ W_TX5 = 6  # wall with texture concrete
 W_TX6 = 7  # wall with texture concret
 
 textures_map = {
-    W_TX0: "quake_texture_5.png",
+    W_TX0: "cyberpunk1.png",
     W_TX1: "quake_texture_17.png",
     W_TX2: "quake_texture_25.png",
     W_TX3: "quake_texture_27.png",
@@ -46,7 +46,7 @@ def load_texture(path:str):
     """
     return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path))]
 
-global_textures = {id:load_texture(TEXTURES_FOLDER+textures_map[id]) for id in textures_map}
+global_textures = {id:load_texture(TEXTURES_DIR+textures_map[id]) for id in textures_map}
 
 textures_units_per_strip = {t:100/len(global_textures[t]) for t in textures_map}
 

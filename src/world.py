@@ -2,6 +2,7 @@ from config import *
 from map import *
 from bodys import *
 from storage import *
+from render import load_skybox
 
 class World:
     """
@@ -22,7 +23,7 @@ class World:
         Outputs:
             World
         """
-        map_data = load(map_file)
+        map_data = load_map(map_file)
         
         self.props = [Class(game, pos) for Class, pos in map_data.props]
         self.pickables = [Class(game, pos) for Class, pos in map_data.pickables]
@@ -31,12 +32,7 @@ class World:
         
         self.map = Map(game, map_data.grid)
         
-        
-        print("props :", self.props)
-        print("pickables :", self.pickables)
-        print("mobs :", self.mobs)
-        print("players :", self.players)
-        print("grid :", self.map.grid)
+        self.skybox_data = load_skybox(map_data.skybox)
     
     def update(self, game):
         """

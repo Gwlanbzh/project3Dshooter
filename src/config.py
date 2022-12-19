@@ -26,7 +26,7 @@ class Config():
     
     DISTANCE_FADING = 1.001
     
-    TEXTURES_FOLDER = "assets/textures/"
+    TEXTURES_DIR = "assets/textures/"
     SPRITES_DIR = "assets/sprites/"
-    SKYBOX = "assets/env/sky.png"
+    SKYBOX_DIR = "assets/env/"
     GROUND_COLOR = (88, 74, 55)

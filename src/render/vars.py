@@ -2,9 +2,9 @@ from config import *
 from math import tan, atan
 
 
-TEXTURES_FOLDER = Config.TEXTURES_FOLDER
+TEXTURES_DIR = Config.TEXTURES_DIR
 SPRITES_DIR = Config.SPRITES_DIR
-SKYBOX = Config.SKYBOX
+SKYBOX_DIR = Config.SKYBOX_DIR
 GROUND_COLOR = Config.GROUND_COLOR
 
 VIEW_HEIGHT = Config.VIEW_HEIGHT

@@ -7,7 +7,7 @@ class AmmoPack10(Pickable):
         super().__init__(game, r)
         
         self.supply_value = 10
-        self.sprite_struct = SpriteStruct(static_sprites["ammo_10.png"], 25, 25)
+        self.sprite_struct = SpriteStruct(static_sprites["ammo_10.png"], 25, 20)
     
     def update(self):
         picker = self.picker()

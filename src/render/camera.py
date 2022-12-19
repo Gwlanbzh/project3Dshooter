@@ -4,7 +4,7 @@ from config import *  # using RES_X, RES_Y, FOV_X
 from map import *
 from render.textures import *
 from render.vars import *
-from render.sky import skybox, skybox_angle_per_stripe
+#from render.sky import skybox, skybox_angle_per_stripe
 from render import *
 
 
@@ -20,6 +20,7 @@ class Camera():
         """
         Draw the skybox.
         """
+        skybox, skybox_angle_per_stripe = self.bound_player.game.world.skybox_data
         window.blit(skybox, (-int(self.bound_player.orientation//skybox_angle_per_stripe),
                              -RES_Y//2-self.voffset
                             ))
@@ -62,6 +63,7 @@ class Camera():
             strip_index = int(rays[n].block_hit_abs//units_per_strip)
             
             strip = texture_array[strip_index]
+            #if upper_heights[n] + lower_heights[n] > 0:
             texture_slice = pg.transform.scale(strip, (1, upper_heights[n] + lower_heights[n]))
             
             #texture_slice = pg.transform.scale(global_textures[rays[n].hit_type][int(rays[n].block_hit_abs//units_per_strip)], (1, upper_heights[n] + lower_heights[n]))
