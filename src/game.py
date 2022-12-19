@@ -7,6 +7,9 @@ from render import Camera
 from bodys import *
 
 class Game:
+    """
+    Base class for a game, to be used to define new game types.
+    """
     def __init__(self, map_file):
         """
         Important init for the game main component
@@ -31,6 +34,9 @@ class Game:
                 pg.quit() # quit pygame
                 sys.exit() # better quit, remove some error when  quiting
     
+    def is_game_over(self):
+        return False
+    
     def display_info(self, text: str):
         img = self.font.render(text, False, (255, 255, 255))
         self.window.blit(img, (10, 10))
@@ -39,7 +45,7 @@ class Game:
         """
         Main Game Loop 
         """
-        while True:
+        while not self.is_game_over():
             self.check_event()
             #self.world.draw2d(game)
             #pg.mouse.set_pos((Config.RES_X//2, Config.RES_Y//2))
