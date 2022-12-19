@@ -23,7 +23,7 @@ class World:
         Outputs:
             World
         """
-        map_data = load_map(map_file)
+        map_data = load(map_file)
         
         self.props = [Class(game, pos) for Class, pos in map_data.props]
         self.pickables = [Class(game, pos) for Class, pos in map_data.pickables]
