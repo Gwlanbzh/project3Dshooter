@@ -34,7 +34,7 @@ class World:
         self.map = Map(game, map_data.grid)
         
         #self.skybox_data = load_skybox(map_data.skybox)
-        self.ressources = Ressources("quake", map_data.skybox)
+        self.ressources = Ressources(map_data.texture_set, map_data.skybox)
     
     def update(self, game):
         """

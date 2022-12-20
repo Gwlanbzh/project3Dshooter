@@ -7,6 +7,7 @@ from libcompile import parse_map
 # Arguments parsing
 skybox_path = "sky.png"
 floor_color = (70, 70, 70)
+texture_set = "quake"
 
 pargc = 0
 
@@ -28,6 +29,11 @@ for arg in argv[1:]:
                     raise ValueError
                 else:
                     floor_color = tuple([int(i) for i in color.split(",")])
+        elif arg.startswith("--texture-set="):
+            if len(arg.split("=")) != 2:
+                raise ValueError
+            else:
+                texture_set = arg.split("=")[1]
         
         else:
             raise ValueError(f"invalid option: {arg}")
@@ -50,6 +56,6 @@ if pargc < 2:
 with open(src) as f:
     map_data = f.read()
 
-compiled = parse_map(map_data, skybox_path, floor_color)
+compiled = parse_map(map_data, skybox_path, floor_color, texture_set)
 
 compiled.write(dst)
