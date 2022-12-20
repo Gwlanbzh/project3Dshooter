@@ -7,7 +7,7 @@ from libcompile import parse_map
 # Arguments parsing
 skybox_path = "sky.png"
 floor_color = (70, 70, 70)
-texture_set = "quake"
+texture_set = "default"
 
 pargc = 0
 
