@@ -26,6 +26,12 @@ class Camera():
                              -RES_Y//2-self.voffset
                             ))
     
+    def draw_floor(self, window):
+        """
+        Draw the floor.
+        """
+        pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - self.voffset, RES_X, RES_Y//2 + self.voffset))
+    
     def draw_walls(self, window):
         """
         Cast rays, draw the walls and the floor and returns a z-buffer.
@@ -146,11 +152,8 @@ class Camera():
         """
         self.voffset = - self.bound_player.vorientation  # < 0 implies looking up
         
-        # This call is alternate to those in draw_walls.
-        # TODO benchmark both to keep the most efficient.
-        pg.draw.rect(window, (70, 70, 70), (1, RES_Y//2 - self.voffset, RES_X, RES_Y//2 + self.voffset))
-        
         self.draw_skybox(window)
+        self.draw_floor(window)
         z_buffer = self.draw_walls(window)[::-1]
         self.draw_sprites(window, z_buffer)
         

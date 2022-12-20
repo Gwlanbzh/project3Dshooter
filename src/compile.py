@@ -1,13 +1,14 @@
 from sys import argv
 from bodys import *
 from storage import StorableWorld
-from libcompile import parse_map
+from compilelib import parse_map
 
 
 # Arguments parsing
 skybox_path = "sky.png"
 floor_color = (70, 70, 70)
 texture_set = "default"
+map_scale = 100
 
 pargc = 0
 
@@ -34,6 +35,11 @@ for arg in argv[1:]:
                 raise ValueError
             else:
                 texture_set = arg.split("=")[1]
+        elif arg.startswith("--scale="):
+            if len(arg.split("=")) != 2:
+                raise ValueError
+            else:
+                map_scale = int(arg.split("=")[1])
         
         else:
             raise ValueError(f"invalid option: {arg}")
@@ -56,6 +62,6 @@ if pargc < 2:
 with open(src) as f:
     map_data = f.read()
 
-compiled = parse_map(map_data, skybox_path, floor_color, texture_set)
+compiled = parse_map(map_data, skybox_path, floor_color, texture_set, map_scale)
 
 compiled.write(dst)
