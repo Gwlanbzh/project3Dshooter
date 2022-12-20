@@ -20,13 +20,13 @@ class Creature(Body):
         Output:
             Creature
         """
-        super().__init__(game,r) 
+        super().__init__(game, r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.health = 100
         self.max_health = 200
     
-    def in_wall(self, pos ):
+    def in_wall(self, pos):
         x , y = pos
         world = self.game.world.map.grid
         return world[int((y)//100)][int((x)//100)] != 0

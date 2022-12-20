@@ -1,4 +1,4 @@
-from render.sprites import SpriteStruct, static_sprites
+from render.sprites import SpriteStruct
 from bodys.pickables.pickable import Pickable
 
 
@@ -7,7 +7,7 @@ class AmmoPack10(Pickable):
         super().__init__(game, r)
         
         self.supply_value = 10
-        self.sprite_struct = SpriteStruct(static_sprites["ammo_10.png"], 25, 20)
+        self.sprite_data = SpriteStruct("ammo_10.png", 25, 20)
     
     def update(self):
         picker = self.picker()
@@ -22,4 +22,4 @@ class AmmoPack50(AmmoPack10):
         super().__init__(game, r)
         
         self.supply_value = 50
-        self.sprite_struct = SpriteStruct(static_sprites["ammo_50.png"], 50, 80)
+        self.sprite_data = SpriteStruct("ammo_50.png", 50, 80)

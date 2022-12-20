@@ -3,7 +3,7 @@ import os
 
 
 class StorableWorld:
-    def __init__(self, props=[], pickables=[], mobs=[], players=[], grid=[], skybox="sky.png", floor=(70, 70, 70)):
+    def __init__(self, props, pickables, mobs, players, grid, skybox, floor):
         self.props = props
         self.pickables = pickables
         self.mobs = mobs

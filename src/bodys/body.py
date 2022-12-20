@@ -1,6 +1,6 @@
 import pygame as pg 
 from pygame import Vector2 as v2
-from render.sprites import SpriteStruct, static_sprites
+from render.sprites import SpriteStruct
 
 class Body():
     """
@@ -24,7 +24,7 @@ class Body():
         self.game = game # link to dt
         
         ## TODO add sprites data structure
-        self.sprite_struct = SpriteStruct(static_sprites["default.png"])
+        self.sprite_data = SpriteStruct("default.png")
     
     def get_sprite(self):
         """
@@ -37,7 +37,7 @@ class Body():
             Surface
         """
         #return self.sprite()
-        return self.sprite_struct
+        return self.sprite_data
 
     def draw(self,game): # draw object
         traylenght = 100

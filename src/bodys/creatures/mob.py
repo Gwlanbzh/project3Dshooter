@@ -1,4 +1,4 @@
-from render.sprites import SpriteStruct, static_sprites
+from render.sprites import SpriteStruct
 from bodys.creatures.creature import Creature
 
 class Mob(Creature):
@@ -14,7 +14,7 @@ class Mob(Creature):
         """
         super().__init__(game, r)
         self.color = 'red' 
-        self.sprite_struct = SpriteStruct(static_sprites["grunt.png"], 110, 70)
+        self.sprite_data = SpriteStruct("grunt.png", 110, 70)
 
     def update(self):
         self.ia_command()

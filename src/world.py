@@ -3,6 +3,7 @@ from map import *
 from bodys import *
 from storage import *
 from render import load_skybox
+from ressources import *
 
 class World:
     """
@@ -32,7 +33,8 @@ class World:
         
         self.map = Map(game, map_data.grid)
         
-        self.skybox_data = load_skybox(map_data.skybox)
+        #self.skybox_data = load_skybox(map_data.skybox)
+        self.ressources = Ressources("quake", map_data.skybox)
     
     def update(self, game):
         """

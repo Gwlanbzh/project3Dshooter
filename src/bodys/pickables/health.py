@@ -1,4 +1,4 @@
-from render.sprites import SpriteStruct, static_sprites
+from render.sprites import SpriteStruct
 from bodys.pickables.pickable import Pickable
 
 
@@ -6,7 +6,7 @@ class HealthPack5(Pickable):
     def __init__(self, game, r):
         super().__init__(game, r)
         self.heal_value = 5
-        self.sprite_struct = SpriteStruct(static_sprites["health_5.png"], 30, 30)
+        self.sprite_data = SpriteStruct("health_5.png", 30, 30)
     
     def update(self):
         picker = self.picker()
@@ -20,4 +20,4 @@ class HealthPack25(HealthPack5):
     def __init__(self, game, r):
         super().__init__(game, r)
         self.heal_value = 25
-        self.sprite_struct = SpriteStruct(static_sprites["health_25.png"], 50, 80)
+        self.sprite_data = SpriteStruct("health_25.png", 50, 80)

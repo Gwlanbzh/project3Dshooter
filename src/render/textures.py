@@ -4,7 +4,7 @@ from config import Config
 from render.vars import *
 
 
-__all__ = ["global_textures", "load_texture", "height_map", "textures_units_per_strip", "NO_WALL"]
+__all__ = ["load_texture", "load_texture_set", "height_map", "NO_WALL"]
 
 
 NO_WALL = 0  # no wall
@@ -17,7 +17,7 @@ W_TX5 = 6  # wall with texture concrete
 W_TX6 = 7  # wall with texture concret
 
 textures_map = {
-    W_TX0: "cyberpunk1.png",
+    W_TX0: "quake_texture_5.png",
     W_TX1: "quake_texture_17.png",
     W_TX2: "quake_texture_25.png",
     W_TX3: "quake_texture_27.png",
@@ -46,7 +46,15 @@ def load_texture(path:str):
     """
     return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path))]
 
-global_textures = {id:load_texture(TEXTURES_DIR+textures_map[id]) for id in textures_map}
-
-textures_units_per_strip = {t:100/len(global_textures[t]) for t in textures_map}
+def load_texture_set(texture_set: str):
+    """
+    Return an array of the columns of a given image, as surfaces if surface is True, else as PixelArrays.
+    """
+    texture_dict = {}
+    try:
+        for i in range(1, 11):
+            texture_path = TEXTURES_DIR + texture_set + "/" + str(i) + ".png"
+            texture_dict[i] = [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(texture_path))]
+    except FileNotFoundError:  # end of set reached
+        return texture_dict
 

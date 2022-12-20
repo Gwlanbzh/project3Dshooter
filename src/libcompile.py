@@ -2,7 +2,7 @@ from storage import StorableWorld
 from values import values, values_destination
 from string import digits
 
-def parse_map(data: str, skybox, floor):
+def parse_map(data: str, skybox="sky.png", floor=(70, 70, 70)):
     props = []
     pickables = []
     mobs = []
@@ -33,11 +33,4 @@ def parse_map(data: str, skybox, floor):
                 
                 grid[i].append(0)
     
-    return StorableWorld(props=props,
-                         pickables=pickables,
-                         mobs=mobs,
-                         players=players,
-                         grid=grid,
-                         skybox=skybox,
-                         floor=floor
-                         )
+    return StorableWorld(props, pickables, mobs, players, grid, skybox, floor)

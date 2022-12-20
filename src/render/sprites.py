@@ -22,11 +22,11 @@ static_sprites_names = [
     "ammo_50.png",
 ]
 
-static_sprites = {sprite:load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
+static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
 
 
 @dataclass
 class SpriteStruct:
-    sprite: list[pg.Surface]
+    name  : str
     height: float = 100.0
     width : float = 100.0
