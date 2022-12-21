@@ -31,7 +31,9 @@ class World:
         self.mobs = [Class(game, pos) for Class, pos in map_data.mobs]
         self.players = [Class(game, pos) for Class, pos in map_data.players]
         
+        self.exits = map_data.exits
         self.map = Map(game, map_data.grid)
+        self.map_scale = map_data.map_scale
         
         self.ressources = Ressources(map_data.texture_set, map_data.skybox)
     

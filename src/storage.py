@@ -3,11 +3,13 @@ import os
 
 
 class StorableWorld:
-    def __init__(self, props, pickables, mobs, players, grid, skybox, floor, texture_set, map_scale):
+    def __init__(self, props, pickables, mobs, players, exits, grid, skybox, floor, texture_set, map_scale):
         self.props = props
         self.pickables = pickables
         self.mobs = mobs
         self.players = players
+        
+        self.exits = exits
         self.grid = grid
         
         self.skybox = skybox

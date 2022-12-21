@@ -7,6 +7,7 @@ def parse_map(data: str, skybox, floor, texture_set, map_scale):
     pickables = []
     mobs = []
     players = []
+    exits = []
     grid = []
     
     i = -1
@@ -20,7 +21,9 @@ def parse_map(data: str, skybox, floor, texture_set, map_scale):
             elif c in digits:
                 grid[i].append(int(c))
             else:
-                if c != " ":
+                if c == "E":
+                    exits.append((x, y))
+                elif c != " ":
                     Class = values[c]
                     
                     destination = values_destination[Class]
@@ -36,4 +39,4 @@ def parse_map(data: str, skybox, floor, texture_set, map_scale):
                 
                 grid[i].append(0)
     
-    return StorableWorld(props, pickables, mobs, players, grid, skybox, floor, texture_set, map_scale)
+    return StorableWorld(props, pickables, mobs, players, exits, grid, skybox, floor, texture_set, map_scale)
