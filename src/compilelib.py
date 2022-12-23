@@ -2,7 +2,7 @@ from storage import StorableWorld
 from values import values, values_destination
 from string import digits
 
-def parse_map(data: str, skybox, floor, texture_set, map_scale):
+def create_world(data: str, skybox, floor, texture_set, map_scale):
     props = []
     pickables = []
     mobs = []
