@@ -28,6 +28,11 @@ def load_static_sprites():
     return {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
 
 def load_animated_sprites(model: str, animations: list):
+    """
+    Returns a dictionary with keys being states and values being arrays of sprites.
+    If the state is not anomated, (e.g. standing), add "standing" to animations.
+    If it is, append "{}" at the end.
+    """
     directory = f"{TEXTURES_DIR}/{model}"
     sprites_dict = {}
     for anim in animations:
