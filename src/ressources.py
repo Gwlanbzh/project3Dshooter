@@ -1,4 +1,4 @@
-from render import load_texture_set, load_skybox, static_sprites
+from render import load_texture_set, load_skybox, load_static_sprites
 
 class Ressources():
     """
@@ -14,5 +14,5 @@ class Ressources():
         self.skybox_data = load_skybox(skybox)
         self.floor = floor
         
-        self.static_sprites = static_sprites
+        self.static_sprites = load_static_sprites()
 

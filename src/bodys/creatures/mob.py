@@ -27,7 +27,7 @@ class Mob(Creature):
         pass
 
 
-class Enemy(Mob):
+class Grunt(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         

@@ -39,4 +39,3 @@ def load_texture_set(texture_set: str):
             texture_dict[i] = load_texture(texture_path)
     except FileNotFoundError:  # end of set reached
         return texture_dict
-
