@@ -25,3 +25,28 @@ class Mob(Creature):
         Returns a force vector based on the move the IA choses.
         """
         pass
+
+
+class Enemy(Mob):
+    def __init__(self, game, r):
+        super().__init__(game,r)
+        
+        self.health = 100
+        self.weapons = []        # TODO add pistol
+        self.sprite_data = None  # TODO implement dynamic sprites
+
+class Heavy(Mob):
+    def __init__(self, game, r):
+        super().__init__(game,r)
+        
+        self.health = 200
+        self.weapons = []        # TODO add pistol
+        self.sprite_data = None  # TODO implement dynamic sprites
+
+class Boss(Mob):
+    def __init__(self, game, r):
+        super().__init__(game,r)
+        
+        self.health = 500
+        self.weapons = []        # TODO add pistol
+        self.sprite_data = None  # TODO implement dynamic sprites

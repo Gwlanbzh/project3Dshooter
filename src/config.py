@@ -23,10 +23,7 @@ class Config():
     FOV_Y = 2*pi/3
     
     VIEW_HEIGHT = 75
-    
-    DISTANCE_FADING = 1.001
-    
+        
     TEXTURES_DIR = "assets/textures/"
     SPRITES_DIR = "assets/sprites/"
     SKYBOX_DIR = "assets/env/"
-    GROUND_COLOR = (88, 74, 55)
