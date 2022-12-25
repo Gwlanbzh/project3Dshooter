@@ -33,15 +33,13 @@ class Weapon():
         """
         t = pg.time.get_ticks()
         if t - self.last_shot_time > self.delay: # 100 ms between shots 
+            self.last_shot_time = t
             if entity.ammo > 0:
-                self.last_shot_time = t
-
                 entity.ammo = max(0, entity.ammo - 1)
 
                 mob_list = entity.game.world.mobs
                 self.hit_scan(entity.game.world.map.map, entity.r, entity.orientation, mob_list)
-                self.play_sound()
-            
+                self.play_sound()            
             else:
                 self.play_sound(no_ammo=True)
     
@@ -66,18 +64,34 @@ class Weapon():
                 if delta_x > 0:
                     if delta_y > 0: # cas 1
                         angle_p_m = pi + acos(delta_x/dist)
+
+                    elif delta_y == 0:
+                        teta1 = orientation -  pi + acos(delta_x/dist)
+                        teta2 = orientation -  pi_2 + acos(abs(delta_y)/dist)
+                        if abs(teta1) < teta_max or abs(teta2) < teta_max:
+                            mob.health = max(mob.health - self.dmg, 0)
+                            return
+                        else:
+                            continue
                     else: # cas 2
                         angle_p_m = pi_2 + acos(abs(delta_y)/dist)
+                
                 else:
                     if delta_y > 0: # cas 3 
                         angle_p_m = tau - acos(abs(delta_x)/dist)
-                    else: # cas 4
-                        print("hello test test !!")
-                        angle_p_m = acos(abs(delta_x)/dist)
-                        print(teta_max)
-                        print(angle_p_m)
+                    
+                    elif delta_y == 0:
+                        teta1 = orientation - tau - acos(abs(delta_x)/dist)
+                        teta2 = orientation - acos(abs(delta_x)/dist)
+                        if abs(teta1) < teta_max or abs(teta2) < teta_max:
+                            mob.health = max(mob.health - self.dmg, 0)
+                            return
+                        else:
+                            continue
 
-                # angle_p_m (angle player mob) représente la valeur de que player.orientaion devrait avoir pour toucher en plein milieu le mob.
+                    else: # cas 4
+                        angle_p_m = acos(abs(delta_x)/dist)
+
                 teta = orientation - angle_p_m
                 if abs(teta) < teta_max:
                     mob.health = max(mob.health - self.dmg, 0)
