@@ -20,7 +20,7 @@ class Creature(Body):
         Output:
             Creature
         """
-        super().__init__(game,r) 
+        super().__init__(game, r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         

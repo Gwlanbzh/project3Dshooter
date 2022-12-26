@@ -22,7 +22,9 @@ class Body():
         
         self.color = 'magenta'
         self.game = game # link to dt
-        
+
+        self.health = 1
+
         ## TODO add sprites data structure
         self.sprite_struct = SpriteStruct(static_sprites["default.png"])
     
@@ -40,5 +42,4 @@ class Body():
         return self.sprite_struct
 
     def draw(self,game): # draw object
-        traylenght = 100
         pg.draw.circle(game.window, self.color, self.r, 15)
