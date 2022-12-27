@@ -107,6 +107,14 @@ class Weapon():
         self.update_image()
         window.blit(self.sprite[self.image_index], top_left)
 
+    def draw2d(self, window, r, teta):
+        traylength = self.range
+        pg.draw.line(
+            window,'yellow', (r),
+            (r[0]+ traylength * cos(teta), r[1] + traylength * sin(teta)),
+            2
+        )
+
     def update_image(self):
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
         self.image_index = i if i < len(self.sprite) else 0

@@ -82,7 +82,11 @@ class Creature(Body):
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght * cos(self.orientation),
                       self.r[1] + traylenght * sin(self.orientation)),2) 
+        
+        # rond
         pg.draw.circle(game.window, self.color, self.r,15)
+        
+        # vie
         pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
         pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))
 

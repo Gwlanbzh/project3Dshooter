@@ -2,6 +2,8 @@ from weapons import Weapon
 from config import *
 from math import pi
 import pygame as pg
+from render import load_shotgun
+from math import tau
 
 class Shotgun(Weapon):
 
@@ -9,7 +11,21 @@ class Shotgun(Weapon):
         super().__init__()
         self.delay = 400
         self.range = WALL_WIDTH * 5
-        self.dmg = 20
+        self.dmg = 30
+
+        self.dteta = 0.09 # 5 degrés en radians
+
+        self.time_between_sprites = 100
+        self.sprite = load_shotgun() # from render.weapons
+        self.image_index = 0
+
+        self.ammo_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_shotgun.mp3"),
+        ]
+        
+        self.no_ammo_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
+        ]
 
     def shoot(self, entity):
         t = pg.time.get_ticks()
@@ -23,14 +39,14 @@ class Shotgun(Weapon):
                 orien = entity.orientation
 
                 self.hit_scan(entity.game.world.map.map, entity.r, orien, mob_list)
-                self.hit_scan(entity.game.world.map.map, entity.r, orien - pi/6, mob_list)
-                self.hit_scan(entity.game.world.map.map, entity.r, orien + pi/6, mob_list)
+                self.hit_scan(entity.game.world.map.map, entity.r, (orien - self.dteta) % tau, mob_list)
+                self.hit_scan(entity.game.world.map.map, entity.r, (orien + self.dteta) % tau, mob_list)
                 self.play_sound()
             
             else:
                 self.play_sound(no_ammo=True)
 
-    #def hit_scan(self, pos, orientation, mob_list):
-    #    super().hit_scan(pos, orientation, mob_list)
-    #    super().hit_scan(pos, orientation - pi/4, mob_list)
-    #    super().hit_scan(pos, orientation + pi/4, mob_list)
+    def draw2d(self, window, r, teta):
+        super().draw2d(window, r, teta)
+        super().draw2d(window, r, (teta - self.dteta) % tau)
+        super().draw2d(window, r, (teta + self.dteta) % tau)
