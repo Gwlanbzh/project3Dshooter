@@ -1,6 +1,6 @@
 from render.sprites import SpriteStruct, static_sprites
 from bodys.creatures.creature import Creature
-from math import pi, cos, sin, atan2
+from math import pi, cos, sin, atan2,hypot
 from pygame import Vector2 as v2
 from render.ray import Ray
 
@@ -20,7 +20,7 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.test = game.window
+        self.range = 150
         self.sprite_struct = SpriteStruct(static_sprites["demon.png"], 150)
 
     def update(self):
@@ -31,58 +31,71 @@ class Mob(Creature):
     def ia_command(self):
         """
         Behavior of the mob
+        do nothing if dead
+        do nothing if he has never seen the player
+        do not approch the player more than 2/3 of is range 
         """
         if not self.is_dead() :
             if not self.has_seen_player and self.mob_view_player():
                 self.has_seen_player = True
             if self.has_seen_player:
-                self.movement()
+                if self.dist_with_player() > 2/3 * self.range:
+                    self.movement()
+
         pass
 
     def movement(self):
+        """
+        move the mob toward the player
+        """
         # Get player and self position
         x,y = self.r
         target_pos = self.game.world.players[0].r
 
-        # next_pos = self.game.path_finding.Astar((),)
+        mob_map_pos = self.map_pos
+        player_map_pos = self.game.world.players[0].map_pos
 
-        # compute nex postion
-        angle = atan2(target_pos[1] - y, target_pos[0] - x)
-        dx = cos(angle) * self.speed * self.game.delta_time
-        dy = sin(angle) * self.speed * self.game.delta_time
-        self.orientation = angle
+        next_pos = self.game.path_finding.Astar(mob_map_pos,player_map_pos)
+        if next_pos not in self.game.world.mobs_position:
+            next_pos_x, next_pos_y = next_pos
+            next_pos_x += 0.5
+            next_pos_y += 0.5
+            next_pos_y *= 100
+            next_pos_x *= 100
 
-        # check colision with not_colliding's Creature methode
-        x_permission, y_permission = self.not_colliding(dx, dy)
-        if x_permission:
-            x += dx
-        if y_permission:
-            y += dy 
-        self.r = v2(x, y)
+            # compute nex postion
+            angle = atan2(next_pos_y - y, next_pos_x - x)
+            dx = cos(angle) * self.speed * self.game.delta_time
+            dy = sin(angle) * self.speed * self.game.delta_time
+            self.orientation = angle
+
+            # check colision with not_colliding's Creature methode
+            x_permission, y_permission = self.not_colliding(dx, dy)
+            if x_permission:
+                x += dx
+            if y_permission:
+                y += dy 
+            self.r = v2(x, y)
 
 
     def mob_view_player(self):
         """
-        Algo to trigger mob to move toward player 
-        TODO : add ray cast for removoing mob been able to see us through wall 
+        Check if the player is visible from the mob
         """
         player = self.game.world.players[0]
-        mob_list = self.game.world.sorted_mob_list
-        for dist_mob, mob in mob_list:
-            # test mur
-            direction = v2(player.r - mob.r)
-            rayon = Ray(mob.r, direction, self.game.world.map.map)
 
-            # Debug
-            # print("ray :",rayon.distance)
-            # print("mob : ",dist_mob)
-            # print(" ")
+        # test mur
+        direction = v2(player.r - self.r)
+        rayon = Ray(self.r, direction, self.game.world.map.map)
 
-            if rayon.distance > dist_mob:
-                # if self.player_in_fov():
-                    return True
+        if rayon.distance > self.dist_with_player():
+            # if self.player_in_fov():
+            return True
 
     def player_in_fov(self): 
+        """
+        Deprecated
+        """
         # Info Player
         player = self.game.world.players[0]
         x_player,y_player = player.r.x, player.r.y
@@ -92,5 +105,12 @@ class Mob(Creature):
 
         # if player in FOV of mob
         angle_mob_player = atan2(y_player - mob_y,x_player - mob_x)
-        if self.orientation - pi/4 < angle_mob_player < self.orientation + math.pi/4:
+        if self.orientation - pi/4 < angle_mob_player < self.orientation + pi/4:
             self.has_seen_player = True
+
+
+    def dist_with_player(self):
+        player = self.game.world.players[0]
+        diff = player.r - self.r
+        dist = hypot(diff.x, diff.y)
+        return dist

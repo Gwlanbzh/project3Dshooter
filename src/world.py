@@ -41,8 +41,8 @@ class World:
         
         self.mobs = [
             #Mob(game,(350,150)),
-            #Mob(game,(350,450)),
-            #Mob(game,(550,650)),
+            Mob(game,(350,450)),
+            Mob(game,(550,650)),
             Mob(game,(750,450))
             ]
         
@@ -63,7 +63,8 @@ class World:
             <none>
         """
         self.players[0].update()
-        self.update_sorted_mob_list()
+
+        self.mobs_position = [mob.map_pos for mob in self.mobs]
         for mob in self.mobs:
             mob.update()
         
@@ -86,11 +87,3 @@ class World:
             mob.draw(game)
         self.players[0].draw(game)
         pass
-    
-    def update_sorted_mob_list(self):
-        def dist(pos, mob):
-            diff = pos - mob.r
-            dist = hypot(diff.x, diff.y)
-            return dist
-        non_sorted_mob_list = [(dist(self.players[0].r, mob), mob) for mob in self.mobs]
-        self.sorted_mob_list = sorted(non_sorted_mob_list)
