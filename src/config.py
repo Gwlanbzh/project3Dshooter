@@ -32,3 +32,5 @@ class Config():
     SPRITES_DIR = "src/assets/sprites/"
     SKYBOX = "src/assets/env/sky_hd.png"
     GROUND_COLOR = (88, 74, 55)
+
+    SOUNDS_FOLDER = "src/assets/sounds/"

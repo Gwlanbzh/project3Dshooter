@@ -76,7 +76,8 @@ class Player(Creature):
         
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
-            self.current_weapon.hit_scan(self.game.world.map.map, self.r, self.orientation, self.game.world.mobs)
+            mob_list = self.game.world.mobs + self.game.world.props
+            self.current_weapon.shoot(self, mob_list)
         
         mouse_delta_pos = pg.mouse.get_rel()
         x, y = mouse_delta_pos
@@ -151,10 +152,11 @@ class Player(Creature):
         self.orientation %= tau
 
     def draw(self, game): # might be move into Creature or Body
-        traylenght = self.current_weapon.range
-        pg.draw.line(game.window,'yellow', (self.r),
-                     (self.r[0]+ traylenght * cos(self.orientation),
-                      self.r[1] + traylenght * sin(self.orientation)),2) 
+        self.current_weapon.draw2d(game.window, self.r, self.orientation)
+        
+        # rond
         pg.draw.circle(game.window, self.color, self.r,15)
+        
+        # vie
         pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
         pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))

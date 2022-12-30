@@ -1,6 +1,8 @@
+import pygame as pg
 from weapons import Weapon
 from render import load_pistol
-from config import WALL_WIDTH
+from config import *
+
 
 class Pistol(Weapon):
     def __init__(self):
@@ -16,3 +18,11 @@ class Pistol(Weapon):
         self.time_between_sprites = 50
         self.sprite = load_pistol() # from render.weapons
         self.image_index = 0
+
+        self.ammo_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3"),
+        ]
+        
+        self.no_ammo_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
+        ]
