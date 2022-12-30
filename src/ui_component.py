@@ -228,6 +228,8 @@ class Position_Display(Display):
     def content_update(self):
         self.content = str(self.player.r.x)+","+str(self.player.r.y)
 
+
+
 #### Menu UI Compoenent ####
 
 class Menu_Title(Display):

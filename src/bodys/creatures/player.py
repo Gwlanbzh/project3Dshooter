@@ -21,11 +21,13 @@ class Player(Creature):
             Player
         """
         super().__init__(game,r)
-        self.heal_recovery_time = 10000 # valeur arbitraire
+
         self.color = 'blue'
         self.vorientation = 0
-        self.spawn = r
-        # TODO add ammo data structure
+        self.spawn_pos = r
+
+        # self.health
+        self.target_health = self.health
 
         # weapons attributes
         self.weapons = []
