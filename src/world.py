@@ -63,7 +63,8 @@ class World:
         """
         self.players[0].update()
 
-        self.mobs_position = [mob.map_pos for mob in self.mobs]
+        self.mobs_position = [mob.map_pos for mob in self.mobs if not mob.is_alive]
+
         for mob in self.mobs:
             mob.update()
         
