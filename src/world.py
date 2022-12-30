@@ -1,7 +1,6 @@
 from config import *
 from map import *
 from bodys import *
-from math import hypot
 
 class World:
     """
