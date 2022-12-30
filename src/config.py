@@ -1,7 +1,6 @@
 from math import pi
-import pygame as pg
 
-
+WALL_WIDTH = 100
 WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
 PATH_ASSETS = "src/assets/"
 
@@ -14,12 +13,14 @@ class Config():
     FRAME_RATE = 120
 
     PLAYER_V = 1 # arbitraty value for good feeling
-    PLAYER_ROT_SPEED = 0.004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
-    PLAYER_VERT_ROT_SPEED = 1
-    PLAYER_MAX_VERT_ROT = 100
+    PLAYER_VERT_ROT_SPEED = 4
+    PLAYER_MAX_VERT_ROT = RES_Y//2
     
-    # rendering-related constants
+    PLAYER_MOUSE_ROT_SPEED = .0005  # arbitrary value for good feeling. temporarily, waiting for mouse handling
+    PLAYER_MOUSE_VERT_ROT_SPEED = 1
+    
     WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
     FOV_X = 2*pi/3
     FOV_Y = 2*pi/3
@@ -28,4 +29,9 @@ class Config():
     
     DISTANCE_FADING = 1.001
     
-    TEXTURES_FOLDER = "src/assets/textures/"
+    TEXTURES_FOLDER = "src/assets/visual/textures/"
+    SPRITES_DIR = "src/assets/visual/sprites/"
+    SKYBOX = "src/assets/visual/env/sky_hd.png"
+    GROUND_COLOR = (88, 74, 55)
+
+    SOUNDS_FOLDER = "src/assets/sounds/"

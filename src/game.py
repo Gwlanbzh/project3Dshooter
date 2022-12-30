@@ -14,6 +14,7 @@ class Game:
         Important init for the game main component
         """
         pg.init()
+                
         self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         #pg.display.toggle_fullscreen()
@@ -50,9 +51,12 @@ class Game:
 
     def quit(self):
         pg.quit()  # quit pygame
-        sys.exit()  # better quit, remove somme error when  quiting
-
-  
+        sys.exit()  # better quit, remove some error when  quiting
+    
+    def display_info(self, text: str):
+        img = self.font.render(text, False, (255, 255, 255))
+        self.window.blit(img, (10, 10))
+   
     def run(self):
         """
         Main Game Loop 
@@ -63,8 +67,6 @@ class Game:
             if not self.world_loaded:
                 self.main_menu.draw()
 
-                pass
-
             if self.world_loaded:
                 # self.world.draw2d(game)
                 self.world.update(self)
@@ -72,9 +74,10 @@ class Game:
                 self.hud.update()
                 self.hud.draw()
 
+
+            fps = self.clock.get_fps()
             pg.display.update()
             self.delta_time =  self.clock.tick(Config.FRAME_RATE)
-            fps = self.clock.get_fps()
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":

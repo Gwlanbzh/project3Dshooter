@@ -1,9 +1,10 @@
 import pygame as pg
-from pygame import Vector2 as v2
-from math import cos, sin, hypot, tau
+from math import cos, sin, hypot
 from config import Config
 from bodys import Creature
 from weapons import *
+from math import tau
+
 
 class Player(Creature):
     """
@@ -20,10 +21,10 @@ class Player(Creature):
         Outputs:
             Player
         """
-        super().__init__(game,r)
+        super().__init__(game, r)
 
         self.color = 'blue'
-        self.vorientation = 0
+        self.vorientation = 100
         self.spawn_pos = r
 
         # self.health
@@ -32,13 +33,19 @@ class Player(Creature):
         # weapons attributes
         self.weapons = []
         self.current_weapon = Pistol()
-        self.ammo = 0 # may change to dict ?
+        self.ammo = 10  # may change to dict ?
+        self.max_ammo = 100
 
-    def update(self): # might be move into Creature or Body
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
+
+
+    def update(self):  # might be move into Creature or Body
         self.move()
         # heal
         # status, maybe buff / debuff
         # TODO : not logical to call self.get_inputs, call self.move() instead would be better
+    
     
     def get_inputs(self):
         """
@@ -75,10 +82,19 @@ class Player(Creature):
         if keys[pg.K_k]:
             self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
         
+        # Mouse events
+        
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
-            self.current_weapon.hit_scan(self, self.game.world.mobs)
-
+            mob_list = self.game.world.mobs + self.game.world.props
+            self.current_weapon.shoot(self, mob_list)
+        
+        mouse_delta_pos = pg.mouse.get_rel()
+        x, y = mouse_delta_pos
+        self.vorientation = self.vorientation - y * Config.PLAYER_VERT_ROT_SPEED
+        self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
+        self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
+        
         if keys[pg.K_p]:
             self.game.hud.toggle()
 
@@ -142,7 +158,18 @@ class Player(Creature):
         if y_permission:
             self.r.y += dy
 
-    def rotate(self, direction):
+
+    def rotate(self, direction, sensitivity=Config.PLAYER_ROT_SPEED):
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        self.orientation -= direction * Config.PLAYER_ROT_SPEED * dt
+        self.orientation -= direction * sensitivity * dt
         self.orientation %= tau
+
+    def draw(self, game): # might be move into Creature or Body
+        self.current_weapon.draw2d(game.window, self.r, self.orientation)
+        
+        # rond
+        pg.draw.circle(game.window, self.color, self.r,15)
+        
+        # vie
+        pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
+        pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))

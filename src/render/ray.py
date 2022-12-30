@@ -3,8 +3,10 @@ from map import *
 from math import sqrt
 from render.vars import *
 from render.textures import *
+
+
 class Ray():
-    def __init__(self, origin: v2, direction: v2):
+    def __init__(self, origin: v2, direction: v2, map):
         """
         Casts a ray by implementing the DDA algorithm.
         """
@@ -33,13 +35,12 @@ class Ray():
             y_delta = (100 - (origin.y % 100)) / 100 * y_ratio
             y_rest = (origin.y % 100) / 100 * y_ratio
 
-
         x_orig = int(origin.x)//100  # current cell the ray is in
         y_orig = int(origin.y)//100
 
         x_cell, y_cell = x_orig, y_orig
 
-        side = ''  # will be 'x' or 'y' depending on the direction of the last move
+        side = ''  # will be set to 'x' or 'y' depending on the direction of the last move
         
         # Main loop, the DDA algorithm itself
         
