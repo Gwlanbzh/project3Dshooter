@@ -24,7 +24,7 @@ class Game:
 
         self.world_loaded = False
 
-        self.load_world()
+        # self.load_world()
         
     def load_world(self):
         self.world = World(self) 
@@ -41,11 +41,17 @@ class Game:
         """
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                pg.quit() # quit pygame
-                sys.exit() # better quit, remove somme error when  quiting
+                self.quit()
 
             if self.world_loaded:
                 self.hud.click(event)
+            else:
+                self.main_menu.click(event)
+
+    def quit(self):
+        pg.quit()  # quit pygame
+        sys.exit()  # better quit, remove somme error when  quiting
+
   
     def run(self):
         """

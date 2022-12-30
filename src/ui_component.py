@@ -67,7 +67,7 @@ class Button(Display):
 
     def update_surface(self):
         self.update_size()
-        self.surface = pg.Surface(self.size)
+        self.surface = pg.Surface(self.size,pg.SRCALPHA)
         self.surface.fill(self.background)
         self.surface.blit(self.label,(0,0))
         self.rect = pg.Rect(self.position[0], self.position[1], 
@@ -116,12 +116,12 @@ class Health_Bar():
         self.player = player
         self.game = game
         self.position = position
-        self.health_bar_length = 600
+        self.health_bar_length = 400
         self.health_ratio = player.max_health / self.health_bar_length
         self.health_change_speed = 5
         self.icon = pg.image.load(PATH_ASSETS+"heart_icon.png")
         self.icon = pg.transform.scale(self.icon,(70,70))
-        self.myfont = pg.font.SysFont("creep", 17)
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 16)
 
     def draw(self):
         transition_width = 0
@@ -146,7 +146,7 @@ class Health_Bar():
         pg.draw.rect(self.game.window,transition_color,transition_bar)	
         pg.draw.rect(self.game.window,(73,54,43),(self.position[0],self.position[1],self.health_bar_length,25),3)	
         label = self.myfont.render(str(self.player.health)+"/"+str(self.player.max_health), 4, (255,255,255,0))
-        self.game.window.blit(label, self.position)
+        self.game.window.blit(label,(self.position[0]+30,self.position[1]+5))
         self.game.window.blit(self.icon,(self.position[0]-40,self.position[1]-30))
     pass
 
@@ -272,7 +272,7 @@ class Menu_Title(Display):
         self.background = (0,0,0,0)
 
         # TODO find a way to remove the 3 line below 
-        self.myfont = pg.font.SysFont("monospace", self.font_size)
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 42)
         self.label = self.myfont.render(self.string, 1, self.foreground)
         self.update_size()
 
@@ -280,18 +280,97 @@ class Menu_Title(Display):
 
         pass
 
-class Menu_Select_World(Menu):
-    def __init__(self):
-        pass
+class Menu_Select_World_Button(Button):
+    def __init__(self,game,position):
+        self.game = game
+        self.position = position
+        self.ui_elements_button = [
+            self.right_button(game,(60,50))
+        ]
+
+    def draw(self):
+        for element in self.ui_elements_button:
+            element.draw()
+        for element in self.ui_elements_display:
+            element.draw_without_content()
+
+    class menu_name(Display):
+        def __init__(self,game,position):
+            super().__init__(game,position)
+            self.string = "WORLD"
+            self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
+
+    class right_button(Button):
+        def __init__(self,game,position):
+            super().__init__(game,position)
+            self.text = "play"
+            self.background = (0,0,255,0)
+            self.background_activate = RED
+            self.background_idle = self.background
+            self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
+            self.label = self.myfont.render(self.text, 1, self.foreground)
+            self.update_surface()
+            self.position = self.get_position_centered_surface()
+            self.update_surface()
+
+        def action(self):
+            print("good game")
+            self.game.load_world()
+            pass
+    class right_button(Button):
+        def __init__(self,game,position):
+            super().__init__(game,position)
+            self.text = "play"
+            self.background = (0,0,255,0)
+            self.background_activate = RED
+            self.background_idle = self.background
+            self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
+            self.label = self.myfont.render(self.text, 1, self.foreground)
+            self.update_surface()
+            self.position = self.get_position_centered_surface()
+            self.update_surface()
+
+        def action(self):
+            print("good game")
+            self.game.load_world()
+            pass
 
 class menu_setting(Menu):
     def __init__(self):
         pass
 
 class Play_Button(Button):
-    def __init__(self):
+    def __init__(self,game,position):
+        super().__init__(game,position)
+        self.text = "PLAY"
+        self.background = (0,0,255,0)
+        self.background_activate = RED
+        self.background_idle = self.background
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
+        self.label = self.myfont.render(self.text, 1, self.foreground)
+        self.update_surface()
+        self.position = self.get_position_centered_surface()
+        self.update_surface()
+
+    def action(self):
+        print("Good Game")
+        self.game.load_world()
         pass
 
 class Quit_Game_Button(Button):
-    def __init__(self):
+    def __init__(self,game,position):
+        super().__init__(game,position)
+        self.text = "QUIT"
+        self.background = (0,0,255,0)
+        self.background_activate = RED
+        self.background_idle = self.background
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
+        self.label = self.myfont.render(self.text, 1, self.foreground)
+        self.update_surface()
+        self.position = self.get_position_centered_surface()
+        self.update_surface()
+
+    def action(self):
+        print("Thank you for playing ")
+        self.game.quit()
         pass

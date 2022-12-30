@@ -10,33 +10,30 @@ class MainMenu:
         self.game = game
         self.worlds = []
         self.menu_title = Menu_Title(game,(0.5*RES_X,0.2*RES_Y))
-        self.menu_select_world = Menu_Select_World()
+        self.ui_elements_button = [
+            Play_Button(game,(0.5*RES_X,0.4*RES_Y)),
+            Quit_Game_Button(game,(0.5*RES_X,0.7*RES_Y)),
+            Menu_Select_World_Button(game,(0.5*RES_X,0.5*RES_Y))
+        ]
         self.menu_setting = menu_setting()
-        self.play_button = Play_Button()
-        self.quit_game_button = Quit_Game_Button()
+        self.background = pg.image.load(PATH_ASSETS+"Menu_Background.jpg")
+        self.background = pg.transform.scale(self.background,(RES_X,RES_Y))
         pass
 
     def draw_menu_background(self):
-        menu_background = 'gray'
-        self.game.window.fill(menu_background)
+        self.game.window.blit(self.background,(0,0))
 
     def draw(self):       
         self.draw_menu_background()
         self.menu_title.draw_without_content()
-        # self.menu_select_world.draw()
         # self.menu_setting.draw()
-        # self.play_button.draw()
-        # self.quit_game_button.draw()
+        for element in self.ui_elements_button:
+            element.draw()
 
-    def draw_quit():
 
-        pass
-
-    def draw_title(self):
-        pass
-
-    def load_world(self,game):
-        pass
+    def click(self,event):
+        for element in self.ui_elements_button:
+            element.click(event)
 
 class MenuOption:
     pass

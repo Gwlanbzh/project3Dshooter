@@ -11,6 +11,7 @@ class Hud:
         self.ui_elements_display = []
         self.ui_elements_button = []
         self.ui_bar = []
+        self.toggle()
         pass
 
     def draw(self):
