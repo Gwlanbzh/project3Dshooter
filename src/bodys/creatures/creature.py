@@ -24,8 +24,9 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         
-        self.health = 100
+        self.is_alive = True
         self.max_health = 200
+        self.health = self.max_health
 
     def in_wall(self, pos ):
         x , y = pos

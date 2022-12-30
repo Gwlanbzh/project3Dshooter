@@ -1,6 +1,7 @@
 from config import *
 from map import *
 from bodys import *
+from math import hypot
 
 class World:
     """
@@ -21,6 +22,11 @@ class World:
         Outputs:
             World
         """
+        self.map = Map(game)
+
+        
+
+    def init_bodys(self,game):
         self.props = [
             Light(game,(450,150)),
             Light(game,(950,450)),
@@ -34,17 +40,16 @@ class World:
             ]
         
         self.mobs = [
-            Mob(game,(350,150)),
-            Mob(game,(450,450)),
-            Mob(game,(550,650)),
+            #Mob(game,(350,150)),
+            #Mob(game,(350,450)),
+            #Mob(game,(550,650)),
             Mob(game,(750,450))
             ]
         
         self.players = [
             Player(game,(150,150))
             ]
-        
-        self.map = Map(game)
+
 
     def update (self, game):
         """
@@ -58,6 +63,7 @@ class World:
             <none>
         """
         self.players[0].update()
+        self.update_sorted_mob_list()
         for mob in self.mobs:
             mob.update()
         
@@ -80,3 +86,11 @@ class World:
             mob.draw(game)
         self.players[0].draw(game)
         pass
+    
+    def update_sorted_mob_list(self):
+        def dist(pos, mob):
+            diff = pos - mob.r
+            dist = hypot(diff.x, diff.y)
+            return dist
+        non_sorted_mob_list = [(dist(self.players[0].r, mob), mob) for mob in self.mobs]
+        self.sorted_mob_list = sorted(non_sorted_mob_list)

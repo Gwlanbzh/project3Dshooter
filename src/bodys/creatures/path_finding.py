@@ -1,14 +1,103 @@
 from collections import deque
+from map import Node
 import math
+import heapq
 
-class Path_finding:
+class PathFinding:
     def __init__(self,game) :
-        #[-1, 1] [0, 1] [1, 1]
-        #[-1, 0] [0, 0] [1, 0]
-        #[-1,-1] [0,-1] [1,-1]
-        # print(self.graph)
-        self.Astar((1,1),(0,41))
+        self.map_height = game.world.map.map_height
+        self.map_width = game.world.map.map_width
+        self.graph = game.world.map.graph
+        print(self.Astar((1,1),(5,3)))
         pass
+
+    def get_path(self,current_node):
+        """
+        return the next case to go 
+        """
+        path = []
+        current = current_node
+        while current is not None:
+            if len(path) > 20:
+                break
+            path.append(current.position)
+            current = current.parent
+            print(path)
+        return path[-1]  # Return reversed path
+
+
+    def Astar(self,start_pos,goal_pos):
+        start_node = self.graph[(start_pos)]
+
+        # Set of node to be evaluted
+        open_list = []
+        close_list = []
+
+        # Heapify the open_list and Add the start node
+        heapq.heapify(open_list) 
+        heapq.heappush(open_list, start_node)
+
+        # Adding a stop condition
+        iterations = 0
+        max_iterations = 1000
+
+        # Loop until the queue is empty
+        while len(open_list) > 0:
+            iterations += 1
+            print(iterations)
+
+            if iterations > max_iterations:
+                # the goal will not be contain
+                return self.get_path(current_node)
+    
+            # Get the current node
+            current_node = heapq.heappop(open_list)
+            close_list.append(current_node)
+
+            print(current_node)
+            print(current_node.parent)
+            # Goal is Found
+            if current_node.position == goal_pos:
+                return self.get_path(current_node)
+            # Generate children
+            children = []
+        
+            for child_pos in current_node.neighbour:
+
+                if child_pos != current_node.position: 
+                    # Update node parent
+                    new_node = Node(child_pos,self.graph[child_pos].neighbour)
+                    new_node.parent = current_node
+
+                # Append
+                children.append(new_node)
+            print(children) 
+
+            # Loop through children
+            for child in children:
+                # Child is on the closed list
+                if len([closed_child for closed_child in close_list if closed_child == child]) > 0:
+                    continue
+                # Create the f, g, and h values
+                child.cost = current_node.cost + 1
+                child.heuristic = ((child.position[0] - goal_pos[0]) ** 2) + ((child.position[1] - goal_pos[1]) ** 2)
+                child.total_cost = child.cost + child.heuristic
+
+                # Child is already in the open list
+                if len([open_node for open_node in open_list if child.position == open_node.position and child.cost > open_node.cost ]) > 0:
+                    continue
+
+                # Add the child to the open list
+                heapq.heappush(open_list, child)
+        return None
+
+    
+
+
+
+
+
+
 
     def heuristic(self,current,goal):
         (x1,y1) = current
@@ -20,18 +109,3 @@ class Path_finding:
         (x2,y2) = goal
         return math.sqrt ((x1 - x2)^2 + 
             (y1-y2)^2 )
-
-#    def lowestFrankNode(self,nodelist,goal):
-#        lowestnode = nodelist[0]        
-#        for node in nodelist:
-#            currenth = {node : (0,)}  
-#            opennode ={current : (0,(self.heuristic2(current,goal))) }
-#            visitednode = []
-#            print(current)
-#            print(opennode)
-#            print(lowestFrankNode(opennode))
-
-
-
-
-

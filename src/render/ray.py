@@ -44,7 +44,7 @@ class Ray():
         
         # Main loop, the DDA algorithm itself
         
-        while map[y_cell][x_cell] == NO_WALL:
+        while map[y_cell][x_cell] == 0:
             if x_delta < y_delta:
                 x_delta += x_ratio
                 x_cell += x_step

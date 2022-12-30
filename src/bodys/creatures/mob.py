@@ -1,8 +1,8 @@
 from render.sprites import SpriteStruct, static_sprites
 from bodys.creatures.creature import Creature
-import math
-from bodys.creatures.path_finding import *
+from math import pi, cos, sin, atan2
 from pygame import Vector2 as v2
+from render.ray import Ray
 
 class Mob(Creature):
     def __init__(self, game, r):
@@ -19,9 +19,8 @@ class Mob(Creature):
         self.color = 'red' 
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
-        self.fov = math.pi/2
+        self.fov = pi/2
         self.test = game.window
-        self.path_finding = Path_finding(game)
         self.sprite_struct = SpriteStruct(static_sprites["demon.png"], 150)
 
     def update(self):
@@ -33,10 +32,11 @@ class Mob(Creature):
         """
         Behavior of the mob
         """
-        if not self.has_seen_player: 
-            self.mob_view_player()
-        if self.has_seen_player:
-            self.movement()
+        if not self.is_dead() :
+            if not self.has_seen_player and self.mob_view_player():
+                self.has_seen_player = True
+            if self.has_seen_player:
+                self.movement()
         pass
 
     def movement(self):
@@ -44,10 +44,12 @@ class Mob(Creature):
         x,y = self.r
         target_pos = self.game.world.players[0].r
 
+        # next_pos = self.game.path_finding.Astar((),)
+
         # compute nex postion
-        angle = math.atan2(target_pos[1] - y, target_pos[0] - x)
-        dx = math.cos(angle) * self.speed * self.game.delta_time
-        dy = math.sin(angle) * self.speed * self.game.delta_time
+        angle = atan2(target_pos[1] - y, target_pos[0] - x)
+        dx = cos(angle) * self.speed * self.game.delta_time
+        dy = sin(angle) * self.speed * self.game.delta_time
         self.orientation = angle
 
         # check colision with not_colliding's Creature methode
@@ -64,19 +66,31 @@ class Mob(Creature):
         Algo to trigger mob to move toward player 
         TODO : add ray cast for removoing mob been able to see us through wall 
         """
+        player = self.game.world.players[0]
+        mob_list = self.game.world.sorted_mob_list
+        for dist_mob, mob in mob_list:
+            # test mur
+            direction = v2(player.r - mob.r)
+            rayon = Ray(mob.r, direction, self.game.world.map.map)
 
-        MAX_LENGHT_RAY = 1660
+            # Debug
+            # print("ray :",rayon.distance)
+            # print("mob : ",dist_mob)
+            # print(" ")
 
+            if rayon.distance > dist_mob:
+                # if self.player_in_fov():
+                    return True
+
+    def player_in_fov(self): 
         # Info Player
-        x_player,y_player = self.game.world.players[0].r[0],self.game.world.players[0].r[1]
-        tile_player_x,tile_player_y = x_player//100,y_player//100
+        player = self.game.world.players[0]
+        x_player,y_player = player.r.x, player.r.y
 
         # Info Mob
-        x,y = self.r.x,self.r.y
+        mob_x,mob_y = self.r.x,self.r.y
 
         # if player in FOV of mob
-        angle_mob_player = math.atan2(y_player - y,x_player - x)
-        if self.orientation - math.pi/4 < angle_mob_player < self.orientation + math.pi/4:
+        angle_mob_player = atan2(y_player - mob_y,x_player - mob_x)
+        if self.orientation - pi/4 < angle_mob_player < self.orientation + math.pi/4:
             self.has_seen_player = True
-
-    

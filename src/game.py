@@ -5,6 +5,7 @@ from config import *
 from world import *
 from render import Camera
 from bodys import *
+from bodys.creatures.path_finding import *
 
 class Game:
     def __init__(self):
@@ -16,6 +17,8 @@ class Game:
         self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         self.world = World(self) 
+        self.world.init_bodys(self)
+        self.path_finding = PathFinding(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.camera = Camera(self.world.players[0])
@@ -43,8 +46,8 @@ class Game:
             self.check_event()
             self.world.update(self)
             #self.world.props[0].r += v2(0.2, 0)
-            self.camera.draw_frame(self.window)
-            #self.world.draw2d(self)
+            #self.camera.draw_frame(self.window)
+            self.world.draw2d(self)
             fps = self.clock.get_fps()
             self.display_info(f"FPS: {fps:.2f} ; Health: {self.world.players[0].health} ; Ammo: {self.world.players[0].ammo}")
             pg.display.update()
