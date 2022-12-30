@@ -3,6 +3,7 @@ from bodys.creatures.creature import Creature
 from math import pi, cos, sin, atan2,hypot
 from pygame import Vector2 as v2
 from render.ray import Ray
+from weapons import *
 
 class Mob(Creature):
     def __init__(self, game, r):
@@ -20,7 +21,8 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.range = 150
+        self.current_weapon = Pistol()
+        self.range = self.current_weapon.range
         self.sprite_struct = SpriteStruct(static_sprites["demon.png"], 150)
 
     def update(self):
@@ -41,8 +43,9 @@ class Mob(Creature):
             if self.has_seen_player:
                 if self.dist_with_player() > 2/3 * self.range:
                     self.movement()
+                else:
+                    self.current_weapon.shoot(self, self.game.world.players[0])
 
-        pass
 
     def movement(self):
         """
