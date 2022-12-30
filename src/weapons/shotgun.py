@@ -27,15 +27,13 @@ class Shotgun(Weapon):
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
         ]
 
-    def shoot(self, entity):
+    def shoot(self, entity, mob_list):
         t = pg.time.get_ticks()
         if t - self.last_shot_time > self.delay: # 100 ms between shots 
             if entity.ammo > 2:
                 self.last_shot_time = t
 
                 entity.ammo = max(0, entity.ammo - 3)
-
-                mob_list = entity.game.world.mobs
                 orien = entity.orientation
 
                 self.hit_scan(entity.game.world.map.map, entity.r, orien, mob_list)

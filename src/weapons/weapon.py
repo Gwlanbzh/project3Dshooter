@@ -27,7 +27,7 @@ class Weapon():
         self.no_ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_no_ammo.mp3")]
 
     
-    def shoot(self, entity):
+    def shoot(self, entity, mob_list):
         """
         check if a mob is touch on click and act in consequence.
         """
@@ -36,8 +36,6 @@ class Weapon():
             if entity.ammo > 0:
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
-
-                mob_list = entity.game.world.mobs + entity.game.world.props
                 self.hit_scan(entity.game.world.map.map, entity.r, entity.orientation, mob_list)
                 self.play_sound()
             else:
