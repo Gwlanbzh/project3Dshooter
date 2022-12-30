@@ -18,6 +18,7 @@ class Pistol(Weapon):
         self.time_between_sprites = 50
         self.sprite = load_pistol() # from render.weapons
         self.image_index = 0
+        self.name = "Pistol"
 
         self.ammo_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3"),

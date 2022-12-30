@@ -13,7 +13,7 @@ class MainMenu:
         self.ui_elements_button = [
             Play_Button(game,(0.5*RES_X,0.4*RES_Y)),
             Quit_Game_Button(game,(0.5*RES_X,0.7*RES_Y)),
-            Menu_Select_World_Button(game,(0.5*RES_X,0.5*RES_Y))
+            #Menu_Select_World_Button(game,(0.5*RES_X,0.5*RES_Y))
         ]
         self.menu_setting = menu_setting()
         self.background = pg.image.load(PATH_ASSETS+"Menu_Background.jpg")
