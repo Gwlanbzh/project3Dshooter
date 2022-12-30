@@ -24,7 +24,7 @@ class Game:
 
         self.world_loaded = False
 
-        # self.load_world()
+        self.load_world()
         
     def load_world(self):
         self.world = World(self) 

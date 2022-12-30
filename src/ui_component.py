@@ -112,10 +112,42 @@ class Button(Display):
         pass
 
 class Health_Bar():
-    def __init__(self):
-        self.icon = PATH_ASSETS+"heart_icon.png"
-        
-        pass
+    def __init__(self,game,position,player):
+        self.player = player
+        self.game = game
+        self.position = position
+        self.health_bar_length = 600
+        self.health_ratio = player.max_health / self.health_bar_length
+        self.health_change_speed = 5
+        self.icon = pg.image.load(PATH_ASSETS+"heart_icon.png")
+        self.icon = pg.transform.scale(self.icon,(70,70))
+        self.myfont = pg.font.SysFont("creep", 17)
+
+    def draw(self):
+        transition_width = 0
+        transition_color = (0,0,0)
+
+        if self.player.health < self.player.target_health:
+            self.player.health += self.health_change_speed
+            transition_width = int((self.player.target_health - self.player.health) / self.health_ratio)
+            transition_color = (75,141,57)
+
+        if self.player.health > self.player.target_health:
+            self.player.health -= self.health_change_speed 
+            transition_width = -int((self.player.target_health - self.player.health) / self.health_ratio)
+            transition_color = (210,122,49)
+
+        health_bar_width = int(self.player.health / self.health_ratio)
+        health_bar = pg.Rect(self.position[0],self.position[1],health_bar_width,25)
+        transition_bar = pg.Rect(health_bar.right,self.position[1],transition_width,25)
+
+        pg.draw.rect(self.game.window,(31,32,49),(self.position[0],self.position[1],self.health_bar_length,25))	
+        pg.draw.rect(self.game.window,(141,7,35),health_bar)
+        pg.draw.rect(self.game.window,transition_color,transition_bar)	
+        pg.draw.rect(self.game.window,(73,54,43),(self.position[0],self.position[1],self.health_bar_length,25),3)	
+        label = self.myfont.render(str(self.player.health)+"/"+str(self.player.max_health), 4, (255,255,255,0))
+        self.game.window.blit(label, self.position)
+        self.game.window.blit(self.icon,(self.position[0]-40,self.position[1]-30))
     pass
 
 class Menu():

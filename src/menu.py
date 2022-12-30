@@ -39,3 +39,4 @@ class MainMenu:
         pass
 
 class MenuOption:
+    pass

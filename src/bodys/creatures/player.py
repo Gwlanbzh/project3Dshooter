@@ -62,6 +62,13 @@ class Player(Creature):
             self.rotate(-1)
         if keys[pg.K_a]:
             self.rotate(1)
+
+
+        if keys[pg.K_g]:
+            self.target_health -= 10
+
+        if keys[pg.K_h]:
+            self.target_health += 10
         
         if keys[pg.K_o]:
             self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
@@ -72,7 +79,7 @@ class Player(Creature):
         if left_click:
             self.current_weapon.hit_scan(self, self.game.world.mobs)
 
-        if keys[pg.K_h]:
+        if keys[pg.K_p]:
             self.game.hud.toggle()
 
         return moves
