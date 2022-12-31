@@ -48,6 +48,7 @@ class Game:
                 self.hud.click(event)
             else:
                 self.main_menu.click(event)
+                self.main_menu.over()
 
     def quit(self):
         pg.quit()  # quit pygame

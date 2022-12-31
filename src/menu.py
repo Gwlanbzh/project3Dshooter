@@ -30,10 +30,13 @@ class MainMenu:
         for element in self.ui_elements_button:
             element.draw()
 
-
     def click(self,event):
         for element in self.ui_elements_button:
             element.click(event)
+
+    def over(self):
+        for element in self.ui_elements_button:
+            element.over()
 
 class MenuOption:
     pass

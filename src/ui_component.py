@@ -64,6 +64,8 @@ class Button(Display):
         self.lifetime = -1
         self.background_activate = RED
         self.background_idle = self.background
+        self.foreground_over = RED
+        self.mouse_is_over = False
 
     def update_surface(self):
         self.update_size()
@@ -110,6 +112,17 @@ class Button(Display):
         self.surface.blit(self.label,(0,0))
         self.lifetime = 10
         pass
+
+    def over(self):
+        if self.rect.collidepoint(pg.mouse.get_pos()):
+            self.label = self.myfont.render(self.text, 1, self.foreground_over)
+            self.update_surface()
+            self.mouse_is_over = True
+        elif self.mouse_is_over:
+            self.label = self.myfont.render(self.text, 1, self.foreground)
+            self.update_surface()
+            self.mouse_is_over = False
+
 
 class Health_Bar():
     def __init__(self,game,position,player):
