@@ -24,6 +24,6 @@ class Config():
     
     VIEW_HEIGHT = 75
         
-    TEXTURES_DIR = "assets/textures/"
-    SPRITES_DIR = "assets/sprites/"
-    SKYBOX_DIR = "assets/env/"
+    TEXTURES_DIR = "src/assets/textures/"
+    SPRITES_DIR = "src/assets/sprites/"
+    SKYBOX_DIR = "src/assets/env/"

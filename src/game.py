@@ -61,5 +61,5 @@ class Game:
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
-    game = Game("assets/maps/map_dest.bin")
+    game = Game("src/assets/maps/map_dest.bin")
     game.run()
