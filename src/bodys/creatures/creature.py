@@ -92,3 +92,6 @@ class Creature(Body):
 
     def is_dead(self):
         return self.health == 0
+
+    def hurt(self, damages):
+        self.health = max(0, self.health - damages)

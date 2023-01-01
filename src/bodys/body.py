@@ -43,3 +43,6 @@ class Body():
 
     def draw(self,game): # draw object
         pg.draw.circle(game.window, self.color, self.r, 15)
+
+    def hurt(self, damages):
+        pass
