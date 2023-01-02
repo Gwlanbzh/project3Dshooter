@@ -42,8 +42,12 @@ class Mob(Creature):
             if not self.has_seen_player and self.mob_view_player():
                 self.has_seen_player = True
             if self.has_seen_player:
-                if self.dist_with_player() > 2/3 * self.range:
+                if self.dist_with_player() > self.range:
+                    self.has_seen_player = False
+                
+                elif self.dist_with_player() > 0.5 * self.range:
                     self.movement()
+                
                 else:
                     self.current_weapon.shoot(self, self.game.world.players)
 
