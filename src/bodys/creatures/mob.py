@@ -25,6 +25,8 @@ class Mob(Creature):
         self.range = self.current_weapon.range
         self.sprite_struct = SpriteStruct(static_sprites["demon.png"], 150)
 
+        self.ammo = 1000
+
     def update(self):
         self.ia_command()
         if self.is_dead():
@@ -44,7 +46,7 @@ class Mob(Creature):
                 if self.dist_with_player() > 2/3 * self.range:
                     self.movement()
                 else:
-                    self.current_weapon.shoot(self, self.game.world.players[0])
+                    self.current_weapon.shoot(self, self.game.world.players)
 
 
     def movement(self):

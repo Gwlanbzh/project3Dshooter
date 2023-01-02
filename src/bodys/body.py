@@ -47,3 +47,6 @@ class Body():
     @property
     def map_pos(self):
         return int(self.r.x//100), int(self.r.y//100)
+    
+    def hurt(self, damages):
+        pass
