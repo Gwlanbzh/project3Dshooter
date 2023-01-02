@@ -7,7 +7,7 @@ class Config():
     Contains constants for the game.
     TODO: init config from config file
     """
-    WINDOW_SIZE = 1280 , 800 # value link to the size of the map before render is finished
+    WINDOW_SIZE = 1280, 800 # value link to the size of the map before render is finished
     RES_X, RES_Y = WINDOW_SIZE
     FRAME_RATE = 200
 

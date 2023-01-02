@@ -78,20 +78,6 @@ class Creature(Body):
                 )
         )
 
-
-    def draw(self, game): # might be move into Creature or Body
-        traylenght = 100
-        pg.draw.line(game.window,'yellow', (self.r),
-                     (self.r[0]+ traylenght * cos(self.orientation),
-                      self.r[1] + traylenght * sin(self.orientation)),2) 
-        
-        # rond
-        pg.draw.circle(game.window, self.color, self.r,15)
-        
-        # vie
-        pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
-        pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))
-
     def is_dead(self):
         return self.health == 0
 
@@ -99,11 +85,10 @@ class Creature(Body):
         self.health = max(0, self.health - damages)
 
     def draw(self, game): # might be move into Creature or Body
-        self.current_weapon.draw2d(game.window, self.r, self.orientation)
-        
-        # rond
-        pg.draw.circle(game.window, self.color, self.r, self.size)
-        
+        render_pos = super().draw(game)
+
         # vie
-        pg.draw.line(game.window, "red",(self.r.x - self.max_health/4, self.r.y - self.size - 5), (self.r.x + self.max_health/4, self.r.y - self.size - 5), 3)
-        pg.draw.line(game.window, "green",(self.r.x - self.max_health/4, self.r.y - self.size - 5), (self.r.x - self.max_health/4 + self.health/2, self.r.y - self.size - 5), 3)
+        pg.draw.line(game.window, "red",(render_pos.x - self.max_health/4, render_pos.y - self.size - 5), (render_pos.x + self.max_health/4, render_pos.y - self.size - 5), 3)
+        pg.draw.line(game.window, "green",(render_pos.x - self.max_health/4, render_pos.y - self.size - 5), (render_pos.x - self.max_health/4 + self.health/2, render_pos.y - self.size - 5), 3)
+
+        self.current_weapon.draw2d(game.window, render_pos, self.orientation)
