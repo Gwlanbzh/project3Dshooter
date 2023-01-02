@@ -23,9 +23,11 @@ class Creature(Body):
         super().__init__(game, r) 
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
-        self.health = 100
+        
+        self.is_alive = True
         self.max_health = 200
-    
+        self.health = self.max_health
+
     def in_wall(self, pos):
         x , y = pos
         world = self.game.world.map.grid
@@ -75,15 +77,19 @@ class Creature(Body):
                 )
         )
 
-    def rotate(self, direction, sensitivity=Config.PLAYER_ROT_SPEED):
-        dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
-        self.orientation -= direction * sensitivity * dt
-        self.orientation %= tau
-
 
     def draw(self, game): # might be move into Creature or Body
         traylenght = 100
         pg.draw.line(game.window,'yellow', (self.r),
                      (self.r[0]+ traylenght * cos(self.orientation),
                       self.r[1] + traylenght * sin(self.orientation)),2) 
+        
+        # rond
         pg.draw.circle(game.window, self.color, self.r,15)
+        
+        # vie
+        pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
+        pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))
+
+    def is_dead(self):
+        return self.health == 0

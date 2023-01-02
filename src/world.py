@@ -25,7 +25,7 @@ class World:
             World
         """
         map_data = load(map_file)
-        
+
         self.props = [Class(game, pos) for Class, pos in map_data.props]
         self.pickables = [Class(game, pos) for Class, pos in map_data.pickables]
         self.mobs = [Class(game, pos) for Class, pos in map_data.mobs]
@@ -49,6 +49,9 @@ class World:
             <none>
         """
         self.players[0].update()
+
+        self.mobs_position = [mob.map_pos for mob in self.mobs if not mob.is_alive]
+
         for mob in self.mobs:
             mob.update()
         
