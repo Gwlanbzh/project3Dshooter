@@ -70,7 +70,8 @@ class Button(Display):
     def update_surface(self):
         self.update_size()
         self.surface = pg.Surface(self.size,pg.SRCALPHA)
-        self.surface.fill(self.background)
+        if self.background != None:
+            self.surface.fill(self.background)
         self.surface.blit(self.label,(0,0))
         self.rect = pg.Rect(self.position[0], self.position[1], 
                             self.size[0], self.size[1])
@@ -164,7 +165,39 @@ class Health_Bar():
     pass
 
 class Menu():
-    pass
+    def __init__(self,game,position,return_string = None, return_action = None):
+        self.game = game
+        self.color_backbackground = (0,0,0)
+        self.background = pg.image.load(PATH_ASSETS+"Menu_Background.jpg")
+        self.size = (RES_X*0.3,RES_Y*0.6)
+        self.position = (position[0]-self.size[0]//2,position[1]-self.size[1]//2)
+        self.background = pg.transform.scale(self.background,self.size)
+        self.ui_elements_button = [
+            WorldToMainMenuButton(game,(position[0],self.size[1]//2*0.90+position[1])),
+        ]
+
+    def draw(self):
+        self.game.window.blit(self.background,(self.position[0],self.position[1]))
+        for element in self.ui_elements_button:
+            element.draw()
+
+class WorldToMainMenuButton(Button):
+    def __init__(self,game,position):
+        super().__init__(game,position)
+        self.text = "Main Menu"
+        self.background = None
+        self.foreground = BLUE
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 20)
+        self.label = self.myfont.render(self.text, 1, self.foreground)
+        self.update_surface()
+        self.position = self.get_position_centered_surface()
+        self.update_surface()
+        pass
+
+
+    def action(self):
+        print("you're bad")
+        self.game.world_loaded = False
 
 class TP_Spawn_Button(Button):
     """

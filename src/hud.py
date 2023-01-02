@@ -11,6 +11,8 @@ class Hud:
         self.ui_elements_display = []
         self.ui_elements_button = []
         self.ui_bar = []
+        self.menu_esc = Menu(game,(RES_X*0.5,RES_Y*0.5),"exit_test")
+        self.menu_esc_is_toggle = False
         self.toggle()
         pass
 
@@ -21,7 +23,8 @@ class Hud:
             element.draw()
         for element in self.ui_bar:
             element.draw()
-        pass
+        if self.menu_esc_is_toggle:
+            self.menu_esc.draw()
     
     def update(self):
         self.update_content()
@@ -34,6 +37,9 @@ class Hud:
     def click(self,event):
         for element in self.ui_elements_button:
             element.click(event)
+        if self.menu_esc_is_toggle:
+            for element in self.menu_esc.ui_elements_button:
+                element.click(event)
 
     def switch(self,value):
         """
@@ -76,6 +82,11 @@ class Hud:
             self.ui_elements_button = []
             self.ui_elements_display = []
             self.ui_bar = []
+
+    def over(self):
+        if self.menu_esc_is_toggle:
+            for element in self.menu_esc.ui_elements_button:
+                element.over()
 
 
 

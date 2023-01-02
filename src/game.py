@@ -32,6 +32,7 @@ class Game:
         self.hud = Hud(self)
         self.camera = Camera(self.world.players[0])
         self.world_loaded = True
+        self.is_paused = False
 
     def unload_world(self):
         self.world_loaded = False
@@ -46,6 +47,7 @@ class Game:
 
             if self.world_loaded:
                 self.hud.click(event)
+                self.hud.over()
             else:
                 self.main_menu.click(event)
                 self.main_menu.over()
