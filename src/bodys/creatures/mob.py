@@ -45,8 +45,7 @@ class Mob(Creature):
                 if self.dist_with_player() > 2/3 * self.range:
                     self.movement()
                 else:
-                    # self.current_weapon.shoot(self, self.game.world.players)
-                    pass
+                    self.current_weapon.shoot(self, self.game.world.players)
 
     def movement(self):
         """
