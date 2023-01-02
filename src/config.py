@@ -31,3 +31,5 @@ class Config():
     SKYBOX_DIR = "src/assets/visual/env/"
     
     SOUNDS_FOLDER = "src/assets/sounds/"
+
+    NO_SOUND = True

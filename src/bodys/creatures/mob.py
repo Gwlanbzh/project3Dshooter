@@ -1,6 +1,6 @@
 from render.sprites import SpriteStruct
 from bodys.creatures.creature import Creature
-from math import pi, cos, sin, atan2,hypot
+from math import pi, cos, sin, atan2,hypot, tau
 from pygame import Vector2 as v2
 from render.ray import Ray
 from weapons import *
@@ -22,7 +22,6 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.current_weapon = Pistol()
         self.range = self.current_weapon.range
 
         self.ammo = 1000
@@ -46,8 +45,8 @@ class Mob(Creature):
                 if self.dist_with_player() > 2/3 * self.range:
                     self.movement()
                 else:
-                    self.current_weapon.shoot(self, self.game.world.players)
-
+                    # self.current_weapon.shoot(self, self.game.world.players)
+                    pass
 
     def movement(self):
         """
@@ -72,7 +71,7 @@ class Mob(Creature):
             angle = atan2(next_pos_y - y, next_pos_x - x)
             dx = cos(angle) * self.speed * self.game.delta_time
             dy = sin(angle) * self.speed * self.game.delta_time
-            self.orientation = angle
+            self.orientation = angle % tau
 
             # check colision with not_colliding's Creature methode
             x_permission, y_permission = self.not_colliding(dx, dy)

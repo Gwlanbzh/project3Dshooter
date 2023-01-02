@@ -11,14 +11,17 @@ class Game:
     """
     Base class for a game, to be used to define new game types.
     """
-    def __init__(self, map_file):
+    def __init__(self, map_file, draw2d):
         """
         Important init for the game main component
         """
         pg.init()
-                
-        #self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        
+        if draw2d:
+            self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        else:
+            self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        
         self.world = World(self, map_file) 
         self.path_finding = PathFinding(self)
 
@@ -27,7 +30,8 @@ class Game:
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.camera = Camera(self.world.players[0])
-        
+        self.draw2d = draw2d
+
         self.font = pg.font.Font(pg.font.get_default_font(), 24)
     
     def check_event(self):
@@ -53,9 +57,12 @@ class Game:
         while not self.is_game_over():
             self.check_event()
             self.world.update(self)
-            #self.world.props[0].r += v2(0.2, 0)
-            self.camera.draw_frame(self.window)
-            #self.world.draw2d(self)
+            
+            if self.draw2d:
+                self.world.draw2d(self)
+            else:
+                self.camera.draw_frame(self.window)
+
             fps = self.clock.get_fps()
             self.display_info(f"FPS: {fps:.2f} ; Health: {self.world.players[0].health} ; Ammo: {self.world.players[0].ammo}")
             pg.display.update()
@@ -63,5 +70,6 @@ class Game:
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
-    game = Game("src/assets/maps/map_dest.bin")
+    draw2d = True
+    game = Game("src/assets/maps/test.bin", draw2d)
     game.run()
