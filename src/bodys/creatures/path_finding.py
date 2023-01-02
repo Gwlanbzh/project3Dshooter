@@ -68,7 +68,6 @@ class PathFinding:
             children = []
         
             for child_pos in current_node.neighbour:
-
                 if child_pos != current_node.position: 
                     # Update node parent
                     new_node = Node(child_pos,self.graph[child_pos].neighbour)
@@ -84,13 +83,11 @@ class PathFinding:
                     continue
                 # Create the f, g, and h values
                 child.cost = current_node.cost + 1
-                child.heuristic = self.heuristic(child.position,goal_map_pos)
+                child.heuristic = self.heuristic3(child.position,goal_map_pos)
                 child.total_cost = child.cost + child.heuristic
-
                 # Child is already in the open list
                 if len([open_node for open_node in open_list if child.position == open_node.position and child.cost > open_node.cost ]) > 0:
                     continue
-
                 # Add the child to the open list
                 heapq.heappush(open_list, child)
         return None

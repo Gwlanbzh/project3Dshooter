@@ -24,7 +24,6 @@ class Creature(Body):
         self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         
-        self.is_alive = True
         self.max_health = 200
         self.health = self.max_health
         self.current_weapon = Pistol()

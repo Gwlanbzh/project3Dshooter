@@ -22,7 +22,7 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.range = self.current_weapon.range
+        self.range = self.current_weapon.range //10
 
         self.ammo = 1000
 
@@ -42,8 +42,10 @@ class Mob(Creature):
             if not self.has_seen_player and self.mob_view_player():
                 self.has_seen_player = True
             if self.has_seen_player:
-                if self.dist_with_player() > 2/3 * self.range:
+                if self.dist_with_player() > 0.8 * self.range:
                     self.movement()
+                if self.dist_with_player() > 10 * self.range:
+                    self.has_seen_player = False
                 else:
                     self.current_weapon.shoot(self, self.game.world.players)
 
@@ -91,7 +93,7 @@ class Mob(Creature):
         direction = v2(player.r - self.r)
         rayon = Ray(self.r, direction, self.game.world.map.grid)
 
-        if rayon.distance > self.dist_with_player():
+        if rayon.distance > self.dist_with_player() < self.range * 15:
             # if self.player_in_fov():
             return True
 
