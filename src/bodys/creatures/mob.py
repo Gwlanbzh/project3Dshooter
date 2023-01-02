@@ -25,6 +25,8 @@ class Mob(Creature):
         self.current_weapon = Pistol()
         self.range = self.current_weapon.range
 
+        self.ammo = 1000
+
     def update(self):
         self.ia_command()
         if self.is_dead():
@@ -44,7 +46,7 @@ class Mob(Creature):
                 if self.dist_with_player() > 2/3 * self.range:
                     self.movement()
                 else:
-                    self.current_weapon.shoot(self, self.game.world.players[0])
+                    self.current_weapon.shoot(self, self.game.world.players)
 
 
     def movement(self):
@@ -89,7 +91,7 @@ class Mob(Creature):
 
         # test mur
         direction = v2(player.r - self.r)
-        rayon = Ray(self.r, direction, self.game.world.map.map)
+        rayon = Ray(self.r, direction, self.game.world.map.grid)
 
         if rayon.distance > self.dist_with_player():
             # if self.player_in_fov():

@@ -5,7 +5,6 @@ from render.ray import Ray
 from render import *
 from config import Config
 from random import choice
-from bodys import Mob
 
 pi_2 = pi / 2
 
@@ -36,7 +35,7 @@ class Weapon():
             if entity.ammo > 0:
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
-                self.hit_scan(entity.game.world.map.map, entity.r, entity.orientation, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
                 self.play_sound()
             else:
                 self.play_sound(no_ammo=True)
@@ -74,7 +73,7 @@ class Weapon():
                         teta1 = orientation - tau - acos(abs(delta_x)/dist)
                         teta2 = orientation - acos(abs(delta_x)/dist)
                         if abs(teta1) < teta_max or abs(teta2) < teta_max:
-                            self.hurt(mob)
+                            mob.hurt(self.dmg)
                             return
                         else:
                             continue
@@ -84,7 +83,7 @@ class Weapon():
 
                 teta = orientation - angle_p_m
                 if abs(teta) < teta_max:
-                    self.hurt(mob)
+                    mob.hurt(self.dmg)
                     return # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
     def dist(self, pos, mob):
@@ -125,11 +124,3 @@ class Weapon():
                 choice(self.no_ammo_sound).play()
         else:
             choice(self.ammo_sound).play()
-
-    def hurt(self, body):
-        if type(body) is Mob:
-            body.health = max(body.health - self.dmg, 0)
-        else:
-            # dans ce cas c'est une prop
-            # voir si on peut casser les props
-            pass

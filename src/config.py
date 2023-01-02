@@ -28,6 +28,6 @@ class Config():
         
     TEXTURES_DIR = "src/assets/visual/textures/"
     SPRITES_DIR = "src/assets/visual/sprites/"
-    SKYBOX_DIR = "src/assets/viual/env/"
+    SKYBOX_DIR = "src/assets/visual/env/"
     
     SOUNDS_FOLDER = "src/assets/sounds/"

@@ -4,7 +4,7 @@ from config import Config
 from render.vars import *
 
 
-__all__ = ["skybox", "skybox_angle_per_stripe"]
+__all__ = ["load_skybox"]
 
 
 def load_skybox(name: str):

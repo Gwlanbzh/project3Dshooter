@@ -14,14 +14,15 @@ class Map:
         self.grid = grid
         
         self.world = {}
-        self.gen_world_map_dic()
 
-        self.map_height = len(self.map)
-        self.map_width = len(self.map[0])
+        self.map_height = len(self.grid)
+        self.map_width = len(self.grid[0])
         self.map_dic = {}
         self.gen_world_map_dic()
         self.graph = {}
         self.create_graph()
+        
+        self.gen_world_map_dic()
   
     def gen_world_map_dic(self):
         '''
@@ -35,12 +36,12 @@ class Map:
                     self.map_dic[(i,j)] = value
 
     def create_graph(self):
-        for y, row in enumerate(self.map):
+        for y, row in enumerate(self.grid):
             for x, value in enumerate(row):
                 if value == 0:
                     self.graph[(x,y)] = Node((x,y))
 
-        for y, row in enumerate(self.map):
+        for y, row in enumerate(self.grid):
             for x, value in enumerate(row):
                 if value == 0:
                     self.graph[(x,y)] = Node((x,y),self.get_neighbour(x,y))
