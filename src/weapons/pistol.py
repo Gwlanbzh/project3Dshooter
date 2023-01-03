@@ -15,7 +15,7 @@ class Pistol(Weapon):
         self.last_shot_time = - self.delay # moment at which the last shot was fired
                                            # - self.delay to avoid animation at init of the game
         
-        self.time_between_sprites = 50
+        self.time_between_sprites = 75
         self.sprite = load_pistol() # from render.weapons
         self.image_index = 0
 

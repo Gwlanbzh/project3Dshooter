@@ -32,4 +32,4 @@ class Config():
     
     SOUNDS_FOLDER = "src/assets/sounds/"
 
-    NO_SOUND = True
+    NO_SOUND = False
