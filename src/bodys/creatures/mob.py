@@ -22,9 +22,9 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.range = self.current_weapon.range
+        self.range = self.current_weapon.range //10
 
-        self.ammo = 1000
+        self.ammo = 10000
 
     def update(self):
         self.ia_command()
@@ -42,12 +42,10 @@ class Mob(Creature):
             if not self.has_seen_player and self.mob_view_player():
                 self.has_seen_player = True
             if self.has_seen_player:
-                if self.dist_with_player() > self.range:
-                    self.has_seen_player = False
-                
-                elif self.dist_with_player() > 0.5 * self.range:
+                if self.dist_with_player() > 0.8 * self.range:
                     self.movement()
-                
+                if self.dist_with_player() > 10 * self.range:
+                    self.has_seen_player = False
                 else:
                     self.current_weapon.shoot(self, self.game.world.players)
 
@@ -95,7 +93,7 @@ class Mob(Creature):
         direction = v2(player.r - self.r)
         rayon = Ray(self.r, direction, self.game.world.map.grid)
 
-        if rayon.distance > self.dist_with_player():
+        if rayon.distance > self.dist_with_player() < self.range * 15:
             # if self.player_in_fov():
             return True
 
@@ -132,21 +130,21 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.health = 100
-        self.weapons = []        # TODO add pistol
-        self.sprite_data = None  # TODO implement dynamic sprites
+        self.current_weapon = Pistol()        # TODO add pistol
+        self.sprite_data = SpriteStruct("grunt.png", 110, 70)  # TODO implement dynamic sprites
 
 class Heavy(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
         self.health = 200
-        self.weapons = []        # TODO add pistol
-        self.sprite_data = None  # TODO implement dynamic sprites
+        #self.weapons = Rifle()        # TODO add pistol
+        self.sprite_data = SpriteStruct("grunt.png", 110, 70)  # TODO implement dynamic sprites
 
 class Boss(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
         self.health = 500
-        self.weapons = []        # TODO add pistol
-        self.sprite_data = None  # TODO implement dynamic sprites
+        #self.weapons = SuperWeapon()        # TODO add pistol
+        self.sprite_data = SpriteStruct("grunt.png", 130, 70)  # TODO implement dynamic sprites

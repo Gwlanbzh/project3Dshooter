@@ -6,7 +6,6 @@ from render import load_shotgun
 from math import tau
 
 class Shotgun(Weapon):
-
     def __init__(self):
         super().__init__()
         self.delay = 600

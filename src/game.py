@@ -44,7 +44,7 @@ class Game:
                 sys.exit() # better quit, remove some error when  quiting
     
     def is_game_over(self):
-        return False
+        return ""
     
     def display_info(self, text: str):
         img = self.font.render(text, False, (255, 255, 255))

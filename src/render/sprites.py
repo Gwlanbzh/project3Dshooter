@@ -8,18 +8,25 @@ __all__ = ["load_static_sprites", "load_animated_sprites", "SpriteStruct"]
 
 
 static_sprites_names = [
-    "default.png",
-    "putin.png",
-    "light.png",
-    "tree.png",
-    "dead_tree.png",
-    "demon.png",
+    #"default.png",
+    #"putin.png",
+    #"light.png",
+    #"demon.png",
     "grunt.png",
-    "street_light2.png",
+    
     "health_5.png",
     "health_25.png",
     "ammo_10.png",
     "ammo_50.png",
+    
+    "shotgun.png",
+    "rifle.png",
+    "minigun.png",
+    
+    "street_light2.png",
+    "tree.png",
+    "dead_tree.png",
+    "barrel.png",
 ]
 
 #static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
