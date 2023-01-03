@@ -9,13 +9,13 @@ class Shotgun(Weapon):
 
     def __init__(self):
         super().__init__()
-        self.delay = 400
+        self.delay = 600
         self.range = WALL_WIDTH * 5
         self.dmg = 30
 
         self.dteta = 0.09 # 5 degrés en radians
 
-        self.time_between_sprites = 100
+        self.time_between_sprites = 75
         self.sprite = load_shotgun() # from render.weapons
         self.image_index = 0
 
@@ -36,9 +36,9 @@ class Shotgun(Weapon):
                 entity.ammo = max(0, entity.ammo - 3)
                 orien = entity.orientation
 
-                self.hit_scan(entity.game.world.map.map, entity.r, orien, mob_list)
-                self.hit_scan(entity.game.world.map.map, entity.r, (orien - self.dteta) % tau, mob_list)
-                self.hit_scan(entity.game.world.map.map, entity.r, (orien + self.dteta) % tau, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, orien, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, (orien - self.dteta) % tau, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, (orien + self.dteta) % tau, mob_list)
                 self.play_sound()
             
             else:

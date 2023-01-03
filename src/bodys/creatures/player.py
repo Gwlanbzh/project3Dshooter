@@ -28,6 +28,8 @@ class Player(Creature):
         self.vorientation = 100
         # TODO add ammo data structure
 
+        self.current_weapon = Shotgun()
+
         # weapons attributes
         self.weapons = []
         self.ammo = 100  # may change to dict ?
