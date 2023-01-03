@@ -5,7 +5,6 @@ from render.ray import Ray
 from render import *
 from config import Config
 from random import choice
-from bodys import Mob
 
 pi_2 = pi / 2
 
@@ -36,10 +35,12 @@ class Weapon():
             if entity.ammo > 0:
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
-                self.hit_scan(entity.game.world.map.map, entity.r, entity.orientation, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
                 self.play_sound()
             else:
                 self.play_sound(no_ammo=True)
+            print(entity.ammo)
+            print("shoot")
     
     def hit_scan(self, map, pos, orientation, mob_list):
 
@@ -55,36 +56,27 @@ class Weapon():
                 return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
             else:
                 teta_max = atan(mob.size/dist) # la marge d'erreur pour l'angle de tir du joueur.
-                delta_x = pos.x - mob.r.x
-                delta_y = pos.y - mob.r.y
                 
-                # pour expliquer ça il y a un screen sur le onedrive
-                if delta_x > 0:
-                    if delta_y > 0: # cas 1
-                        angle_p_m = pi + acos(delta_x/dist)
-                    
-                    else: # cas 2
-                        angle_p_m = pi_2 + acos(abs(delta_y)/dist)
-                
+                x, y = mob.r - pos
+                if y == 0 and x < 0:
+                    angle_p_m = pi
                 else:
-                    if delta_y > 0: # cas 3 
-                        angle_p_m = tau - acos(abs(delta_x)/dist)
-                    
-                    elif delta_y == 0: # cas limite ou l'angle peut être aussi bien très proche de 0 que de 2pi
-                        teta1 = orientation - tau - acos(abs(delta_x)/dist)
-                        teta2 = orientation - acos(abs(delta_x)/dist)
-                        if abs(teta1) < teta_max or abs(teta2) < teta_max:
-                            self.hurt(mob)
-                            return
-                        else:
-                            continue
-
-                    else: # cas 4
-                        angle_p_m = acos(abs(delta_x)/dist)
+                    angle_p_m = 2 * atan(y/(x + dist)) % tau
 
                 teta = orientation - angle_p_m
+                # cas limite -> l'angle est très proche de 2pi, il faut tester pour un angle qui tend vers 2pi et pour un angle qui tend vers 0
+                if y == 0:
+                    if abs(teta) < teta_max:
+                        mob.hurt(self.dmg)
+                        return
+                    
+                    teta = tau - teta
+                    if abs(teta) < teta_max:
+                        mob.hurt(self.dmg)
+                        return
+
                 if abs(teta) < teta_max:
-                    self.hurt(mob)
+                    mob.hurt(self.dmg)
                     return # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
     def dist(self, pos, mob):
@@ -118,6 +110,9 @@ class Weapon():
         self.image_index = i if i < len(self.sprite) else 0
 
     def play_sound(self, no_ammo=False):
+        if Config.NO_SOUND:
+            return
+
         t = pg.time.get_ticks()
         if no_ammo:
             if t - self.play_sound_time > self.delay:
@@ -125,11 +120,3 @@ class Weapon():
                 choice(self.no_ammo_sound).play()
         else:
             choice(self.ammo_sound).play()
-
-    def hurt(self, body):
-        if type(body) is Mob:
-            body.health = max(body.health - self.dmg, 0)
-        else:
-            # dans ce cas c'est une prop
-            # voir si on peut casser les props
-            pass

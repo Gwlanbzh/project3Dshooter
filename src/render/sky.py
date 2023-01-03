@@ -4,15 +4,28 @@ from config import Config
 from render.vars import *
 
 
-__all__ = ["skybox", "skybox_angle_per_stripe"]
+__all__ = ["load_skybox"]
 
 
-tx = pg.image.load(SKYBOX)
-w, h = tx.get_width(), tx.get_height()
-k = (2*pi*RES_X)/(FOV_X*w)    # upscaling factor for the texture
-W = (2*pi+FOV_X)*RES_X/FOV_X  # width of the final skybox
-skybox_angle_per_stripe = 2*pi/(k*w)
-sky_texture = pg.transform.scale(tx, (k*w,k*h))
-skybox = pg.Surface((W, RES_Y))
-skybox.blit(sky_texture, (0, 0))
-skybox.blit(sky_texture, (k*w, 0))
+def load_skybox(name: str):
+    """
+    Return a pygame surface representing a skybox. Used in the world class.
+    """
+    tx = pg.image.load(SKYBOX_DIR+name)
+    w, h = tx.get_width(), tx.get_height()
+    W = (2*pi*RES_X)/(FOV_X*w) * w    # upscaling factor for the texture
+    H = (2*pi*RES_Y)/(FOV_Y*h) * h
+    
+    box_W = (2*pi+FOV_X)*RES_X/FOV_X  # width of the final skybox
+    
+    #print(h)
+    #print(k*h)
+    #print(RES_Y)
+    
+    skybox_angle_per_stripe = 2*pi/(W)
+    sky_texture = pg.transform.scale(tx, (W, RES_Y))
+    skybox = pg.Surface((box_W, RES_Y))
+    skybox.blit(sky_texture, (0, 0))
+    skybox.blit(sky_texture, (W, 0))
+    
+    return skybox, skybox_angle_per_stripe

@@ -1,20 +1,25 @@
-from render.sprites import SpriteStruct, static_sprites
+from render.sprites import SpriteStruct
 from bodys.pickables.pickable import Pickable
 
 
-class AmmoPack20(Pickable):
+class AmmoPack10(Pickable):
     def __init__(self, game, r):
         super().__init__(game, r)
-        self.supply_value = 20
-        self.sprite_struct = SpriteStruct(static_sprites["ammo_20.png"], 25, 40)
+        
+        self.supply_value = 10
+        self.sprite_data = SpriteStruct("ammo_10.png", 25, 20)
     
     def update(self):
         picker = self.picker()
         if picker != None:
-            print(picker.ammo)
-            print("Supply!")
             picker.ammo += self.supply_value
             picker.ammo = min(picker.ammo, picker.max_ammo)
-            print(picker.ammo)
             return True
         return False
+
+class AmmoPack50(AmmoPack10):
+    def __init__(self, game, r):
+        super().__init__(game, r)
+        
+        self.supply_value = 50
+        self.sprite_data = SpriteStruct("ammo_50.png", 50, 80)

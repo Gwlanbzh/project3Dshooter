@@ -400,7 +400,7 @@ class Play_Button(Button):
 
     def action(self):
         print("Good Game")
-        self.game.load_world()
+        self.game.load_world(self.game.map_file)
         pass
 
 class Quit_Game_Button(Button):

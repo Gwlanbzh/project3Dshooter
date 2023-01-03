@@ -10,9 +10,9 @@ class Config():
     TODO: init config from config file
     """
     WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
-    FRAME_RATE = 120
+    FRAME_RATE = 60
 
-    PLAYER_V = 1 # arbitraty value for good feeling
+    PLAYER_V = 0.7 # arbitraty value for good feeling
     PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
     PLAYER_VERT_ROT_SPEED = 4
@@ -27,11 +27,8 @@ class Config():
     
     VIEW_HEIGHT = 75
     
-    DISTANCE_FADING = 1.001
-    
-    TEXTURES_FOLDER = "src/assets/visual/textures/"
+    TEXTURES_DIR = "src/assets/visual/textures/"
     SPRITES_DIR = "src/assets/visual/sprites/"
-    SKYBOX = "src/assets/visual/env/sky_hd.png"
-    GROUND_COLOR = (88, 74, 55)
-
+    SKYBOX_DIR = "src/assets/visual/env/"
     SOUNDS_FOLDER = "src/assets/sounds/"
+    NO_SOUND = True

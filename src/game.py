@@ -7,30 +7,41 @@ from render import Camera
 from bodys import *
 from hud import Hud
 from menu import MainMenu
+from bodys.creatures.path_finding import *
 
 class Game:
-    def __init__(self):
+    """
+    Base class for a game, to be used to define new game types.
+    """
+    def __init__(self, map_file, draw2d):
         """
         Important init for the game main component
         """
         pg.init()
-                
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        #self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
-        #pg.display.toggle_fullscreen()
+        
+        if draw2d:
+            self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        else:
+            self.window = pg.display.set_mode(Config.WINDOW_SIZE)
 
         self.main_menu = MainMenu(self)
+
+        #self.world.init_bodys(self)
+
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
+        self.map_file = map_file
 
         self.world_loaded = False
 
         # self.load_world()
         
-    def load_world(self):
-        self.world = World(self) 
-        self.hud = Hud(self)
+    def load_world(self,map_file):
+        self.world = World(self,map_file) 
+        self.path_finding = PathFinding(self)
+        self.draw2d = draw2d
         self.camera = Camera(self.world.players[0])
+        self.hud = Hud(self)
         self.world_loaded = True
         self.is_paused = False
 
@@ -56,6 +67,9 @@ class Game:
         pg.quit()  # quit pygame
         sys.exit()  # better quit, remove some error when  quiting
     
+    def is_game_over(self):
+        return False
+    
     def display_info(self, text: str):
         img = self.font.render(text, False, (255, 255, 255))
         self.window.blit(img, (10, 10))
@@ -64,7 +78,7 @@ class Game:
         """
         Main Game Loop 
         """
-        while True:
+        while not self.is_game_over():
             self.check_event()
 
             if not self.world_loaded:
@@ -73,7 +87,10 @@ class Game:
             if self.world_loaded:
                 # self.world.draw2d(game)
                 self.world.update(self)
-                self.camera.draw_frame(self.window)
+                if self.draw2d:
+                    self.world.draw2d(self)
+                else:
+                    self.camera.draw_frame(self.window)
                 self.hud.update()
                 self.hud.draw()
 
@@ -84,5 +101,6 @@ class Game:
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
-    game = Game()
+    draw2d = False
+    game = Game("src/assets/maps/map_dest.bin", draw2d)
     game.run()

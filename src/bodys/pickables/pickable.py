@@ -4,6 +4,7 @@ class Pickable(Body):
     def __init__(self, game, r):
         super().__init__(game, r)
         
+        self.color = "green"
     
     def picker(self):
         """
@@ -18,6 +19,6 @@ class Pickable(Body):
         return None
     
     def update(self):
-        #picker = self.picker()
-        #return False
+        #  picker = self.picker()
+        #  return False
         pass

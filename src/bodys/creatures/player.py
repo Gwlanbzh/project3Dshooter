@@ -22,7 +22,7 @@ class Player(Creature):
             Player
         """
         super().__init__(game, r)
-
+        self.size = 40
         self.color = 'blue'
         self.vorientation = 100
         self.spawn_pos = r
@@ -32,8 +32,7 @@ class Player(Creature):
 
         # weapons attributes
         self.weapons = []
-        self.current_weapon = Pistol()
-        self.ammo = 10  # may change to dict ?
+        self.ammo = 100  # may change to dict ?
         self.max_ammo = 100
 
         pg.event.set_grab(True)
