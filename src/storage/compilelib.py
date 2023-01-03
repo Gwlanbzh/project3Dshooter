@@ -1,5 +1,5 @@
-from storage import StorableWorld
-from values import values, values_destination
+from storage.storage import *
+from storage.values import *
 from string import digits
 
 def create_world(data: str, skybox, floor, texture_set, map_scale):
