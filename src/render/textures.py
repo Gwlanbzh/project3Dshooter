@@ -13,11 +13,10 @@ NO_WALL = 0
 height_map = {
     1: 75,
     2: 75,
-    3: 200,
-    4: 300,
+    3: 75,
+    4: 75,
     5: 110,
-    6: 112.5,
-    7: 250,
+    6: 300,
 }
 
 # Load the textures as arrays of colum surfaces.

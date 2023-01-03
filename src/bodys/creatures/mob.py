@@ -138,7 +138,7 @@ class Heavy(Mob):
         super().__init__(game,r)
         
         self.health = 200
-        #self.weapons = Rifle()        # TODO add pistol
+        self.weapons = Rifle()        # TODO add pistol
         self.sprite_data = SpriteStruct("grunt.png", 110, 70)  # TODO implement dynamic sprites
 
 class Boss(Mob):
