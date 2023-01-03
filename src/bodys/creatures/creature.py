@@ -58,12 +58,13 @@ class Creature(Body):
 
 
         # print (dy,dx,sdy,sdx)
-        pg.draw.line(self.game.window,'purple', (self.r),(posx46),10) 
-        pg.draw.line(self.game.window,'purple', (self.r),(posy28),10) 
-        pg.draw.line(self.game.window,'orange', (self.r),(posx13),5) 
-        pg.draw.line(self.game.window,'pink', (self.r),(posx79),5) 
-        pg.draw.line(self.game.window,'brown', (self.r),(posy13),5) 
-        pg.draw.line(self.game.window,'cyan', (self.r),(posx79),5) 
+        if self.game.draw2d:
+            pg.draw.line(self.game.window,'purple', (self.r),(posx46),10) 
+            pg.draw.line(self.game.window,'purple', (self.r),(posy28),10) 
+            pg.draw.line(self.game.window,'orange', (self.r),(posx13),5) 
+            pg.draw.line(self.game.window,'pink', (self.r),(posx79),5) 
+            pg.draw.line(self.game.window,'brown', (self.r),(posy13),5) 
+            pg.draw.line(self.game.window,'cyan', (self.r),(posx79),5) 
 
 
         return (

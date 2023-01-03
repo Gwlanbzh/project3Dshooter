@@ -100,8 +100,10 @@ class PathFinding:
     def heuristic2(self,current,goal):
         (x1,y1) = current
         (x2,y2) = goal
-        return math.sqrt ((x1 - x2)^2 + 
-            (y1-y2)^2 )
+        return math.sqrt((x1-x2)**2 + (y1-y2)**2 )
 
     def heuristic3(self,current,goal):
+        """
+        best performence heuristic
+        """
         return ((current[0] - goal[0]) ** 2) + ((current[1] - goal[1]) ** 2)

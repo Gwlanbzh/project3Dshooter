@@ -22,7 +22,7 @@ class Player(Creature):
             Player
         """
         super().__init__(game, r)
-        self.size = 20
+        self.size = 40
         self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
         self.vorientation = 100
