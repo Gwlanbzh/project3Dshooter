@@ -87,12 +87,12 @@ class Weapon():
         return dist
 
     def draw(self, window):
+        self.update_image()
         width, height = self.sprite[self.image_index].get_size()
         top_left = (
             (Config.RES_X / 2) - (width / 2),
             Config.RES_Y - height
         )
-        self.update_image()
         window.blit(self.sprite[self.image_index], top_left)
 
     def draw2d(self, window, r, teta):

@@ -34,3 +34,11 @@ def load_rifle():
     ]
 
     return scale(rifle_images, 2)
+
+def load_superweapon():
+    superweapons_images = {
+        0 : scale([pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/0.png").convert_alpha(), pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state1_firing.png").convert_alpha() ], 2),
+        1 : scale([pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/1.png").convert_alpha(), pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state2_firing.png").convert_alpha()], 2)
+    }
+
+    return superweapons_images
