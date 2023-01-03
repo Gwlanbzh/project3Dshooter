@@ -29,7 +29,7 @@ class Player(Creature):
         # TODO add ammo data structure
 
         # weapons attributes
-        self.weapons = []
+        self.weapons = [Pistol()]
         self.ammo = 100  # may change to dict ?
         self.max_ammo = 100
 

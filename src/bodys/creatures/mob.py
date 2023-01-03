@@ -130,8 +130,8 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.health = 100
-        self.current_weapon = Shotgun()        # TODO add pistol
-        self.sprite_data = SpriteStruct("grunt", 90, 70)  # TODO implement dynamic sprites
+        self.current_weapon = Pistol()        # TODO add pistol
+        self.sprite_data = SpriteStruct("grunt.png", 110, 70)  # TODO implement dynamic sprites
 
 class Heavy(Mob):
     def __init__(self, game, r):
@@ -139,7 +139,7 @@ class Heavy(Mob):
         
         self.health = 200
         #self.weapons = Rifle()        # TODO add pistol
-        self.sprite_data = SpriteStruct("heavy", 110, 70)  # TODO implement dynamic sprites
+        self.sprite_data = SpriteStruct("grunt.png", 110, 70)  # TODO implement dynamic sprites
 
 class Boss(Mob):
     def __init__(self, game, r):
@@ -147,4 +147,4 @@ class Boss(Mob):
         
         self.health = 500
         #self.weapons = SuperWeapon()        # TODO add pistol
-        self.sprite_data = SpriteStruct("boss", 130, 70)  # TODO implement dynamic sprites
+        self.sprite_data = SpriteStruct("grunt.png", 130, 70)  # TODO implement dynamic sprites

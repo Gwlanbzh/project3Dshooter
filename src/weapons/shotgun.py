@@ -6,7 +6,6 @@ from render import load_shotgun
 from math import tau
 
 class Shotgun(Weapon):
-
     def __init__(self):
         super().__init__()
         self.delay = 400
@@ -36,9 +35,9 @@ class Shotgun(Weapon):
                 entity.ammo = max(0, entity.ammo - 3)
                 orien = entity.orientation
 
-                self.hit_scan(entity.game.world.map.map, entity.r, orien, mob_list)
-                self.hit_scan(entity.game.world.map.map, entity.r, (orien - self.dteta) % tau, mob_list)
-                self.hit_scan(entity.game.world.map.map, entity.r, (orien + self.dteta) % tau, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, orien, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, (orien - self.dteta) % tau, mob_list)
+                self.hit_scan(entity.game.world.map.grid, entity.r, (orien + self.dteta) % tau, mob_list)
                 self.play_sound()
             
             else:

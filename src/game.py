@@ -70,6 +70,6 @@ class Game:
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
-    draw2d = True
+    draw2d = 0
     game = Game("src/assets/maps/map_dest.bin", draw2d)
     game.run()
