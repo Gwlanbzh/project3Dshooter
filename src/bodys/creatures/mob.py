@@ -1,6 +1,6 @@
 from render.sprites import SpriteStruct
 from bodys.creatures.creature import Creature
-from math import pi, cos, sin, atan2,hypot
+from math import pi, cos, sin, atan2,hypot, tau
 from pygame import Vector2 as v2
 from render.ray import Ray
 from weapons import *
@@ -22,10 +22,9 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.current_weapon = Pistol()
-        self.range = self.current_weapon.range
+        self.range = self.current_weapon.range //10
 
-        self.ammo = 1000
+        self.ammo = 10000
 
     def update(self):
         self.ia_command()
@@ -43,11 +42,12 @@ class Mob(Creature):
             if not self.has_seen_player and self.mob_view_player():
                 self.has_seen_player = True
             if self.has_seen_player:
-                if self.dist_with_player() > 2/3 * self.range:
+                if self.dist_with_player() > 0.8 * self.range:
                     self.movement()
+                if self.dist_with_player() > 10 * self.range:
+                    self.has_seen_player = False
                 else:
                     self.current_weapon.shoot(self, self.game.world.players)
-
 
     def movement(self):
         """
@@ -72,7 +72,7 @@ class Mob(Creature):
             angle = atan2(next_pos_y - y, next_pos_x - x)
             dx = cos(angle) * self.speed * self.game.delta_time
             dy = sin(angle) * self.speed * self.game.delta_time
-            self.orientation = angle
+            self.orientation = angle % tau
 
             # check colision with not_colliding's Creature methode
             x_permission, y_permission = self.not_colliding(dx, dy)
@@ -93,7 +93,7 @@ class Mob(Creature):
         direction = v2(player.r - self.r)
         rayon = Ray(self.r, direction, self.game.world.map.grid)
 
-        if rayon.distance > self.dist_with_player():
+        if rayon.distance > self.dist_with_player() < self.range * 15:
             # if self.player_in_fov():
             return True
 
@@ -130,7 +130,7 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.health = 100
-        self.weapons = []        # TODO add pistol
+        self.current_weapon = Shotgun()        # TODO add pistol
         self.sprite_data = None  # TODO implement dynamic sprites
 
 class Heavy(Mob):
@@ -138,7 +138,7 @@ class Heavy(Mob):
         super().__init__(game,r)
         
         self.health = 200
-        self.weapons = []        # TODO add pistol
+        #self.weapons = Rifle()        # TODO add pistol
         self.sprite_data = None  # TODO implement dynamic sprites
 
 class Boss(Mob):
@@ -146,5 +146,5 @@ class Boss(Mob):
         super().__init__(game,r)
         
         self.health = 500
-        self.weapons = []        # TODO add pistol
+        #self.weapons = SuperWeapon()        # TODO add pistol
         self.sprite_data = None  # TODO implement dynamic sprites

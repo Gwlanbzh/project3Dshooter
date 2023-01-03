@@ -7,11 +7,11 @@ class Config():
     Contains constants for the game.
     TODO: init config from config file
     """
-    WINDOW_SIZE = 1280 , 800 # value link to the size of the map before render is finished
+    WINDOW_SIZE = 1280, 800 # value link to the size of the map before render is finished
     RES_X, RES_Y = WINDOW_SIZE
     FRAME_RATE = 200
 
-    PLAYER_V = 1 # arbitraty value for good feeling
+    PLAYER_V = 0.7 # arbitraty value for good feeling
     PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
     PLAYER_VERT_ROT_SPEED = 4
@@ -31,3 +31,5 @@ class Config():
     SKYBOX_DIR = "src/assets/visual/env/"
     
     SOUNDS_FOLDER = "src/assets/sounds/"
+
+    NO_SOUND = True

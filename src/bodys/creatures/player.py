@@ -30,8 +30,7 @@ class Player(Creature):
 
         # weapons attributes
         self.weapons = []
-        self.current_weapon = Pistol()
-        self.ammo = 10  # may change to dict ?
+        self.ammo = 100  # may change to dict ?
         self.max_ammo = 100
 
         pg.event.set_grab(True)
@@ -152,12 +151,3 @@ class Player(Creature):
         self.orientation -= direction * sensitivity * dt
         self.orientation %= tau
 
-    def draw(self, game): # might be move into Creature or Body
-        self.current_weapon.draw2d(game.window, self.r, self.orientation)
-        
-        # rond
-        pg.draw.circle(game.window, self.color, self.r,15)
-        
-        # vie
-        pg.draw.line(game.window, "red",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x + 25, self.r.y - self.size - 5))
-        pg.draw.line(game.window, "green",(self.r.x - 25, self.r.y - self.size - 5), (self.r.x -25 + self.health/2, self.r.y - self.size - 5))

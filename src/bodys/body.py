@@ -1,6 +1,7 @@
 import pygame as pg 
 from pygame import Vector2 as v2
 from render.sprites import SpriteStruct
+from config import Config
 
 class Body():
     """
@@ -41,8 +42,20 @@ class Body():
         #return self.sprite()
         return self.sprite_data
 
-    def draw(self,game): # draw object
-        pg.draw.circle(game.window, self.color, self.r, 15)
+    def draw(self, game): # might be move into Creature or Body
+        p_pos = self.game.world.players[0].r
+        x0, y0 = Config.WINDOW_SIZE
+        x0, y0 = x0/2, y0/2
+
+        render_pos = self.r - p_pos
+        render_pos.x += x0
+        render_pos.y += y0
+        
+        # rond
+        pg.draw.circle(game.window, self.color, render_pos, self.size)
+        
+        # retour pour les classes qui héritent de body
+        return render_pos
 
     @property
     def map_pos(self):

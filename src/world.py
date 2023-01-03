@@ -50,8 +50,8 @@ class World:
         """
         self.players[0].update()
 
-        self.mobs_position = [mob.map_pos for mob in self.mobs if not mob.is_alive]
-
+        self.mobs_position = [mob.map_pos for mob in self.mobs if not mob.is_dead()]
+        print(self.mobs_position)
         for mob in self.mobs:
             mob.update()
         
@@ -74,5 +74,5 @@ class World:
             mob.draw(game)
         for pickable in self.pickables:
             pickable.draw(game)
+        
         self.players[0].draw(game)
-        pass

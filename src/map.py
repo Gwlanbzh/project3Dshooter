@@ -65,20 +65,32 @@ class Map:
         pour rapple _RectValue c'est sous la forme : 
           Rect(left, top, width, height) -> Rect
         """
+        p_pos = self.game.world.players[0].r
+        x0, y0 = Config.WINDOW_SIZE
+        x0, y0 = x0/2, y0/2
+
+        
+
         for position in self.map_dic:
+            posx = position[0] * WALL_WIDTH - p_pos.x + x0
+            posy = position[1] * WALL_WIDTH - p_pos.y + y0
+
             if self.map_dic[position] == 1: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
-                              (position[0] * 100,position[1] * 100,100,100),2)
+                              (posx, posy,100,100),2)
+            
             if self.map_dic[position] == 2:
                 pg.draw.rect(game.window,"blue",
-                              (position[0] * WALL_WIDTH, position[1] * 100,100,100),2)
-
+                              (posx, posy,100,100),2)
+            
             if self.map_dic[position] == 3:
                 pg.draw.rect(game.window,"orange",
-                              (position[0] * WALL_WIDTH, position[1] * 100, 100, 100),2)
+                              (posx, posy,100,100),2)
 
         for position in self.graph:
-            pg.draw.rect(game.window,"red",(position[0]*100,position[1]*100,10,10))
+            posx = position[0] * WALL_WIDTH - p_pos.x + x0
+            posy = position[1] * WALL_WIDTH - p_pos.y + y0
+            pg.draw.rect(game.window,"red",(posx,posy,10,10))
 
 class Node:
     def __init__(self,position,neighbour = None):
