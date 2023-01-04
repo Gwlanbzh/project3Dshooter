@@ -35,8 +35,9 @@ class Creature(Body):
 
         #  required for walking animation sprites animations*
         self.walking = False
-        self.last_frame_time = 0
+        self.walking_frame_time = 0
         self.img_index = 0
+        self.hurt_frame_time = -1000
 
 
     def in_wall(self, pos):
@@ -93,6 +94,7 @@ class Creature(Body):
         return self.health == 0
 
     def hurt(self, damages):
+        self.hurt_frame_time = pg.time.get_ticks()
         self.health = max(0, self.health - damages)
 
     def draw(self, game): # might be move into Creature or Body
@@ -115,12 +117,18 @@ class Creature(Body):
             data = self.game.world.ressources.static_sprites[f"{self.model}/firing.png"]
             return SpriteStruct(data, h, w)
         
+        if t - self.hurt_frame_time < 200:
+            data = self.game.world.ressources.static_sprites[f"{self.model}/shooted.png"]
+            return SpriteStruct(data, h, w)
+
         if self.walking:
-            data = self.game.world.ressources.animated_sprites[self.model]
-            if t - self.last_frame_time > 100:
-                self.last_frame_time = t
+            data = self.game.world.ressources.animated_sprites[f"{self.model}/walking"]
+            if t - self.walking_frame_time > 100:
+                self.walking_frame_time = t
                 self.img_index = (self.img_index + 1)%len(data)
             return SpriteStruct(data[self.img_index])
+
+        
         
         data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
         return SpriteStruct(data, h, w)

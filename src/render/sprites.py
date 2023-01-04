@@ -4,6 +4,13 @@ from render.textures import load_texture
 from render.vars import *
 from os import listdir
 
+
+mob_models_names = [
+    "grunt",
+    "heavy",
+    "boss"
+]
+
 static_sprites_names = [
     #"default.png",
     "putin.png",
@@ -25,26 +32,27 @@ static_sprites_names = [
     "dead_tree.png",
     "barrel.png",
 
-    "grunt/static.png",
-    "grunt/firing.png",
     "dead_mob.png",
 
 ]
 
-mob_models_names = [
-    "grunt",
-    "heavy",
-    "boss"
-]
+animated_sprites_name = []
 
-#static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
+for mob_name in mob_models_names:
+    static_sprites_names.append(mob_name + "/shooted.png")
+    static_sprites_names.append(mob_name + "/firing.png")
+    static_sprites_names.append(mob_name + "/static.png")
+    animated_sprites_name.append(mob_name + "/walking")
 
 def load_static_sprites():
     return {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
 
-def load_animated_sprites(model):
-    textures = sorted(listdir(f"{SPRITES_DIR}{model}"))
-    textures = [load_texture(f"{SPRITES_DIR}{model}/" + img_name) for img_name in textures]
+def load_animated_sprites():
+    textures = dict()
+    for dir in animated_sprites_name:
+        temp = sorted(listdir(f"{SPRITES_DIR}{dir}"))
+        temp = [load_texture(f"{SPRITES_DIR}{dir}/" + img_name) for img_name in temp]
+        textures[dir] = temp
 
     return textures
 
