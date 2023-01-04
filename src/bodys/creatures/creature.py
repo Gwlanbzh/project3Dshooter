@@ -4,6 +4,7 @@ from math import *
 from bodys import Body
 from config import *
 from weapons import *
+from render import SpriteStruct
 
 class Creature(Body):
     """
@@ -27,6 +28,14 @@ class Creature(Body):
         self.max_health = 200
         self.health = self.max_health
         self.current_weapon = Pistol()
+
+        # graphics 
+        self.dead_model = "dead_mob.png"
+
+        # timings for sprites animations*
+        self.death_time = -1
+        self.walking = False
+        self.walking_img = 0
 
     def in_wall(self, pos):
         x , y = pos
@@ -92,3 +101,13 @@ class Creature(Body):
         pg.draw.line(game.window, "green",(render_pos.x - self.max_health/4, render_pos.y - self.size - 5), (render_pos.x - self.max_health/4 + self.health/2, render_pos.y - self.size - 5), 3)
 
         self.current_weapon.draw2d(game.window, render_pos, self.orientation)
+    
+    def get_sprite(self):
+        w, h = self.dims
+        if self.health == 0:
+            data = self.game.world.ressources.static_sprites[self.dead_model]
+            return SpriteStruct(data, h, w)
+
+        data = self.game.world.ressources.static_sprites[self.model]
+
+        return SpriteStruct(data, h, w)

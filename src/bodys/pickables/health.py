@@ -6,7 +6,9 @@ class HealthPack5(Pickable):
     def __init__(self, game, r):
         super().__init__(game, r)
         self.heal_value = 5
-        self.sprite_data = SpriteStruct("health_5.png", 30, 30)
+
+        self.model = "health_5.png"
+        self.dims = 30, 30
     
     def update(self):
         picker = self.picker()
@@ -20,4 +22,6 @@ class HealthPack25(HealthPack5):
     def __init__(self, game, r):
         super().__init__(game, r)
         self.heal_value = 25
-        self.sprite_data = SpriteStruct("health_25.png", 50, 80)
+
+        self.model = "health_25.png"
+        self.dims = 80, 50

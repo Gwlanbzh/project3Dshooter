@@ -11,7 +11,6 @@ from bodys import *
 
 values = {
     "P": Player,
-    "m": Mob,
     "G": Grunt,
     "V": Heavy,
     "B": Boss,

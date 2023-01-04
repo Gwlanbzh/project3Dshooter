@@ -9,7 +9,7 @@ __all__ = ["load_static_sprites", "load_animated_sprites", "SpriteStruct"]
 
 static_sprites_names = [
     #"default.png",
-    #"putin.png",
+    "putin.png",
     #"light.png",
     #"demon.png",
     "grunt.png",
@@ -27,6 +27,9 @@ static_sprites_names = [
     "tree.png",
     "dead_tree.png",
     "barrel.png",
+
+    "grunt/static.png",
+    "dead_mob.png"
 ]
 
 #static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
@@ -60,6 +63,6 @@ def load_animated_sprites(model: str, animations: list):
 
 @dataclass
 class SpriteStruct:
-    name  : str
+    data  : list
     height: float = 100.0
     width : float = 100.0

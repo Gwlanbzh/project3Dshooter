@@ -27,7 +27,12 @@ class Body():
         self.health = 1
 
         ## TODO add sprites data structure
-        self.sprite_data = SpriteStruct("default.png")
+        self.model = "putin.png"
+        self.dims = 100, 100
+
+        self.sprite_data = {
+            "alive" : [SpriteStruct("default.png")],
+            }
     
     def get_sprite(self):
         """
@@ -40,7 +45,17 @@ class Body():
             Surface
         """
         #return self.sprite()
-        return self.sprite_data
+        # si mort : en fonction de la date de mort retourner une sprite spécifique
+        # sinon : afficher en fonction du dernier tir qui a touché
+
+        # state = 
+        # frame = 0
+
+        # data = self.game.world.ressources.animated_sprites[self.model][state][frame]
+        data = self.game.world.ressources.static_sprites[self.model]
+        w, h = self.dims
+
+        return SpriteStruct(data, h, w)
 
     def draw(self, game): # might be move into Creature or Body
         p_pos = self.game.world.players[0].r

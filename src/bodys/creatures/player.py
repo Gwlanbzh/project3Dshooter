@@ -32,7 +32,8 @@ class Player(Creature):
 
         # weapons attributes
         self.weapons = [Punch, Pistol]
-        self.ammo = 100  # may change to dict ?
+        self.ammo = 20  # may change to dict ?
+        
         self.max_ammo = 100
 
         pg.event.set_grab(True)
