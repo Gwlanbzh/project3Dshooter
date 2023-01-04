@@ -129,7 +129,8 @@ class Grunt(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
-        self.health = 100
+        self.size = 27
+        self.health = 75
         self.current_weapon = Pistol()        # TODO add pistol
         # TODO implement dynamic sprites
 
@@ -140,7 +141,8 @@ class Heavy(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
-        self.health = 200
+        self.size = 30
+        self.health = 150
         self.weapons = Rifle()        # TODO add pistol
         # TODO implement dynamic sprites
 
@@ -151,7 +153,8 @@ class Boss(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
-        self.health = 500
+        self.size = 35
+        self.health = 375
         #self.weapons = SuperWeapon()        # TODO add pistol
         # TODO implement dynamic sprites
 

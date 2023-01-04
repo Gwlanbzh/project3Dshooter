@@ -26,13 +26,11 @@ class StorableWorld:
         Returns -1 and does nothing otherwise.
         """
         data = self.serialize()
-        if os.path.exists(path):
-            return -1
-        else:
+        if not os.path.exists(path):
             os.mknod(path)
-            with open(path, "wb") as f:
-                f.write(data)
-            return 0
+        with open(path, "wb") as f:
+            f.write(data)
+        return 0
         
 
 def load(path: str):
