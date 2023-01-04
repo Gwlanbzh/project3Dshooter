@@ -4,6 +4,9 @@ from bodys.pickables.pickable import Pickable
 
 
 class PickableWeapon(Pickable):
+    """
+    Generic class for pickable weapons. Never instanciated itself.
+    """
     def __init__(self, game, r):
         super().__init__(game, r)
         
@@ -22,7 +25,9 @@ class PickableShotgun(PickableWeapon):
         super().__init__(game, r)
         
         self.provided_weapon = Shotgun()
-        self.sprite_data = SpriteStruct("shotgun.png", 40, 150)
+
+        self.model = "shotgun.png"
+        self.dims = 150, 40
     
 
 class PickableRifle(PickableWeapon):
@@ -30,7 +35,9 @@ class PickableRifle(PickableWeapon):
         super().__init__(game, r)
         
         self.provided_weapon = Rifle()
-        self.sprite_data = SpriteStruct("rifle.png", 40, 150)
+
+        self.model = "rifle.png"
+        self.dims = 150, 40
     
 
 class PickableSuperWeapon(PickableWeapon):
@@ -38,4 +45,6 @@ class PickableSuperWeapon(PickableWeapon):
         super().__init__(game, r)
         
         self.provided_weapon = SuperWeapon()
-        self.sprite_data = SpriteStruct("minigun.png", 40, 150)
+
+        self.model = "minigun.png"
+        self.dims = 150, 40

@@ -9,7 +9,7 @@ __all__ = ["load_static_sprites", "load_animated_sprites", "SpriteStruct"]
 
 static_sprites_names = [
     #"default.png",
-    #"putin.png",
+    "putin.png",
     #"light.png",
     #"demon.png",
     "grunt.png",
@@ -60,6 +60,6 @@ def load_animated_sprites(model: str, animations: list):
 
 @dataclass
 class SpriteStruct:
-    name  : str
+    data  : list
     height: float = 100.0
     width : float = 100.0

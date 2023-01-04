@@ -125,7 +125,7 @@ class Camera():
         sorted_bodies = sorted(bodies_buffer, reverse=True)
         
         for distance, angle, sprite_data in sorted_bodies:
-            sprite = self.ressources.static_sprites[sprite_data.name]
+            sprite = sprite_data.data
             upper_height = scr_h(sprite_data.height-Config.VIEW_HEIGHT, distance)
             lower_height = scr_h(Config.VIEW_HEIGHT, distance)
             height = upper_height + lower_height
