@@ -12,9 +12,12 @@ class Main():
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
-        self.draw2d = True
+        self.draw2d = False
         self.game = None
-        self.game = Game("src/assets/maps/map_dest.bin", self.draw2d,self.window,self.delta_time,self.clock)
+
+
+        map_file = "src/assets/maps/map_dest.bin"
+        self.load_game(map_file)
 
     def loop(self):
         while True :
@@ -28,8 +31,10 @@ class Main():
 
             fps = self.clock.get_fps()
             pg.display.update()
-            self.delta_time =  self.clock.tick(Config.FRAME_RATE)
+            self.delta_time = self.clock.tick(Config.FRAME_RATE)
+            self.game.delta_time = self.delta_time
             pg.display.set_caption(f"{fps:.2f}")
+            pg.event.pump()
 
     def check_event(self):
         """
@@ -48,7 +53,7 @@ class Main():
 
 
     def load_game(self,map_file):
-        self.game = Game("src/assets/maps/map_dest.bin", self.draw2d,self.window,self.delta_time,self.clock)
+        self.game = Game(map_file, self.draw2d,self.window,self.delta_time,self.clock)
 
     def unload_game(self):
         self.game = None
