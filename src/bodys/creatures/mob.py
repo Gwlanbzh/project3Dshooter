@@ -60,7 +60,7 @@ class Mob(Creature):
         mob_map_pos = self.map_pos
         player_map_pos = self.game.world.players[0].map_pos
 
-        next_pos = self.game.path_finding.Astar(mob_map_pos,player_map_pos)
+        next_pos = self.game.path_finding.Astar(mob_map_pos, player_map_pos)
         if next_pos not in self.game.world.mobs_position:
             next_pos_x, next_pos_y = next_pos
             next_pos_x += 0.5
@@ -119,10 +119,6 @@ class Mob(Creature):
         diff = player.r - self.r
         dist = hypot(diff.x, diff.y)
         return dist
-
-
-
-
 
 
 class Grunt(Mob):
