@@ -39,7 +39,7 @@ class Mob(Creature):
         do not approch the player more than 2/3 of is range 
         """
         if not self.is_dead() :
-            if not self.has_seen_player and self.mob_view_player() and self.dist_with_player < 20 * self.range:
+            if not self.has_seen_player and self.mob_view_player() and self.dist_with_player() < 20 * self.range:
                 self.has_seen_player = True
             if self.has_seen_player:
                 if self.dist_with_player() > 20 * self.range and not self.mob_view_player() :

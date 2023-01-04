@@ -40,6 +40,7 @@ class Player(Creature):
 
 
     def update(self):  # might be move into Creature or Body
+        print("player update")
         self.move()
         self.cursor_visibility()
         # heal
@@ -55,7 +56,6 @@ class Player(Creature):
         keys = pg.key.get_pressed()
         if not self.game.is_paused:
             moves = set()
-
             if keys[pg.K_z]:
                 moves.add(2)
             if keys[pg.K_s]:
