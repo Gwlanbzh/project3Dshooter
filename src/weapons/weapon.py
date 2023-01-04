@@ -6,32 +6,32 @@ from render import *
 from config import Config
 from random import choice
 
+
 pi_2 = pi / 2
 
 class Weapon():
     def __init__(self):
         self.dmg = 10
-        self.delay = 500 # en ms
-        self.range = 100 # 100 -> largeur d'un carré
+        self.delay = 500  # en ms
+        self.range = 100  # 100 -> largeur d'un carré
 
-        self.last_shot_time = - self.delay # moment at which the last shot was fired
-                                           # - self.delay to avoid animation at init of the game
+        self.last_shot_time = - self.delay  # moment at which the last shot was fired
+                                            # - self.delay to avoid animation at init of the game
         self.play_sound_time = - self.delay
         
-        self.time_between_sprites = 200 # ms
-        self.sprite = load_weapon() # from render.weapons
+        self.time_between_sprites = 200  # ms
+        self.sprite = load_weapon()  # from render.weapons
         self.image_index = 0
 
         self.ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_ammo.mp3")]
         self.no_ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_no_ammo.mp3")]
 
-    
     def shoot(self, entity, mob_list):
         """
         check if a mob is touch on click and act in consequence.
         """
         t = pg.time.get_ticks()
-        if t - self.last_shot_time > self.delay: # 100 ms between shots 
+        if t - self.last_shot_time > self.delay:  # 100 ms between shots 
             if entity.ammo > 0:
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
@@ -51,9 +51,9 @@ class Weapon():
             rayon = Ray(pos, direction, map)
 
             if dist > self.range or rayon.distance < dist:
-                return # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
+                return  # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
             else:
-                teta_max = atan(mob.size/dist) # la marge d'erreur pour l'angle de tir du joueur.
+                teta_max = atan(mob.size/dist)  # la marge d'erreur pour l'angle de tir du joueur.
                 
                 x, y = mob.r - pos
                 if y == 0 and x < 0:
@@ -75,7 +75,7 @@ class Weapon():
 
                 if abs(teta) < teta_max:
                     mob.hurt(self.dmg)
-                    return # on interromp la boucle, sinon les balles peuvent traverser les mobs.
+                    return  # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
     def dist(self, pos, mob):
         """

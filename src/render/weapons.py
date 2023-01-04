@@ -15,6 +15,12 @@ def load_weapon():
     ]
     return weapon_images
 
+def load_punch():
+    punch_images = [
+        pg.image.load(Config.SPRITES_DIR + f"weapons/pun/pun{i}.png").convert_alpha() for i in range(4)
+    ]
+    return scale(punch_images, 3)
+
 def load_pistol():
     pistol_images = [
         pg.image.load(Config.SPRITES_DIR + f"weapons/pis/pis{i}.png").convert_alpha() for i in range(5)
