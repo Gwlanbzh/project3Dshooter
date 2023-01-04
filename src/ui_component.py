@@ -386,9 +386,10 @@ class menu_setting(Menu):
         pass
 
 class Play_Button(Button):
-    def __init__(self,game,position):
-        super().__init__(game,position)
+    def __init__(self,main,position):
+        super().__init__(main,position)
         self.text = "PLAY"
+        self.main = main
         self.background = (0,0,255,0)
         self.background_activate = RED
         self.background_idle = self.background
@@ -400,12 +401,12 @@ class Play_Button(Button):
 
     def action(self):
         print("Good Game")
-        self.game.load_world(self.game.map_file)
-        pass
+        map_file = "src/assets/maps/map_dest.bin"
+        self.main.load_game(map_file)
 
 class Quit_Game_Button(Button):
-    def __init__(self,game,position):
-        super().__init__(game,position)
+    def __init__(self,main,position):
+        super().__init__(main,position)
         self.text = "QUIT"
         self.background = (0,0,255,0)
         self.background_activate = RED
@@ -418,5 +419,5 @@ class Quit_Game_Button(Button):
 
     def action(self):
         print("Thank you for playing ")
-        self.game.quit()
+        self.main.quit()
         pass

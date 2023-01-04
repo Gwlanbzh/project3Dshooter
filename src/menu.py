@@ -6,13 +6,13 @@ from config import *
 GRAY = pg.Color(170,170,170) 
 
 class MainMenu:
-    def __init__(self,game):
-        self.game = game
+    def __init__(self,main):
+        self.main = main
         self.worlds = []
-        self.menu_title = Menu_Title(game,(0.5*RES_X,0.2*RES_Y))
+        self.menu_title = Menu_Title(main,(0.5*RES_X,0.2*RES_Y))
         self.ui_elements_button = [
-            Play_Button(game,(0.5*RES_X,0.4*RES_Y)),
-            Quit_Game_Button(game,(0.5*RES_X,0.7*RES_Y)),
+            Play_Button(main,(0.5*RES_X,0.4*RES_Y)),
+            Quit_Game_Button(main,(0.5*RES_X,0.7*RES_Y)),
             #Menu_Select_World_Button(game,(0.5*RES_X,0.5*RES_Y))
         ]
         self.menu_setting = menu_setting()
@@ -20,8 +20,12 @@ class MainMenu:
         self.background = pg.transform.scale(self.background,(RES_X,RES_Y))
         pass
 
+    def run(self):
+        self.draw()
+
+
     def draw_menu_background(self):
-        self.game.window.blit(self.background,(0,0))
+        self.main.window.blit(self.background,(0,0))
 
     def draw(self):       
         self.draw_menu_background()

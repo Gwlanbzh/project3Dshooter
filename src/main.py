@@ -17,13 +17,15 @@ class Main():
 
 
         map_file = "src/assets/maps/map_dest.bin"
-        self.load_game(map_file)
+        # self.load_game(map_file)
 
     def loop(self):
         while True :
             game = self.game
+            self.check_event()
             if game != None:
                 game.run()
+                self.game.delta_time = self.delta_time
                 if game.is_game_over():
                     game = None
             else :
@@ -32,7 +34,6 @@ class Main():
             fps = self.clock.get_fps()
             pg.display.update()
             self.delta_time = self.clock.tick(Config.FRAME_RATE)
-            self.game.delta_time = self.delta_time
             pg.display.set_caption(f"{fps:.2f}")
             pg.event.pump()
 
@@ -44,7 +45,7 @@ class Main():
             if event.type == pg.QUIT:
                 self.quit()
 
-            if self.game != None:
+            if self.game == None:
                 self.main_menu.click(event)
                 self.main_menu.over()
             else:
