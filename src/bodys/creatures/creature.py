@@ -26,7 +26,7 @@ class Creature(Body):
         self.orientation = 0 # arbitrary value for init
         
         self.max_health = 200
-        self.health = self.max_health
+        self.health = 100
         self.current_weapon = Pistol()
 
         # graphics 

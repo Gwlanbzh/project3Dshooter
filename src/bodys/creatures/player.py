@@ -162,7 +162,7 @@ class Player(Creature):
         
         forces = [
             v2(fx, fy),     # movement force
-            -0.15 * self.v  # friction force
+            -0.17 * self.v  # friction force
         ]
         
         a = sum(forces, start=v2(0, 0))
