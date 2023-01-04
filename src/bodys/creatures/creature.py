@@ -31,6 +31,7 @@ class Creature(Body):
 
         # graphics 
         self.dead_model = "dead_mob.png"
+        self.firing_model = "grunt/firing.png"
 
         # timings for sprites animations*
         self.death_time = -1
@@ -106,6 +107,11 @@ class Creature(Body):
         w, h = self.dims
         if self.health == 0:
             data = self.game.world.ressources.static_sprites[self.dead_model]
+            return SpriteStruct(data, h, w)
+        
+        t = pg.time.get_ticks()
+        if t - self.current_weapon.last_shot_time < 100:
+            data = self.game.world.ressources.static_sprites[self.firing_model]
             return SpriteStruct(data, h, w)
 
         data = self.game.world.ressources.static_sprites[self.model]

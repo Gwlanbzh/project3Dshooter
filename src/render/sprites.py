@@ -29,7 +29,9 @@ static_sprites_names = [
     "barrel.png",
 
     "grunt/static.png",
-    "dead_mob.png"
+    "grunt/firing.png",
+    "dead_mob.png",
+
 ]
 
 #static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
