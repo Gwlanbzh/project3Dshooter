@@ -2,10 +2,7 @@ from dataclasses import dataclass
 import pygame as pg
 from render.textures import load_texture
 from render.vars import *
-
-
-__all__ = ["load_static_sprites", "load_animated_sprites", "SpriteStruct"]
-
+from os import listdir
 
 static_sprites_names = [
     #"default.png",
@@ -34,33 +31,22 @@ static_sprites_names = [
 
 ]
 
+mob_models_names = [
+    "grunt",
+    "heavy",
+    "boss"
+]
+
 #static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
 
 def load_static_sprites():
     return {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
 
-def load_animated_sprites(model: str, animations: list):
-    """
-    Returns a dictionary with keys being states and values being arrays of sprites.
-    If the state is not anomated, (e.g. standing), add "standing" to animations.
-    If it is, append "{}" at the end.
-    """
-    directory = f"{TEXTURES_DIR}/{model}"
-    sprites_dict = {}
-    for anim in animations:
-        anim_key = anim.replace("{}", "")
-        sprites_dict[anim_key] = []
-        try:
-            i = 1
-            if anim.endswith("{}"):
-                while True:
-                    sprites_dict[anim_key].append(load_texture(pg.image.load(f"{directory}/{anim.format(i)}.png")))
-                    i += 1
-            else:
-                sprites_dict[anim_key].append(load_texture(pg.image.load(f"{directory}/{anim}.png")))
-        except FileNotFoundError:
-            continue
-    return sprites_dict
+def load_animated_sprites(model):
+    textures = sorted(listdir(f"{SPRITES_DIR}{model}"))
+    textures = [load_texture(f"{SPRITES_DIR}{model}/" + img_name) for img_name in textures]
+
+    return textures
 
 
 @dataclass
@@ -68,3 +54,5 @@ class SpriteStruct:
     data  : list
     height: float = 100.0
     width : float = 100.0
+
+    

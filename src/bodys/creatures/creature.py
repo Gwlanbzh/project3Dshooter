@@ -31,12 +31,13 @@ class Creature(Body):
 
         # graphics 
         self.dead_model = "dead_mob.png"
-        self.firing_model = "grunt/firing.png"
+        self.model = "grunt"
 
-        # timings for sprites animations*
-        self.death_time = -1
+        #  required for walking animation sprites animations*
         self.walking = False
-        self.walking_img = 0
+        self.last_frame_time = 0
+        self.img_index = 0
+
 
     def in_wall(self, pos):
         x , y = pos
@@ -105,15 +106,21 @@ class Creature(Body):
     
     def get_sprite(self):
         w, h = self.dims
-        if self.health == 0:
+        if self.is_dead():
             data = self.game.world.ressources.static_sprites[self.dead_model]
             return SpriteStruct(data, h, w)
         
         t = pg.time.get_ticks()
         if t - self.current_weapon.last_shot_time < 100:
-            data = self.game.world.ressources.static_sprites[self.firing_model]
+            data = self.game.world.ressources.static_sprites[f"{self.model}/firing.png"]
             return SpriteStruct(data, h, w)
-
-        data = self.game.world.ressources.static_sprites[self.model]
-
+        
+        if self.walking:
+            data = self.game.world.ressources.animated_sprites[self.model]
+            if t - self.last_frame_time > 100:
+                self.last_frame_time = t
+                self.img_index = (self.img_index + 1)%len(data)
+            return SpriteStruct(data[self.img_index])
+        
+        data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
         return SpriteStruct(data, h, w)

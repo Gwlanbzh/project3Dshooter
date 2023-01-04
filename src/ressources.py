@@ -1,4 +1,4 @@
-from render import load_texture_set, load_skybox, load_static_sprites
+from render import load_texture_set, load_skybox, load_static_sprites, load_animated_sprites, mob_models_names
 
 class Ressources():
     """
@@ -15,4 +15,8 @@ class Ressources():
         self.floor = floor
         
         self.static_sprites = load_static_sprites()
+        
+        self.animated_sprites = dict()
+        for key in mob_models_names:
+            self.animated_sprites[key] = load_animated_sprites(key + "/walking")
 

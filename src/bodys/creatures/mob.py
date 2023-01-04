@@ -18,11 +18,10 @@ class Mob(Creature):
         """
         super().__init__(game, r)
         self.color = 'red' 
-        self.sprite_data = SpriteStruct("grunt.png", 110, 70)
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.range = self.current_weapon.range //10
+        self.range = self.current_weapon.range
 
         self.ammo = 10000
 
@@ -42,11 +41,14 @@ class Mob(Creature):
             if not self.has_seen_player and self.mob_view_player():
                 self.has_seen_player = True
             if self.has_seen_player:
-                if self.dist_with_player() > 0.8 * self.range:
-                    self.movement()
-                if self.dist_with_player() > 10 * self.range:
+                if self.dist_with_player() > 0.3 * self.range:
                     self.has_seen_player = False
+                    self.walking = False
+                elif self.dist_with_player() > 0.1 * self.range:
+                    self.movement()
+                    self.walking = True
                 else:
+                    self.walking = False
                     self.current_weapon.shoot(self, self.game.world.players)
 
     def movement(self):
@@ -133,7 +135,7 @@ class Grunt(Mob):
         self.current_weapon = Pistol()        # TODO add pistol
         # TODO implement dynamic sprites
 
-        self.model = "grunt/static.png"
+        self.model = "grunt"
         self.dims = 70, 110
 
 class Heavy(Mob):
@@ -144,7 +146,7 @@ class Heavy(Mob):
         self.weapons = Rifle()        # TODO add pistol
         # TODO implement dynamic sprites
 
-        self.model = "grunt.png"
+        self.model = "heavy"
         self.dims = 70, 110
 
 class Boss(Mob):
@@ -155,5 +157,5 @@ class Boss(Mob):
         #self.weapons = SuperWeapon()        # TODO add pistol
         # TODO implement dynamic sprites
 
-        self.model = "grunt.png"
+        self.model = "boss"
         self.dims = 70, 130
