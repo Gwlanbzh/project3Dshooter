@@ -1,6 +1,11 @@
 from game import Game
 
 class Maze(Game):
+    def __init__(self, map_file, draw2d):
+        super().__init__(map_file, draw2d)
+        
+        self.description = "Reach the exit without dying."
+    
     def is_game_over(self):
         curr_cell = (int(self.world.players[0].r.x)//100, int(self.world.players[0].r.y)//100)
         if any([curr_cell == exit for exit in self.world.exits]):
@@ -10,6 +15,11 @@ class Maze(Game):
         return ""
 
 class Boss_level(Game):
+    def __init__(self, map_file, draw2d):
+        super().__init__(map_file, draw2d)
+        
+        self.description = "Kill all the ennemies in the map. Beware the boss."
+    
     def is_game_over(self):
         if all([mob.health == 0 for mob in self.world.mobs]):
             return "victory"

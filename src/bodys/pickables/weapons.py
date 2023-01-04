@@ -11,7 +11,7 @@ class PickableShotgun(Pickable):
     def update(self):
         picker = self.picker()
         if picker != None:
-            picker.weapons.append(Shotgun())
+            picker.weapons.append(Shotgun)
             return True
         return False
 
@@ -23,7 +23,7 @@ class PickableRifle(Pickable):
     def update(self):
         picker = self.picker()
         if picker != None:
-            picker.weapons.append(Rifle())
+            picker.weapons.append(Rifle)
             return True
         return False
     
@@ -36,6 +36,6 @@ class PickableSuperWeapon(Pickable):
     def update(self):
         picker = self.picker()
         if picker != None:
-            picker.weapons.append(SuperWeapon())
+            picker.weapons.append(SuperWeapon)
             return True
         return False

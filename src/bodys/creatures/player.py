@@ -28,10 +28,10 @@ class Player(Creature):
         self.vorientation = 100
         # TODO add ammo data structure
 
-        self.current_weapon = Punch()
+        self.current_weapon = Pistol()
 
         # weapons attributes
-        self.weapons = [Punch(), Pistol()]
+        self.weapons = [Punch, Pistol]
         self.ammo = 100  # may change to dict ?
         self.max_ammo = 100
 
@@ -74,7 +74,21 @@ class Player(Creature):
         if keys[pg.K_k]:
             self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
         
+        
+        # Weapon selection
+        
         # Mouse events
+        if keys[pg.K_1] and Punch in self.weapons:
+            self.current_weapon = Punch()
+        if keys[pg.K_2] and Pistol in self.weapons:
+            self.current_weapon = Pistol()
+        if keys[pg.K_3] and Shotgun in self.weapons:
+            self.current_weapon = Shotgun()
+        if keys[pg.K_4] and Rifle in self.weapons:
+            self.current_weapon = Rifle()
+        if keys[pg.K_5] and SuperWeapon in self.weapons:
+            self.current_weapon = SuperWeapon()
+        
         
         left_click, _, _ = pg.mouse.get_pressed()
         if left_click:
