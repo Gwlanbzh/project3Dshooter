@@ -44,7 +44,7 @@ class Mob(Creature):
                 if self.dist_with_player() > self.range:
                     self.has_seen_player = False
                     self.walking = False
-                elif self.dist_with_player() > 0.6 * self.range:
+                elif self.dist_with_player() > 0.6 * self.range or not (self.mob_view_player()):
                     self.movement()
                     self.walking = True
                 else:
