@@ -103,10 +103,11 @@ class Creature(Body):
         self.current_weapon.draw2d(game.window, render_pos, self.orientation)
     
     def get_sprite(self):
-        if self.health != 0:
-            data = self.game.world.ressources.static_sprites[self.model]
-        else:
-            data = self.game.world.ressources.static_sprites[self.dead_model]
         w, h = self.dims
+        if self.health == 0:
+            data = self.game.world.ressources.static_sprites[self.dead_model]
+            return SpriteStruct(data, h, w)
+
+        data = self.game.world.ressources.static_sprites[self.model]
 
         return SpriteStruct(data, h, w)
