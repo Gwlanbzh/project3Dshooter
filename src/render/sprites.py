@@ -27,6 +27,9 @@ static_sprites_names = [
     "tree.png",
     "dead_tree.png",
     "barrel.png",
+
+    "grunt/static.png",
+    "dead_mob.png"
 ]
 
 #static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}

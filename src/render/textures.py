@@ -25,7 +25,7 @@ def load_texture(path:str):
     """
     Return an array of the columns of a given image, as surfaces if surface is True, else as PixelArrays.
     """
-    return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path))]
+    return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path).convert_alpha())]
 
 def load_texture_set(texture_set: str):
     """

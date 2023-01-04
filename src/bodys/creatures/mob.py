@@ -133,7 +133,7 @@ class Grunt(Mob):
         self.current_weapon = Pistol()        # TODO add pistol
         # TODO implement dynamic sprites
 
-        self.model = "grunt.png"
+        self.model = "grunt/static.png"
         self.dims = 70, 110
 
 class Heavy(Mob):
