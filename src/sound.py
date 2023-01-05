@@ -54,6 +54,7 @@ class Sound():
         self.current_music = choice(self.musics)
         self.musics.remove(self.current_music)
         self.effect_volume = 1
+    
 
     def play_sound(self, id, player_pos, sound_pos):
         hearing_sound_dist = WALL_WIDTH * 10
