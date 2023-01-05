@@ -19,10 +19,4 @@ class Pistol(Weapon):
         self.sprite = load_pistol() # from render.weapons
         self.image_index = 0
 
-        self.ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3"),
-        ]
-        
-        self.no_ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
-        ]
+        self.model = "pistol"

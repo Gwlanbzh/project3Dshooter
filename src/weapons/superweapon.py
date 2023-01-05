@@ -15,13 +15,7 @@ class SuperWeapon(Weapon):
 
         self.state = 0
 
-        self.ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3"),
-        ]
-
-        self.no_ammo_sound = [ 
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
-        ]
+        self.model = "superweapon"
 
         self.sprite = load_superweapon()
 
@@ -32,9 +26,9 @@ class SuperWeapon(Weapon):
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
                 self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-                self.play_sound()
+                self.play_sound(entity.game, entity.r)
             else:
-                self.play_sound(no_ammo=True)
+                self.play_sound(entity.game, entity.r, no_ammo=True)
             self.state = int(not self.state)
 
     def draw(self, window):

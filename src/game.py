@@ -6,6 +6,7 @@ from world import *
 from render import Camera
 from bodys import *
 from bodys.creatures.path_finding import *
+from sound import Sound
 
 class Game:
     """
@@ -31,6 +32,7 @@ class Game:
         self.clock = pg.time.Clock() # help managing time
         self.camera = Camera(self.world.players[0])
         self.draw2d = draw2d
+        self.sound = Sound()
 
         self.font = pg.font.Font(pg.font.get_default_font(), 24)
     

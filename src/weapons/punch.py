@@ -2,6 +2,7 @@ from weapons import Weapon
 import pygame as pg
 from config import *
 from render import load_punch
+from random import choice
 
 class Punch(Weapon):
     def __init__(self):
@@ -14,8 +15,8 @@ class Punch(Weapon):
         self.time_between_sprites = 80
         
         self.sprite = load_punch()
-        
-        self.sound = pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/punch.wav")
+
+        self.model = "punch"
     
     def draw(self, window):
         self.update_image()
@@ -34,8 +35,4 @@ class Punch(Weapon):
         if t - self.last_shot_time > self.delay:  # 100 ms between shots 
             self.last_shot_time = t
             self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-            self.play_sound()
-    
-    def play_sound(self, no_ammo=False):
-        #if not Config.NO_SOUND:
-        self.sound.play()
+            self.play_sound(entity.game, entity.r)
