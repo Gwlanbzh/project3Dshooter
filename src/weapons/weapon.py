@@ -23,8 +23,7 @@ class Weapon():
         self.sprite = load_weapon()  # from render.weapons
         self.image_index = 0
 
-        self.ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_ammo.mp3")]
-        self.no_ammo_sound = [pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_no_ammo.mp3")]
+        self.model = "weapon"
 
     def shoot(self, entity, mob_list):
         """
@@ -36,9 +35,9 @@ class Weapon():
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
                 self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-                self.play_sound()
+                self.play_sound(entity.game, entity.r)
             else:
-                self.play_sound(no_ammo=True)
+                self.play_sound(entity.game, entity.r, no_ammo=True)
     
     def hit_scan(self, map, pos, orientation, mob_list):
 
@@ -107,14 +106,16 @@ class Weapon():
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
         self.image_index = i if i < len(self.sprite) else 0
 
-    def play_sound(self, no_ammo=False):
+    def play_sound(self, game, pos, no_ammo=False):
         if Config.NO_SOUND:
             return
+
+        sound = game.sound
 
         t = pg.time.get_ticks()
         if no_ammo:
             if t - self.play_sound_time > self.delay:
                 self.play_sound_time = t
-                choice(self.no_ammo_sound).play()
+                sound.play_sound("dryfire", game.world.players[0].r, pos)
         else:
-            choice(self.ammo_sound).play()
+            sound.play_sound(self.model, game.world.players[0].r, pos)

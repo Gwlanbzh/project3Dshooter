@@ -18,13 +18,7 @@ class Shotgun(Weapon):
         self.sprite = load_shotgun() # from render.weapons
         self.image_index = 0
 
-        self.ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_shotgun.mp3"),
-        ]
-        
-        self.no_ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
-        ]
+        self.model = "shotgun"
 
     def shoot(self, entity, mob_list):
         t = pg.time.get_ticks()
@@ -38,10 +32,10 @@ class Shotgun(Weapon):
                 self.hit_scan(entity.game.world.map.grid, entity.r, orien, mob_list)
                 self.hit_scan(entity.game.world.map.grid, entity.r, (orien - self.dteta) % tau, mob_list)
                 self.hit_scan(entity.game.world.map.grid, entity.r, (orien + self.dteta) % tau, mob_list)
-                self.play_sound()
+                self.play_sound(entity.game, entity.r)
             
             else:
-                self.play_sound(no_ammo=True)
+                self.play_sound(entity.game, entity.r, no_ammo=True)
 
     def draw2d(self, window, r, teta):
         super().draw2d(window, r, teta)

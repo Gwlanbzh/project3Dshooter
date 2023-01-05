@@ -12,12 +12,6 @@ class Rifle(Weapon):
         self.delay = 500  # ms
         self.time_between_sprites = 90
 
-        self.ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/rifle-firing.mp3"),
-        ]
-
-        self.no_ammo_sound = [ 
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
-        ]
+        self.model = "rifle"
 
         self.sprite = load_rifle()

@@ -113,12 +113,12 @@ class Creature(Body):
             return SpriteStruct(data, h, w)
         
         t = pg.time.get_ticks()
-        if t - self.current_weapon.last_shot_time < 100:
-            data = self.game.world.ressources.static_sprites[f"{self.model}/firing.png"]
-            return SpriteStruct(data, h, w)
-        
         if t - self.hurt_frame_time < 200:
             data = self.game.world.ressources.static_sprites[f"{self.model}/shooted.png"]
+            return SpriteStruct(data, h, w)
+        
+        if t - self.current_weapon.last_shot_time < 100:
+            data = self.game.world.ressources.static_sprites[f"{self.model}/firing.png"]
             return SpriteStruct(data, h, w)
 
         if self.walking:
