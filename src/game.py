@@ -20,7 +20,7 @@ class Game:
         if draw2d:
             self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         else:
-            self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+            self.window = pg.display.set_mode(Config.WINDOW_SIZE) #, pg.FULLSCREEN)
         
         self.world = World(self, map_file) 
         self.path_finding = PathFinding(self)
@@ -70,6 +70,6 @@ class Game:
             pg.display.set_caption(f"{fps:.2f}")
   
 if __name__ == "__main__":
-    draw2d = False
+    draw2d = 0
     game = Game("src/assets/maps/level_1.bin", draw2d)
     game.run()

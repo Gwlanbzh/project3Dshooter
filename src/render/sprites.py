@@ -2,10 +2,14 @@ from dataclasses import dataclass
 import pygame as pg
 from render.textures import load_texture
 from render.vars import *
+from os import listdir
 
 
-__all__ = ["load_static_sprites", "load_animated_sprites", "SpriteStruct"]
-
+mob_models_names = [
+    "grunt",
+    "heavy",
+    "boss"
+]
 
 static_sprites_names = [
     #"default.png",
@@ -28,37 +32,29 @@ static_sprites_names = [
     "dead_tree.png",
     "barrel.png",
 
-    "grunt/static.png",
-    "dead_mob.png"
+    "dead_mob.png",
+
 ]
 
-#static_sprites = {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
+animated_sprites_name = []
+
+for mob_name in mob_models_names:
+    static_sprites_names.append(mob_name + "/shooted.png")
+    static_sprites_names.append(mob_name + "/firing.png")
+    static_sprites_names.append(mob_name + "/static.png")
+    animated_sprites_name.append(mob_name + "/walking")
 
 def load_static_sprites():
     return {sprite: load_texture(SPRITES_DIR+sprite) for sprite in static_sprites_names}
 
-def load_animated_sprites(model: str, animations: list):
-    """
-    Returns a dictionary with keys being states and values being arrays of sprites.
-    If the state is not anomated, (e.g. standing), add "standing" to animations.
-    If it is, append "{}" at the end.
-    """
-    directory = f"{TEXTURES_DIR}/{model}"
-    sprites_dict = {}
-    for anim in animations:
-        anim_key = anim.replace("{}", "")
-        sprites_dict[anim_key] = []
-        try:
-            i = 1
-            if anim.endswith("{}"):
-                while True:
-                    sprites_dict[anim_key].append(load_texture(pg.image.load(f"{directory}/{anim.format(i)}.png")))
-                    i += 1
-            else:
-                sprites_dict[anim_key].append(load_texture(pg.image.load(f"{directory}/{anim}.png")))
-        except FileNotFoundError:
-            continue
-    return sprites_dict
+def load_animated_sprites():
+    textures = dict()
+    for dir in animated_sprites_name:
+        temp = sorted(listdir(f"{SPRITES_DIR}{dir}"))
+        temp = [load_texture(f"{SPRITES_DIR}{dir}/" + img_name) for img_name in temp]
+        textures[dir] = temp
+
+    return textures
 
 
 @dataclass
@@ -66,3 +62,5 @@ class SpriteStruct:
     data  : list
     height: float = 100.0
     width : float = 100.0
+
+    
