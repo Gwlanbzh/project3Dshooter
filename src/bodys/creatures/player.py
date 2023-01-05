@@ -53,8 +53,9 @@ class Player(Creature):
         TODO maybye refactoring get inputs and mouvement call
         """
         keys = pg.key.get_pressed()
-        if not self.game.is_paused:
 
+
+        if not self.game.is_paused:
             moves = set()
             if keys[pg.K_z]:
                 moves.add(2)
@@ -71,18 +72,26 @@ class Player(Creature):
             if keys[pg.K_a]:
                 self.rotate(1)
 
-
-            if keys[pg.K_g]:
-                self.target_health -= 10
-
-            if keys[pg.K_h]:
-                self.target_health += 10
-        
             if keys[pg.K_o]:
                 self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
             if keys[pg.K_k]:
                 self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
-        
+            
+
+            for event in pg.event.get():
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_g:
+                        self.target_health -= 10
+                    if event.key == pg.K_h:
+                        self.target_health += 10
+                    if event.key == pg.K_p:
+                        self.game.hud.toggle()
+                    if event.key == pg.K_ESCAPE:
+                        self.game.hud.menu_esc_is_toggle = True
+                        self.game.is_paused = True
+                    if event.key == pg.K_ESCAPE:
+                        self.game.hud.menu_esc_is_toggle = True
+                        self.game.is_paused = True
             # Mouse events
         
             left_click, _, _ = pg.mouse.get_pressed()
@@ -96,18 +105,15 @@ class Player(Creature):
             self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
             self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
         
-            if keys[pg.K_p]:
-                self.game.hud.toggle()
-
-            if keys[pg.K_ESCAPE]:
-                self.game.hud.menu_esc_is_toggle = True
-                self.game.is_paused = True
+            
 
             return moves
         else:
-            if keys[pg.K_ESCAPE]:
-                self.game.hud.menu_esc_is_toggle = False
-                self.game.is_paused = False
+            for event in pg.event.get():
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        self.game.hud.menu_esc_is_toggle = False
+                        self.game.is_paused = False
 
             return set()
     

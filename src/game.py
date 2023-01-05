@@ -24,6 +24,7 @@ class Game:
         self.camera = Camera(self.world.players[0])
         self.hud = Hud(self)
         self.is_paused = False
+        self.is_abandon = False
     
     def is_game_over(self):
         return False

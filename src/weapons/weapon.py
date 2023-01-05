@@ -39,8 +39,6 @@ class Weapon():
                 self.play_sound()
             else:
                 self.play_sound(no_ammo=True)
-            print(entity.ammo)
-            print("shoot")
     
     def hit_scan(self, map, pos, orientation, mob_list):
 

@@ -49,7 +49,6 @@ class World:
             <none>
         """
         self.players[0].update()
-
         self.mobs_position = [mob.map_pos for mob in self.mobs if not mob.is_dead()]
         for mob in self.mobs:
             mob.update()

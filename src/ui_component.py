@@ -2,6 +2,7 @@
 import pygame as pg
 from math import pi
 from config import *
+import sys
 
 BLACK = pg.Color(0,0,0)
 GRAY = pg.Color(170,170,170) 
@@ -19,7 +20,7 @@ class Display:
         self.size = size
         self.position = position
         self.font_size = 20
-        self.myfont = pg.font.SysFont("monospace", self.font_size)
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf",self.font_size)
         self.background = BLACK
         self.foreground = WHITE
         self.label = "text not set"
@@ -64,7 +65,7 @@ class Button(Display):
         self.lifetime = -1
         self.background_activate = RED
         self.background_idle = self.background
-        self.foreground_over = RED
+        self.foreground_over = GRAY
         self.mouse_is_over = False
 
     def update_surface(self):
@@ -174,6 +175,7 @@ class Menu():
         self.background = pg.transform.scale(self.background,self.size)
         self.ui_elements_button = [
             WorldToMainMenuButton(game,(position[0],self.size[1]//2*0.90+position[1])),
+            Quit_Game_Button(game,(0.5*RES_X,0.7*RES_Y),"Quit To Desktop",12),
         ]
 
     def draw(self):
@@ -197,7 +199,24 @@ class WorldToMainMenuButton(Button):
 
     def action(self):
         print("you're bad")
-        self.game.world_loaded = False
+        self.game.is_abandon = True
+
+class ResumeButton(Button):
+    def __init__(self,game,position):
+        super().__init__(game,position)
+        self.text = "Resume"
+        self.background = None
+        self.foreground = BLUE
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 20)
+        self.label = self.myfont.render(self.text, 1, self.foreground)
+        self.update_surface()
+        self.position = self.get_position_centered_surface()
+        self.update_surface()
+        pass
+
+
+    def action(self):
+        self.game.is_paused = False
 
 class TP_Spawn_Button(Button):
     """
@@ -405,13 +424,14 @@ class Play_Button(Button):
         self.main.load_game(map_file)
 
 class Quit_Game_Button(Button):
-    def __init__(self,main,position):
+    def __init__(self,main,position,text = "QUIT",police_size = 30):
         super().__init__(main,position)
-        self.text = "QUIT"
+        self.text = text
+        self.main = main
         self.background = (0,0,255,0)
         self.background_activate = RED
         self.background_idle = self.background
-        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
+        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", police_size)
         self.label = self.myfont.render(self.text, 1, self.foreground)
         self.update_surface()
         self.position = self.get_position_centered_surface()
@@ -419,5 +439,6 @@ class Quit_Game_Button(Button):
 
     def action(self):
         print("Thank you for playing ")
-        self.main.quit()
+        pg.quit()  # quit pygame
+        sys.exit()  # better quit, remove some error when  quiting
         pass
