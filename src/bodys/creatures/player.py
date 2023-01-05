@@ -1,4 +1,5 @@
 import pygame as pg
+from pygame import Vector2 as v2
 from math import cos, sin, hypot
 from config import Config
 from bodys import Creature
@@ -22,6 +23,9 @@ class Player(Creature):
             Player
         """
         super().__init__(game, r)
+        
+        self.v = v2(0, 0)
+        
         self.size = 40
         self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
@@ -128,39 +132,47 @@ class Player(Creature):
         V_sin = sin(self.orientation) 
         V_cos = cos(self.orientation) 
 
-        dx = 0
-        dy = 0
+        fx = 0
+        fy = 0
         if 1 in moves:
             # gauche
-            dx += V_sin 
-            dy += -V_cos 
+            fx += V_sin 
+            fy += -V_cos 
         if 2 in moves:
             # devant
-            dx += V_cos 
-            dy += V_sin 
+            fx += V_cos 
+            fy += V_sin 
         if 3 in moves:
             # derrière
-            dx += -V_cos 
-            dy += -V_sin 
+            fx += -V_cos 
+            fy += -V_sin 
         if 4 in moves:
             # droite
-            dx += -V_sin 
-            dy += V_cos
+            fx += -V_sin 
+            fy += V_cos
         
-        if dx != 0 or dy != 0:
-            k = speed * (1/hypot(dx, dy))
-            dx = k * dx
-            dy = k * dy
+        if fx != 0 or fy != 0:
+            k = speed * (1/hypot(fx, fy))
+            fx = k * fx
+            fy = k * fy
         ## collision stuff goes here
         # world = self.game.world.map.map
         # if world[int((y + dy)//100)][int((x + dx)//100)] == 0:
         #     self.r = x + dx, y + dy
+        
+        forces = [
+            v2(fx, fy),     # movement force
+            - Config.PLAYER_FRICTION * self.v  # friction force
+        ]
+        
+        a = sum(forces, start=v2(0, 0))
+        self.v += a
 
-        x_permission, y_permission = self.not_colliding(dx, dy)
+        x_permission, y_permission = self.not_colliding(self.v.x, self.v.y)
         if x_permission:
-            self.r.x += dx
+            self.r.x += self.v.x
         if y_permission:
-            self.r.y += dy
+            self.r.y += self.v.y
 
 
     def rotate(self, direction, sensitivity=Config.PLAYER_ROT_SPEED):

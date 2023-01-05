@@ -8,7 +8,7 @@ class AmmoPack10(Pickable):
         
         self.supply_value = 10
         
-        self.model = "ammo_10.png"
+        self.model = "ammo_mini.png"
         self.dims = 20, 25
     
     def update(self):
@@ -25,5 +25,5 @@ class AmmoPack50(AmmoPack10):
         
         self.supply_value = 50
 
-        self.model = "ammo_50.png"
+        self.model = "ammo_mega.png"
         self.dims = 80, 50

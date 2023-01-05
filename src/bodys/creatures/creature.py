@@ -26,7 +26,7 @@ class Creature(Body):
         self.orientation = 0 # arbitrary value for init
         
         self.max_health = 200
-        self.health = self.max_health
+        self.health = 100
         self.current_weapon = Pistol()
 
         # graphics 
@@ -127,8 +127,6 @@ class Creature(Body):
                 self.walking_frame_time = t
                 self.img_index = (self.img_index + 1)%len(data)
             return SpriteStruct(data[self.img_index])
-
-        
         
         data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
         return SpriteStruct(data, h, w)
