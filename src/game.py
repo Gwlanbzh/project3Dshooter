@@ -59,6 +59,7 @@ class Game:
         while not self.is_game_over():
             self.check_event()
             self.world.update(self)
+            self.sound.update_music()
             
             if self.draw2d:
                 self.world.draw2d(self)

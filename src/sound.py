@@ -2,6 +2,7 @@ import pygame as pg
 from config import *
 from math import hypot
 from random import choice
+from os import listdir
 
 class Sound():
     def __init__(self) -> None:
@@ -48,8 +49,13 @@ class Sound():
             "superweapon" : self.superweapon_sound,
         }
 
+        self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
+        self.end_music_time = -1
+        self.current_music = choice(self.musics)
+        self.musics.remove(self.current_music)
+
     def play_sound(self, id, player_pos, sound_pos):
-        hearing_sound_dist = WALL_WIDTH * 15
+        hearing_sound_dist = WALL_WIDTH * 10
         x, y = player_pos - sound_pos
         dist_player_sound = hypot(x, y)
 
@@ -60,3 +66,29 @@ class Sound():
         s.set_volume(volume)
 
         s.play()
+
+    def update_music(self):
+        if pg.mixer.music.get_pos() == -1:
+            self.next_music()
+    
+    def pause_music(self):
+        pg.mixer.music.pause()
+    
+    def resume_music(self):
+        pg.mixer.music.unpause()
+
+    def next_music(self):
+        old = self.current_music
+        self.current_music = choice(self.musics)
+        self.musics.remove(self.current_music)
+        self.musics.append(old)
+        music_path = Config.SOUNDS_FOLDER + "musics/" + self.current_music
+        pg.mixer.music.load(music_path)
+        pg.mixer.music.play()
+
+    def set_volume(self, vol):
+        """vol between 0 and 1, other values mean 1 for pygame"""
+        pg.mixer.music.set_volume(vol)
+    
+    def shut_music(self):
+        self.set_volume(0)
