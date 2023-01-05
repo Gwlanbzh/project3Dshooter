@@ -14,10 +14,10 @@ static_sprites_names = [
     #"demon.png",
     "grunt.png",
     
-    "health_5.png",
-    "health_25.png",
-    "ammo_10.png",
-    "ammo_50.png",
+    "health_mini.png",
+    "health_mega.png",
+    "ammo_mini.png",
+    "ammo_mega.png",
     
     "shotgun.png",
     "rifle.png",
