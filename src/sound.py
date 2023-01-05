@@ -79,9 +79,13 @@ class Sound():
 
     def next_music(self):
         old = self.current_music
-        self.current_music = choice(self.musics)
-        self.musics.remove(self.current_music)
-        self.musics.append(old)
+        try:
+            self.current_music = choice(self.musics)
+            self.musics.remove(self.current_music)
+            self.musics.append(old)
+        except IndexError: # only one music in the folder
+            pass
+        
         music_path = Config.SOUNDS_FOLDER + "musics/" + self.current_music
         pg.mixer.music.load(music_path)
         pg.mixer.music.play()
