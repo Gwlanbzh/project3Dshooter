@@ -53,6 +53,7 @@ class Sound():
         self.end_music_time = -1
         self.current_music = choice(self.musics)
         self.musics.remove(self.current_music)
+        self.effect_volume = 1
 
     def play_sound(self, id, player_pos, sound_pos):
         hearing_sound_dist = WALL_WIDTH * 10
@@ -60,6 +61,7 @@ class Sound():
         dist_player_sound = hypot(x, y)
 
         volume = (hearing_sound_dist - dist_player_sound)/hearing_sound_dist
+        volume *= self.effect_volume
         volume = 0 if volume < 0 else volume
 
         s = choice(self.sound_ids[id])
@@ -90,9 +92,15 @@ class Sound():
         pg.mixer.music.load(music_path)
         pg.mixer.music.play()
 
-    def set_volume(self, vol):
+    def set_music_volume(self, vol):
         """vol between 0 and 1, other values mean 1 for pygame"""
         pg.mixer.music.set_volume(vol)
     
     def shut_music(self):
-        self.set_volume(0)
+        self.set_music_volume(0)
+
+    def set_effect_volume(self, vol):
+        if vol < 0 or vol > 1:
+            self.effect_volume = 1
+        else:
+            self.effect_volume = vol
