@@ -269,6 +269,7 @@ class Sound {
   set_music_volume()
   shut_music()
   set_effect_volume()
+  shut_effect()
 }
 
 
