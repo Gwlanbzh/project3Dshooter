@@ -12,7 +12,8 @@ class Config():
     WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
     FRAME_RATE = 60
 
-    PLAYER_V = 0.7 # arbitraty value for good feeling
+    PLAYER_V = 0.1 # arbitraty value for good feeling
+    PLAYER_FRICTION = 0.16
     PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
     PLAYER_VERT_ROT_SPEED = 4
@@ -31,4 +32,5 @@ class Config():
     SPRITES_DIR = "src/assets/visual/sprites/"
     SKYBOX_DIR = "src/assets/visual/env/"
     SOUNDS_FOLDER = "src/assets/sounds/"
-    NO_SOUND = True
+
+    NO_SOUND = False

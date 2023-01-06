@@ -15,15 +15,9 @@ class Pistol(Weapon):
         self.last_shot_time = - self.delay # moment at which the last shot was fired
                                            # - self.delay to avoid animation at init of the game
         
-        self.time_between_sprites = 50
+        self.time_between_sprites = 75
         self.sprite = load_pistol() # from render.weapons
         self.image_index = 0
         self.name = "Pistol"
 
-        self.ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3"),
-        ]
-        
-        self.no_ammo_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
-        ]
+        self.model = "pistol"

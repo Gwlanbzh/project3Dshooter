@@ -18,13 +18,12 @@ class Mob(Creature):
         """
         super().__init__(game, r)
         self.color = 'red' 
-        self.sprite_data = SpriteStruct("grunt.png", 110, 70)
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
-        self.range = self.current_weapon.range //10
+        self.range = self.current_weapon.range
 
-        self.ammo = 1000
+        self.ammo = 10000
 
     def update(self):
         self.ia_command()
@@ -42,11 +41,14 @@ class Mob(Creature):
             if not self.has_seen_player and self.mob_view_player() and self.dist_with_player() < 20 * self.range:
                 self.has_seen_player = True
             if self.has_seen_player:
-                if self.dist_with_player() > 20 * self.range and not self.mob_view_player() :
+                if self.dist_with_player() > self.range:
                     self.has_seen_player = False
-                if self.dist_with_player() > 0.8 * self.range:
+                    self.walking = False
+                elif self.dist_with_player() > 0.6 * self.range or not (self.mob_view_player()):
                     self.movement()
+                    self.walking = True
                 else:
+                    self.walking = False
                     self.current_weapon.shoot(self, self.game.world.players)
 
     def movement(self):
@@ -60,7 +62,7 @@ class Mob(Creature):
         mob_map_pos = self.map_pos
         player_map_pos = self.game.world.players[0].map_pos
 
-        next_pos = self.game.path_finding.Astar(mob_map_pos,player_map_pos)
+        next_pos = self.game.path_finding.Astar(mob_map_pos, player_map_pos)
         if next_pos not in self.game.world.mobs_position:
             next_pos_x, next_pos_y = next_pos
             next_pos_x += 0.5
@@ -121,30 +123,38 @@ class Mob(Creature):
         return dist
 
 
-
-
-
-
 class Grunt(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
-        self.health = 100
-        self.weapons = []        # TODO add pistol
-        self.sprite_data = None  # TODO implement dynamic sprites
+        self.size = 27
+        self.health = 75
+        self.current_weapon = Pistol()        # TODO add pistol
+        # TODO implement dynamic sprites
+
+        self.model = "grunt"
+        self.dims = 70, 110
 
 class Heavy(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
-        self.health = 200
-        self.weapons = []        # TODO add pistol
-        self.sprite_data = None  # TODO implement dynamic sprites
+        self.size = 30
+        self.health = 150
+        self.current_weapon = Rifle()        # TODO add pistol
+        # TODO implement dynamic sprites
+
+        self.model = "heavy"
+        self.dims = 70, 110
 
 class Boss(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
-        self.health = 500
-        self.weapons = []        # TODO add pistol
-        self.sprite_data = None  # TODO implement dynamic sprites
+        self.size = 35
+        self.health = 375
+        self.current_weapon = SuperWeapon()        # TODO add pistol
+        # TODO implement dynamic sprites
+
+        self.model = "boss"
+        self.dims = 70, 130

@@ -1,6 +1,7 @@
 .kdev4/
 projet3dshooter.kdev4
 shell.nix
+flake.nix
 src/__pycache__/
 src/bodys/creatures/__pycache__/
 src/bodys/__pycache__/
@@ -8,4 +9,4 @@ src/weapons/__pycache__/
 src/render/__pycache__/
 src/bodys/props/__pycache__/
 src/bodys/pickables/__pycache__/
-flake.nix
+src/storage/__pycache__/

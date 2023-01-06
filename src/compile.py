@@ -1,7 +1,6 @@
 from sys import argv
 from bodys import *
-from storage import StorableWorld
-from compilelib import create_world
+from storage import *
 
 
 # Arguments parsing

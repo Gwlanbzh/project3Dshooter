@@ -5,6 +5,7 @@ from render import Camera
 from bodys import *
 from hud import Hud
 from bodys.creatures.path_finding import *
+from sound import Sound
 
 class Game:
     """
@@ -23,17 +24,19 @@ class Game:
         self.path_finding = PathFinding(self)
         self.camera = Camera(self.world.players[0])
         self.hud = Hud(self)
+        self.sound = Sound()
         self.is_paused = False
         self.is_abandon = False
     
     def is_game_over(self):
-        return False
+        return ""
     
     def run(self):
         """
         Main Game Loop 
         """
         self.world.update(self)
+        self.sound.update_music()
         if self.draw2d:
             self.world.draw2d(self)
         else:
