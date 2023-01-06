@@ -6,23 +6,13 @@ from config import WALL_WIDTH
 class Map:
     def __init__(self, game, grid):
         self.game = game
-        
-        # Defnition de la map 
-        # 0 = False = vide
-        # 1..n = Wall type
-        # WAll type, will certainly be wall with different texture like reppresented on the top preview
         self.grid = grid
-        
-        self.world = {}
-
         self.map_height = len(self.grid)
         self.map_width = len(self.grid[0])
         self.map_dic = {}
         self.gen_world_map_dic()
         self.graph = {}
         self.create_graph()
-        
-        self.gen_world_map_dic()
   
     def gen_world_map_dic(self):
         '''
