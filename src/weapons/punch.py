@@ -9,7 +9,7 @@ class Punch(Weapon):
         super().__init__()
         
         self.dmg = 40
-        self.range = 0.5 * WALL_WIDTH
+        self.range = 0.8 * WALL_WIDTH
         
         self.state = 0
         self.time_between_sprites = 80

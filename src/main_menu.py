@@ -94,4 +94,10 @@ class CurrentGameNameDisplay(Button):
         self.position = self.get_position_centered_surface()
         self.update_surface()
 
+class Button(Button):
+    def __init__(self, game, position,):
+        super().__init__(game, position,)
+        size = (70,70)
+        self.icon = pg.image.load(PATH_ASSETS+"chevrons-right.svg")
+        self.icon = pg.transform.scale(self.icon,size)
 

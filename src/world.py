@@ -36,7 +36,8 @@ class World:
         self.map_scale = map_data.map_scale
         
         self.ressources = Ressources(map_data.texture_set, map_data.skybox, map_data.floor)
-    
+
+
     def update(self, game):
         """
         call upadate for every Body(or more) in the world

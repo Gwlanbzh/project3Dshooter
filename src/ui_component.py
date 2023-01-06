@@ -298,7 +298,7 @@ class Weapon_Display(Display):
         pass
 
     def content_update(self):
-        self.content = self.player.current_weapon.name
+        self.content = self.player.current_weapon.model
 
 class H_Orientation_Display(Display):
     """

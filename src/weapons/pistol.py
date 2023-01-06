@@ -18,6 +18,4 @@ class Pistol(Weapon):
         self.time_between_sprites = 75
         self.sprite = load_pistol() # from render.weapons
         self.image_index = 0
-        self.name = "Pistol"
-
         self.model = "pistol"

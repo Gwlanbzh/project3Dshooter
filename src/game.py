@@ -35,6 +35,7 @@ class Game:
         """
         Main Game Loop 
         """
+
         self.world.update(self)
         self.sound.update_music()
         if self.draw2d:

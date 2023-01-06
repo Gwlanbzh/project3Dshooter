@@ -47,14 +47,13 @@ class Player(Creature):
 
 
     def update(self):  # might be move into Creature or Body
-        self.move()
         self.cursor_visibility()
         # heal
         # status, maybe buff / debuff
         # TODO : not logical to call self.get_inputs, call self.move() instead would be better
     
     
-    def get_inputs(self):
+    def get_inputs(self,event):
         """
         Returns a force_vector based on the physical player's inputs.
         TODO maybye refactoring get inputs and mouvement call
@@ -83,9 +82,8 @@ class Player(Creature):
                 self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
             if keys[pg.K_k]:
                 self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
-            
 
-            for event in pg.event.get():
+            for event in event:
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_g:
                         self.target_health -= 10
@@ -100,16 +98,17 @@ class Player(Creature):
                         self.game.hud.menu_esc_is_toggle = True
                         self.game.is_paused = True
 
-                    if event.key[pg.K_1] and Punch in self.weapons:
+                    if event.key == pg.K_1 and Punch in self.weapons:
                         self.current_weapon = Punch()
-                    if event.key[pg.K_2] and Pistol in self.weapons:
+                    if event.key == pg.K_2 and Pistol in self.weapons:
                         self.current_weapon = Pistol()
-                    if event.key[pg.K_3] and Shotgun in self.weapons:
+                    if event.key == pg.K_3 and Shotgun in self.weapons:
                         self.current_weapon = Shotgun()
-                    if event.key[pg.K_4] and Rifle in self.weapons:
+                    if event.key == pg.K_4 and Rifle in self.weapons:
                         self.current_weapon = Rifle()
-                    if event.key[pg.K_5] and SuperWeapon in self.weapons:
+                    if event.key == pg.K_5 and SuperWeapon in self.weapons:
                         self.current_weapon = SuperWeapon()
+            
             # Mouse events
         
             left_click, _, _ = pg.mouse.get_pressed()
@@ -125,8 +124,7 @@ class Player(Creature):
         
         # Weapon selection
         
-        
-            return moves
+            self.move(moves) 
         else:
             for event in pg.event.get():
                 if event.type == pg.KEYDOWN:
@@ -136,7 +134,7 @@ class Player(Creature):
 
             return set()
     
-    def move(self):
+    def move(self,moves):
         """
         TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
@@ -152,8 +150,6 @@ class Player(Creature):
         Output:
             Alter Creature position
         """
-
-        moves = self.get_inputs()
 
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         speed = Config.PLAYER_V * dt 

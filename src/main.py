@@ -26,10 +26,11 @@ class Main():
     def loop(self):
         while True :
             game = self.game
-            self.check_event()
+            events = self.check_event()
             if game != None:
                 game.run()
                 self.game.delta_time = self.delta_time
+                self.game.world.players[0].get_inputs(events)
                 if game.is_game_over():
                     game = None
 
@@ -48,7 +49,8 @@ class Main():
         """
         Check if Client ask to quit
         """
-        for event in pg.event.get():
+        events = pg.event.get()
+        for event in events:
             if event.type == pg.QUIT:
                 self.quit()
 
@@ -58,7 +60,7 @@ class Main():
             else:
                 self.game.hud.click(event)
                 self.game.hud.over()
-
+        return events
 
     def load_game(self,map_file):
         self.game = Game(map_file, self.draw2d,self.window,self.delta_time,self.clock)
