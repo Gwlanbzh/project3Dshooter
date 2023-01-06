@@ -29,10 +29,10 @@ class Player(Creature):
         self.size = 40
         self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
+
+        self.orientation = -tau/4
         self.vorientation = 100
         # TODO add ammo data structure
-
-        self.current_weapon = Pistol()
 
         # weapons attributes
         self.weapons = [Punch, Pistol]

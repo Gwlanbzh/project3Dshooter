@@ -22,7 +22,6 @@ class Creature(Body):
             Creature
         """
         super().__init__(game, r) 
-        self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         
         self.max_health = 200

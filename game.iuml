@@ -1,115 +1,340 @@
 @startuml game
 
-class Game {
-    window
-    world
-    clock
-    check_event()
-    run()
+package pygame {
+  class Surface
+  class Vector2
+
+  package mixer {
+    class Sounds
+  }
+  package time {
+    class Clock
+  }
+  package font {
+    class Font
+  }
 }
 
-class Weapon {
-    dmg: int
-    freq : int
-    range: float
-    sprite
-    
-    hitscan(<to determine>)
+class skybox
+
+class Config {
+  WINDOW_SIZE
+  RES_X
+  RES_Y
+
+  PLAYER_V
+  PLAYER_FRICTION
+  PLAYER_ROT_SPEED
+
+  PLAYER_VERT_ROT_SPEED
+  PLAYER_MAX_VERT_ROT
+
+  PLAYER_MOUSE_ROT_SPEED
+  PLAYER_MOUSE_VERT_ROT_SPEED
+
+  WALL_HEIGHT
+  VIEW_HEIGHT
+  FOV_X
+  FOV_Y
+
+  TEXTURES_DIR
+  SPRITES_DIR
+  SKYBOX_DIR
+
+  SOUNDS_FOLDER
+  NO_SOUND
 }
 
-class Pistol {
-    hitscan()
+
+
+class Main {
+
 }
 
-class Shotgun {
-    hitscan(player:  Player, mob_list : [Mob])
-}
+abstract class Game {
+  world
+  path_finding
+  delta_time
+  clock
+  camera
+  draw2d
+  sound
+  font
 
-class Body {
-    r : Vector2
-    image : Surface
-    size : int
-    get_sprite()
-    draw() : <temporary>
-}
-
-class Creature {
-    a : Vector2
-    v : Vector2
-    orientation : float
-    health : int
-    move()
-    draw() : <temporary>
-}
-
-class Player {
-    weapons : list
-    ammo : <to determine>
-    heal_recovery_delay : int
-
-    get_input()
-}
-
-class Mob {
-    update()
-    ia_command()
-}
-
-class Map {
-    map 
-    get_map()
-    draw()
+  __init__()
+  check_event()
+  is_game_over()
+  display_info()
+  run()
 }
 
 class World {
-    props : list
-    mobs : list
-    players : list
-    map : Map
-    
-    update()
-    draw()
+  props
+  mobs
+  players
+  exits
+  map
+  map_scale
+  ressources
+
+  _init__()
+  update()
+  draw2d()
+}
+
+class Ressources {
+  textures
+  textures_unit_per_strip
+  skybox_data
+  floor
+  static_sprites
+  animated_sprites
+}
+
+class Map {
+  grid
+  map_height
+  map_width
+  map_dis
+  graph
+
+  gen_world_map_dic()
+  creare_graph()
+  get_neighbour()
+  draw()
+
+}
+
+class Node {
+
 }
 
 class Camera {
-    display ()
+  bound_player
+  ressources
+  voffset
+
+  draw_skybox()
+  draw_floor()
+  draw_walls()
+  draw_sprites()
+  draw_frame()
 }
 
-class Config {
-    WINDOW_SIZE
-    FRAME_RATE
+class Ray {
+  distance
+  hit_type
+  block_hit_abs
 
-    PLAYER_V
-    PLAYER_ROT_SPEED
+  __init__()
 }
 
-Game --> World
+abstract class Weapon {
+  dmg
+  delay
+  range
+  last_shot_time
+  play_sound_time
+  time_between_sprites
+  sprite
+  image_index
+  model
+
+  shoot()
+  hit_scan()
+  dist()
+  draw()
+  draw2d()
+  update_image()
+  play_sound()
+}
+
+abstract class Body {
+  r
+  size
+  color
+  game
+  health
+
+  model
+  dims
+  sprite_data
+
+  get_sprite()
+  draw()
+  map_pos()
+  hurt()
+}
+
+abstract class Creature {
+  orientation
+
+  max_health
+  health
+
+  deadmodel
+  walking
+  walking_frame_time
+  img_index
+  hurt_frame_time
+
+  in_wall()
+  not_colliding()
+  is_dead()
+  hurt()
+  draw()
+  get_sprite()
+}
+
+abstract class Mob {
+  speed
+  has_seen_player
+  fov
+  range
+  ammo
+  weapon
+
+  update()
+  ia_command()
+  movement()
+  mob_view_player()
+  player_in_fov()
+  dist_with_player()
+}
+
+class Player {
+  v
+  heal_recovery_time
+  vorientation
+
+  current_weapon
+  weapons
+
+  ammo
+  max_ammo
+
+  __init__()
+  update()
+  get_inputs()
+  move()
+  rotate()
+}
+
+abstract class Pickable {
+  picker()
+}
+
+class PathFinding {
+  map_height
+  map_width
+  graph
+
+  __init__()
+  get_path()
+  Astar()
+  heuristic()
+  heuristic2()
+  heuristic3()
+}
+
+class StorableWorld {
+  props
+  pickables
+  mobs
+  players
+
+  exits
+  grid
+  skybox
+  floor
+  texture_set
+  map_scale
+}
+
+class Sound {
+  debug_dry_fire_sound
+  debug_weapon_sound
+
+  dry_fire_sound
+  pistol_sound
+  rifle_sound
+  punch_sound
+  shotgun_sound
+  superweapon_sound
+
+  sound_ids
+
+  musics
+  end_music_time
+  current_music
+
+  effect_volume
+
+  play_sound()
+  update_music()
+  pause_music()
+  resume_music()
+  next_music()
+  set_music_volume()
+  shut_music()
+  set_effect_volume()
+}
+
+
+
 Game --> Config
-Game --> Camera
+Game --> PathFinding
+Game --> Clock
+Game --> Sound
+Game --> Font
 
-Camera --> Player
-Camera --> World
-
-Body <|-- Creature
-
-Weapon <|-- Shotgun
-Weapon <|-- Pistol
-
-Creature <|-- Player
-Creature <|-- Mob
-
-Player --> Config
-Player --> Pistol
-Player --> Shotgun
-
-Mob --> Config
-
-World --> Map
-World --> Player
+World --> Body
 World --> Mob
-World --> Config
+World --> Player
+World --> Map
+World --> StorableWorld
+World --> Ressources
 
-Map --> Config
+Ressources --> skybox
+
+Body --> Config
+Body --> Game
+
+Pickable --|> Body
+Pickable --> World
+
+Creature --> Config
+Creature --|> Body
+Creature --> Map
+
+Mob --|> Creature
+Mob --> Weapon
+
+Player --|> Creature
+Player --> Vector2
+Player --> Config
+Player --> Weapon
+
+Weapon --> Config
+Weapon --> Ray
+Weapon --> Sound
+
+Camera --> Config
+Camera --> Ray
+
+Ray --> Vector2
+
+PathFinding --> Map
+
+StorableWorld --> Body
+StorableWorld --> Mob
+StorableWorld --> Player
+StorableWorld --> skybox
+
+skybox --|> Surface
+
+Sound --> Config
+Sound --> Sounds
 
 @enduml
 

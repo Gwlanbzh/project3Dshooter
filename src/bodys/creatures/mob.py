@@ -21,6 +21,8 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
+
+        self.current_weapon = Pistol()
         self.range = self.current_weapon.range
 
         self.ammo = 10000
