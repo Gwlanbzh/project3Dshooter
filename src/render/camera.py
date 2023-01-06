@@ -138,12 +138,11 @@ class Camera():
                                  )
             
             for x in range(int(width)):
-                strip_index = int(x // px_per_stripe)
-                stripe = sprite[strip_index]
-                sprite_slice = pg.transform.scale(stripe, (1, height))
-                
                 i = int(draw_x + x)
                 if 0 <= i and i < len(z_buffer) and z_buffer[i] > distance:
+                    strip_index = int(x // px_per_stripe)
+                    stripe = sprite[strip_index]
+                    sprite_slice = pg.transform.scale(stripe, (1, height))
                     window.blit(sprite_slice, (i, draw_y))
     
     def draw_frame(self, window):
