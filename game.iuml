@@ -48,7 +48,17 @@ class Config {
 
 
 class Main {
+  window
+  main_menu
+  game
+  game_list
+  clock
+  draw2d
 
+  loop()
+  check_event()
+  load_game()
+  unload_game()
 }
 
 abstract class Game {
@@ -58,13 +68,10 @@ abstract class Game {
   clock
   camera
   draw2d
+  hud
   sound
-  font
 
-  __init__()
-  check_event()
   is_game_over()
-  display_info()
   run()
 }
 
@@ -77,7 +84,6 @@ class World {
   map_scale
   ressources
 
-  _init__()
   update()
   draw2d()
 }
@@ -106,7 +112,17 @@ class Map {
 }
 
 class Node {
+  position
+  voisin
+  Parent
+  cost
+  heuristic
+  total_cost
 
+  __eq__()
+  __repr__()
+  __lt__()
+  __gt__()
 }
 
 class Camera {
@@ -125,8 +141,6 @@ class Ray {
   distance
   hit_type
   block_hit_abs
-
-  __init__()
 }
 
 abstract class Weapon {
@@ -213,7 +227,6 @@ class Player {
   ammo
   max_ammo
 
-  __init__()
   update()
   get_inputs()
   move()
@@ -229,11 +242,8 @@ class PathFinding {
   map_width
   graph
 
-  __init__()
   get_path()
   Astar()
-  heuristic()
-  heuristic2()
   heuristic3()
 }
 
@@ -272,13 +282,60 @@ class Sound {
   shut_effect()
 }
 
+class MainMenu {
+  background
+  menutitle
+  ui_elements_button
+
+  run()
+  draw()
+  click()
+  over()
+}
+
+class HUD {
+  toolkit <"mode">
+  ui_elements_button
+  ui_elements_display
+  ui_bar
+  menu_esc
+
+  toggle()
+  switch()
+  draw()
+  update()
+  over()
+  click()
+}
+
+package UiComponent {
+  abstract class Display 
+  abstract class Button
+  abstract class Bar
+  abstract class Menu
+}
+
+
+
+Main --> Game
+Main --> GameMode
+Main --> MainMenu
+
+MainMenu --> UiComponent
+MainMenu --> Main
+
+HUD --> UiComponent
+
+Display --|> Button
 
 
 Game --> Config
+Game --> World
 Game --> PathFinding
 Game --> Clock
 Game --> Sound
-Game --> Font
+Game --> Camera
+Game --> HUD
 
 World --> Body
 World --> Mob
@@ -287,22 +344,24 @@ World --> Map
 World --> StorableWorld
 World --> Ressources
 
+Map --> Node
+
 Ressources --> skybox
 
 Body --> Config
 Body --> Game
+Body --|> Pickable
+Body --|> Creature
 
-Pickable --|> Body
 Pickable --> World
 
 Creature --> Config
-Creature --|> Body
 Creature --> Map
+Creature --|> Mob
+Creature --|> Player
 
-Mob --|> Creature
 Mob --> Weapon
 
-Player --|> Creature
 Player --> Vector2
 Player --> Config
 Player --> Weapon
@@ -317,6 +376,7 @@ Camera --> Ray
 Ray --> Vector2
 
 PathFinding --> Map
+PathFinding --> Node
 
 StorableWorld --> Body
 StorableWorld --> Mob
@@ -329,4 +389,3 @@ Sound --> Config
 Sound --> Sounds
 
 @enduml
-
