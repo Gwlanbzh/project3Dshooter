@@ -252,15 +252,6 @@ class StorableWorld {
 }
 
 class Sound {
-  debug_dry_fire_sound
-  debug_weapon_sound
-
-  dry_fire_sound
-  pistol_sound
-  rifle_sound
-  punch_sound
-  shotgun_sound
-  superweapon_sound
 
   sound_ids
 
