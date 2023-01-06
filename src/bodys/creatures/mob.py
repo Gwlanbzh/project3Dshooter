@@ -135,7 +135,7 @@ class Grunt(Mob):
         # TODO implement dynamic sprites
 
         self.model = "grunt"
-        self.dims = 70, 110
+        self.dims = 70, 130
 
 class Heavy(Mob):
     def __init__(self, game, r):
