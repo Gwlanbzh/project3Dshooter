@@ -31,7 +31,7 @@ class Player(Creature):
         self.color = 'blue'
 
         self.orientation = -tau/4
-        self.vorientation = 100
+        self.vorientation = 0
         # TODO add ammo data structure
 
         # weapons attributes

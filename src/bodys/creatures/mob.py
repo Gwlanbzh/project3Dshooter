@@ -159,4 +159,4 @@ class Boss(Mob):
         # TODO implement dynamic sprites
 
         self.model = "boss"
-        self.dims = 70, 130
+        self.dims = 90, 175
