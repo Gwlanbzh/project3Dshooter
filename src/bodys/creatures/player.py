@@ -32,7 +32,7 @@ class Player(Creature):
         self.vorientation = 0
         self.spawn_pos = r
         # self.health
-        self.target_health = self.health
+        self.visual_health = self.health
 
         # weapons attributes
         self.weapons = [Punch, Pistol]
@@ -84,9 +84,9 @@ class Player(Creature):
             for event in event:
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_g:
-                        self.target_health -= 10
+                        self.health -= 10
                     if event.key == pg.K_h:
-                        self.target_health += 10
+                        self.health += 10
                     if event.key == pg.K_p:
                         self.game.hud.toggle()
                     if event.key == pg.K_ESCAPE:
@@ -203,7 +203,6 @@ class Player(Creature):
 
     def draw(self, game): # might be move into Creature or Body
         self.current_weapon.draw2d(game.window, self.r, self.orientation)
-        
         # rond
         pg.draw.circle(game.window, self.color, self.r,15)
         

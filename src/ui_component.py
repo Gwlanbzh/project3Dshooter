@@ -145,7 +145,7 @@ class Health_Bar():
         self.position = position
         self.health_bar_length = 400
         self.health_ratio = player.max_health / self.health_bar_length
-        self.health_change_speed = 5
+        self.health_change_speed = 1
         self.icon = pg.image.load(PATH_ASSETS+"heart_icon.png")
         self.icon = pg.transform.scale(self.icon,(70,70))
         self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 16)
@@ -154,14 +154,14 @@ class Health_Bar():
         transition_width = 0
         transition_color = (0,0,0)
 
-        if self.player.health < self.player.target_health:
-            self.player.health += self.health_change_speed
-            transition_width = int((self.player.target_health - self.player.health) / self.health_ratio)
+        if self.player.visual_health < self.player.health:
+            self.player.visual_health += self.health_change_speed
+            transition_width = int((self.player.health - self.player.visual_health) / self.health_ratio)
             transition_color = (75,141,57)
 
-        if self.player.health > self.player.target_health:
-            self.player.health -= self.health_change_speed 
-            transition_width = -int((self.player.target_health - self.player.health) / self.health_ratio)
+        if self.player.visual_health > self.player.health:
+            self.player.visual_health -= self.health_change_speed 
+            transition_width = -int((self.player.health - self.player.visual_health) / self.health_ratio)
             transition_color = (210,122,49)
 
         health_bar_width = int(self.player.health / self.health_ratio)
@@ -414,4 +414,7 @@ class Menu_Select_World_Button(Button):
 class menu_setting(Menu):
     def __init__(self):
         pass
+
+class VictoryStatus(Display):
+    pass
 

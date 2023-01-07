@@ -66,7 +66,7 @@ class World:
   
         """
         game.window.fill('grey')
-        
+
         for prop in self.props:
            prop.draw(game)
         self.map.draw(game)
@@ -74,5 +74,5 @@ class World:
             mob.draw(game)
         for pickable in self.pickables:
             pickable.draw(game)
-        
         self.players[0].draw(game)
+        

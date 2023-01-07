@@ -2,7 +2,6 @@
 import pygame as pg
 import sys
 from main_menu import MainMenu
-from game import Game
 from levels import *
 from config import Config
 from sound import Sound
@@ -34,8 +33,7 @@ class Main():
                 self.game.world.players[0].get_inputs(events)
                 if game.is_game_over():
                     game = None
-
-                if game.is_abandon:
+                elif game.is_abandon:
                     self.unload_game()
             else :
                 self.main_menu.run()

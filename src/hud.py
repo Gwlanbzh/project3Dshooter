@@ -67,6 +67,7 @@ class Hud:
             self.toolkit = 1
             self.ui_elements_display = [Ammo_Display(game,(0,40),self.player),
                                         Weapon_Display(game,(0,60),self.player),
+                                        # VictoryStatus((RES_X*0.5,RES_Y*0.5),game)
                                         ]
             self.ui_elements_button = []
             self.ui_bar = [Health_Bar(game,(RES_X*0.03,RES_Y*0.96),self.player)]
