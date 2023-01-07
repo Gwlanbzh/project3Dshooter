@@ -47,3 +47,7 @@ class Game:
 
 
   
+if __name__ == "__main__":
+    draw2d = 0
+    game = Game("src/assets/maps/map_dest.bin", draw2d)
+    game.run()

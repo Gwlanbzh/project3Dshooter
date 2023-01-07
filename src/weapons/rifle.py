@@ -9,7 +9,7 @@ class Rifle(Weapon):
         
         self.range = WALL_WIDTH * 15
         self.dmg = 50
-        self.delay = 500  # ms
+        self.delay = 250  # ms
         self.time_between_sprites = 90
 
         self.model = "rifle"

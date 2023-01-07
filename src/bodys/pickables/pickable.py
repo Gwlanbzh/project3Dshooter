@@ -19,6 +19,4 @@ class Pickable(Body):
         return None
     
     def update(self):
-        #  picker = self.picker()
-        #  return False
         pass

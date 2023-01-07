@@ -13,26 +13,27 @@ class Camera():
         """
         Create a camera and bind it to a specific player's point of view.
         """
-        self.bound_player = player
-        self.ressources = self.bound_player.game.world.ressources  # shortcut
-        self.voffset = 0
+        self._bound_player = player
+        self._ressources = self._bound_player.game.world.ressources  # shortcut
+        self._voffset = 0
+        self.z_buffer = []
     
-    def draw_skybox(self, window):
+    def _draw_skybox(self, window):
         """
         Draw the skybox.
         """
-        skybox, skybox_angle_per_stripe = self.ressources.skybox_data
-        window.blit(skybox, (-int(self.bound_player.orientation//skybox_angle_per_stripe),
-                             -RES_Y//2-self.voffset
+        skybox, skybox_angle_per_stripe = self._ressources.skybox_data
+        window.blit(skybox, (-int(self._bound_player.orientation//skybox_angle_per_stripe),
+                             -RES_Y//2-self._voffset
                             ))
     
-    def draw_floor(self, window):
+    def _draw_floor(self, window):
         """
         Draw the floor.
         """
-        pg.draw.rect(window, self.ressources.floor, (1, RES_Y//2 - self.voffset, RES_X, RES_Y//2 + self.voffset))
+        pg.draw.rect(window, self._ressources.floor, (1, RES_Y//2 - self._voffset, RES_X, RES_Y//2 + self._voffset))
     
-    def draw_walls(self, window):
+    def _draw_walls(self, window):
         """
         Cast rays, draw the walls and the floor and returns a z-buffer.
         """
@@ -41,18 +42,18 @@ class Camera():
         upper_heights = []
         lower_heights = []
         
-        map = self.bound_player.game.world.map.grid
+        map = self._bound_player.game.world.map.grid
         
         for n in range(RES_X):
             
             # computing the ray's direction vector            
             th = theta(n)
             
-            ray_direction = v2(cos(self.bound_player.orientation + th), 
-                               sin(self.bound_player.orientation + th))
+            ray_direction = v2(cos(self._bound_player.orientation + th),
+                               sin(self._bound_player.orientation + th))
             
             # computing the ray and displaying the wall segment.
-            ray = Ray(self.bound_player.r, ray_direction, map)
+            ray = Ray(self._bound_player.r, ray_direction, map)
             rays.append(ray)
             
             distance = ray.distance * cos(th)
@@ -63,9 +64,9 @@ class Camera():
         
         
             # creation of the texture slice to display
-            texture_array = self.ressources.textures[ray.hit_type]
+            texture_array = self._ressources.textures[ray.hit_type]
             
-            units_per_strip = self.ressources.textures_units_per_strip[ray.hit_type]
+            units_per_strip = self._ressources.textures_units_per_strip[ray.hit_type]
             strip_index = int(ray.block_hit_abs//units_per_strip)
             
             strip = texture_array[strip_index]
@@ -75,37 +76,37 @@ class Camera():
             #texture_slice = pg.transform.scale(global_textures[rays[n].hit_type][int(rays[n].block_hit_abs//units_per_strip)], (1, upper_heights[n] + lower_heights[n]))
             
             # display ceiling, wall and floor
-            #pg.draw.rect(window, (94, 145, 255), (RES_X-n, 0, 1, RES_Y//2 - upper_heights[n] - voffset))
+            #pg.draw.rect(window, (94, 145, 255), (RES_X-n, 0, 1, RES_Y//2 - upper_heights[n] - _voffset))
 
             window.blit(texture_slice,         (RES_X-n-1,
-                                                RES_Y//2 - upper_height - self.voffset
+                                                RES_Y//2 - upper_height - self._voffset
                                                ))
             #pg.draw.rect(window, GROUND_COLOR, (RES_X-n-1,
-                                                #RES_Y//2 + lower_heights[n] - self.voffset-1,
+                                                #RES_Y//2 + lower_heights[n] - self._voffset-1,
                                                 #1,
-                                                #RES_Y//2 - lower_heights[n] + self.voffset +2
+                                                #RES_Y//2 - lower_heights[n] + self._voffset +2
                                                #))
         
-        return z_buffer
+        self.z_buffer = z_buffer[::-1]
     
-    def draw_sprites(self, window, z_buffer):
+    def _draw_sprites(self, window):
         """
-        Draw sprites on screen with a z_buffer provided by the ray casting in self.draw_walls().
+        Draw sprites on screen with a z_buffer provided by the ray casting in self._draw_walls().
         """
-        direcion_vector = v2(cos(self.bound_player.orientation),
-                             sin(self.bound_player.orientation)
+        direcion_vector = v2(cos(self._bound_player.orientation),
+                             sin(self._bound_player.orientation)
                             )
 
-        bodies = self.bound_player.game.world.props + self.bound_player.game.world.pickables + self.bound_player.game.world.mobs
+        bodies = self._bound_player.game.world.props + self._bound_player.game.world.pickables + self._bound_player.game.world.mobs
         bodies_buffer = []
         for body in bodies:
             # detect bodies to draw and sort them, their distance and angle.
             #body = bodies[i]
             sprite_data = body.get_sprite()
-            delta_r = body.r - self.bound_player.r
+            delta_r = body.r - self._bound_player.r
             
             #if delta_r == v2(0, 0):   # when itering, will have to replace with "continue"
-            if delta_r.magnitude() < self.bound_player.size:   # when itering, will have to replace with "continue"
+            if delta_r.magnitude() < self._bound_player.size:   # when itering, will have to replace with "continue"
                 # edge case in which we won't draw
                 continue
                 
@@ -134,16 +135,17 @@ class Camera():
             px_per_stripe = width / len(sprite)
             
             draw_x, draw_y = v2(int(RES_X//2 - theta_inv(angle) - width/2), 
-                                  RES_Y//2 - upper_height - self.voffset
+                                  RES_Y//2 - upper_height - self._voffset
                                  )
             
             for x in range(int(width)):
-                strip_index = int(x // px_per_stripe)
-                stripe = sprite[strip_index]
-                sprite_slice = pg.transform.scale(stripe, (1, height))
-                
                 i = int(draw_x + x)
-                if 0 <= i and i < len(z_buffer) and z_buffer[i] > distance:
+
+                if 0 <= i and i < len(self.z_buffer) and self.z_buffer[i] > distance:
+                    strip_index = int(x // px_per_stripe)
+                    stripe = sprite[strip_index]
+                    sprite_slice = pg.transform.scale(stripe, (1, height))
+
                     window.blit(sprite_slice, (i, draw_y))
     
     def draw_frame(self, window):
@@ -151,11 +153,11 @@ class Camera():
         Displays elements of the environment based on the state of the world.
         Currently only supports 
         """
-        self.voffset = - self.bound_player.vorientation  # < 0 implies looking up
+        self._voffset = - self._bound_player.vorientation  # < 0 implies looking up
         
-        self.draw_skybox(window)
-        self.draw_floor(window)
-        z_buffer = self.draw_walls(window)[::-1]
-        self.draw_sprites(window, z_buffer)
-        self.bound_player.current_weapon.draw(window)
+        self._draw_skybox(window)
+        self._draw_floor(window)
+        self._draw_walls(window)
+        self._draw_sprites(window)
+        self._bound_player.current_weapon.draw(window)
         

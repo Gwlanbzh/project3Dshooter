@@ -22,7 +22,6 @@ class Creature(Body):
             Creature
         """
         super().__init__(game, r) 
-        self.a = v2(0, 0) # FIXME not use
         self.orientation = 0 # arbitrary value for init
         self.max_health = 200
         self.health = self.max_health
@@ -108,7 +107,7 @@ class Creature(Body):
     def get_sprite(self):
         w, h = self.dims
         if self.is_dead():
-            data = self.game.world.ressources.static_sprites[self.dead_model]
+            data = self.game.world.ressources.static_sprites[f"{self.model}/dead.png"]
             return SpriteStruct(data, h, w)
         
         t = pg.time.get_ticks()

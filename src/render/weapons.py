@@ -32,7 +32,7 @@ def load_shotgun():
     shotgun_images = [
         pg.image.load(Config.SPRITES_DIR + f"weapons/sht/sht{i}.png").convert_alpha() for i in range(8)
     ]
-    return scale(shotgun_images, 2)
+    return scale(shotgun_images, 3)
 
 def load_rifle():
     rifle_images = [

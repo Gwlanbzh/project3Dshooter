@@ -56,8 +56,8 @@ class World:
             mob.update()
         
         for pickable in self.pickables:
-            disappears = pickable.update()
-            if disappears:
+            is_picked = pickable.update()
+            if is_picked:
                 self.pickables.remove(pickable)
   
     def draw2d(self,game):

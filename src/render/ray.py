@@ -1,8 +1,7 @@
 from pygame import Vector2 as v2
-from map import *
 from math import sqrt
 from render.vars import *
-from render.textures import *
+from render.textures import NO_WALL
 
 
 class Ray():
@@ -62,16 +61,16 @@ class Ray():
         
         self.hit_type = map[y_cell][x_cell]
         
-        self.hit_position = origin + self.distance * direction
+        hit_position = origin + self.distance * direction
         
         if side == 'x':
             if direction.x > 0:
-                self.block_hit_abs = int(self.hit_position.y % 100)
+                self.block_hit_abs = int(hit_position.y % 100)
             else:
-                self.block_hit_abs = int(100 - (self.hit_position.y % 100))
+                self.block_hit_abs = int(100 - (hit_position.y % 100))
         else:
             if direction.y > 0:
-                self.block_hit_abs = int(100 - (self.hit_position.x % 100))
+                self.block_hit_abs = int(100 - (hit_position.x % 100))
             else:
-                self.block_hit_abs = int(self.hit_position.x % 100)
+                self.block_hit_abs = int(hit_position.x % 100)
 

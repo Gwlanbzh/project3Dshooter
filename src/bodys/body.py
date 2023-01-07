@@ -18,7 +18,6 @@ class Body():
             Body
         """
         self.r = v2(r)
-        self.v = (0, 0) # FIXME not use for now
         self.size = 20
         
         self.color = 'magenta'
@@ -29,10 +28,6 @@ class Body():
         ## TODO add sprites data structure
         self.model = "putin.png"
         self.dims = 100, 100
-
-        self.sprite_data = {
-            "alive" : [SpriteStruct("default.png")],
-            }
     
     def get_sprite(self):
         """

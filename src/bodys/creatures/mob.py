@@ -21,6 +21,8 @@ class Mob(Creature):
         self.speed = 0.06 # small value because of the * dt
         self.has_seen_player = False
         self.fov = pi/2
+
+        self.current_weapon = Pistol()
         self.range = self.current_weapon.range
 
         self.ammo = 10000
@@ -133,7 +135,7 @@ class Grunt(Mob):
         # TODO implement dynamic sprites
 
         self.model = "grunt"
-        self.dims = 70, 110
+        self.dims = 70, 130
 
 class Heavy(Mob):
     def __init__(self, game, r):
@@ -157,4 +159,4 @@ class Boss(Mob):
         # TODO implement dynamic sprites
 
         self.model = "boss"
-        self.dims = 70, 130
+        self.dims = 90, 175

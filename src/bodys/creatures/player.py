@@ -28,13 +28,11 @@ class Player(Creature):
         
         self.size = 40
         self.color = 'blue'
-        self.vorientation = 100
+        self.orientation = -tau/4
+        self.vorientation = 0
         self.spawn_pos = r
-
         # self.health
         self.target_health = self.health
-
-        self.current_weapon = Pistol()
 
         # weapons attributes
         self.weapons = [Punch, Pistol]
@@ -106,7 +104,7 @@ class Player(Creature):
                         self.current_weapon = Shotgun()
                     if event.key == pg.K_4 and Rifle in self.weapons:
                         self.current_weapon = Rifle()
-                    if event.key == pg.K_5 and SuperWeapon in self.weapons:
+                    if event.key == pg.K_LEFTPAREN and SuperWeapon in self.weapons:
                         self.current_weapon = SuperWeapon()
             
             # Mouse events
