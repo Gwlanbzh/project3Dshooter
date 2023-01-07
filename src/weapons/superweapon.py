@@ -23,9 +23,9 @@ class SuperWeapon(Weapon):
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
                 self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-                self.play_sound(entity.game, entity.r)
+                self.play_sound(entity)
             else:
-                self.play_sound(entity.game, entity.r, no_ammo=True)
+                self.play_sound(entity, no_ammo=True)
             self.state = int(not self.state)
 
     def draw(self, ressources, window):

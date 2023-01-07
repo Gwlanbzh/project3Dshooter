@@ -34,4 +34,4 @@ class Punch(Weapon):
         if t - self.last_shot_time > self.delay:  # 100 ms between shots 
             self.last_shot_time = t
             self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-            self.play_sound(entity.game, entity.r)
+            self.play_sound(entity)

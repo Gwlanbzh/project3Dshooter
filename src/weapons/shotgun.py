@@ -29,10 +29,10 @@ class Shotgun(Weapon):
                 self.hit_scan(entity.game.world.map.grid, entity.r, orien, mob_list)
                 self.hit_scan(entity.game.world.map.grid, entity.r, (orien - self.dteta) % tau, mob_list)
                 self.hit_scan(entity.game.world.map.grid, entity.r, (orien + self.dteta) % tau, mob_list)
-                self.play_sound(entity.game, entity.r)
+                self.play_sound(entity)
             
             else:
-                self.play_sound(entity.game, entity.r, no_ammo=True)
+                self.play_sound(entity, no_ammo=True)
 
     def draw2d(self, window, r, teta):
         super().draw2d(window, r, teta)
