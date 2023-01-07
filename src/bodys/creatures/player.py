@@ -91,7 +91,7 @@ class Player(Creature):
             self.current_weapon = Shotgun()
         if keys[pg.K_4] and Rifle in self.weapons:
             self.current_weapon = Rifle()
-        if keys[pg.K_5] and SuperWeapon in self.weapons:
+        if keys[pg.K_LEFTPAREN] and SuperWeapon in self.weapons:
             self.current_weapon = SuperWeapon()
         
         
