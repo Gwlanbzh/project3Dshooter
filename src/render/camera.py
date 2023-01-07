@@ -159,5 +159,5 @@ class Camera():
         self._draw_floor(window)
         self._draw_walls(window)
         self._draw_sprites(window)
-        self._bound_player.current_weapon.draw(window)
+        self._bound_player.current_weapon.draw(self._ressources, window)
         

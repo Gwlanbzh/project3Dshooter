@@ -1,8 +1,6 @@
 from weapons import Weapon
 from config import *
-from math import pi
 import pygame as pg
-from render import load_shotgun
 from math import tau
 
 class Shotgun(Weapon):
@@ -15,7 +13,6 @@ class Shotgun(Weapon):
         self.dteta = 0.09 # 5 degrés en radians
 
         self.time_between_sprites = 75
-        self.sprite = load_shotgun() # from render.weapons
         self.image_index = 0
 
         self.model = "shotgun"
