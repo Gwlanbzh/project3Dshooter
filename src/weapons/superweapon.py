@@ -28,10 +28,10 @@ class SuperWeapon(Weapon):
                 self.play_sound(entity.game, entity.r, no_ammo=True)
             self.state = int(not self.state)
 
-    def draw(self, Ressources, window):
-        self.update_image(Ressources)
+    def draw(self, ressources, window):
+        self.update_image(ressources)
 
-        sprites = Ressources.weapon_sprites[self.model]
+        sprites = ressources.weapon_sprites[self.model]
 
         width, height = sprites[self.state][self.image_index].get_size()
         top_left = (
@@ -40,6 +40,6 @@ class SuperWeapon(Weapon):
         )
         window.blit(sprites[self.state][self.image_index], top_left)
     
-    def update_image(self):
+    def update_image(self, ressources):
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
-        self.image_index = i if i < len(self.sprite[0]) else 0
+        self.image_index = i if i < len(ressources.weapon_sprites[self.model][0]) else 0

@@ -35,6 +35,7 @@ class Player(Creature):
         # TODO add ammo data structure
 
         # weapons attributes
+        self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
         self.ammo = 20  # may change to dict ?
         

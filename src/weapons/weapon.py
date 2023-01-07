@@ -83,10 +83,10 @@ class Weapon():
 
         return dist
 
-    def draw(self, Ressources, window):
-        self.update_image(Ressources)
+    def draw(self, ressources, window):
+        self.update_image(ressources)
         
-        sprites = Ressources.weapon_sprites[self.model]
+        sprites = ressources.weapon_sprites[self.model]
 
         width, height = sprites[self.image_index].get_size()
         top_left = (

@@ -41,7 +41,7 @@ def load_weapon():
         "pistol" : scale(pistol_images, 4),
         "shotgun" : scale(shotgun_images, 3),
         "rifle" : scale(rifle_images, 4),
-        "super_weapon" : superweapons_images
+        "superweapon" : superweapons_images
     }
 
     return ids
