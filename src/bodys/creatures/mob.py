@@ -4,6 +4,7 @@ from math import pi, cos, sin, atan2,hypot, tau
 from pygame import Vector2 as v2
 from render.ray import Ray
 from weapons import *
+import pygame as pg
 
 class Mob(Creature):
     def __init__(self, game, r):
@@ -123,6 +124,11 @@ class Mob(Creature):
         diff = player.r - self.r
         dist = hypot(diff.x, diff.y)
         return dist
+    
+    def hurt(self, damages):
+        super().hurt(damages)
+        # empêche le mob de tirer pendant self.hurt_time_duration ms
+        self.current_weapon.last_shot_time = pg.time.get_ticks() - self.current_weapon.delay + self.hurt_time_duration
 
 
 class Grunt(Mob):
@@ -131,8 +137,9 @@ class Grunt(Mob):
         
         self.size = 27
         self.health = 100
-        self.current_weapon = Pistol()        # TODO add pistol
-        # TODO implement dynamic sprites
+        self.current_weapon = Pistol()
+        
+        self.hurt_time_duration = 1000 # TODO : grande valeur pour l'exemple, à modifier
 
         self.model = "grunt"
         self.dims = 70, 130
@@ -143,11 +150,12 @@ class Heavy(Mob):
         
         self.size = 30
         self.health = 400
-        self.current_weapon = Rifle()        # TODO add pistol
-        # TODO implement dynamic sprites
+        self.current_weapon = Rifle()
 
         self.model = "heavy"
         self.dims = 70, 130
+
+        self.hurt_time_duration = 200
 
 class Boss(Mob):
     def __init__(self, game, r):
@@ -155,8 +163,9 @@ class Boss(Mob):
         
         self.size = 35
         self.health = 2000
-        self.current_weapon = SuperWeapon()        # TODO add pistol
-        # TODO implement dynamic sprites
+        self.current_weapon = SuperWeapon()
+
+        self.hurt_time_duration = 150
 
         self.model = "boss"
         self.dims = 90, 175

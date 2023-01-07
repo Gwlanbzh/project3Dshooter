@@ -37,6 +37,7 @@ class Creature(Body):
         self.walking_frame_time = 0
         self.img_index = 0
         self.hurt_frame_time = -1000
+        self.hurt_time_duration = 200
 
 
     def in_wall(self, pos):
@@ -117,7 +118,7 @@ class Creature(Body):
             return SpriteStruct(data, h, w)
         
         t = pg.time.get_ticks()
-        if t - self.hurt_frame_time < 200:
+        if t - self.hurt_frame_time < self.hurt_time_duration:
             data = self.game.world.ressources.static_sprites[f"{self.model}/shooted.png"]
             return SpriteStruct(data, h, w)
         
