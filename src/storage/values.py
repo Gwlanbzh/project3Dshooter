@@ -19,6 +19,7 @@ values = {
     "H": HealthPack25,
     "a": AmmoPack10,
     "A": AmmoPack50,
+    "m": Mine,
     
     "S": PickableShotgun,
     "R": PickableRifle,
@@ -45,6 +46,7 @@ values_destination = {
     HealthPack5: "pickables",
     AmmoPack10: "pickables",
     AmmoPack50: "pickables",
+    Mine: "pickables",
     
     PickableShotgun: "pickables",
     PickableRifle: "pickables",

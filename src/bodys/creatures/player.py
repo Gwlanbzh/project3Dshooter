@@ -29,6 +29,7 @@ class Player(Creature):
         self.size = 40
         self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
+        self.model = "player"
 
         self.orientation = -tau/4
         self.vorientation = 0

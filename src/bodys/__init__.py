@@ -11,3 +11,4 @@ from bodys.props.barrel import Barrel
 from bodys.pickables.health import *
 from bodys.pickables.ammo import *
 from bodys.pickables.weapons import *
+from bodys.pickables.mine import Mine
