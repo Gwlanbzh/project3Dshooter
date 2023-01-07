@@ -37,7 +37,7 @@ class Player(Creature):
 
         # weapons attributes
         self.current_weapon = Pistol()
-        self.weapons = [Punch, Pistol]
+        self.weapons = {Punch, Pistol}
         self.ammo = 20  # may change to dict ?
         
         self.max_ammo = 100
