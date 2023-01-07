@@ -38,6 +38,10 @@ class Sound():
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/superweapon_sound.mp3")
         ]
 
+        self.mine_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/mine_exp.mp3")
+        ]
+
         self.sound_ids = {
             "weapon" : self.debug_weapon_sound,
             "dry_weapon" : self.debug_dry_fire_sound,
@@ -47,6 +51,7 @@ class Sound():
             "punch" : self.punch_sound,
             "shotgun" : self.shotgun_sound,
             "superweapon" : self.superweapon_sound,
+            "mine": self.mine_sound,
         }
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
