@@ -7,7 +7,7 @@ class Mine(Pickable):
         self.dmg = 45
 
         self.model = "mine.png"
-        self.dims = 50,50
+        self.dims = 50,20
 
     def update(self):
         picker = self.picker()

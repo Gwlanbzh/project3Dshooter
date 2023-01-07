@@ -10,7 +10,7 @@ class Shotgun(Weapon):
         super().__init__()
         self.delay = 600
         self.range = WALL_WIDTH * 5
-        self.dmg = 30
+        self.dmg = 40
 
         self.dteta = 0.09 # 5 degrés en radians
 
