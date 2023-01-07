@@ -1,47 +1,47 @@
 import pygame as pg
+from os import listdir
 from config import *
 
-def scale(image_list, ratio):
-    scaled_images = []
-    for img in image_list:
-        size_x, size_y = img.get_size()
-        new = pg.transform.scale(img, (size_x * ratio, size_y * ratio))
-        scaled_images.append(new)
-    return scaled_images
+# liste des noms des models, tuple (nom, scaling)
+models = [
+    ("weapon", 1),
+    ("punch", 3),
+    ("pistol", 4),
+    ("rifle", 4),
+    ("shotgun", 3),
+    # superweapon = special case, see load_weaon function
+]
+
+def scale(img, ratio):
+    size_x, size_y = img.get_size()
+    scaled_img = pg.transform.scale(img, (size_x * ratio, size_y * ratio))
+    return scaled_img
+
+def load_model(model, scaling):
+    path = Config.SPRITES_DIR + "weapons/"
+    path_list = sorted([ path + model + "/" + name for name in listdir(path + model) ])
+    return [scale(pg.image.load(p).convert_alpha(), scaling) for p in path_list]
+
 
 def load_weapon():
-    weapon_images = [
-        pg.image.load(f"src/assets/visual/sprites/weapon_debug/{i}.png").convert_alpha() for i in range(4)
-    ]
-
-    punch_images = [
-        pg.image.load(Config.SPRITES_DIR + f"weapons/pun/pun{i}.png").convert_alpha() for i in range(4)
-    ] 
+    ids = dict()
+    for model, scaling in models:
+        ids[model] = load_model(model, scaling)    
     
-    pistol_images = [
-        pg.image.load(Config.SPRITES_DIR + f"weapons/pis/pis{i}.png").convert_alpha() for i in range(5)
-    ]
-    
-    shotgun_images = [
-        pg.image.load(Config.SPRITES_DIR + f"weapons/sht/sht{i}.png").convert_alpha() for i in range(8)
-    ] 
-
-    rifle_images = [
-        pg.image.load(Config.SPRITES_DIR + f"weapons/rifle/rifle{i}.png").convert_alpha() for i in range(4)
-    ]
-
+    # specific case
+    super_weapon_scaling = 4
     superweapons_images = {
-        0 : scale([pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/0.png").convert_alpha(), pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state1_firing.png").convert_alpha() ], 2),
-        1 : scale([pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/1.png").convert_alpha(), pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state2_firing.png").convert_alpha()], 2)
+        0 : [
+                scale(pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/0.png").convert_alpha(), super_weapon_scaling),
+                scale(pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state1_firing.png").convert_alpha(), super_weapon_scaling)
+            ],
+        1 : [
+                scale(pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/1.png").convert_alpha(), super_weapon_scaling),
+                scale(pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state2_firing.png").convert_alpha(), super_weapon_scaling)
+            ]
     }
     
-    ids = {
-        "debug" : weapon_images,
-        "punch" : scale(punch_images, 3),
-        "pistol" : scale(pistol_images, 4),
-        "shotgun" : scale(shotgun_images, 3),
-        "rifle" : scale(rifle_images, 4),
-        "superweapon" : superweapons_images
-    }
-
+    # scalings images
+    ids["superweapon"] = superweapons_images
+    
     return ids
