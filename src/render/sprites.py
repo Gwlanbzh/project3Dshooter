@@ -42,6 +42,7 @@ for mob_name in mob_models_names:
     static_sprites_names.append(mob_name + "/shooted.png")
     static_sprites_names.append(mob_name + "/firing.png")
     static_sprites_names.append(mob_name + "/static.png")
+    static_sprites_names.append(mob_name + "/dead.png")
     animated_sprites_name.append(mob_name + "/walking")
 
 def load_static_sprites():
