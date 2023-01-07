@@ -8,7 +8,7 @@ class HealthPack5(Pickable):
         self.heal_value = 10
 
         self.model = "health_mini.png"
-        self.dims = 30, 30
+        self.dims = 40, 40
     
     def update(self):
         picker = self.picker()
@@ -24,4 +24,4 @@ class HealthPack25(HealthPack5):
         self.heal_value = 50
 
         self.model = "health_mega.png"
-        self.dims = 80, 50
+        self.dims = 80, 60
