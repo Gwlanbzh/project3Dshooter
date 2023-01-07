@@ -1,8 +1,6 @@
 from weapons import Weapon
 import pygame as pg
 from config import *
-from render import load_punch
-from random import choice
 
 class Punch(Weapon):
     def __init__(self):
@@ -14,18 +12,19 @@ class Punch(Weapon):
         self.state = 0
         self.time_between_sprites = 80
         
-        self.sprite = load_punch()
-
         self.model = "punch"
     
-    def draw(self, window):
-        self.update_image()
-        width, height = self.sprite[self.image_index].get_size()
+    def draw(self, Ressources, window):
+        self.update_image(Ressources)
+
+        sprites = Ressources.weapon_sprites[self.model]
+
+        width, height = sprites[self.image_index].get_size()
         top_left = (
             (Config.RES_X) - (width),
             Config.RES_Y - height
         )
-        window.blit(self.sprite[self.image_index], top_left)
+        window.blit(sprites[self.image_index], top_left)
     
     def shoot(self, entity, mob_list):
         """

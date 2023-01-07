@@ -1,10 +1,9 @@
 import pygame as pg
 from pygame import Vector2 as v2
-from math import hypot, atan, acos, cos, sin, tau, pi
+from math import hypot, atan, cos, sin, tau, pi
 from render.ray import Ray
 from render import *
 from config import Config
-from random import choice
 
 
 pi_2 = pi / 2
@@ -20,7 +19,6 @@ class Weapon():
         self.play_sound_time = - self.delay
         
         self.time_between_sprites = 200  # ms
-        self.sprite = load_weapon()  # from render.weapons
         self.image_index = 0
 
         self.model = "weapon"
@@ -85,14 +83,17 @@ class Weapon():
 
         return dist
 
-    def draw(self, window):
-        self.update_image()
-        width, height = self.sprite[self.image_index].get_size()
+    def draw(self, Ressources, window):
+        self.update_image(Ressources)
+        
+        sprites = Ressources.weapon_sprites[self.model]
+
+        width, height = sprites[self.image_index].get_size()
         top_left = (
             (Config.RES_X / 2) - (width / 2),
             Config.RES_Y - height
         )
-        window.blit(self.sprite[self.image_index], top_left)
+        window.blit(sprites[self.image_index], top_left)
 
     def draw2d(self, window, r, teta):
         traylength = self.range
@@ -102,9 +103,9 @@ class Weapon():
             2
         )
 
-    def update_image(self):
+    def update_image(self, Ressources):
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
-        self.image_index = i if i < len(self.sprite) else 0
+        self.image_index = i if i < len(Ressources.weapon_sprites[self.model]) else 0
 
     def play_sound(self, game, pos, no_ammo=False):
         if Config.NO_SOUND:

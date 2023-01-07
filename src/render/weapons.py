@@ -13,38 +13,35 @@ def load_weapon():
     weapon_images = [
         pg.image.load(f"src/assets/visual/sprites/weapon_debug/{i}.png").convert_alpha() for i in range(4)
     ]
-    return weapon_images
 
-def load_punch():
     punch_images = [
         pg.image.load(Config.SPRITES_DIR + f"weapons/pun/pun{i}.png").convert_alpha() for i in range(4)
-    ]
-    return scale(punch_images, 3)
-
-def load_pistol():
+    ] 
+    
     pistol_images = [
         pg.image.load(Config.SPRITES_DIR + f"weapons/pis/pis{i}.png").convert_alpha() for i in range(5)
     ]
-    return scale(pistol_images, 4)
     
-
-def load_shotgun():
     shotgun_images = [
         pg.image.load(Config.SPRITES_DIR + f"weapons/sht/sht{i}.png").convert_alpha() for i in range(8)
-    ]
-    return scale(shotgun_images, 3)
+    ] 
 
-def load_rifle():
     rifle_images = [
         pg.image.load(Config.SPRITES_DIR + f"weapons/rifle/rifle{i}.png").convert_alpha() for i in range(4)
     ]
 
-    return scale(rifle_images, 4)
-
-def load_superweapon():
     superweapons_images = {
         0 : scale([pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/0.png").convert_alpha(), pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state1_firing.png").convert_alpha() ], 2),
         1 : scale([pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/1.png").convert_alpha(), pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/state2_firing.png").convert_alpha()], 2)
     }
+    
+    ids = {
+        "debug" : weapon_images,
+        "punch" : scale(punch_images, 3),
+        "pistol" : scale(pistol_images, 4),
+        "shotgun" : scale(shotgun_images, 3),
+        "rifle" : scale(rifle_images, 4),
+        "super_weapon" : superweapons_images
+    }
 
-    return superweapons_images
+    return ids

@@ -1,7 +1,6 @@
 from weapons import Weapon
 import pygame as pg
 from config import *
-from render import load_rifle
 
 class Rifle(Weapon):
     def __init__(self):
@@ -13,5 +12,3 @@ class Rifle(Weapon):
         self.time_between_sprites = 90
 
         self.model = "rifle"
-
-        self.sprite = load_rifle()

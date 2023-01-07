@@ -1,7 +1,6 @@
 import pygame as pg
 from weapons.weapon import Weapon
 from config import *
-from render import load_superweapon
 
 class SuperWeapon(Weapon):
     def __init__(self):
@@ -17,8 +16,6 @@ class SuperWeapon(Weapon):
 
         self.model = "superweapon"
 
-        self.sprite = load_superweapon()
-
     def shoot(self, entity, mob_list):
         t = pg.time.get_ticks()
         if t - self.last_shot_time > self.delay: # 100 ms between shots 
@@ -31,14 +28,17 @@ class SuperWeapon(Weapon):
                 self.play_sound(entity.game, entity.r, no_ammo=True)
             self.state = int(not self.state)
 
-    def draw(self, window):
-        self.update_image()
-        width, height = self.sprite[self.state][self.image_index].get_size()
+    def draw(self, Ressources, window):
+        self.update_image(Ressources)
+
+        sprites = Ressources.weapon_sprites[self.model]
+
+        width, height = sprites[self.state][self.image_index].get_size()
         top_left = (
             (Config.RES_X / 2) - (width / 2),
             Config.RES_Y - height
         )
-        window.blit(self.sprite[self.state][self.image_index], top_left)
+        window.blit(sprites[self.state][self.image_index], top_left)
     
     def update_image(self):
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
