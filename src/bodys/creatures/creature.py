@@ -108,7 +108,7 @@ class Creature(Body):
     def get_sprite(self):
         w, h = self.dims
         if self.is_dead():
-            data = self.game.world.ressources.static_sprites[self.dead_model]
+            data = self.game.world.ressources.static_sprites[f"{self.model}/dead.png"]
             return SpriteStruct(data, h, w)
         
         t = pg.time.get_ticks()
