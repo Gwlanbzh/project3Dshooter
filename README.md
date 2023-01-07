@@ -1,34 +1,25 @@
-# Use
-## Using venv    
-    source .venv/bin/activate
-    python game.py
 
-# TODO
-- [ ] Player
-    - [ ] movement
-- [ ] Map 
-    - BSP ou grid
-- [ ] Collision
-- [ ] Render false 3d 
-- [ ] Texture
-- [ ] Sprite support annimation static 
-- [ ] mouse control
-- [ ] range Weapon
-    - [ ] plusieur arme
-- [ ] Mob / IA
-    - Path Finding
-- [ ] HUD, interface, heal, ammo, start menu
-- [ ] y shearing
-- [ ] Particule
-- [ ] Multi
+# Créer et Activer l'environnement virtuel python
 
+Pour toutes les étapes suivante on considéreras que vous êtes dans le dossier du projet.
 
-# Mode
-Solo PvE
-Multi PvP voir PvE multi
+## Création
 
-# Planning
-## Nicolas
-## Titouan
-## Aodren
+Pour créer l'environnement virtuel, entrez la commande suivante :
+`python3 -m venv .venv`
+
+## Activation 
+
+`source .venv/bin/activate`
+
+## Installation des prérequis
+
+Une fois l'environnement activé, vous pouvez installer les différents package nécessaire au fonctionnement du jeu :
+Pour cela, lancez la commande : 
+
+`python3 -m pip install -r requirements.txt`
+
+# Lancer le jeu
+
+`py src/main_menu.py`
 
