@@ -23,7 +23,7 @@ class Sound():
         ]
 
         self.rifle_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/rifle-firing.mp3"),
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/uzi_fire.mp3"),
         ]
 
         self.punch_sound = [
@@ -31,7 +31,7 @@ class Sound():
         ]
 
         self.shotgun_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_shotgun.mp3"),
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/shotgun_fire.ogg"),
         ]
 
         self.superweapon_sound = [
