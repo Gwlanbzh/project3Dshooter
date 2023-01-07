@@ -18,6 +18,8 @@ height_map = {
     5: 110,
     6: 300,
     7: 75,
+    8: 75,
+    9: 75
 }
 
 # Load the textures as arrays of colum surfaces.
