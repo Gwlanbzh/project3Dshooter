@@ -18,6 +18,7 @@ class PickableWeapon(Pickable):
         if picker != None:
             picker.weapons.append(self.provided_weapon)
             picker.ammo += self.provided_ammo
+            picker.ammo = min(picker.ammo, picker.max_ammo)
             return True
         return False
 
