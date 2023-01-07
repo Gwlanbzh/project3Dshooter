@@ -83,10 +83,10 @@ class Hud:
             self.ui_elements_display = []
             self.ui_bar = []
 
-    def over(self):
+    def hover(self):
         if self.menu_esc_is_toggle:
             for element in self.menu_esc.ui_elements_button:
-                element.over()
+                element.hover()
 
 
 

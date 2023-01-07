@@ -5,13 +5,12 @@ from render import Camera
 from bodys import *
 from hud import Hud
 from bodys.creatures.path_finding import *
-from sound import Sound
 
 class Game:
     """
     Base class for a game, to be used to define new game types.
     """
-    def __init__(self, map_file, draw2d, window, delta_time, clock):
+    def __init__(self, map_file, draw2d, window, delta_time, clock, sound):
         """
         Important init for the game main component
         """
@@ -24,7 +23,7 @@ class Game:
         self.path_finding = PathFinding(self)
         self.camera = Camera(self.world.players[0])
         self.hud = Hud(self)
-        self.sound = Sound()
+        self.sound = sound
         self.is_paused = False
         self.is_abandon = False
     

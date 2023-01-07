@@ -3,24 +3,25 @@ import pygame as pg
 import sys
 from main_menu import MainMenu
 from game import Game
+from levels import *
 from config import Config
+from sound import Sound
 
 class Main():
     def __init__(self):
         pg.init()
         self.window = pg.display.set_mode(Config.WINDOW_SIZE)
-        self.GameList = None
+        self.levels = levels
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.draw2d = False
         self.game = None
+        self.sound = Sound()
 
         self.music = pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/RideOfTheValkyries.mp3")
         self.music.play()
 
-
-        map_file = "src/assets/maps/map_dest.bin"
         # self.load_game(map_file)
 
     def loop(self):
@@ -56,14 +57,14 @@ class Main():
 
             if self.game == None:
                 self.main_menu.click(event)
-                self.main_menu.over()
+                self.main_menu.hover()
             else:
                 self.game.hud.click(event)
-                self.game.hud.over()
+                self.game.hud.hover()
         return events
 
-    def load_game(self,map_file):
-        self.game = Game(map_file, self.draw2d,self.window,self.delta_time,self.clock)
+    def load_game(self,level):
+        self.game = level["type"](level["map_file"], self.draw2d,self.window,self.delta_time,self.clock,self.sound)
         pg.mixer.stop()
 
     def unload_game(self):

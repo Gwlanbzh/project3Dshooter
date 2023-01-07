@@ -1,9 +1,8 @@
 from game import Game
 
 class Maze(Game):
-    def __init__(self, map_file, draw2d):
-        super().__init__(map_file, draw2d)
-        
+    def __init__(self, map_file, draw2d, window, delta_time, clock, sound):
+        super().__init__(map_file, draw2d, window, delta_time, clock, sound)
         self.description = "Reach the exit without dying."
     
     def is_game_over(self):
@@ -15,9 +14,8 @@ class Maze(Game):
         return ""
 
 class Boss_level(Game):
-    def __init__(self, map_file, draw2d):
-        super().__init__(map_file, draw2d)
-        
+    def __init__(self, map_file, draw2d, window, delta_time, clock, sound):
+        super().__init__(map_file, draw2d, window, delta_time, clock, sound)
         self.description = "Kill all the ennemies in the map. Beware the boss."
     
     def is_game_over(self):

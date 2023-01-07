@@ -3,6 +3,7 @@ from config import *
 from math import hypot
 from random import choice
 from os import listdir
+from pygame import Vector2 as v2
 
 class Sound():
     def __init__(self) -> None:
@@ -38,6 +39,9 @@ class Sound():
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/superweapon_sound.mp3")
         ]
 
+        self.ui_sound_button = [ pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3") ]
+        self.ui_sound_hover = [ pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/hover.mp3") ]
+
         self.sound_ids = {
             "weapon" : self.debug_weapon_sound,
             "dry_weapon" : self.debug_dry_fire_sound,
@@ -47,6 +51,8 @@ class Sound():
             "punch" : self.punch_sound,
             "shotgun" : self.shotgun_sound,
             "superweapon" : self.superweapon_sound,
+            "hover" : self.ui_sound_hover,
+            "click" : self.ui_sound_button,
         }
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
@@ -56,7 +62,7 @@ class Sound():
         self.effect_volume = 1
     
 
-    def play_sound(self, id, player_pos, sound_pos):
+    def play_sound(self, id, player_pos = v2(0,0), sound_pos = v2(0,0)):
         hearing_sound_dist = WALL_WIDTH * 10
         x, y = player_pos - sound_pos
         dist_player_sound = hypot(x, y)

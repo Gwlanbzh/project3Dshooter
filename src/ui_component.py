@@ -60,13 +60,16 @@ class Button(Display):
     can be click and have an animation when click
     can be use outside a world
     """
-    def __init__(self,game,position,size=(20,20)):
+    def __init__(self,game,position,foreground = WHITE):
         super().__init__(game,position)
         self.lifetime = -1
-        self.background_activate = RED
-        self.background_idle = self.background
-        self.foreground_over = GRAY
+        self.foreground = foreground
+        self.foreground_activate = RED
+        self.foreground_idle = self.foreground
+        self.foreground_hover = GRAY
         self.mouse_is_over = False
+        self.mouse_was_hover = False
+        self.is_activate = False
 
     def update_surface(self):
         self.update_size()
@@ -82,7 +85,9 @@ class Button(Display):
             self.lifetime -= 1
             if self.lifetime <= 0:
                 # change the background back to idle
-                self.background = self.background_idle
+                self.foreground = self.foreground_idle
+                self.is_activate = False
+                self.label = self.myfont.render(self.text, 1, self.foreground)
                 self.update_surface()
         self.game.window.blit(self.surface, self.position)
 
@@ -97,7 +102,9 @@ class Button(Display):
         if event.type == pg.MOUSEBUTTONDOWN:
             if pg.mouse.get_pressed()[0]:
                 if self.rect.collidepoint(x, y):
-                    self.animate()
+                    self.lifetime = 10
+                    self.is_activate = True
+                    self.game.sound.play_sound("click")
                     self.action()
 
     def action(self):
@@ -108,19 +115,24 @@ class Button(Display):
         """
         pass
 
-    def animate(self):
-        self.background = self.background_activate
-        self.surface.fill(self.background)
-        self.surface.blit(self.label,(0,0))
-        self.lifetime = 10
-        pass
-
-    def over(self):
-        if self.rect.collidepoint(pg.mouse.get_pos()):
-            self.label = self.myfont.render(self.text, 1, self.foreground_over)
+    def hover(self):
+        is_colliding = self.rect.collidepoint(pg.mouse.get_pos())
+        if is_colliding and not self.mouse_was_hover:
+            if self.is_activate:
+                self.foreground = self.foreground_activate
+            else:
+                self.foreground = self.foreground_hover
+            self.label = self.myfont.render(self.text, 1, self.foreground)
             self.update_surface()
+            if not self.mouse_is_over: 
+               self.game.sound.play_sound("hover")
             self.mouse_is_over = True
-        elif self.mouse_is_over:
+        elif self.mouse_is_over and not is_colliding:
+            if self.is_activate:
+                self.foreground = self.foreground_activate
+            else:
+                self.foreground = self.foreground_idle
+            
             self.label = self.myfont.render(self.text, 1, self.foreground)
             self.update_surface()
             self.mouse_is_over = False
@@ -175,7 +187,6 @@ class Menu():
         self.background = pg.transform.scale(self.background,self.size)
         self.ui_elements_button = [
             WorldToMainMenuButton(game,(position[0],self.size[1]//2*0.90+position[1])),
-            Quit_Game_Button(game,(0.5*RES_X,0.7*RES_Y),"Quit To Desktop",12),
         ]
 
     def draw(self):
@@ -404,41 +415,3 @@ class menu_setting(Menu):
     def __init__(self):
         pass
 
-class Play_Button(Button):
-    def __init__(self,main,position):
-        super().__init__(main,position)
-        self.text = "PLAY"
-        self.main = main
-        self.background = (0,0,255,0)
-        self.background_activate = RED
-        self.background_idle = self.background
-        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
-        self.label = self.myfont.render(self.text, 1, self.foreground)
-        self.update_surface()
-        self.position = self.get_position_centered_surface()
-        self.update_surface()
-
-    def action(self):
-        print("Good Game")
-        map_file = "src/assets/maps/map_dest.bin"
-        self.main.load_game(map_file)
-
-class Quit_Game_Button(Button):
-    def __init__(self,main,position,text = "QUIT",police_size = 30):
-        super().__init__(main,position)
-        self.text = text
-        self.main = main
-        self.background = (0,0,255,0)
-        self.background_activate = RED
-        self.background_idle = self.background
-        self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", police_size)
-        self.label = self.myfont.render(self.text, 1, self.foreground)
-        self.update_surface()
-        self.position = self.get_position_centered_surface()
-        self.update_surface()
-
-    def action(self):
-        print("Thank you for playing ")
-        pg.quit()  # quit pygame
-        sys.exit()  # better quit, remove some error when  quiting
-        pass
