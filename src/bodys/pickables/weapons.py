@@ -19,6 +19,7 @@ class PickableWeapon(Pickable):
             picker.weapons.append(self.provided_weapon)
             picker.ammo += self.provided_ammo
             picker.ammo = min(picker.ammo, picker.max_ammo)
+            self.game.sound.play_sound("pickable", self.game.world.players[0].r, self.r)
             return True
         return False
 

@@ -38,9 +38,44 @@ class Sound():
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/superweapon_sound.mp3")
         ]
 
+        self.pickable_generic = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/generic.ogg")
+        ]
+
         self.mine_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/mine_exp.mp3")
         ]
+
+        self.grunt_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/grunt/pain{i}.ogg") for i in range(4)
+        ]
+
+        self.heavy_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/heavy/pain{i}.ogg") for i in range(4)
+        ]
+
+        self.boss_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/pain{i}.ogg") for i in range(4)
+        ]
+
+        self.player_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/player/pain{i}.ogg") for i in range(3)
+        ]
+
+        self.grunt_death = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/grunt/death{i}.ogg") for i in range(3)
+        ]
+
+        self.heavy_death = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/heavy/death{i}.ogg") for i in range(3)
+        ]
+
+        self.boss_death = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/death{i}.ogg") for i in range(3)
+        ]
+
+        self.player_death = self.player_hurt
+
 
         self.sound_ids = {
             "weapon" : self.debug_weapon_sound,
@@ -51,7 +86,19 @@ class Sound():
             "punch" : self.punch_sound,
             "shotgun" : self.shotgun_sound,
             "superweapon" : self.superweapon_sound,
+
+            "pickable": self.pickable_generic,
             "mine": self.mine_sound,
+
+            "grunt_hurt": self.grunt_hurt,
+            "heavy_hurt": self.heavy_hurt,
+            "boss_hurt": self.boss_hurt,
+            "player_hurt": self.player_hurt,
+
+            "grunt_death": self.grunt_death,
+            "heavy_death": self.heavy_death,
+            "boss_death": self.boss_death,
+            "player_death": self.player_death,
         }
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")

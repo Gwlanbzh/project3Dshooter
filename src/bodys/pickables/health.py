@@ -15,6 +15,7 @@ class HealthPack5(Pickable):
         if picker != None:
             picker.health += self.heal_value
             picker.health = min(picker.health, picker.max_health)
+            self.game.sound.play_sound("pickable", self.game.world.players[0].r, self.r)
             return True
         return False
 
