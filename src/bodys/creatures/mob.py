@@ -40,19 +40,24 @@ class Mob(Creature):
         do nothing if he has never seen the player
         do not approch the player more than 2/3 of is range 
         """
-        if not self.is_dead() :
-            if not self.has_seen_player and self.mob_view_player():
-                self.has_seen_player = True
-            if self.has_seen_player:
-                if self.dist_with_player() > self.range:
-                    self.has_seen_player = False
-                    self.walking = False
-                elif self.dist_with_player() > 0.6 * self.range or not (self.mob_view_player()):
-                    self.movement()
-                    self.walking = True
-                else:
-                    self.walking = False
-                    self.current_weapon.shoot(self, self.game.world.players)
+        if self.is_dead() :
+            return
+        
+        if pg.time.get_ticks() - self.hurt_time < self.hurt_time_duration:
+            return
+        
+        if not self.has_seen_player and self.mob_view_player():
+            self.has_seen_player = True
+        if self.has_seen_player:
+            if self.dist_with_player() > self.range:
+                self.has_seen_player = False
+                self.walking = False
+            elif self.dist_with_player() > 0.6 * self.range or not (self.mob_view_player()):
+                self.movement()
+                self.walking = True
+            else:
+                self.walking = False
+                self.current_weapon.shoot(self, self.game.world.players)
 
     def movement(self):
         """
@@ -125,11 +130,6 @@ class Mob(Creature):
         dist = hypot(diff.x, diff.y)
         return dist
     
-    def hurt(self, damages):
-        super().hurt(damages)
-        # empêche le mob de tirer pendant self.hurt_time_duration ms
-        self.current_weapon.last_shot_time = pg.time.get_ticks() - self.current_weapon.delay + self.hurt_time_duration
-
 
 class Grunt(Mob):
     def __init__(self, game, r):
