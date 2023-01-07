@@ -108,7 +108,6 @@ class Player(Creature):
                         self.current_weapon = SuperWeapon()
             
             # Mouse events
-        
             left_click, _, _ = pg.mouse.get_pressed()
             if left_click:
                 mob_list = self.game.world.mobs + self.game.world.props
