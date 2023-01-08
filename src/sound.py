@@ -105,6 +105,8 @@ class Sound():
         self.end_music_time = -1
         self.current_music = choice(self.musics)
         self.musics.remove(self.current_music)
+        pg.mixer.music.set_volume(.7)
+
         self.effect_volume = 1
 
         self.player_channel = pg.mixer.find_channel()

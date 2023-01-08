@@ -139,7 +139,7 @@ class Grunt(Mob):
         self.health = 100
         self.current_weapon = Pistol()
         
-        self.hurt_time_duration = 1000 # TODO : grande valeur pour l'exemple, à modifier
+        self.hurt_time_duration = 300 # TODO : grande valeur pour l'exemple, à modifier
 
         self.model = "grunt"
         self.dims = 70, 130
@@ -155,7 +155,7 @@ class Heavy(Mob):
         self.model = "heavy"
         self.dims = 70, 130
 
-        self.hurt_time_duration = 200
+        self.hurt_time_duration = 125
 
 class Boss(Mob):
     def __init__(self, game, r):
@@ -165,7 +165,7 @@ class Boss(Mob):
         self.health = 2000
         self.current_weapon = SuperWeapon()
 
-        self.hurt_time_duration = 150
+        self.hurt_time_duration = 100
 
         self.model = "boss"
         self.dims = 90, 175
