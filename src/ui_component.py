@@ -146,7 +146,7 @@ class Health_Bar():
         self.health_bar_length = 400
         self.health_ratio = player.max_health / self.health_bar_length
         self.health_change_speed = 1
-        self.icon = pg.image.load(PATH_ASSETS+"heart_icon.png")
+        self.icon = pg.image.load(PATH_ASSETS+"cross.png")
         self.icon = pg.transform.scale(self.icon,(70,70))
         self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 16)
 
@@ -174,8 +174,7 @@ class Health_Bar():
         pg.draw.rect(self.game.window,(73,54,43),(self.position[0],self.position[1],self.health_bar_length,25),3)	
         label = self.myfont.render(str(self.player.health)+"/"+str(self.player.max_health), 4, (255,255,255,0))
         self.game.window.blit(label,(self.position[0]+30,self.position[1]+5))
-        self.game.window.blit(self.icon,(self.position[0]-40,self.position[1]-30))
-    pass
+        self.game.window.blit(self.icon,(self.position[0]-50,self.position[1]-45))
 
 class Menu():
     def __init__(self,game,position,return_string = None, return_action = None):

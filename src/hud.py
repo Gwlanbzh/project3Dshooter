@@ -52,7 +52,8 @@ class Hud:
         game = self.game
         if value == 1:
             self.toolkit = 1
-            self.ui_elements_display = [FPS_Display(game,(0,0)),
+            self.ui_elements_display = [
+                                        FPS_Display(game,(0,0)),
                                         Health_Bar_Display(game,(0,20),self.player),
                                         Ammo_Display(game,(0,40),self.player),
                                         Weapon_Display(game,(0,60),self.player),
@@ -67,6 +68,7 @@ class Hud:
             self.toolkit = 1
             self.ui_elements_display = [Ammo_Display(game,(0,40),self.player),
                                         Weapon_Display(game,(0,60),self.player),
+                                        FPS_Display(game,(0,0)),
                                         # VictoryStatus((RES_X*0.5,RES_Y*0.5),game)
                                         ]
             self.ui_elements_button = []

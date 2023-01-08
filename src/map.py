@@ -65,16 +65,8 @@ class Map:
             posx = position[0] * WALL_WIDTH - p_pos.x + x0
             posy = position[1] * WALL_WIDTH - p_pos.y + y0
 
-            if self.map_dic[position] == 1: # index 0 extracts the type of wall.
+            if self.map_dic[position] != 0: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
-                              (posx, posy,100,100),2)
-            
-            if self.map_dic[position] == 2:
-                pg.draw.rect(game.window,"blue",
-                              (posx, posy,100,100),2)
-            
-            if self.map_dic[position] == 3:
-                pg.draw.rect(game.window,"orange",
                               (posx, posy,100,100),2)
 
         for position in self.graph:
