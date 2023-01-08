@@ -168,7 +168,7 @@ class Health_Bar():
 
         health_bar_width = int(self.player.health / self.health_ratio)
         health_bar = pg.Rect(self.position[0],self.position[1],health_bar_width,25)
-        transition_bar = pg.Rect(health_bar.right,self.position[1],transition_width,25)
+        transition_bar = pg.Rect(health_bar.right - transition_width,self.position[1],transition_width,25)
 
         pg.draw.rect(self.window,(31,32,49),(self.position[0],self.position[1],self.health_bar_length,25))	
         pg.draw.rect(self.window,(141,7,35),health_bar)

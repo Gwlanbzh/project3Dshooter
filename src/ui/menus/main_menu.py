@@ -70,12 +70,14 @@ class Select_World_Selectioner:
                 self.currentGameNameDisplay,
                 self.buttonselectorright,                
             ]
+            self.buttonselectorleft.lifetime = 0
 
         elif self.main.current_level_index == self.main.max_level_index - 1:
             self.ui_elements_button = [
                 self.buttonselectorleft,                
                 self.currentGameNameDisplay,
             ]
+            self.buttonselectorright.lifetime = 0
         else:
             self.ui_elements_button = [
                 self.currentGameNameDisplay,
