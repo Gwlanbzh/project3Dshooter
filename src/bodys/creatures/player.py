@@ -55,8 +55,6 @@ class Player(Creature):
     
     def get_inputs(self,event):
         """
-        Returns a force_vector based on the physical player's inputs.
-        TODO maybye refactoring get inputs and mouvement call
         """
         keys = pg.key.get_pressed()
 
@@ -128,7 +126,6 @@ class Player(Creature):
                         self.game.hud.menu_esc_is_toggle = False
                         self.game.is_paused = False
 
-            return set()
     
     def move(self,moves):
         """

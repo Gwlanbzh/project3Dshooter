@@ -1,7 +1,7 @@
 
 import pygame as pg
 import sys
-from ui.main_menu import MainMenu
+from ui.menus.main_menu import MainMenu
 from levels import *
 from config import Config
 from sound import Sound
@@ -14,12 +14,12 @@ class Main():
         self.levels_list = [ (level_name , False) if i == 0 else (level_name,True) for i , level_name in enumerate(self.levels)] 
         self.current_level_index = 0
         self.max_level_index = len(self.levels)
+        self.sound = Sound()
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.draw2d = False
         self.game = None
-        self.sound = Sound()
 
         self.music = pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/RideOfTheValkyries.mp3")
         self.music.play()
