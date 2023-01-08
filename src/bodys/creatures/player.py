@@ -47,9 +47,6 @@ class Player(Creature):
 
     def update(self):  # might be move into Creature or Body
         self.move()
-        # heal
-        # status, maybe buff / debuff
-        # TODO : not logical to call self.get_inputs, call self.move() instead would be better
     
     
     def get_inputs(self):
