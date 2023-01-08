@@ -1,4 +1,4 @@
-from render import load_texture_set, load_skybox, load_static_sprites, load_animated_sprites
+from render import load_texture_set, load_skybox, load_static_sprites, load_animated_sprites, load_weapon
 
 class Ressources():
     """
@@ -18,3 +18,4 @@ class Ressources():
         
         self.animated_sprites = load_animated_sprites()
 
+        self.weapon_sprites = load_weapon()

@@ -162,11 +162,10 @@ class Camera():
         """
         self._voffset = - self._bound_player.vorientation  # < 0 implies looking up
         self._hoffset = sin(BOBBING_FREQUENCY * time()) * BOBBING_INTENSITY * self._bound_player.v.magnitude()
-        print(self._hoffset)
         
         self._draw_skybox(window)
         self._draw_floor(window)
         self._draw_walls(window)
         self._draw_sprites(window)
-        self._bound_player.current_weapon.draw(window)
+        self._bound_player.current_weapon.draw(self._ressources, window)
         
