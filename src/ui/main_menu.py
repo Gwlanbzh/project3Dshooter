@@ -1,5 +1,5 @@
 import pygame as pg;
-from ui_component import *;
+from ui.ui_component import *;
 from config import *
 
 
@@ -10,9 +10,6 @@ class MainMenu:
         self.main = main
         self.menu_title = Menu_Title(main,(0.5*RES_X,0.2*RES_Y))
 
-        self.levels = main.levels
-        self.levels_list = [ (level_name , False) if i == 0 else (level_name,True) for i , level_name in enumerate(self.levels)] 
-        self.current_level_index = 0
         self.ui_elements_button = [
             Play_Button(main,(0.5*RES_X,0.4*RES_Y),self),
             Quit_Game_Button(main,(0.5*RES_X,0.7*RES_Y)),
@@ -47,7 +44,6 @@ class Select_World_Selectioner:
         self.main = main
         self.menu = menu
         self.position = position
-        self.max_level_index = len(self.main.levels)
         self.ui_elements_display = [
             #Display(main,position,"Current Level :"),
             DescriptionGameSelectorDisplay(main,position),
@@ -55,13 +51,13 @@ class Select_World_Selectioner:
         self.update_selector()
 
     def update_selector(self):
-        if self.menu.current_level_index < 1:
+        if self.main.current_level_index < 1:
             self.ui_elements_button = [
                 CurrentGameNameDisplay(self.main,(self.position[0],self.position[1]+0.05*RES_Y),self),
                 ButtonSelectRight(self.main,(self.position[0]+0.15*RES_X,self.position[1]+0.05*RES_Y),self),
             ]
 
-        elif self.menu.current_level_index == self.max_level_index - 1:
+        elif self.main.current_level_index == self.main.max_level_index - 1:
             self.ui_elements_button = [
                 ButtonSelectLeft(self.main,(self.position[0]-0.15*RES_X,self.position[1]+0.05*RES_Y),self),
                 CurrentGameNameDisplay(self.main,(self.position[0],self.position[1]+0.05*RES_Y),self),
@@ -113,7 +109,7 @@ class CurrentGameNameDisplay(Button):
         self.update_surface()
 
     def update_content(self):
-        self.text = self.selector.menu.levels_list[self.selector.menu.current_level_index][0]
+        self.text = self.selector.menu.main.levels_list[self.selector.menu.main.current_level_index][0]
 
     def hover(self):
         is_colliding = self.rect.collidepoint(pg.mouse.get_pos())
@@ -148,15 +144,14 @@ class ButtonSelectRight(Button):
         self.background_idle = self.background
         self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 30)
         self.label = self.myfont.render(self.text, 1, self.foreground)
-        self.Game_index_Selector = 0
         self.update_surface()
         self.position = self.get_position_centered_surface()
         self.update_surface()
 
     def action(self):
-        self.selector.menu.current_level_index += 1
-        if self.selector.menu.current_level_index > self.selector.max_level_index:
-            self.selector.menu.current_level_index = self.selector.max_level_index
+        self.selector.menu.main.current_level_index += 1
+        if self.selector.menu.main.current_level_index > self.selector.menu.main.max_level_index:
+            self.selector.menu.main.current_level_index = self.selector.menu.main.max_level_index
         self.selector.update_selector()
 
 class ButtonSelectLeft(Button):
@@ -174,9 +169,9 @@ class ButtonSelectLeft(Button):
         self.update_surface()
 
     def action(self):
-        self.selector.menu.current_level_index -= 1
-        if self.selector.menu.current_level_index < 0:
-            self.selector.menu.current_level_index = 0
+        self.selector.menu.main.current_level_index -= 1
+        if self.selector.menu.main.current_level_index < 0:
+            self.selector.menu.main.current_level_index = 0
         self.selector.update_selector()
 
 class Play_Button(Button):
@@ -196,7 +191,7 @@ class Play_Button(Button):
 
     def action(self):
         print("Good Game")
-        level = self.menu.levels[self.menu.levels_list[self.menu.current_level_index][0]]
+        level = self.main.levels[self.main.levels_list[self.main.current_level_index][0]]
         self.main.load_game(level)
 
 class Quit_Game_Button(Button):

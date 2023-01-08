@@ -1,5 +1,5 @@
 import pygame as pg;
-from ui_component import *;
+from ui.ui_component import *;
 from config import *
 
 class Hud:

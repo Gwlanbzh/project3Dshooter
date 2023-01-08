@@ -3,7 +3,7 @@ from config import *
 from world import *
 from render import Camera
 from bodys import *
-from hud import Hud
+from ui.hud import Hud
 from bodys.creatures.path_finding import *
 
 class Game:

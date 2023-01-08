@@ -1,7 +1,7 @@
 
 import pygame as pg
 import sys
-from main_menu import MainMenu
+from ui.main_menu import MainMenu
 from levels import *
 from config import Config
 from sound import Sound
@@ -11,15 +11,19 @@ class Main():
         pg.init()
         self.window = pg.display.set_mode(Config.WINDOW_SIZE)
         self.levels = levels
+        self.levels_list = [ (level_name , False) if i == 0 else (level_name,True) for i , level_name in enumerate(self.levels)] 
+        self.current_level_index = 0
+        self.max_level_index = len(self.levels)
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
-        self.draw2d = True
+        self.draw2d = False
         self.game = None
         self.sound = Sound()
 
         self.music = pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/RideOfTheValkyries.mp3")
         self.music.play()
+        self.sound.shut_music()
 
         # self.load_game(map_file)
 
@@ -32,7 +36,15 @@ class Main():
                 self.game.delta_time = self.delta_time
                 self.game.world.players[0].get_inputs(events)
                 if game.is_game_over() == "defeat":
-                    self.unload_game()
+                    # self.unload_game()
+                    pass
+                elif game.is_game_over() == "victory":
+                    # self.hud.victory() 
+                    self.current_level_index += 1
+                    if self.current_level_index > self.max_level_index:
+                        self.current_level_index = self.main_level_index 
+                    level = self.levels[self.levels_list[self.current_level_index][0]]
+                    self.load_game(level)
                 elif game.is_abandon:
                     self.unload_game()
             else : # else run menu
