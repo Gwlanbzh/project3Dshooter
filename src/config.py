@@ -26,7 +26,10 @@ class Config():
     FOV_Y = 2*pi/3
     
     VIEW_HEIGHT = 75
-        
+
+    BOBBING_FREQUENCY = 12
+    BOBBING_INTENSITY = 4
+
     TEXTURES_DIR = "src/assets/visual/textures/"
     SPRITES_DIR = "src/assets/visual/sprites/"
     SKYBOX_DIR = "src/assets/visual/env/"
