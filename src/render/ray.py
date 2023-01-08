@@ -5,10 +5,12 @@ from render.textures import NO_WALL
 
 
 class Ray():
-    def __init__(self, origin: v2, direction: v2, map):
+    def __init__(self, origin: v2, direction: v2, map, skipped_hits=0):
         """
         Casts a ray by implementing the DDA algorithm.
-        """        
+        """
+        hit_count = skipped_hits + 1
+
         x_dir, y_dir = direction
 
         x_ratio = sqrt(1 + (y_dir/x_dir) ** 2) if x_dir != 0 else 1e30  # lenght of the hypotenuse for a dx of 1 <=> proportionality ratio between the x side and the hypotenuse.
@@ -43,7 +45,7 @@ class Ray():
         
         # Main loop, the DDA algorithm itself
         
-        while map[y_cell][x_cell] == 0:
+        while hit_count > 0:
             if x_delta < y_delta:
                 x_delta += x_ratio
                 x_cell += x_step
@@ -52,6 +54,8 @@ class Ray():
                 y_delta += y_ratio
                 y_cell += y_step
                 side = 'y'
+            if map[y_cell][x_cell] != 0:
+                hit_count -= 1
         
         
         if side == 'x':

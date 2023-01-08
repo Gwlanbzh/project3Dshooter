@@ -54,10 +54,16 @@ class Camera():
             
             # computing the ray and displaying the wall segment.
             ray = Ray(self._bound_player.r, ray_direction, map)
-            rays.append(ray)
             
             distance = ray.distance * cos(th)
             z_buffer.append(ray.distance)
+
+            if ray.hit_type == 9 and distance <= self._bound_player.size:
+                #  9 is a cell type corresponding to secrets, we're not drawing them.
+                # Instead, we cast a new ray to see what's behind.
+                ray = Ray(self._bound_player.r, ray_direction, map)
+                distance = ray.distance * cos(th)
+                z_buffer[-1] = ray.distance
             
             upper_height = scr_h(height_map[ray.hit_type], distance)
             lower_height = scr_h(VIEW_HEIGHT             , distance)
