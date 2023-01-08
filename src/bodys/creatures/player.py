@@ -48,8 +48,6 @@ class Player(Creature):
 
 
     def update(self):  # might be move into Creature or Body
-        # heal
-        # status, maybe buff / debuff
         pass
     
     

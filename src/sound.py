@@ -20,7 +20,7 @@ class Sound():
         ]
 
         self.pistol_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3")
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/p228-1.mp3")
         ]
 
         self.rifle_sound = [
@@ -36,11 +36,8 @@ class Sound():
         ]
 
         self.superweapon_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/superweapon_sound.mp3")
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"weapons/machgf{i}b.mp3") for i in range(1, 4)
         ]
-
-        self.ui_sound_button = [ pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3") ]
-        self.ui_sound_hover = [ pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/hover.mp3") ]
 
         self.pickable_generic = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/generic.ogg")
@@ -78,7 +75,13 @@ class Sound():
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/death{i}.ogg") for i in range(3)
         ]
 
-        self.player_death = self.player_hurt
+        self.ui_sound_button = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3")
+        ]
+
+        self.ui_sound_hover = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/hover.mp3")
+        ]
 
 
         self.sound_ids = {
@@ -104,7 +107,7 @@ class Sound():
             "grunt_death": self.grunt_death,
             "heavy_death": self.heavy_death,
             "boss_death": self.boss_death,
-            "player_death": self.player_death,
+            "player_death": self.player_hurt,
         }
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
