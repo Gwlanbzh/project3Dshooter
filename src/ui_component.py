@@ -185,7 +185,7 @@ class Menu():
         self.position = (position[0]-self.size[0]//2,position[1]-self.size[1]//2)
         self.background = pg.transform.scale(self.background,self.size)
         self.ui_elements_button = [
-            WorldToMainMenuButton(game,(position[0],self.size[1]//2*0.90+position[1])),
+            GameToMainMenuButton(game,(position[0],self.size[1]//2*0.90+position[1])),
         ]
 
     def draw(self):
@@ -193,7 +193,7 @@ class Menu():
         for element in self.ui_elements_button:
             element.draw()
 
-class WorldToMainMenuButton(Button):
+class GameToMainMenuButton(Button):
     def __init__(self,game,position):
         super().__init__(game,position)
         self.text = "Main Menu"

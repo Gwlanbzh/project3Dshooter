@@ -8,8 +8,10 @@ class Maze(Game):
     def is_game_over(self):
         curr_cell = (int(self.world.players[0].r.x)//100, int(self.world.players[0].r.y)//100)
         if any([curr_cell == exit for exit in self.world.exits]):
+            print("victory")
             return "victory"
         if self.world.players[0].health == 0:
+            print("defeat")
             return "defeat"
         return ""
 

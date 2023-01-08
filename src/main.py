@@ -14,7 +14,7 @@ class Main():
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
-        self.draw2d = False
+        self.draw2d = True
         self.game = None
         self.sound = Sound()
 
@@ -27,15 +27,15 @@ class Main():
         while True :
             game = self.game
             events = self.check_event()
-            if game != None:
+            if game != None: # if game is initialize
                 game.run()
                 self.game.delta_time = self.delta_time
                 self.game.world.players[0].get_inputs(events)
-                if game.is_game_over():
-                    game = None
+                if game.is_game_over() == "defeat":
+                    self.unload_game()
                 elif game.is_abandon:
                     self.unload_game()
-            else :
+            else : # else run menu
                 self.main_menu.run()
 
             fps = self.clock.get_fps()
@@ -59,6 +59,8 @@ class Main():
             else:
                 self.game.hud.click(event)
                 self.game.hud.hover()
+        
+        self.cursor_visibility()
         return events
 
     def load_game(self,level):
@@ -67,12 +69,19 @@ class Main():
 
     def unload_game(self):
         self.game = None
-
         self.music.play()
 
     def quit(self):
         pg.quit()  # quit pygame
         sys.exit()  # better quit, remove some error when  quiting
+
+    def cursor_visibility(self):
+        if self.game == None or self.game.hud.menu_esc_is_toggle:
+            pg.event.set_grab(True)
+            pg.mouse.set_visible(True)
+        else:
+            pg.event.set_grab(True)
+            pg.mouse.set_visible(False)
 
 if __name__ == "__main__":
     main = Main()

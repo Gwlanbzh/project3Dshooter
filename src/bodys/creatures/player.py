@@ -48,10 +48,9 @@ class Player(Creature):
 
 
     def update(self):  # might be move into Creature or Body
-        self.cursor_visibility()
         # heal
         # status, maybe buff / debuff
-        # TODO : not logical to call self.get_inputs, call self.move() instead would be better
+        pass
     
     
     def get_inputs(self,event):
@@ -92,9 +91,6 @@ class Player(Creature):
                         self.health += 10
                     if event.key == pg.K_p:
                         self.game.hud.toggle()
-                    if event.key == pg.K_ESCAPE:
-                        self.game.hud.menu_esc_is_toggle = True
-                        self.game.is_paused = True
                     if event.key == pg.K_ESCAPE:
                         self.game.hud.menu_esc_is_toggle = True
                         self.game.is_paused = True
@@ -204,10 +200,3 @@ class Player(Creature):
         self.orientation -= direction * sensitivity * dt
         self.orientation %= tau
 
-    def cursor_visibility(self):
-        if self.game.hud.menu_esc_is_toggle:
-            pg.event.set_grab(True)
-            pg.mouse.set_visible(True)
-        else:
-            pg.event.set_grab(True)
-            pg.mouse.set_visible(False)

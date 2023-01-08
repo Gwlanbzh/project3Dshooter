@@ -115,6 +115,28 @@ class CurrentGameNameDisplay(Button):
     def update_content(self):
         self.text = self.selector.menu.levels_list[self.selector.menu.current_level_index][0]
 
+    def hover(self):
+        is_colliding = self.rect.collidepoint(pg.mouse.get_pos())
+        if is_colliding and not self.mouse_was_hover:
+            if self.is_activate:
+                self.foreground = self.foreground_activate
+            else:
+                self.foreground = self.foreground_hover
+            self.label = self.myfont.render(self.text, 1, self.foreground)
+            self.update_surface()
+            if not self.mouse_is_over: 
+               self.game.sound.play_sound("hover")
+            self.mouse_is_over = True
+        elif self.mouse_is_over and not is_colliding:
+            if self.is_activate:
+                self.foreground = self.foreground_activate
+            else:
+                self.foreground = self.foreground_idle
+            
+            self.label = self.myfont.render(self.text, 1, self.foreground)
+            self.update_surface()
+            self.mouse_is_over = False
+
 
 class ButtonSelectRight(Button):
     def __init__(self, main, position,selector):

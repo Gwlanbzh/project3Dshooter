@@ -71,7 +71,7 @@ class PathFinding:
             children = []
         
             for child_pos in current_node.neighbour:
-                if child_pos not in mobs_pos:
+                if child_pos not in mobs_pos: # path will be compute without a mob in the path
                     if child_pos != current_node.position: 
                         # Update node parent
                         new_node = Node(child_pos,self.graph[child_pos].neighbour)
