@@ -94,6 +94,10 @@ class Creature(Body):
     def hurt(self, damages):
         self.hurt_frame_time = pg.time.get_ticks()
         self.health = max(0, self.health - damages)
+        if self.health == 0:
+            self.game.sound.play_sound(f"{self.model}_death", self.game.world.players[0].r, self.r)
+        else:
+            self.game.sound.play_sound(f"{self.model}_hurt", self.game.world.players[0].r, self.r)
 
     def draw(self, game): # might be move into Creature or Body
         render_pos = super().draw(game)

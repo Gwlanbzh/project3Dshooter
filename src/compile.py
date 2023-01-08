@@ -1,3 +1,4 @@
+#!/bin/env python3
 from sys import argv
 from bodys import *
 from storage import *

@@ -106,7 +106,7 @@ class Camera():
             delta_r = body.r - self._bound_player.r
             
             #if delta_r == v2(0, 0):   # when itering, will have to replace with "continue"
-            if delta_r.magnitude() < self._bound_player.size:   # when itering, will have to replace with "continue"
+            if delta_r.magnitude() < self._bound_player.size/2:   # when itering, will have to replace with "continue"
                 # edge case in which we won't draw
                 continue
                 
@@ -159,5 +159,5 @@ class Camera():
         self._draw_floor(window)
         self._draw_walls(window)
         self._draw_sprites(window)
-        self._bound_player.current_weapon.draw(window)
+        self._bound_player.current_weapon.draw(self._ressources, window)
         

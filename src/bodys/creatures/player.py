@@ -28,6 +28,8 @@ class Player(Creature):
         
         self.size = 40
         self.color = 'blue'
+        self.model = "player"
+
         self.orientation = -tau/4
         self.vorientation = 0
         self.spawn_pos = r
@@ -35,6 +37,7 @@ class Player(Creature):
         self.visual_health = self.health
 
         # weapons attributes
+        self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
         self.ammo = 20  # may change to dict ?
         
