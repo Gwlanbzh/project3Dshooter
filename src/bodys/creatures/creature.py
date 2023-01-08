@@ -41,7 +41,7 @@ class Creature(Body):
     def in_wall(self, pos):
         x , y = pos
         world = self.game.world.map.grid
-        return world[int((y)//100)][int((x)//100)] != 0
+        return world[int((y)//100)][int((x)//100)] not in [0, 9]
 
     def not_colliding(self, dx, dy):
         """
@@ -128,7 +128,7 @@ class Creature(Body):
             if t - self.walking_frame_time > 100:
                 self.walking_frame_time = t
                 self.img_index = (self.img_index + 1)%len(data)
-            return SpriteStruct(data[self.img_index])
+            return SpriteStruct(data[self.img_index], h, w)
         
         data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
         return SpriteStruct(data, h, w)

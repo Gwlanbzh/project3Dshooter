@@ -14,7 +14,7 @@ class Main():
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
-        self.draw2d = True
+        self.draw2d = False
         self.game = None
         self.sound = Sound()
 
