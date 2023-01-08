@@ -49,7 +49,6 @@ class Player(Creature):
 
     def update(self):  # might be move into Creature or Body
         self.cursor_visibility()
-        self.move()
     
     
     def get_inputs(self,event):

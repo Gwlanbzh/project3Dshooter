@@ -26,6 +26,8 @@ class Game:
         self.sound = sound
         self.is_paused = False
         self.is_abandon = False
+
+        pg.mouse.get_rel()  # For the initialization, so that the Player doesn't turn because of the menu'
     
     def is_game_over(self):
         return ""
