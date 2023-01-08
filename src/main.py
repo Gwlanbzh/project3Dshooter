@@ -9,7 +9,7 @@ from sound import Sound
 class Main():
     def __init__(self):
         pg.init()
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
         self.levels = levels
         self.main_menu = MainMenu(self)
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
