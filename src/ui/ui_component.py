@@ -103,7 +103,7 @@ class Button(Display):
                     self.is_click = True
                     self.lifetime = 10 # time period might use pg.time.get_tick()
                     if self.sound != None:
-                        self.main.sound.play_sound("click")
+                        self.sound.play_sound("click")
                     self.update_surface()
                     self.action()
 
@@ -148,7 +148,7 @@ class Health_Bar():
         self.health_bar_length = 400
         self.health_ratio = player.max_health / self.health_bar_length
         self.health_change_speed = 1
-        self.icon = pg.image.load(PATH_ASSETS+"cross.png")
+        self.icon = pg.image.load(PATH_ASSETS+"visual/ui/cross.png")
         self.icon = pg.transform.scale(self.icon,(70,70))
         self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 16)
 

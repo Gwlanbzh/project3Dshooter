@@ -19,7 +19,7 @@ class MainMenu:
         self.set_background(PATH_ASSETS+"Menu_Background.jpg",(RES_X,RES_Y))
 
     def set_background(self,path,size):
-        background = pg.image.load(PATH_ASSETS+"Menu_Background.jpg")
+        background = pg.image.load(PATH_ASSETS+"visual/ui/Menu_Background.jpg")
         background = pg.transform.scale(background,size)
         self.background = background
 

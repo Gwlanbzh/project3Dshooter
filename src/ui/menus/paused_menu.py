@@ -6,7 +6,7 @@ class PausedMenu():
     def __init__(self,game,position,return_string = None, return_action = None):
         self.game = game
         self.color_backbackground = (0,0,0)
-        self.background = pg.image.load(PATH_ASSETS+"Menu_Background.jpg")
+        self.background = pg.image.load(PATH_ASSETS+"visual/ui/Menu_Background.jpg")
         self.size = (RES_X*0.3,RES_Y*0.6)
         self.position = (position[0]-self.size[0]//2,position[1]-self.size[1]//2)
         self.background = pg.transform.scale(self.background,self.size)
