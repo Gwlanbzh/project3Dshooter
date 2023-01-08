@@ -175,6 +175,7 @@ class Play_Button(Button):
     def action(self):
         print("Good Game")
         level = self.menu.levels[self.menu.levels_list[self.menu.current_level_index][0]]
+        print(level["type"])
         self.main.load_game(level)
 
 class Quit_Game_Button(Button):

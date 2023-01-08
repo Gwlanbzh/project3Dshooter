@@ -36,7 +36,7 @@ class Sound():
         ]
 
         self.superweapon_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/superweapon_sound.mp3")
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"weapons/machgf{i}b.mp3") for i in range(1, 4)
         ]
 
         self.ui_sound_button = [ pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3") ]
