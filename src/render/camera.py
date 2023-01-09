@@ -40,7 +40,7 @@ class Camera():
         self.z_buffer = []
         map = self._bound_player.game.world.map.grid
         
-        for n in range(RES_X):
+        for n in range(RES_X + 1):
             # computing the ray's direction vector.
             th = theta(n)
             
