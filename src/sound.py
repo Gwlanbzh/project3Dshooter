@@ -20,7 +20,7 @@ class Sound():
         ]
 
         self.pistol_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/p228-1.mp3")
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3")
         ]
 
         self.rifle_sound = [

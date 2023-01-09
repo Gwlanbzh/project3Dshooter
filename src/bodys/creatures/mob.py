@@ -34,7 +34,7 @@ class Mob(Creature):
         self.has_seen_player = False
         self.fov = pi/2
         self.can_move_delay = 0
-        self.frequence = 0.008 
+        self.frequence = 0.008
         self.current_weapon = Pistol()
         self.range = self.current_weapon.range
         self.ammo = 10000
@@ -78,6 +78,7 @@ class Mob(Creature):
                         self.can_move_delay = 30
                         direction = v2(player.r - self.r)
                         self.orientation = atan2(direction.y,direction.x)
+                        self.orientation %= tau
                         self.current_weapon.shoot(self, self.game.world.players)
                     # or move to the player
                     elif self.can_move_delay < 1 and dist_with_player > 0.2 * self.range or not mob_view_player:
@@ -92,6 +93,7 @@ class Mob(Creature):
                     self.walking = False
                     direction = v2(player.r - self.r)
                     self.orientation = atan2(direction.y,direction.x)
+                    self.orientation %= tau
                     self.current_weapon.shoot(self, self.game.world.players)
             self.can_move_delay -= 1
 
