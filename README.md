@@ -21,7 +21,7 @@ Pour cela, lancez la commande :
 
 # Lancer le jeu
 
-`py src/menu.py`
+`py src/main.py`
 
 # Création de maps
 
