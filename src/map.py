@@ -68,12 +68,6 @@ class Map:
             if self.map_dic[position] != 0: # index 0 extracts the type of wall.
                 pg.draw.rect(game.window,"black",
                               (posx, posy,100,100),2)
-
-        for position in self.graph:
-            posx = position[0] * WALL_WIDTH - p_pos.x + x0
-            posy = position[1] * WALL_WIDTH - p_pos.y + y0
-            pg.draw.rect(game.window,"red",(posx,posy,10,10))
-
 class Node:
     def __init__(self,position,neighbour = None):
         self.position = position

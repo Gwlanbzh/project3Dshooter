@@ -41,10 +41,6 @@ class Main():
         self.music = pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/RideOfTheValkyries.mp3")
         self.music.play()
 
-        self.sound.shut_music()
-
-        # self.load_game(map_file)
-
     def loop(self):
         while True :
             game = self.game
