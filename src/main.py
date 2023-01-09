@@ -34,6 +34,7 @@ class Main():
         self.delta_time = 1 # utiliser dans le world.update et pour les vitesses
         self.clock = pg.time.Clock() # help managing time
         self.draw2d = False
+        self.is_next_game = False
 
 
         # Music For main menu
@@ -49,10 +50,11 @@ class Main():
             game = self.game
             events = self.check_event()
             if game != None: # if game is initialize
+                game.run()
                 self.game.delta_time = self.delta_time
                 self.game.world.players[0].get_inputs(events) 
 
-                if self.game.is_esc_menu_active: #when game is paused ,show esc_menu
+                if self.game.is_paused and not self.game.is_defeat and not self.game.is_victorious: #when game is paused ,show esc_menu
                     for event in pg.event.get():
                         if event.type == pg.KEYDOWN:
                             if event.key == pg.K_ESCAPE:
@@ -60,14 +62,14 @@ class Main():
                 if game.is_game_over() == "defeat" and not self.game.is_defeat: # when game is loose, show defeat menu
                     self.game.is_defeat = True
                     self.game.is_paused = True
-                print(game.is_game_over())
                 if game.is_game_over() == "victory": # when game is win, show victory menu
-                    print("bb")
                     self.game.is_victorious = True
                     self.game.is_paused = True
                 if game.is_abandon: # when game is abandon return to main menu
                     self.unload_game()
-                game.run()
+                if self.is_next_game:
+                    self.next_game()
+                    self.is_next_game = False
             else : # else run menu
                 self.main_menu.run()
 
@@ -108,14 +110,31 @@ class Main():
         """
         call to switch to the next level
         """
-        self.game=None
+        # backup important player's data
+        player = self.game.world.players[0]
+        player_health = player.health
+        player_health_visual = player.visual_health
+        player_current_weapons = player.current_weapon
+        player_weapons = player.weapons
+        player_ammo = player.ammo
+
+        self.game = None # make sure to clean game
         self.current_level_index += 1
         if self.current_level_index > self.max_level_index:
             self.current_level_index = self.main_level_index 
         level = self.levels[self.levels_list[self.current_level_index][0]]
         self.load_game(level)
+        # make sur to remove victorious status
         self.game.is_victorious = False
         self.game.is_paused = False
+
+        # Restore important player's data
+        player.health = player_health
+        player.visual_health = player_health_visual
+        player.current_weapon = player_current_weapons
+        player.weapons = player_weapons
+        player.ammo = player_ammo
+
 
     def quit(self):
         pg.quit()  # quit pygame
