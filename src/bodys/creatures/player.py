@@ -89,7 +89,7 @@ class Player(Creature):
                     if event.key == pg.K_p:
                         self.game.hud.toggle()
                     if event.key == pg.K_ESCAPE:
-                        self.game.hud.menu_esc_is_toggle = True
+                        self.game.is_esc_menu_active = True
                         self.game.is_paused = True
 
                     if event.key == pg.K_1 and Punch in self.weapons:

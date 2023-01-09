@@ -61,6 +61,7 @@ class Select_World_Selectioner:
         self.buttonselectorleft = ButtonSelectLeft(self.window,(self.position[0]-0.15*RES_X,self.position[1]+0.05*RES_Y),self.main,self)
         self.buttonselectorright = ButtonSelectRight(self.window,(self.position[0]+0.15*RES_X,self.position[1]+0.05*RES_Y),self.main,self)
         self.currentGameNameDisplay = CurrentGameNameDisplay(self.window,(self.position[0],self.position[1]+0.05*RES_Y),self.main,self)
+        #self.currentGameDescriptionDisplay = CurrentGameDescriptionDisplay(self.window,(self.position[0],self.position[1]+0.08*RES_Y),self.main,self)
         self.update_selector()
 
     def update_selector(self):
@@ -68,6 +69,7 @@ class Select_World_Selectioner:
             self.ui_elements_button = [
                 self.currentGameNameDisplay,
                 self.buttonselectorright,                
+                #self.currentGameDescriptionDisplay
             ]
             self.buttonselectorleft.lifetime = 0
 
@@ -75,6 +77,7 @@ class Select_World_Selectioner:
             self.ui_elements_button = [
                 self.buttonselectorleft,                
                 self.currentGameNameDisplay,
+                #self.currentGameDescriptionDisplay
             ]
             self.buttonselectorright.lifetime = 0
         else:
@@ -82,6 +85,7 @@ class Select_World_Selectioner:
                 self.currentGameNameDisplay,
                 self.buttonselectorleft,                
                 self.buttonselectorright,                
+                #self.currentGameDescriptionDisplay
             ]
         self.currentGameNameDisplay.update_content()
 
@@ -109,6 +113,9 @@ class DescriptionGameSelectorDisplay(Display):
         self.update_surface()
 
 class CurrentGameNameDisplay(Button):
+    """
+    No use for now. it waill be usefull to draw a preview of the level inside the menu
+    """
     def __init__(self, window, position,main,selector):
         super().__init__(window, position,main.sound)
         self.selector = selector
@@ -123,8 +130,24 @@ class CurrentGameNameDisplay(Button):
         self.update_surface()
 
     def action(self):
-        print("TODO")
         pass
+
+class CurrentGameDescriptionDisplay(Display):
+    """
+    not use. need a way to get description of a Game without the game to be init
+    """
+    def __init__(self, window, position,main,selector):
+        super().__init__(window, position)
+        self.selector = selector
+        self.main = main
+        self.font_size = 27
+        self.is_center = True
+        self.update_content()
+        self.update_surface()
+
+    def update_content(self):
+        self.content = self.main.levels[self.main.levels_list[self.main.current_level_index][0]]["type"]().description
+        self.update_surface()
 
 class ButtonSelectRight(Button):
     def __init__(self, window, position,main,selector):

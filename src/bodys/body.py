@@ -25,7 +25,6 @@ class Body():
 
         self.health = 1
 
-        ## TODO add sprites data structure
         self.model = "putin.png"
         self.height = 100
     

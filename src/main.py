@@ -22,7 +22,7 @@ class Main():
 
         # Level Stuff for selection in main menu
         self.levels = levels # levels from levels.py
-        self.levels_list = [ (level_name , False) if i == 0 else (level_name,True) for i , level_name in enumerate(self.levels)] 
+        self.levels_list = [ (level_name ,False) if i == 0 else (level_name,True) for i , level_name in enumerate(self.levels)] 
         self.current_level_index = 0
         self.max_level_index = len(self.levels)
 
@@ -53,7 +53,9 @@ class Main():
                     for event in pg.event.get():
                         if event.type == pg.KEYDOWN:
                             if event.key == pg.K_ESCAPE:
+                                pg.mouse.get_rel()
                                 self.game.is_paused = False
+                                self.game.is_esc_menu_active = False
                 else:
                     self.game.world.players[0].get_inputs(events) 
                 if game.is_game_over() == "defeat" and not self.game.is_defeat: # when game is loose, show defeat menu

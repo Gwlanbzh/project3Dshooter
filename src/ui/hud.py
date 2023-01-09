@@ -12,7 +12,7 @@ class Hud:
         self.game = game
         self.player = game.world.players[0]
         self.toolkit = 0
-        self.toolkit_prev = 1 # TODO change to 3 later 
+        self.toolkit_prev = 1
         self.ui_elements_display = []
         self.ui_elements_button = []
         self.ui_bar = []
