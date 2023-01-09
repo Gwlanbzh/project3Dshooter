@@ -134,8 +134,10 @@ class Creature(Body):
             frames = self.game.world.ressources.animated_sprites[f"{self.model}/walking"]
             if t - self.walking_frame_time > 100:
                 self.walking_frame_time = t
-                self.img_index = (self.img_index + 1)%len(data)
-            return SpriteStruct(frames[self.img_index], h, w)
+                self.img_index = (self.img_index + 1)%len(frames)
+            data = frames[self.img_index]
+            w = len(data) * h / data[0].get_height()
+            return SpriteStruct(data, h, w)
         
         data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
         w = len(data) * h / data[0].get_height()

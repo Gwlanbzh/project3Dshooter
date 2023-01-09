@@ -75,8 +75,13 @@ class Sound():
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/death{i}.ogg") for i in range(3)
         ]
 
-        player_death = player_hurt
+        ui_sound_button = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3")
+        ]
 
+        ui_sound_hover = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/hover.mp3")
+        ]
 
         self.sound_ids = {
             "weapon" : debug_weapon_sound,
@@ -87,6 +92,8 @@ class Sound():
             "punch" : punch_sound,
             "shotgun" : shotgun_sound,
             "superweapon" : superweapon_sound,
+            "hover" : ui_sound_hover,
+            "click" : ui_sound_button,
 
             "pickable": pickable_generic,
             "mine": mine_sound,
@@ -99,8 +106,9 @@ class Sound():
             "grunt_death": grunt_death,
             "heavy_death": heavy_death,
             "boss_death": boss_death,
-            "player_death": player_death,
+            "player_death": player_hurt,
         }
+
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
         self.end_music_time = -1
@@ -113,7 +121,7 @@ class Sound():
         self.player_channel = pg.mixer.find_channel()
     
 
-    def play_sound(self, id, player_pos, sound_pos, is_player=False):
+    def play_sound(self, id, player_pos=v2(0, 0), sound_pos=v2(0, 0), is_player=False):
         s = choice(self.sound_ids[id])
         
         if is_player:
@@ -161,6 +169,9 @@ class Sound():
     
     def shut_music(self):
         self.set_music_volume(0)
+    
+    def turn_on_music(self):
+        self.set_effect_volume(0.5)
 
     def set_effect_volume(self, vol):
         self.player_channel.set_volume(vol)
