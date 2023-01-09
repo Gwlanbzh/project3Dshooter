@@ -51,4 +51,4 @@ class GameToNextGameButton(Button):
         self.update_surface()
 
     def action(self):
-        self.game.main.next_game()
+        self.game.main.is_next_game = True

@@ -82,9 +82,12 @@ class Mob(Creature):
                 if rand < self.frequence:
                     self.walking = False 
                     self.can_move_delay = 30
+
+                        # change oriation before shoot
                     direction = v2(player.r - self.r)
                     self.orientation = atan2(direction.y,direction.x)
                     self.orientation %= tau
+
                     self.current_weapon.shoot(self, self.game.world.players)
                 # or move to the player
                 elif self.can_move_delay < 1 and dist_with_player > 0.2 * self.range or not mob_view_player:
@@ -97,9 +100,13 @@ class Mob(Creature):
             # when close to the player constant shoot
             else:
                 self.walking = False
+                self.can_move_delay = 30
+
+                    # change oriation before shoot
                 direction = v2(player.r - self.r)
                 self.orientation = atan2(direction.y,direction.x)
                 self.orientation %= tau
+
                 self.current_weapon.shoot(self, self.game.world.players)
         self.can_move_delay -= 1
 

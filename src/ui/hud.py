@@ -30,7 +30,7 @@ class Hud:
             element.draw()
         if self.game.is_esc_menu_active:
             self.menu_esc.draw()
-        elif self.game.is_defeat:
+        if self.game.is_defeat:
             self.defeatmenu.draw()
         if self.game.is_victorious:
             self.victorymenu.draw()
@@ -91,7 +91,7 @@ class Hud:
             self.ui_bar = []
 
     def hover(self):
-        if self.game.is_paused:
+        if self.game.is_esc_menu_active:
             self.menu_esc.hover()
         if self.game.is_defeat:
             self.defeatmenu.hover()
@@ -101,7 +101,7 @@ class Hud:
     def click(self,event):
         for element in self.ui_elements_button:
             element.click(event)
-        if self.game.is_paused:
+        if self.game.is_esc_menu_active:
             self.menu_esc.click(event)
         if self.game.is_defeat:
             self.defeatmenu.click(event)
