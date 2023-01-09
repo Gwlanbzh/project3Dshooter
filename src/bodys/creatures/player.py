@@ -39,9 +39,9 @@ class Player(Creature):
         # weapons attributes
         self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
-        self.ammo = 20  # may change to dict ?
+        self.ammo = 300 # may change to dict ?
         
-        self.max_ammo = 100
+        self.max_ammo = 300
 
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
@@ -99,7 +99,7 @@ class Player(Creature):
                         self.current_weapon = Shotgun()
                     if event.key == pg.K_4 and Rifle in self.weapons:
                         self.current_weapon = Rifle()
-                    if event.key == pg.K_LEFTPAREN and SuperWeapon in self.weapons:
+                    if event.key == pg.K_5 and SuperWeapon in self.weapons:
                         self.current_weapon = SuperWeapon()
             
             # Mouse events
@@ -117,12 +117,6 @@ class Player(Creature):
         # Weapon selection
         
             self.move(moves) 
-        else:
-            for event in pg.event.get():
-                if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_ESCAPE:
-                        self.game.hud.menu_esc_is_toggle = False
-                        self.game.is_paused = False
 
     
     def move(self,moves):

@@ -35,6 +35,11 @@ class Main():
                 game.run()
                 self.game.delta_time = self.delta_time
                 self.game.world.players[0].get_inputs(events)
+                if self.game.is_paused:
+                    for event in pg.event.get():
+                        if event.type == pg.KEYDOWN:
+                            if event.key == pg.K_ESCAPE:
+                                self.game.is_paused = False
                 if game.is_game_over() == "defeat":
                     # self.unload_game()
                     pass
@@ -88,7 +93,7 @@ class Main():
         sys.exit()  # better quit, remove some error when  quiting
 
     def cursor_visibility(self):
-        if self.game == None or self.game.hud.menu_esc_is_toggle:
+        if self.game == None or self.game.is_paused:
             pg.event.set_grab(True)
             pg.mouse.set_visible(True)
         else:

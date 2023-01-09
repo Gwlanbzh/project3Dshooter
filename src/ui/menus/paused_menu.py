@@ -3,21 +3,22 @@ from ui.ui_component import *;
 from config import *
 
 class PausedMenu():
-    def __init__(self,game,position,return_string = None, return_action = None):
+    def __init__(self,game,position):
         self.game = game
         self.color_backbackground = (0,0,0)
-        self.background = pg.image.load(PATH_ASSETS+"visual/ui/Menu_Background.jpg")
         self.size = (RES_X*0.3,RES_Y*0.6)
-        self.position = (position[0]-self.size[0]//2,position[1]-self.size[1]//2)
+        self.position = position
+
+        self.background = pg.image.load(PATH_ASSETS+"visual/ui/Menu_Background.jpg")
         self.background = pg.transform.scale(self.background,self.size)
 
         self.ui_elements_button = [
-            GameToMainMenuButton(game.window,(position[0],self.size[1]//2*0.90+position[1]),game),
-            ResumeButton(game.window,(position[0],self.size[1]//2*0.1+position[1]),game)
+            GameToMainMenuButton(game.window,(position[0],position[1]-self.size[1]//2*0.7),game),
+            ResumeButton(game.window,(position[0],self.size[1]//2+position[1]),game)
         ]
 
     def draw(self):
-        self.game.window.blit(self.background,(self.position[0],self.position[1]))
+        self.game.window.blit(self.background,((self.position[0]-self.size[0]//2,self.position[1]-self.size[1]//2)))
         for element in self.ui_elements_button:
             element.draw()
 

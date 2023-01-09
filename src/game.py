@@ -37,7 +37,8 @@ class Game:
         Main Game Loop 
         """
 
-        self.world.update(self)
+        if not self.is_paused:
+            self.world.update(self)
         self.sound.update_music()
         if self.draw2d:
             self.world.draw2d(self)

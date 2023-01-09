@@ -16,6 +16,7 @@ class Shotgun(Weapon):
         self.image_index = 0
 
         self.model = "shotgun"
+        self.key = 3
 
     def shoot(self, entity, mob_list):
         t = pg.time.get_ticks()

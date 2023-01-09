@@ -24,6 +24,7 @@ class Display:
         self.foreground = WHITE
         self.text = "" # should not be updated
         self.content = None # content can be updated
+        self.icon = None
         self.is_center = False
         self.is_init = False
 
@@ -35,19 +36,32 @@ class Display:
         """
         call when: init,hover,click,content updated
         """
-        if not self.is_init:
-            self.font = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf",self.font_size)
-        self.position = self.position_original
-        self.update_label()
-        self.update_surface_size()
-        if self.is_center:
-            self.center_surface()
-        self.surface = pg.Surface(self.size,pg.SRCALPHA)
-        if self.background != None:
-            self.surface.fill(self.background)
-        self.surface.blit(self.label,(0,0))
-        self.rect = pg.Rect(self.position[0], self.position[1], 
-                            self.size[0], self.size[1])
+        if self.icon == None:
+            if not self.is_init:
+                self.font = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf",self.font_size)
+            self.position = self.position_original
+            self.update_label()
+            self.update_surface_size()
+            if self.is_center:
+                self.center_surface()
+            self.surface = pg.Surface(self.size,pg.SRCALPHA)
+            if self.background != None:
+                self.surface.fill(self.background)
+            self.surface.blit(self.label,(0,0))
+            self.rect = pg.Rect(self.position[0], self.position[1], 
+                                self.size[0], self.size[1])
+        else:
+            self.position = self.position_original
+            self.update_surface_size()
+            if self.is_center:
+                self.center_surface()
+            self.surface = pg.Surface(self.size,pg.SRCALPHA)
+            if self.background != None:
+                self.surface.fill(self.background)
+            self.surface.blit(self.icon,(0,0))
+            self.rect = pg.Rect(self.position[0], self.position[1], 
+                                self.size[0], self.size[1])
+
 
     def center_surface(self):
         pos_x,pos_y = self.position_original
@@ -61,7 +75,10 @@ class Display:
             self.label = self.font.render(self.text+self.content, 1, self.foreground ,self.background)
 
     def update_surface_size(self):
-        self.size = self.label.get_size()
+        if self.icon == None:
+            self.size = self.label.get_size()
+        else: 
+            self.size = self.icon.get_size()
     
 
 class Button(Display):
