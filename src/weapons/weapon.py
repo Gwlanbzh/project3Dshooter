@@ -33,9 +33,9 @@ class Weapon():
                 self.last_shot_time = t
                 entity.ammo = max(0, entity.ammo - 1)
                 self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-                self.play_sound(entity.game, entity.r)
+                self.play_sound(entity)
             else:
-                self.play_sound(entity.game, entity.r, no_ammo=True)
+                self.play_sound(entity, no_ammo=True)
     
     def hit_scan(self, map, pos, orientation, mob_list):
 
@@ -107,16 +107,19 @@ class Weapon():
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
         self.image_index = i if i < len(Ressources.weapon_sprites[self.model]) else 0
 
-    def play_sound(self, game, pos, no_ammo=False):
+    def play_sound(self, entity, no_ammo=False):
         if Config.NO_SOUND:
             return
 
-        sound = game.sound
+        sound = entity.game.sound
+        pos_sound = entity.r
+        pos_player = entity.game.world.players[0].r
+        is_p = (entity.model == "player")
 
         t = pg.time.get_ticks()
         if no_ammo:
             if t - self.play_sound_time > self.delay:
                 self.play_sound_time = t
-                sound.play_sound("dryfire", game.world.players[0].r, pos)
+                sound.play_sound("dryfire", pos_player, pos_sound, is_player=is_p)
         else:
-            sound.play_sound(self.model, game.world.players[0].r, pos)
+            sound.play_sound(self.model, pos_player, pos_sound, is_player=is_p)
