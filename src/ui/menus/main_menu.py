@@ -45,12 +45,10 @@ class MainMenu:
 class Menu_Title(Display):
     def __init__(self,window,position):
         super().__init__(window,position)
-        self.text = "An_Awesome_Name"
+        self.text = "Bad Mood"
         self.font_size = 50
         self.is_center = True
         self.update_surface()
-
-
 
 class Select_World_Selectioner:
     def __init__(self,window,position,main):
