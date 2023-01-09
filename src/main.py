@@ -68,6 +68,7 @@ class Main():
                     self.next_game()
                     self.is_next_game = False
             else : # else run menu
+                self.sound.stop_music()
                 self.main_menu.run()
 
             fps = self.clock.get_fps()

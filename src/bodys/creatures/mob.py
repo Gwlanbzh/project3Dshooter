@@ -203,6 +203,7 @@ class Grunt(Mob):
         self.size = 27
         self.health = 75
         self.current_weapon = Pistol()
+        self.frequence = 0.010
         self.range = self.current_weapon.range
         
         self.hurt_time_duration = 300 # TODO : grande valeur pour l'exemple, à modifier
@@ -218,6 +219,7 @@ class Heavy(Mob):
         self.health = 400
         # TODO implement dynamic sprites
         self.current_weapon = Rifle()
+        self.frequence = 0.015
         self.range = self.current_weapon.range
         
         self.model = "heavy"
@@ -231,6 +233,7 @@ class Boss(Mob):
         
         self.size = 35
         self.health = 3000
+        self.frequence = 0.03
         self.current_weapon = SuperWeapon()
         self.range = self.current_weapon.range
 
