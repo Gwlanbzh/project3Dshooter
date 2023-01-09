@@ -14,7 +14,8 @@ class MainMenu:
         self.ui_elements_button = [
             Play_Button(main.window,(0.5*RES_X,0.4*RES_Y),main),
             Quit_Game_Button(main.window,(0.5*RES_X,0.7*RES_Y),main.sound),
-            Select_World_Selectioner(main.window,(0.5*RES_X,0.5*RES_Y),main)
+            Select_World_Selectioner(main.window,(0.5*RES_X,0.47*RES_Y),main),
+            Draw2DCheckBox(main.window,(0.5*RES_X - 100,0.6*RES_Y),main.sound,main),
         ]
         self.set_background(PATH_ASSETS+"Menu_Background.jpg",(RES_X,RES_Y))
 
@@ -87,6 +88,7 @@ class Select_World_Selectioner:
         self.currentGameNameDisplay.update_content()
 
     def draw(self):       
+        self.update_selector()
         for element in self.ui_elements_button:
             element.draw()
         for element in self.ui_elements_display:
@@ -185,4 +187,36 @@ class Quit_Game_Button(Button):
         pg.quit()  # quit pygame
         sys.exit()  # better quit, remove some error when  quiting
 
+class Draw2DCheckBox():
+    def __init__(self,window,position,sound,main):
+        self.ui_checkbox = self.CheckBox(window,position,sound,main)
+        self.ui_display = self.Label(window,(position[0]+40,position[1]+12))
+        pass
+
+    def draw(self):
+        self.ui_display.draw()
+        self.ui_checkbox.draw()
+    
+    def click(self,event):
+        self.ui_checkbox.click(event)
+
+    def hover(self):
+        self.ui_checkbox.hover()
+
+    class Label(Display):
+        def __init__(self, window, position,):
+            super().__init__(window, position)
+            self.text = ": Draw2D"
+            self.update_surface()
+    
+    class CheckBox(CheckBox):
+        def __init__(self, window, position, sound,main):
+            super().__init__(window, position, sound)
+            self.main = main
+            self.update_surface()
+
+        def action(self):
+            self.main.draw2d = not self.main.draw2d
+            self.update_surface()
+            
 

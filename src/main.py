@@ -41,18 +41,12 @@ class Main():
                             if event.key == pg.K_ESCAPE:
                                 self.game.is_paused = False
                 if game.is_game_over() == "defeat":
-                    # self.unload_game()
                     self.game.is_defeat = True
                     self.game.is_paused = True
-                    pass
-                elif game.is_game_over() == "victory":
-                    # self.hud.victory() 
-                    self.current_level_index += 1
-                    if self.current_level_index > self.max_level_index:
-                        self.current_level_index = self.main_level_index 
-                    level = self.levels[self.levels_list[self.current_level_index][0]]
-                    self.load_game(level)
-                elif game.is_abandon:
+                if game.is_game_over() == "victory":
+                    self.game.is_victorious = True
+                    self.game.is_paused = True
+                if game.is_abandon:
                     self.unload_game()
             else : # else run menu
                 self.main_menu.run()
@@ -83,12 +77,19 @@ class Main():
         return events
 
     def load_game(self,level):
-        self.game = level["type"](level["map_file"], self.draw2d,self.window,self.delta_time,self.clock,self.sound)
+        self.game = level["type"](level["map_file"], self.draw2d,self.window,self.delta_time,self.clock,self.sound,self)
         pg.mixer.stop()
 
     def unload_game(self):
         self.game = None
         self.music.play()
+
+    def next_game(self):
+        self.current_level_index += 1
+        if self.current_level_index > self.max_level_index:
+            self.current_level_index = self.main_level_index 
+        level = self.levels[self.levels_list[self.current_level_index][0]]
+        self.load_game(level)
 
     def quit(self):
         pg.quit()  # quit pygame

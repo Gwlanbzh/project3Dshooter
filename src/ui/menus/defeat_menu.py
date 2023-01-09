@@ -12,6 +12,7 @@ class DefeatMenu():
         self.background = pg.transform.scale(self.background,self.size)
 
         self.ui_elements_button = [
+            GameToMainMenuButton(game.window,(RES_X*0.5,RES_Y*0.8),game)
         ]
 
     def draw(self):
@@ -27,5 +28,14 @@ class DefeatMenu():
         for element in self.ui_elements_button:
             element.click(event)
 
-class to_main_menu(): # TODO
-    pass
+class GameToMainMenuButton(Button):
+    def __init__(self,window,position,game):
+        super().__init__(window,position)
+        self.game = game
+        self.text = "Main Menu"
+        self.foreground = WHITE
+        self.is_center = True
+        self.update_surface()
+
+    def action(self):
+        self.game.is_abandon = True

@@ -2,6 +2,7 @@ import pygame as pg;
 from ui.ui_component import *;
 from ui.menus.paused_menu import PausedMenu
 from ui.menus.defeat_menu import DefeatMenu
+from ui.menus.victory_menu import VictoryMenu
 from config import *
 
 from os import listdir
@@ -17,6 +18,7 @@ class Hud:
         self.ui_bar = []
         self.menu_esc = PausedMenu(game,(RES_X*0.5,RES_Y*0.5))
         self.defeatmenu = DefeatMenu(game,(RES_X*0.5,RES_Y*0.5))
+        self.victorymenu = VictoryMenu(game,(RES_X*0.5,RES_Y*0.5))
         self.toggle()
 
     def draw(self):
@@ -30,6 +32,8 @@ class Hud:
             self.menu_esc.draw()
         elif self.game.is_defeat:
             self.defeatmenu.draw()
+        if self.game.is_victorious:
+            self.victorymenu.draw()
     
     def update(self):
         self.update_content()
@@ -66,7 +70,7 @@ class Hud:
         if value == 2:
             self.toolkit = 1
             self.ui_elements_display = [
-                                        FPS_Display(window,(0,0),game),
+                                        FPS_Display(window,(5,5),game),
                                         WeaponInventory(window,(RES_X-70,-60),self.player),
                                         AmmoPrettyDisplay(window,(RES_X*0.05,RES_Y*0.92),self.player),
                                         # VictoryStatus((RES_X*0.5,RES_Y*0.5)(window)
@@ -89,12 +93,20 @@ class Hud:
     def hover(self):
         if self.game.is_paused:
             self.menu_esc.hover()
+        if self.game.is_defeat:
+            self.defeatmenu.hover()
+        if self.game.is_victorious:
+            self.victorymenu.hover()
 
     def click(self,event):
         for element in self.ui_elements_button:
             element.click(event)
         if self.game.is_paused:
             self.menu_esc.click(event)
+        if self.game.is_defeat:
+            self.defeatmenu.click(event)
+        if self.game.is_victorious:
+            self.victorymenu.click(event)
 class TP_Spawn_Button(Button):
     def __init__(self,window,position,player):
         super().__init__(window,position)

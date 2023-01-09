@@ -195,3 +195,54 @@ class Health_Bar():
         self.window.blit(label,(self.position[0]+30,self.position[1]+5))
         self.window.blit(self.icon,(self.position[0]-50,self.position[1]-45))
 
+class CheckBox(Button):
+    def __init__(self,window,position,sound = None):
+        super().__init__(window,position)
+        self.sound = sound
+        self.lifetime = -1
+        self.foreground_activate = RED
+        self.foreground_idle = self.foreground
+        self.foreground_hover = GRAY
+        self.checkbox_size = 40,40
+        self.icon_True = pg.image.load(PATH_ASSETS+"visual/ui/check_checkbox.png")
+        self.icon_True = pg.transform.scale(self.icon_True,self.checkbox_size)
+        self.icon_False = pg.image.load(PATH_ASSETS+"visual/ui/empty_checkbox.png")
+        self.icon_False = pg.transform.scale(self.icon_False,self.checkbox_size)
+        self.checkbox_status = False
+        self.mouse_is_over = False
+        self.is_click = False
+
+    def update_surface(self):
+        if self.checkbox_status:
+            self.icon = self.icon_True
+        else:
+            self.icon = self.icon_False
+        self.position = self.position_original
+        self.update_surface_size()
+        if self.is_center:
+            self.center_surface()
+        self.surface = pg.Surface(self.size,pg.SRCALPHA)
+        if self.background != None:
+            self.surface.fill(self.background)
+        self.surface.blit(self.icon,(0,0))
+        self.rect = pg.Rect(self.position[0], self.position[1], 
+                            self.size[0], self.size[1])
+
+    def click(self,event):
+        """
+        each button have one action, action define in 
+        the specific button class since every button are unique
+        pass
+        self.action() must be call inside self.click()
+        """
+        x, y = pg.mouse.get_pos()
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if pg.mouse.get_pressed()[0]:
+                if self.rect.collidepoint(x, y):
+                    if self.sound != None:
+                        self.sound.play_sound("click")
+                    self.checkbox_status = not self.checkbox_status
+                    self.update_surface()
+                    self.action()
+
+        
