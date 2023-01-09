@@ -7,8 +7,10 @@ from render.textures import NO_WALL
 class Ray():
     def __init__(self, origin: v2, direction: v2, map, skipped_hits=0):
         """
-        Casts a ray by implementing the DDA algorithm.
+        Casts a ray with a method based on the Digital differential analyzer algorithm.
+        Explanations can be found on the web, for instance at https://www.youtube.com/watch?v=NbSee-XM7WA.
         """
+        # Useful when wanting to see beyond a secret 9-tile.
         hit_count = skipped_hits + 1
 
         x_dir, y_dir = direction
@@ -36,15 +38,15 @@ class Ray():
             y_delta = (100 - (origin.y % 100)) / 100 * y_ratio
             y_rest = (origin.y % 100) / 100 * y_ratio
 
-        x_orig = int(origin.x)//100  # current cell the ray is in
+        # coordinates of current cell the ray is in
+        x_orig = int(origin.x)//100
         y_orig = int(origin.y)//100
 
         x_cell, y_cell = x_orig, y_orig
 
         side = ''  # will be set to 'x' or 'y' depending on the direction of the last move
         
-        # Main loop, the DDA algorithm itself
-        
+        # Main loop, the DDA algorithm itself.
         while hit_count > 0:
             if x_delta < y_delta:
                 x_delta += x_ratio
@@ -54,10 +56,12 @@ class Ray():
                 y_delta += y_ratio
                 y_cell += y_step
                 side = 'y'
+
             if map[y_cell][x_cell] != 0:
+                # wall hit
                 hit_count -= 1
         
-        
+        # computation of the euclidean distance
         if side == 'x':
             self.distance = 100 * (abs((x_cell - x_orig) * x_ratio) - abs(x_rest))
         else:  # side == 'y'
@@ -67,14 +71,19 @@ class Ray():
         
         hit_position = origin + self.distance * direction
         
+        # computation of the hit abscissa, taking into account the side of the cell that was hit.
         if side == 'x':
             if direction.x > 0:
-                self.block_hit_abs = int(hit_position.y % 100)
+                # hit from the left
+                self.block_hit_abs = hit_position.y % 100
             else:
-                self.block_hit_abs = int(100 - (hit_position.y % 100))
+                # hit from the right
+                self.block_hit_abs = 100 - (hit_position.y % 100)
         else:
             if direction.y > 0:
-                self.block_hit_abs = int(100 - (hit_position.x % 100))
+                # hit from below
+                self.block_hit_abs = 100 - (hit_position.x % 100)
             else:
-                self.block_hit_abs = int(hit_position.x % 100)
+                # hit from above
+                self.block_hit_abs = hit_position.x % 100
 

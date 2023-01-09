@@ -3,6 +3,12 @@ from storage.values import *
 from string import digits
 
 def create_world(data: str, skybox, floor, texture_set, map_scale):
+    """
+    Parses a string to extract the map grid and
+    the props, pickables, mobs, player spawns, and exits located in the map,
+    then creates a StorableWorld that can be written to a file.
+    Uses the values and associations in values.py.
+    """
     props = []
     pickables = []
     mobs = []
@@ -16,14 +22,18 @@ def create_world(data: str, skybox, floor, texture_set, map_scale):
         grid.append([])
         i += 1
         for x, c in enumerate(line):
-            if c == 0:  # special case for the 10th texture
+            if c == 0:
+                # special case for the 10th texture
                 grid[i].append(10)
             elif c in digits:
+                # walls
                 grid[i].append(int(c))
             else:
                 if c == "E":
+                    # exits
                     exits.append((x, y))
                 elif c != " ":
+                    # we have a body here.
                     Class = values[c]
                     
                     destination = values_destination[Class]

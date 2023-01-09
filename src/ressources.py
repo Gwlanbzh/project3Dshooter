@@ -2,7 +2,7 @@ from render import load_texture_set, load_skybox, load_static_sprites, load_anim
 
 class Ressources():
     """
-    This class is used to centralize the storage of the assets in RAM.
+    This class is used to centralize the storage of the assets in memory.
     It is called by the World class, which stores its instance into a member.
     No better way was found to so that.
     """
