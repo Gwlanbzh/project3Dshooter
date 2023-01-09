@@ -28,8 +28,8 @@ class Config():
     
     VIEW_HEIGHT = 85
 
-    BOBBING_FREQUENCY = 12
-    BOBBING_INTENSITY = 2.30
+    BOBBING_FREQUENCY = 10
+    BOBBING_INTENSITY = 1
 
 
     TEXTURES_DIR = "src/assets/visual/textures/"
