@@ -3,6 +3,10 @@ import os
 
 
 class StorableWorld:
+    """
+    A simple class that can be used to store a map in a file,
+    then loaded to a world by World.__init__().
+    """
     def __init__(self, props, pickables, mobs, players, exits, grid, skybox, floor, texture_set, map_scale):
         self.props = props
         self.pickables = pickables
@@ -22,8 +26,8 @@ class StorableWorld:
     
     def write(self, path: str):
         """
-        If file does not exist, returns 0 and write to it.
-        Returns -1 and does nothing otherwise.
+        Write a StorableWorld to a path.
+        Warning: will overwrite the file.
         """
         data = self.serialize()
         if not os.path.exists(path):
@@ -34,5 +38,8 @@ class StorableWorld:
         
 
 def load(path: str):
+    """
+    Reads a StorableWorld from a file and returns it deserialized.
+    """
     with open(path, "rb") as f:
         return pickle.loads(f.read())

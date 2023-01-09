@@ -12,10 +12,7 @@ mob_models_names = [
 ]
 
 static_sprites_names = [
-    #"default.png",
     "putin.png",
-    #"light.png",
-    #"demon.png",
     "grunt.png",
     
     "health_mini.png",
@@ -32,9 +29,6 @@ static_sprites_names = [
     "tree.png",
     "dead_tree.png",
     "barrel.png",
-
-    "dead_mob.png",
-
 ]
 
 animated_sprites_name = []
@@ -59,6 +53,8 @@ def load_animated_sprites():
     return textures
 
 
+# Structure used to pack a sprite's data to send them to the camera.
+# data is the texture, height and width the dimentions of the model.
 @dataclass
 class SpriteStruct:
     data  : list

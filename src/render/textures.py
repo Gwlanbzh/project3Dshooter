@@ -6,10 +6,10 @@ from render.vars import *
 
 __all__ = ["load_texture", "load_texture_set", "height_map", "NO_WALL"]
 
+
 NO_WALL = 0
 
-# height map for each texture
-
+# height map for each texture, that is above the player's point of view (e.g. the total height is this value *plus* VIEW_HEIGHT).
 height_map = {
     1: VIEW_HEIGHT + 75,
     2: VIEW_HEIGHT + 75,
@@ -26,13 +26,13 @@ height_map = {
 
 def load_texture(path: str):
     """
-    Return an array of the columns of a given image, as surfaces if surface is True, else as PixelArrays.
+    Return an array of the columns of a given image as pygame Surfaces.
     """
     return [column.transpose().make_surface() for column in pg.PixelArray(pg.image.load(path).convert_alpha())]
 
 def load_texture_set(texture_set: str):
     """
-    Return an array of the columns of a given image, as surfaces if surface is True, else as PixelArrays.
+    Return a dictionary of textures using load_textures.
     """
     texture_dict = {}
     try:

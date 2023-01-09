@@ -9,6 +9,8 @@ from bodys import *
 #
 ##################
 
+
+# character-to-class associations
 values = {
     "P": Player,
     "G": Grunt,
@@ -35,6 +37,8 @@ values = {
     " ": None,  # used for void
     }
 
+
+# Class-to-destination array associations
 values_destination = {
     Player: "players",
     Mob: "mobs",

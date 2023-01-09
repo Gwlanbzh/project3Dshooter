@@ -1,4 +1,5 @@
 .kdev4/
+.venv
 projet3dshooter.kdev4
 shell.nix
 flake.nix

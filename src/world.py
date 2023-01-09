@@ -12,10 +12,9 @@ class World:
     """ 
     def __init__(self, game, map_file):
         """
-        Spawns a Body.
-        
         Input:
             game : Game
+            map_file: str
         
         Outputs:
             World
@@ -58,7 +57,6 @@ class World:
     def draw2d(self,game):
         """
         Draw world on a 2d plane
-  
         """
         game.window.fill('grey')
 
