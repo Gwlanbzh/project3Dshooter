@@ -79,6 +79,7 @@ __Syntaxe:__
 ./compile.py SOURCE DEST [--skybox=<filename>] [--floor=<R>,<G>,<B>] [--texture-set=<name>]
 ```
 Où `filename` est le nom de l'image choisi comme skybox, `R`, `G` et `B` des entiers inférieurs à 256, `name` le nom d'un set (les sets disponibles sont dans `src/assets/visual/textures/`.)
+Les trois options sont facultatives, elles ont unee valeur par défaut (`"sky.png"`, `70,70,70` et `"default"`).
 
 Par convention, les fichiers textes pour les maps sont de simple `.txt`, alors que les maps compilées devront avoir un nom en `.bin`.
 
