@@ -3,6 +3,7 @@ from config import *
 from math import hypot
 from random import choice
 from os import listdir
+from pygame import Vector2 as v2
 
 class Sound():
     def __init__(self) -> None:
@@ -19,11 +20,11 @@ class Sound():
         ]
 
         self.pistol_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3")
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/p228-1.mp3")
         ]
 
         self.rifle_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/rifle-firing.mp3"),
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/uzi_fire.mp3"),
         ]
 
         self.punch_sound = [
@@ -31,12 +32,57 @@ class Sound():
         ]
 
         self.shotgun_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_shotgun.mp3"),
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/shotgun_fire.ogg"),
         ]
 
         self.superweapon_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/superweapon_sound.mp3")
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"weapons/machgf{i}b.mp3") for i in range(1, 4)
         ]
+
+        self.pickable_generic = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/generic.ogg")
+        ]
+
+        self.mine_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/mine_exp.mp3")
+        ]
+
+        self.grunt_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/grunt/pain{i}.ogg") for i in range(4)
+        ]
+
+        self.heavy_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/heavy/pain{i}.ogg") for i in range(4)
+        ]
+
+        self.boss_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/pain{i}.ogg") for i in range(4)
+        ]
+
+        self.player_hurt = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/player/pain{i}.ogg") for i in range(3)
+        ]
+
+        self.grunt_death = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/grunt/death{i}.ogg") for i in range(3)
+        ]
+
+        self.heavy_death = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/heavy/death{i}.ogg") for i in range(3)
+        ]
+
+        self.boss_death = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/death{i}.ogg") for i in range(3)
+        ]
+
+        self.ui_sound_button = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3")
+        ]
+
+        self.ui_sound_hover = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/hover.mp3")
+        ]
+
 
         self.sound_ids = {
             "weapon" : self.debug_weapon_sound,
@@ -47,6 +93,21 @@ class Sound():
             "punch" : self.punch_sound,
             "shotgun" : self.shotgun_sound,
             "superweapon" : self.superweapon_sound,
+            "hover" : self.ui_sound_hover,
+            "click" : self.ui_sound_button,
+
+            "pickable": self.pickable_generic,
+            "mine": self.mine_sound,
+
+            "grunt_hurt": self.grunt_hurt,
+            "heavy_hurt": self.heavy_hurt,
+            "boss_hurt": self.boss_hurt,
+            "player_hurt": self.player_hurt,
+
+            "grunt_death": self.grunt_death,
+            "heavy_death": self.heavy_death,
+            "boss_death": self.boss_death,
+            "player_death": self.player_hurt,
         }
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
@@ -56,7 +117,7 @@ class Sound():
         self.effect_volume = 1
     
 
-    def play_sound(self, id, player_pos, sound_pos):
+    def play_sound(self, id, player_pos = v2(0,0), sound_pos = v2(0,0)):
         hearing_sound_dist = WALL_WIDTH * 10
         x, y = player_pos - sound_pos
         dist_player_sound = hypot(x, y)

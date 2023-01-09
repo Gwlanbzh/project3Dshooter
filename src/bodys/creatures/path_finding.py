@@ -8,6 +8,7 @@ class PathFinding:
         self.map_height = game.world.map.map_height
         self.map_width = game.world.map.map_width
         self.graph = game.world.map.graph
+        self.game = game
         pass
 
     def get_path(self,current_node):
@@ -47,10 +48,12 @@ class PathFinding:
 
         # Adding a stop condition
         iterations = 0
-        max_iterations = 1000
+        max_iterations = 100
 
         # Loop until the queue is empty
         while len(open_list) > 0:
+
+            mobs_pos = self.game.world.mobs_position
             iterations += 1
 
             if iterations > max_iterations:
@@ -68,13 +71,14 @@ class PathFinding:
             children = []
         
             for child_pos in current_node.neighbour:
-                if child_pos != current_node.position: 
-                    # Update node parent
-                    new_node = Node(child_pos,self.graph[child_pos].neighbour)
-                    new_node.parent = current_node
+                if child_pos not in mobs_pos: # path will be compute without a mob in the path
+                    if child_pos != current_node.position: 
+                        # Update node parent
+                        new_node = Node(child_pos,self.graph[child_pos].neighbour)
+                        new_node.parent = current_node
 
-                # Append
-                children.append(new_node)
+                    # Append
+                    children.append(new_node)
 
             # Loop through children
             for child in children:

@@ -36,7 +36,8 @@ class World:
         self.map_scale = map_data.map_scale
         
         self.ressources = Ressources(map_data.texture_set, map_data.skybox, map_data.floor)
-    
+
+
     def update(self, game):
         """
         call upadate for every Body(or more) in the world
@@ -49,7 +50,6 @@ class World:
             <none>
         """
         self.players[0].update()
-
         self.mobs_position = [mob.map_pos for mob in self.mobs if not mob.is_dead()]
         #print(self.mobs_position)
         for mob in self.mobs:
@@ -66,7 +66,7 @@ class World:
   
         """
         game.window.fill('grey')
-        
+
         for prop in self.props:
            prop.draw(game)
         self.map.draw(game)
@@ -74,5 +74,5 @@ class World:
             mob.draw(game)
         for pickable in self.pickables:
             pickable.draw(game)
-        
         self.players[0].draw(game)
+        

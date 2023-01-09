@@ -1,15 +1,16 @@
 from math import pi
 
 WALL_WIDTH = 100
+WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
+PATH_ASSETS = "src/assets/"
 
 class Config():
     """
     Contains constants for the game.
     TODO: init config from config file
     """
-    WINDOW_SIZE = 1280, 800 # value link to the size of the map before render is finished
-    RES_X, RES_Y = WINDOW_SIZE
-    FRAME_RATE = 200
+    WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
+    FRAME_RATE = 60
 
     PLAYER_V = 0.05 # arbitraty value for good feeling
     PLAYER_FRICTION = 0.13
@@ -26,11 +27,10 @@ class Config():
     FOV_Y = 2*pi/3
     
     VIEW_HEIGHT = 75
-        
+    
     TEXTURES_DIR = "src/assets/visual/textures/"
     SPRITES_DIR = "src/assets/visual/sprites/"
     SKYBOX_DIR = "src/assets/visual/env/"
-    
     SOUNDS_FOLDER = "src/assets/sounds/"
 
     NO_SOUND = False

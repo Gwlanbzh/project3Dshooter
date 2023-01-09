@@ -27,12 +27,14 @@ class Player(Creature):
         self.v = v2(0, 0)
         
         self.size = 40
-        self.heal_recovery_time = 10000  # valeur arbitraire
         self.color = 'blue'
+        self.model = "player"
 
         self.orientation = -tau/4
         self.vorientation = 0
-        # TODO add ammo data structure
+        self.spawn_pos = r
+        # self.health
+        self.visual_health = self.health
 
         # weapons attributes
         self.current_weapon = Pistol()
@@ -46,70 +48,87 @@ class Player(Creature):
 
 
     def update(self):  # might be move into Creature or Body
-        self.move()
-        # heal
-        # status, maybe buff / debuff
-        # TODO : not logical to call self.get_inputs, call self.move() instead would be better
+        pass
     
     
-    def get_inputs(self):
+    def get_inputs(self,event):
         """
         Returns a force_vector based on the physical player's inputs.
         TODO maybye refactoring get inputs and mouvement call
         """
-        moves = set()
-
         keys = pg.key.get_pressed()
-        if keys[pg.K_z]:
-            moves.add(2)
-        if keys[pg.K_s]:
-            moves.add(3)
-        if keys[pg.K_q]:
-            moves.add(1)
-        if keys[pg.K_d]:
-            moves.add(4)
+
+
+        if not self.game.is_paused:
+            moves = set()
+            if keys[pg.K_z]:
+                moves.add(2)
+            if keys[pg.K_s]:
+                moves.add(3)
+            if keys[pg.K_q]:
+                moves.add(1)
+            if keys[pg.K_d]:
+                moves.add(4)
         
-        # sera géré par la souris plus tard
-        if keys[pg.K_e]:
-            self.rotate(-1)
-        if keys[pg.K_a]:
-            self.rotate(1)
+            # sera géré par la souris plus tard
+            if keys[pg.K_e]:
+                self.rotate(-1)
+            if keys[pg.K_a]:
+                self.rotate(1)
+
+            if keys[pg.K_o]:
+                self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
+            if keys[pg.K_k]:
+                self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
+
+            for event in event:
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_g:
+                        self.health -= 10
+                    if event.key == pg.K_h:
+                        self.health += 10
+                    if event.key == pg.K_p:
+                        self.game.hud.toggle()
+                    if event.key == pg.K_ESCAPE:
+                        self.game.hud.menu_esc_is_toggle = True
+                        self.game.is_paused = True
+
+                    if event.key == pg.K_1 and Punch in self.weapons:
+                        self.current_weapon = Punch()
+                    if event.key == pg.K_2 and Pistol in self.weapons:
+                        self.current_weapon = Pistol()
+                    if event.key == pg.K_3 and Shotgun in self.weapons:
+                        self.current_weapon = Shotgun()
+                    if event.key == pg.K_4 and Rifle in self.weapons:
+                        self.current_weapon = Rifle()
+                    if event.key == pg.K_LEFTPAREN and SuperWeapon in self.weapons:
+                        self.current_weapon = SuperWeapon()
+            
+            # Mouse events
+            left_click, _, _ = pg.mouse.get_pressed()
+            if left_click:
+                mob_list = self.game.world.mobs + self.game.world.props
+                self.current_weapon.shoot(self, mob_list)
         
-        if keys[pg.K_o]:
-            self.vorientation = min(self.vorientation + Config.PLAYER_VERT_ROT_SPEED, Config.PLAYER_MAX_VERT_ROT)
-        if keys[pg.K_k]:
-            self.vorientation = max(self.vorientation - Config.PLAYER_VERT_ROT_SPEED, -Config.PLAYER_MAX_VERT_ROT)
-        
+            mouse_delta_pos = pg.mouse.get_rel()
+            x, y = mouse_delta_pos
+            self.vorientation = self.vorientation - y * Config.PLAYER_VERT_ROT_SPEED
+            self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
+            self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
         
         # Weapon selection
         
-        # Mouse events
-        if keys[pg.K_1] and Punch in self.weapons:
-            self.current_weapon = Punch()
-        if keys[pg.K_2] and Pistol in self.weapons:
-            self.current_weapon = Pistol()
-        if keys[pg.K_3] and Shotgun in self.weapons:
-            self.current_weapon = Shotgun()
-        if keys[pg.K_4] and Rifle in self.weapons:
-            self.current_weapon = Rifle()
-        if keys[pg.K_LEFTPAREN] and SuperWeapon in self.weapons:
-            self.current_weapon = SuperWeapon()
-        
-        
-        left_click, _, _ = pg.mouse.get_pressed()
-        if left_click:
-            mob_list = self.game.world.mobs + self.game.world.props
-            self.current_weapon.shoot(self, mob_list)
-        
-        mouse_delta_pos = pg.mouse.get_rel()
-        x, y = mouse_delta_pos
-        self.vorientation = self.vorientation - y * Config.PLAYER_VERT_ROT_SPEED
-        self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
-        self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
-        
-        return moves
+            self.move(moves) 
+        else:
+            for event in pg.event.get():
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        self.game.hud.menu_esc_is_toggle = False
+                        self.game.is_paused = False
+
+            return set()
     
-    def move(self):
+    def move(self,moves):
         """
         TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
@@ -125,8 +144,6 @@ class Player(Creature):
         Output:
             Alter Creature position
         """
-
-        moves = self.get_inputs()
 
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
         speed = Config.PLAYER_V * dt 
