@@ -179,3 +179,6 @@ class Sound():
             self.effect_volume = 1
         else:
             self.effect_volume = vol
+    
+    def stop_music(self):
+        pg.mixer.music.stop()
