@@ -105,6 +105,7 @@ class Camera():
             # in order to avoid both possible symmetries
             #
             # the magnitude of the direction vector equals 1 (see its expression above), so we don't normalize it.
+            # the `sign' functions is from vars.py.'
             vp = direcion_vector.cross(delta_r)
             distance = delta_r.magnitude()
             angle = sign(vp) * acos( direcion_vector.dot(delta_r) / distance )
