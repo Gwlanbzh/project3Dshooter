@@ -13,7 +13,8 @@ class Punch(Weapon):
         self.time_between_sprites = 80
         
         self.model = "punch"
-    
+        self.key = 1 
+
     def draw(self, Ressources, window):
         self.update_image(Ressources)
 

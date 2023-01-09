@@ -12,3 +12,4 @@ class Rifle(Weapon):
         self.time_between_sprites = 90
 
         self.model = "rifle"
+        self.key = 4

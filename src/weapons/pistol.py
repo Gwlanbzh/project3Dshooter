@@ -17,3 +17,4 @@ class Pistol(Weapon):
         self.time_between_sprites = 75
         self.image_index = 0
         self.model = "pistol"
+        self.key = 2
