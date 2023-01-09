@@ -194,7 +194,7 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.size = 27
-        self.health = 100
+        self.health = 75
         self.current_weapon = Pistol()
         self.range = self.current_weapon.range
         
@@ -223,7 +223,7 @@ class Boss(Mob):
         super().__init__(game,r)
         
         self.size = 35
-        self.health = 2000
+        self.health = 3000
         self.current_weapon = SuperWeapon()
         self.range = self.current_weapon.range
 
