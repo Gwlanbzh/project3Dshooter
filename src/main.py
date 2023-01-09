@@ -52,13 +52,14 @@ class Main():
             if game != None: # if game is initialize
                 game.run()
                 self.game.delta_time = self.delta_time
-                self.game.world.players[0].get_inputs(events) 
 
                 if self.game.is_paused and not self.game.is_defeat and not self.game.is_victorious: #when game is paused ,show esc_menu
                     for event in pg.event.get():
                         if event.type == pg.KEYDOWN:
                             if event.key == pg.K_ESCAPE:
                                 self.game.is_paused = False
+                else:
+                    self.game.world.players[0].get_inputs(events) 
                 if game.is_game_over() == "defeat" and not self.game.is_defeat: # when game is loose, show defeat menu
                     self.game.is_defeat = True
                     self.game.is_paused = True
