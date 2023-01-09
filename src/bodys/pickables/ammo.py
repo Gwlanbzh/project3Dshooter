@@ -9,11 +9,11 @@ class AmmoPack10(Pickable):
         self.supply_value = 10
         
         self.model = "ammo_mini.png"
-        self.dims = 28, 35
+        self.height = 35
     
     def update(self):
         picker = self.picker()
-        if picker != None:
+        if picker != None and picker.ammo < picker.max_ammo:
             picker.ammo += self.supply_value
             picker.ammo = min(picker.ammo, picker.max_ammo)
             self.game.sound.play_sound("pickable", self.game.world.players[0].r, self.r)
@@ -27,4 +27,4 @@ class AmmoPack50(AmmoPack10):
         self.supply_value = 50
 
         self.model = "ammo_mega.png"
-        self.dims = 80, 50
+        self.height = 50

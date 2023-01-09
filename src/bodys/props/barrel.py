@@ -6,4 +6,4 @@ class Barrel(Body):
         super().__init__(game, r)
 
         self.model = "barrel.png"
-        self.dims = 60, 80
+        self.height = 80

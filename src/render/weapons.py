@@ -29,7 +29,7 @@ def load_weapon():
         ids[model] = load_model(model, scaling)    
     
     # specific case
-    super_weapon_scaling = 4
+    super_weapon_scaling = 3
     superweapons_images = {
         0 : [
                 scale(pg.image.load(Config.SPRITES_DIR + f"weapons/superweapon/0.png").convert_alpha(), super_weapon_scaling),

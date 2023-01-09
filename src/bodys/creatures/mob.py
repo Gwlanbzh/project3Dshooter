@@ -34,7 +34,7 @@ class Mob(Creature):
         self.has_seen_player = False
         self.fov = pi/2
         self.can_move_delay = 0
-        self.frequence = 0.008 
+        self.frequence = 0.008
         self.current_weapon = Pistol()
         self.range = self.current_weapon.range
         self.ammo = 10000
@@ -201,7 +201,7 @@ class Grunt(Mob):
         self.range = self.current_weapon.range
 
         self.model = "grunt"
-        self.dims = 70, 130
+        self.height = 130
 
 class Heavy(Mob):
     def __init__(self, game, r):
@@ -214,7 +214,7 @@ class Heavy(Mob):
         self.range = self.current_weapon.range
 
         self.model = "heavy"
-        self.dims = 70, 130
+        self.height = 130
 
 class Boss(Mob):
     def __init__(self, game, r):
@@ -227,4 +227,4 @@ class Boss(Mob):
         self.range = self.current_weapon.range
 
         self.model = "boss"
-        self.dims = 90, 175
+        self.height = 175

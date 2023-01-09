@@ -27,7 +27,7 @@ class Body():
 
         ## TODO add sprites data structure
         self.model = "putin.png"
-        self.dims = 100, 100
+        self.height = 100
     
     def get_sprite(self):
         """
@@ -48,7 +48,8 @@ class Body():
 
         # data = self.game.world.ressources.animated_sprites[self.model][state][frame]
         data = self.game.world.ressources.static_sprites[self.model]
-        w, h = self.dims
+        h = self.height
+        w = len(data) * h / data[0].get_height()
 
         return SpriteStruct(data, h, w)
 

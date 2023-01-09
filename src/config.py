@@ -10,9 +10,9 @@ class Config():
     TODO: init config from config file
     """
     WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
-    FRAME_RATE = 60
+    FRAME_RATE = 120
 
-    PLAYER_V = 0.06 # arbitraty value for good feeling
+    PLAYER_V = 0.065 # arbitraty value for good feeling
     PLAYER_FRICTION = 0.13
     PLAYER_ROT_SPEED = .004  # arbitrary value for good feeling. temporarily, waiting for mouse handling
     
@@ -24,10 +24,14 @@ class Config():
     
     WALL_HEIGHT = 200  # height of the wall that is above the player's point of view (e.g. for a height > VIEW_HEIGHT)
     FOV_X = 2*pi/3
-    FOV_Y = 2*pi/3
+    FOV_Y = FOV_X
     
-    VIEW_HEIGHT = 75
-    
+    VIEW_HEIGHT = 85
+
+    BOBBING_FREQUENCY = 12
+    BOBBING_INTENSITY = 2.30
+
+
     TEXTURES_DIR = "src/assets/visual/textures/"
     SPRITES_DIR = "src/assets/visual/sprites/"
     SKYBOX_DIR = "src/assets/visual/env/"

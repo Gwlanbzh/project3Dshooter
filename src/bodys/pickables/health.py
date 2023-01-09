@@ -8,11 +8,11 @@ class HealthPack5(Pickable):
         self.heal_value = 10
 
         self.model = "health_mini.png"
-        self.dims = 40, 40
+        self.height = 40
     
     def update(self):
         picker = self.picker()
-        if picker != None:
+        if picker != None and picker.health < picker.max_health:
             picker.health += self.heal_value
             picker.health = min(picker.health, picker.max_health)
             self.game.sound.play_sound("pickable", self.game.world.players[0].r, self.r)
@@ -25,4 +25,4 @@ class HealthPack25(HealthPack5):
         self.heal_value = 50
 
         self.model = "health_mega.png"
-        self.dims = 80, 60
+        self.height = 60

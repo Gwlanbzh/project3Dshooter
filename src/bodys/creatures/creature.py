@@ -109,26 +109,32 @@ class Creature(Body):
         self.current_weapon.draw2d(game.window, render_pos, self.orientation)
     
     def get_sprite(self):
-        w, h = self.dims
+        h = self.height
         if self.is_dead():
             data = self.game.world.ressources.static_sprites[f"{self.model}/dead.png"]
+            w = len(data) * h / data[0].get_height()
             return SpriteStruct(data, h, w)
-        
+
         t = pg.time.get_ticks()
         if t - self.hurt_frame_time < 200:
             data = self.game.world.ressources.static_sprites[f"{self.model}/shooted.png"]
+            w = len(data) * h / data[0].get_height()
             return SpriteStruct(data, h, w)
         
         if t - self.current_weapon.last_shot_time < 100:
             data = self.game.world.ressources.static_sprites[f"{self.model}/firing.png"]
+            w = len(data) * h / data[0].get_height()
             return SpriteStruct(data, h, w)
 
         if self.walking:
-            data = self.game.world.ressources.animated_sprites[f"{self.model}/walking"]
+            frames = self.game.world.ressources.animated_sprites[f"{self.model}/walking"]
             if t - self.walking_frame_time > 100:
                 self.walking_frame_time = t
-                self.img_index = (self.img_index + 1)%len(data)
-            return SpriteStruct(data[self.img_index], h, w)
+                self.img_index = (self.img_index + 1)%len(frames)
+            data = frames[self.img_index]
+            w = len(data) * h / data[0].get_height()
+            return SpriteStruct(data, h, w)
         
         data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
+        w = len(data) * h / data[0].get_height()
         return SpriteStruct(data, h, w)

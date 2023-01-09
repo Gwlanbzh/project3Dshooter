@@ -31,15 +31,16 @@ class Player(Creature):
         self.model = "player" 
 
         self.orientation = -tau/4
-        self.vorientation = 0 # vertical orientation
-        self.spawn_pos = r # Save spawn point
-        # self.health
-        self.visual_health = self.health # use for health bar in hud
+        self.vorientation = 0
+        self.spawn_pos = r
+        self.health = 100
+        self.visual_health = self.health
 
         # weapons attributes
         self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
-        self.ammo = 30 # may change to dict ?
+
+        self.ammo = 20
         self.max_ammo = 100
 
         pg.event.set_grab(True)
@@ -99,7 +100,7 @@ class Player(Creature):
                         self.current_weapon = Shotgun()
                     if event.key == pg.K_4 and Rifle in self.weapons:
                         self.current_weapon = Rifle()
-                    if event.key == pg.K_5 and SuperWeapon in self.weapons:
+                    if event.key == pg.K_LEFTPAREN and SuperWeapon in self.weapons:
                         self.current_weapon = SuperWeapon()
             
             # Mouse events
