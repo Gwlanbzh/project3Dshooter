@@ -31,7 +31,7 @@ class Camera():
         """
         Draw the floor.
         """
-        pg.draw.rect(window, self._ressources.floor, (1, RES_Y//2 - self._voffset, RES_X, RES_Y//2 + self._voffset))
+        pg.draw.rect(window, self._ressources.floor, (0, RES_Y//2 - self._voffset, RES_X, RES_Y//2 + self._voffset))
     
     def _draw_walls(self, window):
         """

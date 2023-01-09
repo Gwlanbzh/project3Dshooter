@@ -33,15 +33,15 @@ class Player(Creature):
         self.orientation = -tau/4
         self.vorientation = 0
         self.spawn_pos = r
-        # self.health
+        self.health = 100
         self.visual_health = self.health
 
         # weapons attributes
         self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
+
         self.ammo = 15
-        
-        self.max_ammo = 300
+        self.max_ammo = 100
 
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
