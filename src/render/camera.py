@@ -1,6 +1,6 @@
 from pygame import Vector2 as v2
 from math import cos, sin, acos
-from config import *  # using RES_X, RES_Y, FOV_X
+from time import time
 from map import *
 from render.textures import *
 from render.vars import *
@@ -15,7 +15,8 @@ class Camera():
         """
         self._bound_player = player
         self._ressources = self._bound_player.game.world.ressources  # shortcut
-        self._voffset = 0
+        self._voffset = 0  # used for looking up and down
+        self._hoffset = 0  # used for bobbing
         self.z_buffer = []
     
     def _draw_skybox(self, window):
@@ -65,8 +66,8 @@ class Camera():
                 distance = ray.distance * cos(th)
                 z_buffer[-1] = ray.distance
             
-            upper_height = scr_h(height_map[ray.hit_type], distance)
-            lower_height = scr_h(VIEW_HEIGHT             , distance)
+            upper_height = scr_h(height_map[ray.hit_type] - self._hoffset, distance)
+            lower_height = scr_h(VIEW_HEIGHT + self._hoffset, distance)
         
         
             # creation of the texture slice to display
@@ -133,8 +134,8 @@ class Camera():
         
         for distance, angle, sprite_data in sorted_bodies:
             sprite = sprite_data.data
-            upper_height = scr_h(sprite_data.height-Config.VIEW_HEIGHT, distance * cos(angle))
-            lower_height = scr_h(Config.VIEW_HEIGHT, distance * cos(angle))
+            upper_height = scr_h(sprite_data.height-(Config.VIEW_HEIGHT + self._hoffset), distance * cos(angle))
+            lower_height = scr_h(Config.VIEW_HEIGHT + self._hoffset, distance * cos(angle))
             height = upper_height + lower_height
 
             width = scr_h(sprite_data.width, distance * cos(angle))
@@ -160,6 +161,7 @@ class Camera():
         Currently only supports 
         """
         self._voffset = - self._bound_player.vorientation  # < 0 implies looking up
+        self._hoffset = sin(BOBBING_FREQUENCY * time()) * BOBBING_INTENSITY * self._bound_player.v.magnitude()
         
         self._draw_skybox(window)
         self._draw_floor(window)
