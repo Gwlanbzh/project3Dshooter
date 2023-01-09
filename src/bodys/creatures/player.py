@@ -40,7 +40,7 @@ class Player(Creature):
         self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
 
-        self.ammo = 15
+        self.ammo = 20
         self.max_ammo = 100
 
         pg.event.set_grab(True)
