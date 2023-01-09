@@ -18,7 +18,7 @@ BOBBING_INTENSITY = Config.BOBBING_INTENSITY
 
 # function for computing the ray 's direction vector
 atanfov = atan(FOV_X/2)
-theta = lambda n : atan(atanfov * ( 1-(2*n) / RES_X))
+theta = lambda n : - atan(atanfov * ( 1-(2*n) / RES_X))
 
 theta_inv = lambda theta : (1 - (RES_X*tan(theta))/atanfov) * 1/2
 

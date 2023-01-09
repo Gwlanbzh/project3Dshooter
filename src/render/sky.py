@@ -22,10 +22,10 @@ def load_skybox(name: str):
     #print(k*h)
     #print(RES_Y)
     
-    skybox_angle_per_stripe = 2*pi/(W)
+    skybox_angle_per_strip = 2*pi/(W)
     sky_texture = pg.transform.scale(tx, (W, RES_Y))
     skybox = pg.Surface((box_W, RES_Y))
     skybox.blit(sky_texture, (0, 0))
     skybox.blit(sky_texture, (W, 0))
     
-    return skybox, skybox_angle_per_stripe
+    return skybox, skybox_angle_per_strip
