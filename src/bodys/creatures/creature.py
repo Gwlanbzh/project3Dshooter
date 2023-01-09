@@ -23,7 +23,7 @@ class Creature(Body):
         """
         super().__init__(game, r) 
         self.orientation = 0 # arbitrary value for init
-        self.max_health = 200
+        self.max_health = 2000
         self.health = self.max_health
         self.current_weapon = Pistol()
 

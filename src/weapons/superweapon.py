@@ -15,6 +15,7 @@ class SuperWeapon(Weapon):
         self.state = 0
 
         self.model = "superweapon"
+        self.key = 5
 
     def shoot(self, entity, mob_list):
         t = pg.time.get_ticks()
