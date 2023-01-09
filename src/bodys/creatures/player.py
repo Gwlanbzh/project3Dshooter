@@ -99,7 +99,7 @@ class Player(Creature):
                         self.current_weapon = Shotgun()
                     if event.key == pg.K_4 and Rifle in self.weapons:
                         self.current_weapon = Rifle()
-                    if event.key == pg.K_5 and SuperWeapon in self.weapons:
+                    if event.key == pg.K_LEFTPAREN and SuperWeapon in self.weapons:
                         self.current_weapon = SuperWeapon()
             
             # Mouse events
