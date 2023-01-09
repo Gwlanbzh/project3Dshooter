@@ -7,7 +7,7 @@ class Rifle(Weapon):
         super().__init__()
         
         self.range = WALL_WIDTH * 15
-        self.dmg = 50
+        self.dmg = 75
         self.delay = 250  # ms
         self.time_between_sprites = 90
 

@@ -8,8 +8,7 @@ __all__ = ["load_texture", "load_texture_set", "height_map", "NO_WALL"]
 
 NO_WALL = 0
 
-# height map for each texture
-
+# height map for each texture, that is above the player's point of view (e.g. the total height is this value *plus* VIEW_HEIGHT).
 height_map = {
     1: 75,
     2: 75,
@@ -18,6 +17,8 @@ height_map = {
     5: 110,
     6: 300,
     7: 75,
+    8: 75,
+    9: 75
 }
 
 # Load the textures as arrays of colum surfaces.

@@ -23,9 +23,8 @@ class Creature(Body):
         """
         super().__init__(game, r) 
         self.orientation = 0 # arbitrary value for init
-        
         self.max_health = 200
-        self.health = 100
+        self.health = self.max_health
         self.current_weapon = Pistol()
 
         # graphics 
@@ -42,7 +41,7 @@ class Creature(Body):
     def in_wall(self, pos):
         x , y = pos
         world = self.game.world.map.grid
-        return world[int((y)//100)][int((x)//100)] != 0
+        return world[int((y)//100)][int((x)//100)] not in [0, 9]
 
     def not_colliding(self, dx, dy):
         """
@@ -95,6 +94,10 @@ class Creature(Body):
     def hurt(self, damages):
         self.hurt_frame_time = pg.time.get_ticks()
         self.health = max(0, self.health - damages)
+        if self.health == 0:
+            self.game.sound.play_sound(f"{self.model}_death", self.game.world.players[0].r, self.r)
+        else:
+            self.game.sound.play_sound(f"{self.model}_hurt", self.game.world.players[0].r, self.r)
 
     def draw(self, game): # might be move into Creature or Body
         render_pos = super().draw(game)
@@ -125,7 +128,7 @@ class Creature(Body):
             if t - self.walking_frame_time > 100:
                 self.walking_frame_time = t
                 self.img_index = (self.img_index + 1)%len(data)
-            return SpriteStruct(data[self.img_index])
+            return SpriteStruct(data[self.img_index], h, w)
         
         data = self.game.world.ressources.static_sprites[f"{self.model}/static.png"]
         return SpriteStruct(data, h, w)

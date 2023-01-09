@@ -22,6 +22,7 @@ static_sprites_names = [
     "health_mega.png",
     "ammo_mini.png",
     "ammo_mega.png",
+    "mine.png",
     
     "shotgun.png",
     "rifle.png",
