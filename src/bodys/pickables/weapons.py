@@ -32,7 +32,7 @@ class PickableShotgun(PickableWeapon):
         self.provided_ammo = 20
 
         self.model = "shotgun.png"
-        self.dims = 150, 40
+        self.height = 40
     
 
 class PickableRifle(PickableWeapon):
@@ -43,7 +43,7 @@ class PickableRifle(PickableWeapon):
         self.provided_ammo = 20
 
         self.model = "rifle.png"
-        self.dims = 150, 40
+        self.height = 40
 
 class PickableSuperWeapon(PickableWeapon):
     def __init__(self, game, r):
@@ -53,4 +53,4 @@ class PickableSuperWeapon(PickableWeapon):
         self.provided_ammo = 40
 
         self.model = "minigun.png"
-        self.dims = 150, 40
+        self.height = 40
