@@ -192,7 +192,7 @@ class Grunt(Mob):
         self.range = self.current_weapon.range
 
         self.model = "grunt"
-        self.dims = 70, 130
+        self.height = 130
 
 class Heavy(Mob):
     def __init__(self, game, r):
@@ -205,7 +205,7 @@ class Heavy(Mob):
         self.range = self.current_weapon.range
 
         self.model = "heavy"
-        self.dims = 70, 130
+        self.height = 130
 
 class Boss(Mob):
     def __init__(self, game, r):
@@ -218,4 +218,4 @@ class Boss(Mob):
         self.range = self.current_weapon.range
 
         self.model = "boss"
-        self.dims = 90, 175
+        self.height = 175
