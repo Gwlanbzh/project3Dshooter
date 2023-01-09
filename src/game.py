@@ -8,7 +8,7 @@ from bodys.creatures.path_finding import *
 
 class Game:
     """
-    Base class for a game, to be used to define new game types.
+    Base class for game, to be used to define new game types.
     """
     def __init__(self, map_file, draw2d, window, delta_time, clock, sound,main):
         """
@@ -34,13 +34,12 @@ class Game:
         pg.mouse.get_rel()  # For the initialization, so that the Player doesn't turn because of the menu'
     
     def is_game_over(self):
+        """
+        is overwrite by gamemode. see gamemode.py for more detail 
+        """
         return ""
     
     def run(self):
-        """
-        Main Game Loop 
-        """
-
         if not self.is_paused:
             self.world.update(self)
             self.hud.update()

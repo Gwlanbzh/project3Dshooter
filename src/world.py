@@ -13,10 +13,6 @@ class World:
     def __init__(self, game, map_file):
         """
         Spawns a Body.
-         # For now Body are purple
-         #         Mob are red
-         #         Player are blue
-         # Creature have a tray for orientation
         
         Input:
             game : Game
@@ -41,7 +37,6 @@ class World:
     def update(self, game):
         """
         call upadate for every Body(or more) in the world
-        and
   
         Input:
             game : Game

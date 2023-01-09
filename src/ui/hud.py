@@ -20,6 +20,7 @@ class Hud:
         self.defeatmenu = DefeatMenu(game,(RES_X*0.5,RES_Y*0.5))
         self.victorymenu = VictoryMenu(game,(RES_X*0.5,RES_Y*0.5))
         self.toggle()
+        print("aa")
 
     def draw(self):
         for element in self.ui_elements_display:
@@ -28,10 +29,10 @@ class Hud:
             element.draw()
         for element in self.ui_bar:
             element.draw()
-        if self.game.is_esc_menu_active:
-            self.menu_esc.draw()
-        elif self.game.is_defeat:
-            self.defeatmenu.draw()
+        #if self.game.is_esc_menu_active:
+            #self.menu_esc.draw()
+        #if self.game.is_defeat:
+            #self.defeatmenu.draw()
         if self.game.is_victorious:
             self.victorymenu.draw()
     
@@ -91,20 +92,20 @@ class Hud:
             self.ui_bar = []
 
     def hover(self):
-        if self.game.is_paused:
-            self.menu_esc.hover()
-        if self.game.is_defeat:
-            self.defeatmenu.hover()
+        #if self.game.is_esc_menu_active:
+            #self.menu_esc.hover()
+        #if self.game.is_defeat:
+            #self.defeatmenu.hover()
         if self.game.is_victorious:
             self.victorymenu.hover()
 
     def click(self,event):
         for element in self.ui_elements_button:
             element.click(event)
-        if self.game.is_paused:
-            self.menu_esc.click(event)
-        if self.game.is_defeat:
-            self.defeatmenu.click(event)
+        #if self.game.is_esc_menu_active:
+            #self.menu_esc.click(event)
+        #if self.game.is_defeat:
+            #self.defeatmenu.click(event)
         if self.game.is_victorious:
             self.victorymenu.click(event)
 class TP_Spawn_Button(Button):

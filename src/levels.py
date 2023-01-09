@@ -1,7 +1,7 @@
 from gamemodes import *
 
 levels = {
-
+    "demo" : { "type" : Maze, "map_file" :"src/assets/maps/level_1.bin"},
     "Level 1" : { "type" : Maze, "map_file" :"src/assets/maps/level_1.bin"},
     "Level 2" : { "type" : Maze, "map_file" :"src/assets/maps/level_2.bin"},
     "Level 3" : { "type" : Maze, "map_file" :"src/assets/maps/level_3.bin"},

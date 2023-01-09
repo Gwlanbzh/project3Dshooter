@@ -27,33 +27,33 @@ class Player(Creature):
         self.v = v2(0, 0)
         
         self.size = 40
-        self.color = 'blue'
-        self.model = "player"
+        self.color = 'blue' # Color for top-down view
+        self.model = "player" 
 
         self.orientation = -tau/4
-        self.vorientation = 0
-        self.spawn_pos = r
+        self.vorientation = 0 # vertical orientation
+        self.spawn_pos = r # Save spawn point
         # self.health
-        self.visual_health = self.health
+        self.visual_health = self.health # use for health bar in hud
 
         # weapons attributes
         self.current_weapon = Pistol()
         self.weapons = [Punch, Pistol]
-        self.ammo = 300 # may change to dict ?
-        
-        self.max_ammo = 300
+        self.ammo = 50 # may change to dict ?
+        self.max_ammo = 150
 
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
 
 
     def update(self):  # might be move into Creature or Body
+        """
+        deprecated not use anymore might be use by other method in the future
+        """
         pass
     
     
     def get_inputs(self,event):
-        """
-        """
         keys = pg.key.get_pressed()
 
 
@@ -82,7 +82,7 @@ class Player(Creature):
             for event in event:
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_g:
-                        self.health -= 10
+                        self.health -= 100
                     if event.key == pg.K_h:
                         self.health += 10
                     if event.key == pg.K_p:
@@ -114,14 +114,11 @@ class Player(Creature):
             self.vorientation = max(min(self.vorientation, Config.PLAYER_MAX_VERT_ROT), -Config.PLAYER_MAX_VERT_ROT)
             self.rotate(-x, sensitivity=Config.PLAYER_MOUSE_ROT_SPEED)
         
-        # Weapon selection
-        
             self.move(moves) 
 
     
     def move(self,moves):
         """
-        TODO maybye refactoring get inputs and mouvement call
         Applies Newton's Second Principle then handles collisions
         with walls, props and mobs. FIXME text not true now
         direction meaning
@@ -133,7 +130,7 @@ class Player(Creature):
             direction
         
         Output:
-            Alter Creature position
+            Alter Player position
         """
 
         dt = self.game.delta_time # may be change to a const but there might be a use for it in future when framerate will be unsure
