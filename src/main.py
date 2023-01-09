@@ -35,13 +35,15 @@ class Main():
                 game.run()
                 self.game.delta_time = self.delta_time
                 self.game.world.players[0].get_inputs(events)
-                if self.game.is_paused:
+                if self.game.is_esc_menu_active:
                     for event in pg.event.get():
                         if event.type == pg.KEYDOWN:
                             if event.key == pg.K_ESCAPE:
                                 self.game.is_paused = False
                 if game.is_game_over() == "defeat":
                     # self.unload_game()
+                    self.game.is_defeat = True
+                    self.game.is_paused = True
                     pass
                 elif game.is_game_over() == "victory":
                     # self.hud.victory() 

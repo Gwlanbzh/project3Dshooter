@@ -1,6 +1,7 @@
 import pygame as pg;
 from ui.ui_component import *;
 from ui.menus.paused_menu import PausedMenu
+from ui.menus.defeat_menu import DefeatMenu
 from config import *
 
 from os import listdir
@@ -15,6 +16,7 @@ class Hud:
         self.ui_elements_button = []
         self.ui_bar = []
         self.menu_esc = PausedMenu(game,(RES_X*0.5,RES_Y*0.5))
+        self.defeatmenu = DefeatMenu(game,(RES_X*0.5,RES_Y*0.5))
         self.toggle()
 
     def draw(self):
@@ -24,8 +26,10 @@ class Hud:
             element.draw()
         for element in self.ui_bar:
             element.draw()
-        if self.game.is_paused:
+        if self.game.is_esc_menu_active:
             self.menu_esc.draw()
+        elif self.game.is_defeat:
+            self.defeatmenu.draw()
     
     def update(self):
         self.update_content()
@@ -62,9 +66,9 @@ class Hud:
         if value == 2:
             self.toolkit = 1
             self.ui_elements_display = [
-                                        Ammo_Display(window,(0,40),self.player),
                                         FPS_Display(window,(0,0),game),
-                                        WeaponInventory(window,(RES_X-70,-60),self.player)
+                                        WeaponInventory(window,(RES_X-70,-60),self.player),
+                                        AmmoPrettyDisplay(window,(RES_X*0.05,RES_Y*0.92),self.player),
                                         # VictoryStatus((RES_X*0.5,RES_Y*0.5)(window)
                                         ]
             self.ui_elements_button = []
@@ -204,14 +208,14 @@ class WeaponInventory():
 class WeaponInventorySlot():
     def __init__(self,window,position,model,size_icon,number):
         self.ui_component_display = [
-            WeaponInventorySlotImage(window,position,model,size_icon),
+            WeaponInventorySlotIcon(window,position,model,size_icon),
             WeaponInventorySlotNumber(window,position,size_icon,number)
         ]
 
     def draw(self):
         for element in self.ui_component_display:
             element.draw()
-class WeaponInventorySlotImage(Display):
+class WeaponInventorySlotIcon(Display):
     def __init__(self,window,position,model,size_icon):
         super().__init__(window,position,)
         path = Config.SPRITES_DIR+"weapons/"
@@ -220,11 +224,45 @@ class WeaponInventorySlotImage(Display):
         self.icon = pg.transform.scale(self.icon,size_icon)
         self.update_surface()
 
-    def content_update(self):
-        pass
-
 class WeaponInventorySlotNumber(Display):
     def __init__(self, window, position,size_icon,number):
         super().__init__(window, (position[0],position[1]+size_icon[0]-20))
         self.text = str(number)
         self.update_surface()
+
+class AmmoPrettyDisplay():
+    def __init__(self,window,position,player):
+        self.ui_component_display = [
+            AmmoPrettyIconDisplay(window,position),
+            AmmoPrettyNumberDisplay(window,(position[0]+40,position[1]+10),player),
+        ]
+    
+    def content_update(self):
+        for element in self.ui_component_display:
+            element.content_update()
+
+    def draw(self):
+        for element in self.ui_component_display:
+            element.draw()
+
+class AmmoPrettyNumberDisplay(Display):
+    def __init__(self, window, position,player):
+        super().__init__(window, position)
+        self.player = player
+        self.font_size = 14
+        self.update_surface()
+
+    def content_update(self):
+        self.content = str(self.player.ammo)+"/"+str(self.player.max_ammo)
+        self.update_surface()
+    
+class AmmoPrettyIconDisplay(Display):
+    def __init__(self, window, position):
+        super().__init__(window, position)
+        size_icon = 30,30
+        self.icon = pg.image.load(Config.SPRITES_DIR+"ammo_mini.png")
+        self.icon = pg.transform.scale(self.icon,size_icon)
+        self.update_surface()
+
+    def content_update(self):
+        pass
