@@ -13,7 +13,7 @@ class AmmoPack10(Pickable):
     
     def update(self):
         picker = self.picker()
-        if picker != None:
+        if picker != None and picker.ammo < picker.max_ammo:
             picker.ammo += self.supply_value
             picker.ammo = min(picker.ammo, picker.max_ammo)
             self.game.sound.play_sound("pickable", self.game.world.players[0].r, self.r)
