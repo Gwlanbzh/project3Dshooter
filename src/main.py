@@ -9,7 +9,7 @@ from sound import Sound
 class Main():
     def __init__(self):
         pg.init()
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE) # , pg.FULLSCREEN)
         self.levels = levels
         self.levels_list = [ (level_name , False) if i == 0 else (level_name,True) for i , level_name in enumerate(self.levels)] 
         self.current_level_index = 0
