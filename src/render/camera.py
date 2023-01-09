@@ -4,7 +4,6 @@ from time import time
 from map import *
 from render.textures import *
 from render.vars import *
-#from render.sky import skybox, skybox_angle_per_stripe
 from render import *
 
 
@@ -66,7 +65,7 @@ class Camera():
                 distance = ray.distance * cos(th)
                 z_buffer[-1] = ray.distance
             
-            upper_height = scr_h(height_map[ray.hit_type] - self._hoffset, distance)
+            upper_height = scr_h(height_map[ray.hit_type] - (VIEW_HEIGHT + self._hoffset), distance)
             lower_height = scr_h(VIEW_HEIGHT + self._hoffset, distance)
         
         

@@ -11,15 +11,15 @@ NO_WALL = 0
 # height map for each texture
 
 height_map = {
-    1: 75,
-    2: 75,
-    3: 75,
-    4: 75,
-    5: 110,
-    6: 300,
-    7: 75,
-    8: 75,
-    9: 75
+    1: VIEW_HEIGHT + 75,
+    2: VIEW_HEIGHT + 75,
+    3: VIEW_HEIGHT + 75,
+    4: VIEW_HEIGHT + 75,
+    5: VIEW_HEIGHT + 110,
+    6: VIEW_HEIGHT + 300,
+    7: VIEW_HEIGHT + 75,
+    8: VIEW_HEIGHT + 75,
+    9: VIEW_HEIGHT + 75
 }
 
 # Load the textures as arrays of colum surfaces.

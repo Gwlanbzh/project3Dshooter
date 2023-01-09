@@ -7,4 +7,4 @@ class Light(Body):
         super().__init__(game, r)
 
         self.model = "street_light2.png"
-        self.dims = 40, 150
+        self.height = 150
