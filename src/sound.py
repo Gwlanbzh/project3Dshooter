@@ -7,117 +7,127 @@ from pygame import Vector2 as v2
 
 class Sound():
     def __init__(self) -> None:
-        self.debug_dry_fire_sound = [
+        debug_dry_fire_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_no_ammo.mp3")
         ]
         
-        self.debug_weapon_sound = [
+        debug_weapon_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_ammo.mp3")
         ]
         
-        self.dry_fire_sound = [ 
+        dry_fire_sound = [ 
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/dryfire_pistol.mp3"),
         ]
 
-        self.pistol_sound = [
-            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/fire_pistol.mp3"), #p288-1.mp3 not working for no reson - Titouan
+        pistol_sound = [
+            pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/p228-1.mp3"),
         ]
 
-        self.rifle_sound = [
+        rifle_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/uzi_fire.mp3"),
         ]
 
-        self.punch_sound = [
+        punch_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/punch.wav")
         ]
 
-        self.shotgun_sound = [
+        shotgun_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/shotgun_fire.ogg"),
         ]
 
-        self.superweapon_sound = [
+        superweapon_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"weapons/machgf{i}b.mp3") for i in range(1, 4)
         ]
 
-        self.pickable_generic = [
+        pickable_generic = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/generic.ogg")
         ]
 
-        self.mine_sound = [
+        mine_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "pickables/mine_exp.mp3")
         ]
 
-        self.grunt_hurt = [
+        grunt_hurt = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/grunt/pain{i}.ogg") for i in range(4)
         ]
 
-        self.heavy_hurt = [
+        heavy_hurt = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/heavy/pain{i}.ogg") for i in range(4)
         ]
 
-        self.boss_hurt = [
+        boss_hurt = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/pain{i}.ogg") for i in range(4)
         ]
 
-        self.player_hurt = [
+        player_hurt = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/player/pain{i}.ogg") for i in range(3)
         ]
 
-        self.grunt_death = [
+        grunt_death = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/grunt/death{i}.ogg") for i in range(3)
         ]
 
-        self.heavy_death = [
+        heavy_death = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/heavy/death{i}.ogg") for i in range(3)
         ]
 
-        self.boss_death = [
+        boss_death = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + f"ennemies/boss/death{i}.ogg") for i in range(3)
         ]
 
-        self.ui_sound_button = [
+        ui_sound_button = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/button.mp3")
         ]
 
-        self.ui_sound_hover = [
+        ui_sound_hover = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "menu/hover.mp3")
         ]
 
-
         self.sound_ids = {
-            "weapon" : self.debug_weapon_sound,
-            "dry_weapon" : self.debug_dry_fire_sound,
-            "dryfire" : self.dry_fire_sound,
-            "pistol" : self.pistol_sound,
-            "rifle" : self.rifle_sound,
-            "punch" : self.punch_sound,
-            "shotgun" : self.shotgun_sound,
-            "superweapon" : self.superweapon_sound,
-            "hover" : self.ui_sound_hover,
-            "click" : self.ui_sound_button,
+            "weapon" : debug_weapon_sound,
+            "dry_weapon" : debug_dry_fire_sound,
+            "dryfire" : dry_fire_sound,
+            "pistol" : pistol_sound,
+            "rifle" : rifle_sound,
+            "punch" : punch_sound,
+            "shotgun" : shotgun_sound,
+            "superweapon" : superweapon_sound,
+            "hover" : ui_sound_hover,
+            "click" : ui_sound_button,
 
-            "pickable": self.pickable_generic,
-            "mine": self.mine_sound,
+            "pickable": pickable_generic,
+            "mine": mine_sound,
 
-            "grunt_hurt": self.grunt_hurt,
-            "heavy_hurt": self.heavy_hurt,
-            "boss_hurt": self.boss_hurt,
-            "player_hurt": self.player_hurt,
+            "grunt_hurt": grunt_hurt,
+            "heavy_hurt": heavy_hurt,
+            "boss_hurt": boss_hurt,
+            "player_hurt": player_hurt,
 
-            "grunt_death": self.grunt_death,
-            "heavy_death": self.heavy_death,
-            "boss_death": self.boss_death,
-            "player_death": self.player_hurt,
+            "grunt_death": grunt_death,
+            "heavy_death": heavy_death,
+            "boss_death": boss_death,
+            "player_death": player_hurt,
         }
+
 
         self.musics = listdir(Config.SOUNDS_FOLDER + "musics")
         self.end_music_time = -1
         self.current_music = choice(self.musics)
         self.musics.remove(self.current_music)
+        pg.mixer.music.set_volume(.7)
+
         self.effect_volume = 1
+
+        self.player_channel = pg.mixer.find_channel()
     
 
-    def play_sound(self, id, player_pos = v2(0,0), sound_pos = v2(0,0)):
+    def play_sound(self, id, player_pos=v2(0, 0), sound_pos=v2(0, 0), is_player=False):
+        s = choice(self.sound_ids[id])
+        
+        if is_player:
+            self.player_channel.play(s)
+            return
+        
         hearing_sound_dist = WALL_WIDTH * 10
         x, y = player_pos - sound_pos
         dist_player_sound = hypot(x, y)
@@ -126,7 +136,6 @@ class Sound():
         volume *= self.effect_volume
         volume = 0 if volume < 0 else volume
 
-        s = choice(self.sound_ids[id])
         s.set_volume(volume)
 
         s.play()
@@ -160,8 +169,12 @@ class Sound():
     
     def shut_music(self):
         self.set_music_volume(0)
+    
+    def turn_on_music(self):
+        self.set_effect_volume(0.5)
 
     def set_effect_volume(self, vol):
+        self.player_channel.set_volume(vol)
         if vol < 0 or vol > 1:
             self.effect_volume = 1
         else:

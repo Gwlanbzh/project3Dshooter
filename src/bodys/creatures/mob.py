@@ -59,50 +59,56 @@ class Mob(Creature):
         player = self.game.world.players[0]
         mob_view_player = self.mob_view_player()
         dist_with_player = self.dist_with_player()
-        if not self.is_dead() :
-            # if player in direct view of the mob and in range; trigger the folow
-            if not self.has_seen_player and mob_view_player and dist_with_player < 20 * WALL_WIDTH:
-                self.has_seen_player = True
-            # if has been trigger
-            if self.has_seen_player:
-                # Untriger the mob
-                if not mob_view_player and dist_with_player > 15*WALL_WIDTH:
-                    self.has_seen_player = False
-                    self.walking = False
-                #if player in range of the mob
-                elif 0.3 * self.range < dist_with_player < 0.8 * self.range and mob_view_player:
-                    rand = random.random()
-                    # shoot randomly
-                    if rand < self.frequence:
-                        self.walking = False 
-                        self.can_move_delay = 30
-
-                        # change oriation before shoot
-                        direction = v2(player.r - self.r)
-                        self.orientation = atan2(direction.y,direction.x)
-                        self.orientation %= tau
-
-                        self.current_weapon.shoot(self, self.game.world.players)
-                    # or move to the player
-                    elif self.can_move_delay < 1 and dist_with_player > 0.2 * self.range or not mob_view_player:
-                            self.movement()
-                            self.walking = True
-                # if not in range move to the player
-                elif self.can_move_delay < 1 and dist_with_player > 1*WALL_WIDTH or not mob_view_player:
-                        self.movement()
-                        self.walking = True
-                # when close to the player constant shoot
-                else:
-                    self.walking = False
+        if self.is_dead() :
+            return
+        
+        if pg.time.get_ticks() - self.hurt_time < self.hurt_time_duration:
+            return
+        
+        # if player in direct view of the mob and in range; trigger the folow
+        if not self.has_seen_player and mob_view_player and dist_with_player < 20 * WALL_WIDTH:
+            self.has_seen_player = True
+        
+        # if has been trigger
+        if self.has_seen_player:
+            # Untriger the mob
+            if not mob_view_player and dist_with_player > 15*WALL_WIDTH:
+                self.has_seen_player = False
+                self.walking = False
+            #if player in range of the mob
+            elif 0.3 * self.range < dist_with_player < 0.8 * self.range and mob_view_player:
+                rand = random.random()
+                # shoot randomly
+                if rand < self.frequence:
+                    self.walking = False 
                     self.can_move_delay = 30
 
-                    # change oriation before shoot
+                        # change oriation before shoot
                     direction = v2(player.r - self.r)
                     self.orientation = atan2(direction.y,direction.x)
                     self.orientation %= tau
 
                     self.current_weapon.shoot(self, self.game.world.players)
-            self.can_move_delay -= 1
+                # or move to the player
+                elif self.can_move_delay < 1 and dist_with_player > 0.2 * self.range or not mob_view_player:
+                        self.movement()
+                        self.walking = True
+            # if not in range move to the player
+            elif self.can_move_delay < 1 and dist_with_player > 1*WALL_WIDTH or not mob_view_player:
+                    self.movement()
+                    self.walking = True
+            # when close to the player constant shoot
+            else:
+                self.walking = False
+                self.can_move_delay = 30
+
+                    # change oriation before shoot
+                direction = v2(player.r - self.r)
+                self.orientation = atan2(direction.y,direction.x)
+                self.orientation %= tau
+
+                self.current_weapon.shoot(self, self.game.world.players)
+        self.can_move_delay -= 1
 
 
     def movement(self):
@@ -188,17 +194,18 @@ class Mob(Creature):
         diff = player.r - self.r
         dist = hypot(diff.x, diff.y)
         return dist
-
+    
 
 class Grunt(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
         self.size = 27
-        self.health = 100
-        self.current_weapon = Pistol()        # TODO add pistol
-        # TODO implement dynamic sprites
+        self.health = 75
+        self.current_weapon = Pistol()
         self.range = self.current_weapon.range
+        
+        self.hurt_time_duration = 300 # TODO : grande valeur pour l'exemple, à modifier
 
         self.model = "grunt"
         self.height = 130
@@ -209,21 +216,22 @@ class Heavy(Mob):
         
         self.size = 30
         self.health = 400
-        self.current_weapon = Rifle()        # TODO add pistol
         # TODO implement dynamic sprites
+        self.current_weapon = Rifle()
         self.range = self.current_weapon.range
-
+        
         self.model = "heavy"
         self.height = 130
+
+        self.hurt_time_duration = 125
 
 class Boss(Mob):
     def __init__(self, game, r):
         super().__init__(game,r)
         
         self.size = 35
-        self.health = 2000
-        self.current_weapon = SuperWeapon()        # TODO add pistol
-        # TODO implement dynamic sprites
+        self.health = 3000
+        self.current_weapon = SuperWeapon()
         self.range = self.current_weapon.range
 
         self.model = "boss"

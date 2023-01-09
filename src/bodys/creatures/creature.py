@@ -35,7 +35,10 @@ class Creature(Body):
         self.walking = False
         self.walking_frame_time = 0
         self.img_index = 0
-        self.hurt_frame_time = -1000
+        
+        # timings to paralyze mob when he is touched
+        self.hurt_time = -1000
+        self.hurt_time_duration = 200
 
 
     def in_wall(self, pos):
@@ -92,12 +95,13 @@ class Creature(Body):
         return self.health == 0
 
     def hurt(self, damages):
-        self.hurt_frame_time = pg.time.get_ticks()
+        self.hurt_time = pg.time.get_ticks()
         self.health = max(0, self.health - damages)
+        is_p = (self.model == "player")
         if self.health == 0:
-            self.game.sound.play_sound(f"{self.model}_death", self.game.world.players[0].r, self.r)
+            self.game.sound.play_sound(f"{self.model}_death", self.game.world.players[0].r, self.r, is_player=is_p)
         else:
-            self.game.sound.play_sound(f"{self.model}_hurt", self.game.world.players[0].r, self.r)
+            self.game.sound.play_sound(f"{self.model}_hurt", self.game.world.players[0].r, self.r, is_player=is_p)
 
     def draw(self, game): # might be move into Creature or Body
         render_pos = super().draw(game)
@@ -116,7 +120,7 @@ class Creature(Body):
             return SpriteStruct(data, h, w)
 
         t = pg.time.get_ticks()
-        if t - self.hurt_frame_time < 200:
+        if t - self.hurt_time < self.hurt_time_duration:
             data = self.game.world.ressources.static_sprites[f"{self.model}/shooted.png"]
             w = len(data) * h / data[0].get_height()
             return SpriteStruct(data, h, w)

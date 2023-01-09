@@ -9,6 +9,7 @@ src/weapons/__pycache__/
 src/render/__pycache__/
 src/bodys/props/__pycache__/
 src/bodys/pickables/__pycache__/
-src/storage/__pycache__/
 src/ui/__pycache__/
 src/ui/menus/__pycache__/
+src/storage/__pycache__/
+.venv
