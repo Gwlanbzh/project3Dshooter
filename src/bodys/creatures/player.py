@@ -33,7 +33,7 @@ class Player(Creature):
         self.orientation = -tau/4
         self.vorientation = 0
         self.spawn_pos = r
-        self.health = 100
+        self.health = self.max_health
         self.visual_health = self.health
 
         # weapons attributes
@@ -83,9 +83,9 @@ class Player(Creature):
             for event in event:
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_g:
-                        self.health -= 100
+                        self.health -= 30
                     if event.key == pg.K_h:
-                        self.health += 10
+                        self.health += 30
                     if event.key == pg.K_p:
                         self.game.hud.toggle()
                     if event.key == pg.K_ESCAPE:

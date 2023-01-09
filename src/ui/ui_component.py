@@ -181,7 +181,7 @@ class Health_Bar():
         self.position = position
         self.health_bar_length = 400
         self.health_ratio = player.max_health / self.health_bar_length
-        self.health_change_speed = 1
+        self.health_change_speed = 3
         self.icon = pg.image.load(PATH_ASSETS+"visual/ui/cross.png")
         self.icon = pg.transform.scale(self.icon,(70,70))
         self.myfont = pg.font.Font(PATH_ASSETS+"fonts/PressStart2P-Regular.ttf", 16)
@@ -190,21 +190,23 @@ class Health_Bar():
         transition_width = 0
         transition_color = (0,0,0)
 
-        if self.player.visual_health < self.player.health:
+        if self.player.visual_health < self.player.health: # when healling
             self.player.visual_health += self.health_change_speed
             transition_width = int((self.player.health - self.player.visual_health) / self.health_ratio)
             transition_color = (75,141,57)
 
-        if self.player.visual_health > self.player.health:
+        if self.player.visual_health > self.player.health: # when taking damage
             self.player.visual_health -= self.health_change_speed 
             transition_width = -int((self.player.health - self.player.visual_health) / self.health_ratio)
             transition_color = (210,122,49)
 
         health_bar_width = int(self.player.health / self.health_ratio)
+        if health_bar_width < 0:
+            health_bar_width = 0
         health_bar = pg.Rect(self.position[0],self.position[1],health_bar_width,25)
-        if self.player.visual_health < self.player.health:
+        if self.player.visual_health < self.player.health: # when healing
             transition_bar = pg.Rect(health_bar.right - transition_width,self.position[1],transition_width,25)
-        else:
+        else: # when takin damage
             transition_bar = pg.Rect(health_bar.right,self.position[1],transition_width,25)
 
 
