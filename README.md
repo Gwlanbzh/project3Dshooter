@@ -83,3 +83,23 @@ Les trois options sont facultatives, elles ont unee valeur par défaut (`"sky.pn
 
 Par convention, les fichiers textes pour les maps sont de simple `.txt`, alors que les maps compilées devront avoir un nom en `.bin`.
 
+## Comment jouer :
+
+Pour se déplacer : 
+    - Z : avancer
+    - Q : aller à gauche
+    - D : aller à droite
+    - S : reculer 
+
+Changer d'arme :
+    - 1 (&) : utiliser le point
+    - 2 (é) : utiliser le pistolet
+    - 3 (") : si dans l'inventaire, utiliser Shotgun
+    - 4 (') : si dans l'inventaire, utiliser Rifle
+    - 5 (() : si dans l'inventaire, utiliser SuperWeapon
+
+tirer : 
+    - clic gauche
+
+menu : 
+    - escape
