@@ -86,20 +86,20 @@ Par convention, les fichiers textes pour les maps sont de simple `.txt`, alors q
 ## Comment jouer :
 
 Pour se déplacer : 
-    - Z : avancer
-    - Q : aller à gauche
-    - D : aller à droite
-    - S : reculer 
+    - Z : avancer<br/>
+    - Q : aller à gauche<br/>
+    - D : aller à droite<br/>
+    - S : reculer<br/>
 
 Changer d'arme :
-    - 1 (&) : utiliser le point
-    - 2 (é) : utiliser le pistolet
-    - 3 (") : si dans l'inventaire, utiliser Shotgun
-    - 4 (') : si dans l'inventaire, utiliser Rifle
-    - 5 (() : si dans l'inventaire, utiliser SuperWeapon
+    - 1 (&) : utiliser le point<br/>
+    - 2 (é) : utiliser le pistolet<br/>
+    - 3 (") : si dans l'inventaire, utiliser Shotgun<br/>
+    - 4 (') : si dans l'inventaire, utiliser Rifle<br/>
+    - 5 (() : si dans l'inventaire, utiliser SuperWeapon<br/>
 
 tirer : 
-    - clic gauche
+    - clic gauche<br/>
 
 menu : 
-    - escape
+    - escape<br/>
