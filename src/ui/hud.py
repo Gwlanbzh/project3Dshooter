@@ -231,7 +231,7 @@ class WeaponInventorySlotIcon(Display):
     def __init__(self,window,position,model,size_icon):
         super().__init__(window,position,)
         path = Config.SPRITES_DIR+"weapons/"
-        file = listdir(path + model)[0]
+        file = sorted(listdir(path + model))[0]
         self.icon = pg.image.load(path+model+"/"+file )
         self.icon = pg.transform.scale(self.icon,size_icon)
         self.update_surface()

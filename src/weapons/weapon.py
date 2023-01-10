@@ -21,44 +21,63 @@ class Weapon():
         self.time_between_sprites = 200  # ms
         self.image_index = 0
 
-        self.model = "weapon"
+        self.model = "weapon" # reference for sound and display
 
     def shoot(self, entity, mob_list):
         """
-        check if a mob is touch on click and act in consequence.
+        make the weapon shot if it is possible with the weapon delay, if it is, make the scan of the world to know if a monster
+        is touched.
+
+        entity : Creature, the entity who is firing
+        mob_list : Body list, List of bodies that must be taken into account by the scan
         """
         t = pg.time.get_ticks()
+        # if weapon respect the delay
         if t - self.last_shot_time > self.delay:  # 100 ms between shots 
+            # if the entity firing has ammunition
             if entity.ammo > 0:
-                self.last_shot_time = t
-                entity.ammo = max(0, entity.ammo - 1)
-                self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list)
-                self.play_sound(entity)
+                self.last_shot_time = t                                                           # update the last shot date
+                entity.ammo = max(0, entity.ammo - 1)                                             # ammution is removed
+                self.hit_scan(entity.game.world.map.grid, entity.r, entity.orientation, mob_list) # scan of the world
+                self.play_sound(entity)                                                           # playing sound of the weapon
             else:
-                self.play_sound(entity, no_ammo=True)
+                self.play_sound(entity, no_ammo=True) # playing dry fire sound
     
     def hit_scan(self, map, pos, orientation, mob_list):
+        """
+        Scan the world to know if a shot from a position has touched one of the body in mob_list
+        
+        map : Map, map of the current world
+        pos : Vector2 (pygame), original position of the shot
+        orientation : 0 <= float < 2pi, orientation of the shot
+        mob_list : Body list, list of the body that can be shooted
+        """
 
+        # création d'une liste de Body triée en fonction de leur distance avec le joueur. On supprime les body avec 0 de vie.
         sorted_mob_list = [(self.dist(pos, mob), mob) for mob in mob_list if mob.health > 0]
         sorted_mob_list = sorted(sorted_mob_list, key=lambda x : x[0])
 
-        for dist, mob in sorted_mob_list:
-            # test mur
-            direction = v2(cos(orientation), sin(orientation))
-            rayon = Ray(pos, direction, map)
+        # création d'un rayon : sert à calculer la distance entre le joueur et le premier mur sur la trajectoire du tir
+        direction = v2(cos(orientation), sin(orientation))
+        rayon = Ray(pos, direction, map)
 
+        for dist, mob in sorted_mob_list:
+            # si le joueur tire dans un mur avant d'atteindre le mob
             if dist > self.range or rayon.distance < dist:
                 return  # la liste étant triée, il ne sert plus à rien de tester le reste des mobs
             else:
                 teta_max = atan(mob.size/dist)  # la marge d'erreur pour l'angle de tir du joueur.
                 
+                # calcule de l'angle entre l'entité qui tire l'entité visée
                 x, y = mob.r - pos
                 if y == 0 and x < 0:
                     angle_p_m = pi
                 else:
                     angle_p_m = 2 * atan(y/(x + dist)) % tau
 
-                teta = orientation - angle_p_m
+                teta = orientation - angle_p_m # angle de tir. si teta = 0 alors le joueur touche en plein dans le mille
+                # si teta proche de pi, alors le joueur tire dans la direction opposée du mob
+                
                 # cas limite -> l'angle est très proche de 2pi, il faut tester pour un angle qui tend vers 2pi et pour un angle qui tend vers 0
                 if y == 0:
                     if abs(teta) < teta_max:
@@ -70,13 +89,14 @@ class Weapon():
                         mob.hurt(self.dmg)
                         return
 
+                # si teta est plus petit que la marge d'erreur, l'entité atteint sa cible
                 if abs(teta) < teta_max:
                     mob.hurt(self.dmg)
                     return  # on interromp la boucle, sinon les balles peuvent traverser les mobs.
 
     def dist(self, pos, mob):
         """
-        test if a mob can be shot by a player
+        Calculet the distance between a position and a Body
         """
         x, y = pos - mob.r
         dist = hypot(x, y)
@@ -84,6 +104,9 @@ class Weapon():
         return dist
 
     def draw(self, ressources, window):
+        """
+        Display the first person view of the weapon
+        """
         self.update_image(ressources)
         
         sprites = ressources.weapon_sprites[self.model]
@@ -96,6 +119,9 @@ class Weapon():
         window.blit(sprites[self.image_index], top_left)
 
     def draw2d(self, window, r, teta):
+        """
+        Draw the weapon in the 2D mode
+        """
         traylength = self.range
         pg.draw.line(
             window,'yellow', (r),
@@ -104,12 +130,14 @@ class Weapon():
         )
 
     def update_image(self, Ressources):
+        """
+        Update the image of the weapon
+        """
         i = int((pg.time.get_ticks() - self.last_shot_time) / self.time_between_sprites)
         self.image_index = i if i < len(Ressources.weapon_sprites[self.model]) else 0
 
     def play_sound(self, entity, no_ammo=False):
-        if Config.NO_SOUND:
-            return
+        # play the sound of the weapon
 
         sound = entity.game.sound
         pos_sound = entity.r

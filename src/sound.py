@@ -7,6 +7,7 @@ from pygame import Vector2 as v2
 
 class Sound():
     def __init__(self) -> None:
+        # sounds are in list so random can be added
         debug_dry_fire_sound = [
             pg.mixer.Sound(Config.SOUNDS_FOLDER + "weapons/debug_no_ammo.mp3")
         ]
@@ -122,6 +123,13 @@ class Sound():
     
 
     def play_sound(self, id, player_pos=v2(0, 0), sound_pos=v2(0, 0), is_player=False):
+        """
+        play a sound in function of his position in the world
+        more the sound is away from the position of the player, more the volume wille be low
+        """
+        if Config.NO_SOUND:
+            return
+
         s = choice(self.sound_ids[id])
         
         if is_player:
@@ -141,6 +149,10 @@ class Sound():
         s.play()
 
     def update_music(self):
+        """if the current music has stop playing, start a new one"""
+        if Config.NO_SOUND:
+            return
+
         if pg.mixer.music.get_pos() == -1:
             self.next_music()
     
@@ -151,6 +163,7 @@ class Sound():
         pg.mixer.music.unpause()
 
     def next_music(self):
+        """stop playing the current music and play another. If there is only one music, this reset the music"""
         old = self.current_music
         try:
             self.current_music = choice(self.musics)
@@ -168,12 +181,14 @@ class Sound():
         pg.mixer.music.set_volume(vol)
     
     def shut_music(self):
+        """turn music volume on"""
         self.set_music_volume(0)
     
     def turn_on_music(self):
         self.set_effect_volume(0.5)
 
     def set_effect_volume(self, vol):
+        """change the volumes of the sound"""
         self.player_channel.set_volume(vol)
         if vol < 0 or vol > 1:
             self.effect_volume = 1
@@ -181,4 +196,5 @@ class Sound():
             self.effect_volume = vol
     
     def stop_music(self):
+        """stop playing the current music"""
         pg.mixer.music.stop()
