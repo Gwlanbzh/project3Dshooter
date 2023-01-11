@@ -16,7 +16,7 @@ height_map = {
     3: VIEW_HEIGHT + 25,
     4: VIEW_HEIGHT + 25,
     5: VIEW_HEIGHT + 60,
-    6: VIEW_HEIGHT + 250,
+    6: VIEW_HEIGHT + 300,
     7: VIEW_HEIGHT + 25,
     8: VIEW_HEIGHT + 25,
     9: VIEW_HEIGHT + 25
