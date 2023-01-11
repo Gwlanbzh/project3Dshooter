@@ -201,12 +201,12 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.size = 27
-        self.health = 50
+        self.health = 60
         self.current_weapon = Pistol()
         self.frequence = 0.010
         self.range = self.current_weapon.range
         
-        self.hurt_time_duration = 300
+        self.hurt_time_duration = 400
 
         self.model = "grunt"
         self.height = 130

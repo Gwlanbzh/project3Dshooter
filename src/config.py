@@ -11,8 +11,8 @@ class Config():
     WINDOW_SIZE = RES_X, RES_Y = 1280 , 800 # value link to the size of the map before render is finished
     FRAME_RATE = 120
 
-    PLAYER_V = 0.065 # arbitraty value for good feeling
-    PLAYER_FRICTION = 0.13
+    PLAYER_V = 0.040 # arbitraty value for good feeling
+    PLAYER_FRICTION = 0.10
     PLAYER_ROT_SPEED = .004
     PLAYER_MOUSE_ROT_SPEED = .0005
     
@@ -28,7 +28,7 @@ class Config():
     VIEW_HEIGHT = 85 # The height from which the camera will render the scene.
 
     BOBBING_FREQUENCY = 10
-    BOBBING_INTENSITY = 1
+    BOBBING_INTENSITY = 2
 
     # Directories
     TEXTURES_DIR = "src/assets/visual/textures/"

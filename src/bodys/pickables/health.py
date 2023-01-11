@@ -5,7 +5,7 @@ from bodys.pickables.pickable import Pickable
 class HealthPack5(Pickable):
     def __init__(self, game, r):
         super().__init__(game, r)
-        self.heal_value = 10
+        self.heal_value = 15
 
         self.model = "health_mini.png"
         self.height = 40
@@ -22,7 +22,7 @@ class HealthPack5(Pickable):
 class HealthPack25(HealthPack5):
     def __init__(self, game, r):
         super().__init__(game, r)
-        self.heal_value = 50
+        self.heal_value = 60
 
         self.model = "health_mega.png"
         self.height = 60

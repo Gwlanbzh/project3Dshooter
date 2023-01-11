@@ -7,7 +7,7 @@ class Pistol(Weapon):
     def __init__(self):
         super().__init__()
         
-        self.dmg = 30
+        self.dmg = 15
         self.delay = 500 # en ms
         self.range = 10 * WALL_WIDTH
 
