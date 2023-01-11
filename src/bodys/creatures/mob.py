@@ -201,7 +201,7 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.size = 27
-        self.health = 60
+        self.health = 45
         self.current_weapon = Pistol()
         self.frequence = 0.010
         self.range = self.current_weapon.range
@@ -216,7 +216,7 @@ class Heavy(Mob):
         super().__init__(game,r)
         
         self.size = 30
-        self.health = 300
+        self.health = 200
         self.current_weapon = Rifle()
         self.frequence = 0.015
         self.range = self.current_weapon.range
@@ -231,7 +231,7 @@ class Boss(Mob):
         super().__init__(game,r)
         
         self.size = 35
-        self.health = 3000
+        self.health = 2000
         self.frequence = 0.08
         self.current_weapon = SuperWeapon()
         self.range = self.current_weapon.range
