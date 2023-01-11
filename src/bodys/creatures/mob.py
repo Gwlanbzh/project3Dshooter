@@ -216,7 +216,7 @@ class Heavy(Mob):
         super().__init__(game,r)
         
         self.size = 30
-        self.health = 400
+        self.health = 300
         self.current_weapon = Rifle()
         self.frequence = 0.015
         self.range = self.current_weapon.range
