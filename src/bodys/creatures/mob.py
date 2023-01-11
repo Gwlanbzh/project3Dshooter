@@ -201,7 +201,7 @@ class Grunt(Mob):
         super().__init__(game,r)
         
         self.size = 27
-        self.health = 75
+        self.health = 50
         self.current_weapon = Pistol()
         self.frequence = 0.010
         self.range = self.current_weapon.range
