@@ -28,7 +28,7 @@ class Config():
     VIEW_HEIGHT = 85 # The height from which the camera will render the scene.
 
     BOBBING_FREQUENCY = 10
-    BOBBING_INTENSITY = 2
+    BOBBING_INTENSITY = 1
 
     # Directories
     TEXTURES_DIR = "src/assets/visual/textures/"
