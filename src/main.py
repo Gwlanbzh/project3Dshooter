@@ -18,7 +18,7 @@ class Main():
         """
         # mandatory command by pygame
         pg.init()
-        self.window = pg.display.set_mode(Config.WINDOW_SIZE, pg.FULLSCREEN)
+        self.window = pg.display.set_mode(Config.WINDOW_SIZE) # , pg.FULLSCREEN)
 
         # Level Stuff for selection in main menu
         self.levels = levels # levels from levels.py

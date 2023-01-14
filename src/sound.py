@@ -133,6 +133,7 @@ class Sound():
         s = choice(self.sound_ids[id])
         
         if is_player:
+            s.set_volume(1)
             self.player_channel.play(s)
             return
         
